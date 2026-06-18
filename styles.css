@@ -17721,6 +17721,195 @@ button.guided-map-pin:focus-visible {
     linear-gradient(180deg, color-mix(in srgb, var(--surface2) 88%, white 6%), color-mix(in srgb, var(--surface) 92%, black 8%));
 }
 
+.profile-card-head {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 12px;
+  margin-bottom: 13px;
+}
+
+.profile-backup-card,
+.profile-readiness-card {
+  padding: 16px;
+}
+
+.profile-backup-summary {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 8px;
+  margin-bottom: 12px;
+}
+
+.profile-backup-summary span {
+  min-width: 0;
+  border: 1px solid color-mix(in srgb, var(--border) 82%, transparent);
+  border-radius: 12px;
+  padding: 9px 10px;
+  background:
+    radial-gradient(circle at 50% 0%, rgba(125,211,252,.10), transparent 54%),
+    color-mix(in srgb, var(--surface2) 66%, transparent);
+}
+
+.profile-backup-summary em {
+  display: block;
+  color: var(--muted);
+  font: 900 9px/1 var(--sans);
+  letter-spacing: .08em;
+  text-transform: uppercase;
+  font-style: normal;
+  margin-bottom: 5px;
+}
+
+.profile-backup-summary strong {
+  display: block;
+  color: var(--text);
+  font: 900 12px/1.25 var(--sans);
+}
+
+.profile-backup-actions {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 9px;
+}
+
+.profile-backup-actions .btn {
+  min-height: 44px;
+  padding: 10px 12px;
+  font-size: 12px;
+  line-height: 1.15;
+  white-space: normal;
+}
+
+.profile-backup-actions .btn:first-child,
+.profile-backup-actions .btn:last-of-type {
+  grid-column: 1 / -1;
+}
+
+.deck-readiness-list {
+  display: grid;
+  gap: 10px;
+}
+
+.deck-readiness-row {
+  border: 1px solid color-mix(in srgb, var(--border) 82%, transparent);
+  border-radius: 14px;
+  padding: 11px;
+  background:
+    linear-gradient(180deg, color-mix(in srgb, var(--surface2) 70%, white 4%), color-mix(in srgb, var(--surface) 86%, transparent));
+}
+
+.deck-readiness-top {
+  display: grid;
+  grid-template-columns: 1fr auto;
+  align-items: center;
+  gap: 10px;
+  margin-bottom: 9px;
+}
+
+.deck-readiness-top strong {
+  min-width: 0;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  color: var(--text);
+  font: 900 13px/1.15 var(--sans);
+}
+
+.deck-readiness-score {
+  min-width: 48px;
+  height: 28px;
+  border-radius: 999px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  color: var(--text);
+  background: color-mix(in srgb, var(--blue) 22%, transparent);
+  border: 1px solid color-mix(in srgb, var(--border2) 80%, var(--blue) 20%);
+  font: 900 12px/1 var(--sans);
+}
+
+.deck-readiness-meter {
+  height: 7px;
+  overflow: hidden;
+  border-radius: 999px;
+  background: color-mix(in srgb, var(--surface) 72%, black 18%);
+  margin-bottom: 9px;
+}
+
+.deck-readiness-meter span {
+  display: block;
+  height: 100%;
+  border-radius: inherit;
+  background: linear-gradient(90deg, #38bdf8, #facc15);
+}
+
+.deck-readiness-chips {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+}
+
+.deck-readiness-chip {
+  display: inline-flex;
+  align-items: center;
+  min-height: 24px;
+  border-radius: 999px;
+  border: 1px solid color-mix(in srgb, var(--border) 82%, transparent);
+  color: var(--muted);
+  background: rgba(255,255,255,.03);
+  padding: 0 9px;
+  font: 900 10px/1 var(--sans);
+  letter-spacing: .02em;
+}
+
+.deck-readiness-chip.is-ready {
+  color: #bbf7d0;
+  border-color: rgba(34,197,94,.34);
+  background: rgba(34,197,94,.10);
+}
+
+.deck-readiness-chip.is-warning {
+  color: #fde68a;
+  border-color: rgba(245,158,11,.34);
+  background: rgba(245,158,11,.10);
+}
+
+.deck-readiness-chip.is-missing {
+  color: #fecaca;
+  border-color: rgba(239,68,68,.34);
+  background: rgba(239,68,68,.10);
+}
+
+.deck-readiness-empty {
+  border: 1px dashed color-mix(in srgb, var(--border) 86%, transparent);
+  border-radius: 14px;
+  padding: 14px;
+  color: var(--muted);
+  font: 750 12px/1.45 var(--sans);
+}
+
+@media (max-width: 390px) {
+  .profile-card-head {
+    align-items: stretch;
+    flex-direction: column;
+  }
+
+  .profile-card-head .profile-inline-btn {
+    align-self: flex-start;
+  }
+
+  .profile-backup-summary,
+  .profile-backup-actions {
+    grid-template-columns: 1fr;
+  }
+
+  .profile-backup-actions .btn:first-child,
+  .profile-backup-actions .btn:last-of-type {
+    grid-column: auto;
+  }
+}
+
 .profile-action-list {
   display: grid;
   gap: 10px;

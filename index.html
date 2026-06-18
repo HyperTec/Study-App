@@ -2460,6 +2460,37 @@ Style Lab
 </div>
 </div>
 </div>
+<div class="profile-card profile-backup-card">
+<div class="profile-card-head">
+<div>
+<div class="profile-card-title">Backup &amp; Restore</div>
+<div class="profile-card-sub" id="profile-backup-status">Checking your latest local safety backup...</div>
+</div>
+<button type="button" class="profile-inline-btn" onclick="backupCenterRefreshStatus()">Refresh</button>
+</div>
+<div class="profile-backup-summary" id="profile-backup-detail">
+<span><em>Saved</em><strong>Checking...</strong></span>
+<span><em>Includes</em><strong>Progress, decks, and Guided content</strong></span>
+</div>
+<div class="profile-backup-actions">
+<button type="button" class="btn btn-gold" onclick="backupCenterDownloadFullBackup()">Download full backup</button>
+<button type="button" class="btn btn-soft" onclick="document.getElementById('backup-restore-input').click()">Restore from backup</button>
+<button type="button" class="btn btn-soft" onclick="backupCenterExportDecksOnly()">Export decks only</button>
+<button type="button" class="btn btn-soft" onclick="backupCenterExportGuidedContent()">Export Guided content</button>
+<button type="button" class="btn btn-soft" onclick="exportReaderFile()">Export reader copy</button>
+<input accept=".json,application/json" aria-label="Restore StudyDeck backup JSON file" id="backup-restore-input" onchange="backupCenterRestoreFromFile(event)" style="display:none" type="file"/>
+</div>
+</div>
+<div class="profile-card profile-readiness-card">
+<div class="profile-card-head">
+<div>
+<div class="profile-card-title">Deck readiness</div>
+<div class="profile-card-sub">Plain-English checks for what is ready and what needs attention.</div>
+</div>
+<button type="button" class="profile-inline-btn" onclick="backupCenterRenderDeckReadiness()">Refresh</button>
+</div>
+<div class="deck-readiness-list" id="profile-deck-readiness"></div>
+</div>
 <div class="profile-action-list profile-author-actions" id="profile-author-actions" style="display:none">
 <button type="button" class="profile-action-btn profile-author-only" id="profile-guided-author-btn" onclick="showGuidedAuthorTools()"><span>Guided Author Tools</span><strong>→</strong></button>
 <button type="button" class="profile-action-btn profile-author-only" id="profile-devtools-btn" onclick="openDevTools()"><span>Dev Tools</span><strong>→</strong></button>
@@ -2774,8 +2805,8 @@ Style Lab
 <script src="js/studydeck-guided-author-qa.js" defer></script>
 <script src="js/studydeck-timeline-pilot-sidecar.js?v=timeline-no-matches-removed-20260608a" defer></script>
 <script src="js/studydeck-timelines.js?v=timeline-no-matches-removed-20260608a" defer></script>
-<script src="preview-data.js?v=20260618200355" defer></script>
-<script src="app.js?v=20260618200355" defer></script>
-<script src="register-service-worker.js?v=20260618200355" defer></script>
+<script src="preview-data.js?v=20260618231241" defer></script>
+<script src="app.js?v=20260618231241" defer></script>
+<script src="register-service-worker.js?v=20260618231241" defer></script>
 </body>
 </html>

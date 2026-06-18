@@ -1934,6 +1934,261 @@ function importData(evt) {
   reader.readAsText(file);
   evt.target.value = '';
 }
+
+function backupCenterTimeSlug(date) {
+  var d = date instanceof Date ? date : new Date();
+  return d.getFullYear()
+    + String(d.getMonth() + 1).padStart(2, '0')
+    + String(d.getDate()).padStart(2, '0')
+    + '-'
+    + String(d.getHours()).padStart(2, '0')
+    + String(d.getMinutes()).padStart(2, '0');
+}
+
+function backupCenterFormatTime(value) {
+  if (!value) return 'Not yet';
+  var d = value instanceof Date ? value : new Date(value);
+  if (!Number.isFinite(d.getTime())) return 'Unknown time';
+  return d.toLocaleString([], {
+    month: 'short',
+    day: 'numeric',
+    hour: 'numeric',
+    minute: '2-digit'
+  });
+}
+
+function backupCenterDeckCount(snapshot) {
+  if (snapshot && snapshot.deckData && Array.isArray(snapshot.deckData.decks)) return snapshot.deckData.decks.length;
+  return Array.isArray(decks) ? decks.length : 0;
+}
+
+function backupCenterCardCount(snapshot) {
+  var sourceDecks = snapshot && snapshot.deckData && Array.isArray(snapshot.deckData.decks) ? snapshot.deckData.decks : decks;
+  return (sourceDecks || []).reduce(function(total, deck){
+    return total + (deck && Array.isArray(deck.cards) ? deck.cards.length : 0);
+  }, 0);
+}
+
+function backupCenterSidecarCount(snapshot) {
+  if (snapshot && snapshot.guidedSidecars && Array.isArray(snapshot.guidedSidecars.sidecars)) return snapshot.guidedSidecars.sidecars.length;
+  return guidedSidecarStore && Array.isArray(guidedSidecarStore.sidecars) ? guidedSidecarStore.sidecars.length : 0;
+}
+
+function backupCenterBuildFullBackup(reason) {
+  var snapshot = guidedCriticalProgressSnapshot(reason || 'manual_backup_center_export', {
+    includeDecks: true,
+    includeSidecars: true
+  });
+  snapshot.exportType = 'studydeck-full-backup';
+  snapshot.exportedAtIso = new Date().toISOString();
+  snapshot.appName = 'StudyDeck';
+  snapshot.summary = {
+    decks: backupCenterDeckCount(snapshot),
+    cards: backupCenterCardCount(snapshot),
+    guidedContentFiles: backupCenterSidecarCount(snapshot),
+    includesProgress: !!snapshot.gameData,
+    includesGuidedState: !!snapshot.guidedState
+  };
+  guidedWriteCriticalProgressBackupSnapshot(snapshot);
+  return snapshot;
+}
+
+function backupCenterFileName(prefix) {
+  return prefix + '-' + backupCenterTimeSlug(new Date()) + '.json';
+}
+
+function backupCenterDownloadFullBackup() {
+  var snapshot = backupCenterBuildFullBackup('manual_backup_center_download');
+  var savedLabel = backupCenterFormatTime(snapshot.savedAtIso || snapshot.exportedAtIso);
+  openExportTextModal(
+    'Download full backup',
+    '<strong>Full StudyDeck backup</strong><br>'
+      + 'Includes progress, decks, settings, Guided state, reward settings, and active Guided content.<br>'
+      + 'Created: ' + escHtml(savedLabel),
+    JSON.stringify(snapshot, null, 2),
+    backupCenterFileName('studydeck-full-backup'),
+    { description: 'StudyDeck full backup', bridgeFolder: 'backups' }
+  );
+  backupCenterRefreshStatus();
+}
+
+function backupCenterExportDecksOnly() {
+  var payload = {
+    exportType: 'studydeck-decks-backup',
+    exportedAtIso: new Date().toISOString(),
+    decks: decks,
+    tagGroups: tagGroups
+  };
+  openExportTextModal(
+    'Export decks only',
+    '<strong>Deck content backup</strong><br>'
+      + 'Includes deck cards and tag groups, but not study progress or Guided state.',
+    JSON.stringify(payload, null, 2),
+    backupCenterFileName('studydeck-decks'),
+    { description: 'StudyDeck deck backup', bridgeFolder: 'backups' }
+  );
+}
+
+function backupCenterExportGuidedContent() {
+  var sidecars = guidedSidecarStore && Array.isArray(guidedSidecarStore.sidecars) ? guidedSidecarStore.sidecars : [];
+  if (!sidecars.length) {
+    appConfirm('No Guided content saved', 'There is no active Guided content backup in this browser yet.', 'Got it', 'btn-soft', function(){});
+    return;
+  }
+  var payload = {
+    exportType: 'studydeck-guided-content-backup',
+    exportedAtIso: new Date().toISOString(),
+    guidedSidecars: guidedSidecarStore
+  };
+  openExportTextModal(
+    'Export Guided content',
+    '<strong>Guided content backup</strong><br>'
+      + 'Includes the active Guided lesson content used by this browser.',
+    JSON.stringify(payload, null, 2),
+    backupCenterFileName('studydeck-guided-content'),
+    { description: 'StudyDeck Guided content backup', bridgeFolder: 'backups' }
+  );
+}
+
+function backupCenterLooksLikeFullBackup(payload) {
+  return !!(payload && typeof payload === 'object' && payload.version === 1 && (
+    payload.gameData || payload.guidedState || payload.deckData || payload.guidedSidecars
+  ));
+}
+
+function backupCenterLooksLikeDeckBackup(payload) {
+  return !!(payload && typeof payload === 'object' && Array.isArray(payload.decks));
+}
+
+function backupCenterLooksLikeGuidedContentBackup(payload) {
+  return !!(payload && typeof payload === 'object' && payload.guidedSidecars && Array.isArray(payload.guidedSidecars.sidecars));
+}
+
+function backupCenterRestoreDeckPayload(payload) {
+  var importedDecks = Array.isArray(payload) ? payload : payload.decks;
+  var importedGroups = payload && Array.isArray(payload.tagGroups) ? payload.tagGroups : [];
+  if (!Array.isArray(importedDecks) || !importedDecks.length) {
+    alert('This backup did not contain any decks.');
+    return;
+  }
+  appConfirm(
+    'Restore deck backup?',
+    'This replaces the current deck list with ' + importedDecks.length + ' deck' + (importedDecks.length === 1 ? '' : 's') + '. A safety backup of the current app will be saved first.',
+    'Restore decks',
+    'btn-soft',
+    function(ok) {
+      if (!ok) return;
+      writeCriticalProgressBackup('before_deck_backup_restore', { includeDecks: true, includeSidecars: true });
+      decks = importedDecks;
+      tagGroups = importedGroups;
+      ensureUIDs();
+      repairAllCardLinks();
+      saveDataImmediatePersistent().then(function(){
+        renderHome();
+        renderDecks();
+        renderProfile();
+        showXpToast('Deck backup restored.');
+      }).catch(function(){
+        renderHome();
+        renderDecks();
+        renderProfile();
+        alert('Decks were restored for this session, but StudyDeck could not save them. Download a full backup before refreshing.');
+      });
+    }
+  );
+}
+
+function backupCenterRestoreGuidedPayload(payload) {
+  var store = payload.guidedSidecars;
+  appConfirm(
+    'Restore Guided content?',
+    'This replaces the active Guided content in this browser. A safety backup of the current app will be saved first.',
+    'Restore Guided content',
+    'btn-soft',
+    function(ok) {
+      if (!ok) return;
+      writeCriticalProgressBackup('before_guided_content_restore', { includeDecks: true, includeSidecars: true });
+      guidedSidecarStore = store;
+      guidedSaveSidecarStore();
+      renderHome();
+      renderDecks();
+      renderProfile();
+      renderGuidedEntry();
+      renderGuidedView();
+      showXpToast('Guided content restored.');
+    }
+  );
+}
+
+function backupCenterRestoreFromFile(evt) {
+  var input = evt.target;
+  var file = input.files && input.files[0];
+  if (!file) return;
+  var reader = new FileReader();
+  reader.onload = function(e) {
+    var raw = String(e.target.result || '');
+    if (raw.trimStart().startsWith('{\\rtf')) {
+      alert('This file is Rich Text, not plain JSON. Save the backup as plain text, then try again.');
+      input.value = '';
+      return;
+    }
+    try {
+      var parsed = JSON.parse(raw.replace(/^\uFEFF/, ''));
+      if (backupCenterLooksLikeFullBackup(parsed)) {
+        var when = backupCenterFormatTime(parsed.savedAtIso || parsed.exportedAtIso || parsed.savedAt);
+        appConfirm(
+          'Restore full backup?',
+          'This replaces current progress, deck data, Guided state, and active Guided content with the backup from ' + when + '. A safety backup of the current app will be saved first.',
+          'Restore full backup',
+          'btn-soft',
+          function(ok) {
+            if (!ok) return;
+            if (dtApplyCriticalBackupSnapshot(parsed)) {
+              showXpToast('Full backup restored.');
+              backupCenterRefreshStatus();
+              backupCenterRenderDeckReadiness();
+            }
+          }
+        );
+      } else if (backupCenterLooksLikeGuidedContentBackup(parsed)) {
+        backupCenterRestoreGuidedPayload(parsed);
+      } else if (Array.isArray(parsed) || backupCenterLooksLikeDeckBackup(parsed)) {
+        backupCenterRestoreDeckPayload(Array.isArray(parsed) ? { decks: parsed, tagGroups: [] } : parsed);
+      } else {
+        alert('This does not look like a StudyDeck backup file.');
+      }
+    } catch(err) {
+      alert('Could not read this backup JSON.\n\n' + err.message);
+    }
+  };
+  reader.readAsText(file);
+  input.value = '';
+}
+
+function backupCenterRefreshStatus() {
+  var statusEl = document.getElementById('profile-backup-status');
+  var detailEl = document.getElementById('profile-backup-detail');
+  if (statusEl) statusEl.textContent = 'Checking your latest local safety backup...';
+  guidedReadCriticalProgressBackup().then(function(snapshot){
+    if (!statusEl || !detailEl) return;
+    if (!snapshot) {
+      statusEl.textContent = 'No local safety backup found yet.';
+      detailEl.innerHTML = '<span><em>Saved</em><strong>Not yet</strong></span>'
+        + '<span><em>Includes</em><strong>Download a full backup to make one now</strong></span>';
+      return;
+    }
+    var when = backupCenterFormatTime(snapshot.savedAtIso || snapshot.savedAt);
+    var deckCount = backupCenterDeckCount(snapshot);
+    var cardCount = backupCenterCardCount(snapshot);
+    var sidecarCount = backupCenterSidecarCount(snapshot);
+    statusEl.textContent = 'Latest local safety backup: ' + when + '.';
+    detailEl.innerHTML = '<span><em>Saved</em><strong>' + escHtml(when) + '</strong></span>'
+      + '<span><em>Includes</em><strong>' + escHtml(deckCount + ' decks, ' + cardCount + ' cards, ' + sidecarCount + ' Guided file' + (sidecarCount === 1 ? '' : 's')) + '</strong></span>';
+  }).catch(function(){
+    if (statusEl) statusEl.textContent = 'Could not check the latest local safety backup.';
+  });
+}
+
 let pickedColor  = COLORS[0];
 let editColor    = COLORS[0];
 let authorMode   = false;  // true when PIN has been entered
@@ -23158,6 +23413,338 @@ function renderRecentAchievement() {
   subEl.textContent = latest ? latest.desc : 'Complete a quiz or keep a streak to earn one.';
 }
 
+function deckReadinessCards(deck) {
+  return deck && Array.isArray(deck.cards) ? deck.cards : [];
+}
+
+function deckReadinessText(value) {
+  return String(value == null ? '' : value).trim();
+}
+
+function deckReadinessDeckText(deck) {
+  return [
+    deck && deck.name,
+    deck && deck.desc,
+    deck && deck.description
+  ].map(deckReadinessText).join(' ').toLowerCase();
+}
+
+function deckReadinessHasCardBasics(card) {
+  return !!(card && deckReadinessText(card.q) && deckReadinessText(card.a));
+}
+
+function deckReadinessHasEvidence(card) {
+  if (!card || typeof card !== 'object') return false;
+  if (Array.isArray(card.notes) && card.notes.length) return true;
+  if (card.notes && typeof card.notes === 'object' && Object.keys(card.notes).length) return true;
+  if (Array.isArray(card.links) && card.links.length) return true;
+  return [
+    card.evidence,
+    card.evidenceNotes,
+    card.reference,
+    card.references,
+    card.sourceReference,
+    card.bibleReference,
+    card.passage,
+    card.verse
+  ].some(function(value){
+    if (Array.isArray(value)) return value.length > 0;
+    if (value && typeof value === 'object') return Object.keys(value).length > 0;
+    return !!deckReadinessText(value);
+  });
+}
+
+function deckReadinessNeedsMap(deck) {
+  return /(geograph|\bmaps?\b|\blocations?\b|\bplaces?\b|\bcity\b|\bcities\b|\bregions?\b|\broutes?\b|\bjourneys?\b)/.test(deckReadinessDeckText(deck));
+}
+
+function deckReadinessNeedsTimeline(deck) {
+  return /(timeline|attribution|\bdates?\b|\bdating\b|chronolog|\brulers?\b|\breigns?\b|\bperiods?\b|\bcentury\b|\bcenturies\b)/.test(deckReadinessDeckText(deck));
+}
+
+function deckReadinessNormalizeName(value) {
+  if (typeof guidedNormalizeName === 'function') return guidedNormalizeName(value || '');
+  return String(value || '').trim().toLowerCase().replace(/\s+/g, ' ');
+}
+
+function deckReadinessNameMatchesDeck(name, deck) {
+  var deckName = deckReadinessNormalizeName(deck && deck.name);
+  var wantedName = deckReadinessNormalizeName(name);
+  return !!(deckName && wantedName && (deckName === wantedName || deckName.indexOf(wantedName) !== -1 || wantedName.indexOf(deckName) !== -1));
+}
+
+function deckReadinessSidecarMatchesDeck(sidecar, deck) {
+  if (!sidecar || !deck) return false;
+  var meta = sidecar.__studydeckSidecar || {};
+  if (meta.matchedDeckId != null && String(meta.matchedDeckId) === String(deck.id)) return true;
+  if (sidecar.deckId != null && String(sidecar.deckId) === String(deck.id)) return true;
+  if (sidecar.targetDeckId != null && String(sidecar.targetDeckId) === String(deck.id)) return true;
+  var names = [
+    sidecar.deckName,
+    sidecar.sourceDeckName,
+    sidecar.deck,
+    sidecar.targetDeck,
+    meta.matchedDeckName,
+    meta.sourceDeckName
+  ].filter(deckReadinessText);
+  if (names.some(function(name){ return deckReadinessNameMatchesDeck(name, deck); })) return true;
+  var category = deckReadinessNormalizeName(sidecar.deckCategory || sidecar.categoryId || meta.deckCategory || '').replace(/-/g, ' ');
+  if (category) {
+    var deckText = deckReadinessNormalizeName((deck && deck.name || '') + ' ' + (deck && deck.desc || ''));
+    var tokens = category.split(/\s+/).filter(function(token){ return token.length > 2; });
+    if (tokens.length && tokens.every(function(token){ return deckText.indexOf(token) !== -1; })) return true;
+  }
+  return false;
+}
+
+function deckReadinessStoredGuidedSidecars() {
+  if (typeof guidedAuthorStoredSidecars === 'function') return guidedAuthorStoredSidecars();
+  return guidedSidecarStore && Array.isArray(guidedSidecarStore.sidecars) ? guidedSidecarStore.sidecars : [];
+}
+
+function deckReadinessSidecarIsGuidedLesson(sidecar) {
+  if (!sidecar || typeof sidecar !== 'object') return false;
+  if (sidecar.sidecarType === 'studydeck-timeline') return false;
+  if (sidecar.timelineLearning && !sidecar.guidedLearning) return false;
+  return !!(sidecar.guidedLearning || sidecar.sidecarType === 'guidedLearningOverlay' || sidecar.cards);
+}
+
+function deckReadinessReportMatchesDeck(report, deck) {
+  if (!report || !deck) return false;
+  if (report.matchedDeck && String(report.matchedDeck.id) === String(deck.id)) return true;
+  return deckReadinessSidecarMatchesDeck(report.sidecar, deck);
+}
+
+function deckReadinessGuidedSummary(deck) {
+  var sidecars = deckReadinessStoredGuidedSidecars().filter(deckReadinessSidecarIsGuidedLesson);
+  var reports = sidecars.map(function(sidecar){
+    if (typeof guidedBuildSidecarHealthReport === 'function') return guidedBuildSidecarHealthReport(sidecar);
+    return { sidecar: sidecar, totals: { sidecarCards: 0, matchedCards: 0, missingCards: 0, validationErrors: 0, validationWarnings: 0, genericLearnFallbacks: 0 } };
+  }).filter(function(report){
+    return deckReadinessReportMatchesDeck(report, deck);
+  });
+  return {
+    reports: reports,
+    totals: reports.reduce(function(out, report){
+      var totals = report && report.totals || {};
+      var sidecar = report && report.sidecar || {};
+      var entries = typeof guidedAuthorSidecarCardEntries === 'function' ? guidedAuthorSidecarCardEntries(sidecar) : [];
+      out.sidecars += 1;
+      out.sidecarCards += Number(totals.sidecarCards || entries.length || 0) || 0;
+      out.matchedCards += Number(totals.matchedCards || 0) || 0;
+      out.missingCards += Number(totals.missingCards || 0) || 0;
+      out.validationErrors += Number(totals.validationErrors || 0) || 0;
+      out.validationWarnings += Number(totals.validationWarnings || 0) || 0;
+      out.genericLearnFallbacks += Number(totals.genericLearnFallbacks || 0) || 0;
+      return out;
+    }, { sidecars: 0, sidecarCards: 0, matchedCards: 0, missingCards: 0, validationErrors: 0, validationWarnings: 0, genericLearnFallbacks: 0 })
+  };
+}
+
+function deckReadinessSidecarHasMap(sidecar) {
+  if (!sidecar || typeof sidecar !== 'object') return false;
+  if (typeof guidedAuthorSidecarUsesMapEvidence === 'function' && guidedAuthorSidecarUsesMapEvidence(sidecar)) return true;
+  var sidecarText = [
+    sidecar.title,
+    sidecar.name,
+    sidecar.deckName,
+    sidecar.sourceDeckName,
+    sidecar.deckCategory,
+    sidecar.categoryId
+  ].map(deckReadinessText).join(' ').toLowerCase();
+  if (/\b(geograph|map|location|place)\b/.test(sidecarText)) return true;
+  var entries = typeof guidedAuthorSidecarCardEntries === 'function' ? guidedAuthorSidecarCardEntries(sidecar) : [];
+  return entries.some(function(item){
+    var entry = item && item.entry || {};
+    var gl = entry.guidedLearning || {};
+    return !!(entry.mapLocation || gl.mapLocation || gl.maps || gl.mapPanel || gl.mapContext);
+  });
+}
+
+function deckReadinessCardHasMap(card) {
+  if (!card || typeof card !== 'object') return false;
+  return !!(card.mapLocation || card.location || card.geo || card.coordinates || card.map);
+}
+
+function deckReadinessSidecarHasTimeline(sidecar) {
+  if (!sidecar || typeof sidecar !== 'object') return false;
+  if (sidecar.sidecarType === 'studydeck-timeline' || sidecar.timelineLearning) return true;
+  var entries = typeof guidedAuthorSidecarCardEntries === 'function' ? guidedAuthorSidecarCardEntries(sidecar) : [];
+  return entries.some(function(item){
+    var entry = item && item.entry || {};
+    var gl = entry.guidedLearning || {};
+    return !!(entry.timeline || gl.timeline || gl.timelineEvent || gl.timelineLearning);
+  });
+}
+
+function deckReadinessTimelineSidecars(deck) {
+  var sidecars = [];
+  if (Array.isArray(window.STUDYDECK_TIMELINE_SIDECARS)) {
+    sidecars = sidecars.concat(window.STUDYDECK_TIMELINE_SIDECARS);
+  }
+  sidecars = sidecars.concat(deckReadinessStoredGuidedSidecars());
+  var seen = {};
+  return sidecars.filter(function(sidecar){
+    if (!deckReadinessSidecarHasTimeline(sidecar)) return false;
+    if (!deckReadinessSidecarMatchesDeck(sidecar, deck)) return false;
+    var key = [
+      sidecar.title || sidecar.name || '',
+      sidecar.deckName || sidecar.sourceDeckName || '',
+      sidecar.source && sidecar.source.deckFileSha256 || ''
+    ].join('|');
+    if (seen[key]) return false;
+    seen[key] = true;
+    return true;
+  });
+}
+
+function deckReadinessTimelineCoverage(deck) {
+  var cards = deckReadinessCards(deck);
+  var uidLookup = {};
+  cards.forEach(function(card){
+    var uid = typeof guidedSidecarCardUid === 'function' ? guidedSidecarCardUid(card) : deckReadinessText(card && card.uid).toUpperCase();
+    if (uid) uidLookup[uid] = true;
+  });
+  var matched = {};
+  deckReadinessTimelineSidecars(deck).forEach(function(sidecar){
+    var entries = typeof guidedAuthorSidecarCardEntries === 'function' ? guidedAuthorSidecarCardEntries(sidecar) : [];
+    entries.forEach(function(item){
+      var uid = typeof guidedAuthorSidecarEntryUid === 'function' ? guidedAuthorSidecarEntryUid(item) : item && item.key || '';
+      uid = String(uid || '').trim().toUpperCase();
+      if (uid && uidLookup[uid]) matched[uid] = true;
+    });
+  });
+  return Object.keys(matched).length;
+}
+
+function deckReadinessPushChip(chips, label, status) {
+  chips.push({ label: label, status: status || 'ready' });
+}
+
+function deckReadinessBuild(deck) {
+  var cards = deckReadinessCards(deck);
+  var total = cards.length;
+  var validCards = cards.filter(deckReadinessHasCardBasics).length;
+  var evidenceCards = cards.filter(deckReadinessHasEvidence).length;
+  var needsMap = deckReadinessNeedsMap(deck);
+  var needsTimeline = deckReadinessNeedsTimeline(deck);
+  var guided = deckReadinessGuidedSummary(deck);
+  var guidedTotals = guided && guided.totals || {};
+  var guidedMatched = Math.min(total, Number(guidedTotals.matchedCards || 0) || 0);
+  var guidedSidecarCards = Number(guidedTotals.sidecarCards || 0) || 0;
+  var guidedErrors = Number(guidedTotals.validationErrors || 0) || 0;
+  var guidedWarnings = Number(guidedTotals.validationWarnings || 0) || 0;
+  var guidedFallbacks = Number(guidedTotals.genericLearnFallbacks || 0) || 0;
+  var mapReady = cards.some(deckReadinessCardHasMap) || (guided.reports || []).some(function(report){
+    return deckReadinessSidecarHasMap(report.sidecar);
+  });
+  var timelineMatched = deckReadinessTimelineCoverage(deck);
+  var chips = [];
+  var score = 0;
+
+  if (!total) {
+    deckReadinessPushChip(chips, 'No cards yet', 'missing');
+    return {
+      deck: deck,
+      score: 0,
+      chips: chips
+    };
+  }
+
+  score += Math.round(20 * (validCards / total));
+  if (validCards === total) deckReadinessPushChip(chips, 'Flashcards ready', 'ready');
+  else if (validCards) deckReadinessPushChip(chips, 'Flashcards ' + validCards + '/' + total, 'warning');
+  else deckReadinessPushChip(chips, 'Flashcards missing', 'missing');
+
+  if (validCards >= 4) {
+    score += 15;
+    deckReadinessPushChip(chips, 'Quiz ready', 'ready');
+  } else if (validCards) {
+    score += 7;
+    deckReadinessPushChip(chips, 'Quiz needs 4+ cards', 'warning');
+  } else {
+    deckReadinessPushChip(chips, 'Quiz missing', 'missing');
+  }
+
+  score += Math.round(25 * (guidedMatched / total));
+  if (guidedMatched >= Math.ceil(total * 0.85) && !guidedErrors) {
+    deckReadinessPushChip(chips, 'Guided ready', guidedWarnings ? 'warning' : 'ready');
+  } else if (guidedMatched > 0) {
+    deckReadinessPushChip(chips, 'Guided ' + guidedMatched + '/' + total, guidedErrors ? 'missing' : 'warning');
+  } else if (guidedSidecarCards > 0) {
+    deckReadinessPushChip(chips, 'Guided not matched', 'missing');
+  } else {
+    deckReadinessPushChip(chips, 'Guided missing', 'missing');
+  }
+  if (guidedFallbacks) deckReadinessPushChip(chips, 'Fallback questions ' + guidedFallbacks, 'warning');
+  if (guidedErrors) deckReadinessPushChip(chips, 'Guided needs repair', 'missing');
+
+  score += Math.round(15 * (evidenceCards / total));
+  if (evidenceCards >= Math.ceil(total * 0.85)) deckReadinessPushChip(chips, 'Evidence ready', 'ready');
+  else if (evidenceCards) deckReadinessPushChip(chips, 'Evidence ' + evidenceCards + '/' + total, 'warning');
+  else deckReadinessPushChip(chips, 'Evidence missing', 'missing');
+
+  var specialScore = 15;
+  var specialParts = 0;
+  var specialEarned = 0;
+  if (needsMap) {
+    specialParts += 1;
+    if (mapReady) {
+      specialEarned += 1;
+      deckReadinessPushChip(chips, 'Maps ready', 'ready');
+    } else {
+      deckReadinessPushChip(chips, 'Maps missing', 'missing');
+    }
+  } else {
+    deckReadinessPushChip(chips, 'Maps optional', 'ready');
+  }
+  if (needsTimeline) {
+    specialParts += 1;
+    if (timelineMatched) {
+      specialEarned += Math.min(1, timelineMatched / Math.max(1, Math.ceil(total * 0.25)));
+      deckReadinessPushChip(chips, 'Timeline ' + timelineMatched + '/' + total, timelineMatched >= Math.ceil(total * 0.25) ? 'ready' : 'warning');
+    } else {
+      deckReadinessPushChip(chips, 'Timeline missing', 'missing');
+    }
+  } else {
+    deckReadinessPushChip(chips, 'Timeline optional', 'ready');
+  }
+  score += specialParts ? Math.round(specialScore * (specialEarned / specialParts)) : specialScore;
+  score = Math.max(0, Math.min(100, score));
+
+  return {
+    deck: deck,
+    score: score,
+    chips: chips
+  };
+}
+
+function backupCenterRenderDeckReadiness() {
+  var el = document.getElementById('profile-deck-readiness');
+  if (!el) return;
+  if (!Array.isArray(decks) || !decks.length) {
+    el.innerHTML = '<div class="deck-readiness-empty">No decks found yet. Once you add or import decks, this area will show what is ready and what needs attention.</div>';
+    return;
+  }
+  var reports = decks.map(deckReadinessBuild).sort(function(a, b){
+    return a.score - b.score || String(a.deck && a.deck.name || '').localeCompare(String(b.deck && b.deck.name || ''));
+  });
+  el.innerHTML = reports.map(function(report){
+    var name = report.deck && report.deck.name || 'Untitled deck';
+    var score = Math.round(report.score);
+    var color = score >= 85 ? '#22c55e' : (score >= 60 ? '#facc15' : '#f87171');
+    return '<div class="deck-readiness-row">'
+      + '<div class="deck-readiness-top"><strong>' + escHtml(name) + '</strong><span class="deck-readiness-score">' + score + '%</span></div>'
+      + '<div class="deck-readiness-meter" aria-hidden="true"><span style="width:' + escHtml(score) + '%;background:' + escHtml(color) + '"></span></div>'
+      + '<div class="deck-readiness-chips">'
+      + report.chips.map(function(chip){
+        return '<span class="deck-readiness-chip is-' + escHtml(chip.status || 'ready') + '">' + escHtml(chip.label) + '</span>';
+      }).join('')
+      + '</div>'
+      + '</div>';
+  }).join('');
+}
+
 function renderProfile() {
   var titleEl = document.getElementById('profile-title');
   var subEl = document.getElementById('profile-sub');
@@ -23188,6 +23775,8 @@ function renderProfile() {
   if (devBtn) devBtn.style.display = authorMode ? '' : 'none';
   updateAudioFeedbackControls();
   updateProfileSettingsSummary();
+  backupCenterRefreshStatus();
+  backupCenterRenderDeckReadiness();
   if (typeof refreshStyleLabView === 'function') refreshStyleLabView();
 }
 function toggleOpts() {
