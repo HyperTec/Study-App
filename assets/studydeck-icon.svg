@@ -1,0 +1,6 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512">
+  <rect width="512" height="512" rx="96" fill="#0D1117"/>
+  <rect x="108" y="92" width="232" height="312" rx="34" fill="#161B22" stroke="#F59E0B" stroke-width="18"/>
+  <rect x="156" y="140" width="232" height="312" rx="34" fill="#1C2230" stroke="#3B82F6" stroke-width="18"/>
+  <text x="256" y="322" text-anchor="middle" font-family="DM Sans, Arial, sans-serif" font-size="104" font-weight="800" fill="#E8E3D9">SD</text>
+</svg>

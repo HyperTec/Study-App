@@ -1,0 +1,67 @@
+{
+  "buildStamp": "20260618200355",
+  "decks": [
+    {
+      "name": "Bible Characters and Figures",
+      "cards": 364
+    },
+    {
+      "name": "Biblical Atrocities",
+      "cards": 169
+    },
+    {
+      "name": "Geography",
+      "cards": 110
+    },
+    {
+      "name": "Biblical Timeline and Attribution",
+      "cards": 275
+    },
+    {
+      "name": "Biblical Timeline and Attribution — Addendum Batch C",
+      "cards": 8
+    },
+    {
+      "name": "Biblical Language and Scholarly Semantics",
+      "cards": 523
+    }
+  ],
+  "sidecars": [
+    {
+      "id": "preview-sidecar-1",
+      "importedAt": "2026-06-18T20:03:56.079Z",
+      "sourceName": "Characters Guided Level 1 Pilot Sidecar v1",
+      "sourceDeckName": "Characters",
+      "matchedDeckName": "Characters",
+      "deckCategory": "characters",
+      "sourceFileName": "characters_guided_level1_sidecar_v1.json"
+    },
+    {
+      "id": "preview-sidecar-2",
+      "importedAt": "2026-06-18T20:03:56.080Z",
+      "sourceName": "Atrocities Guided Stage 1 Sidecar v1",
+      "sourceDeckName": "Biblical Atrocities",
+      "matchedDeckName": "Biblical Atrocities",
+      "deckCategory": "atrocities",
+      "sourceFileName": "atrocities_guided_stage1_sidecar_v1.json"
+    },
+    {
+      "id": "preview-sidecar-3",
+      "importedAt": "2026-06-18T20:03:56.082Z",
+      "sourceName": "Geography Guided Level 1-4 Sidecar v3",
+      "sourceDeckName": "Geography",
+      "matchedDeckName": "Geography",
+      "deckCategory": "geography",
+      "sourceFileName": "geography_guided_level1_sidecar_v3.json"
+    },
+    {
+      "id": "preview-sidecar-4",
+      "importedAt": "2026-06-18T20:03:56.083Z",
+      "sourceName": "Timeline & Attribution Timeline Sidecar v1 Pilot",
+      "sourceDeckName": "Biblical Timeline and Attribution",
+      "matchedDeckName": "Biblical Timeline and Attribution",
+      "deckCategory": "timeline-attribution",
+      "sourceFileName": "timeline_attribution_timeline_sidecar_v1.json"
+    }
+  ]
+}

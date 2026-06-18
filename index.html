@@ -1,0 +1,2781 @@
+<!DOCTYPE html>
+
+<html lang="en">
+<head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" name="viewport"/>
+<meta content="yes" name="apple-mobile-web-app-capable"/>
+<meta content="yes" name="mobile-web-app-capable"/>
+<meta content="black-translucent" name="apple-mobile-web-app-status-bar-style"/>
+<meta content="#0D1117" name="theme-color"/>
+<meta content="A guided study and flashcard app for structured learning." name="description"/>
+<title>StudyDeck</title>
+<link data-href="manifest.json" id="app-manifest-link" rel="manifest"/>
+<link href="assets/studydeck-icon.svg" rel="icon" type="image/svg+xml"/>
+<link href="assets/studydeck-icon-180.png" rel="apple-touch-icon"/>
+<meta content="StudyDeck" name="apple-mobile-web-app-title"/>
+<link href="https://fonts.googleapis.com" rel="preconnect"/>
+<link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect"/>
+<link href="https://fonts.googleapis.com/css2?family=Lora:wght@600;700&amp;family=DM+Sans:wght@300;400;500;600&amp;family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;0,700;1,400&amp;family=EB+Garamond:ital,wght@0,400;0,500;0,600;0,700;1,400;1,500&amp;family=Cinzel:wght@500;600;700&amp;family=Outfit:wght@300;400;500;600;700;800&amp;display=swap" rel="stylesheet"/>
+<link rel="stylesheet" href="styles.css?v=timeline-no-matches-removed-20260608a">
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+</head>
+<body>
+<div id="app">
+<!-- LEVEL UNLOCK NOTIFICATION -->
+<div aria-describedby="unlock-message" aria-labelledby="unlock-title" aria-modal="true" class="confirm-overlay" id="unlock-overlay" role="dialog">
+<div class="confirm-box" style="text-align:center">
+<div style="font-size:40px;margin-bottom:8px">🎉</div>
+<div class="confirm-title" id="unlock-title" style="font-size:20px">Level Unlocked!</div>
+<div class="confirm-msg" id="unlock-message">
+<strong id="unlock-deck-name"></strong><br/>
+        has unlocked <strong>Level <span id="unlock-new-level"></span></strong> cards!
+      </div>
+<button type="button" class="btn btn-gold" onclick="dismissUnlock()" style="width:100%;padding:14px">Continue →</button>
+</div>
+</div>
+<!-- AUTHOR MASTERY EDITOR -->
+<div aria-labelledby="mastery-editor-title" aria-modal="true" class="confirm-overlay" id="mastery-editor-overlay" onclick="if(event.target===this) closeMasteryEditor()" role="dialog">
+<div class="confirm-box mastery-editor-box" style="text-align:center">
+<div class="confirm-title" id="mastery-editor-title">Set card mastery</div>
+<div class="mastery-editor-card">
+<div class="mastery-editor-q" id="mastery-editor-q"></div>
+<div class="mastery-editor-a" id="mastery-editor-a"></div>
+</div>
+<div class="mastery-editor-current" id="mastery-editor-current"></div>
+<div class="mastery-editor-grid" id="mastery-editor-grid"></div>
+<label class="form-lbl" for="mastery-score-input" style="text-align:left">Exact score</label>
+<div class="mastery-editor-score-row">
+<button type="button" class="mastery-step-btn" onclick="stepMasteryEditorScore(-1)">−</button>
+<input class="form-inp" id="mastery-score-input" inputmode="numeric" max="20" min="0" oninput="syncMasteryEditorScore()" type="number" value="0"/>
+<button type="button" class="mastery-step-btn" onclick="stepMasteryEditorScore(1)">+</button>
+</div>
+<div class="confirm-btns">
+<button type="button" class="btn btn-soft" onclick="closeMasteryEditor()">Cancel</button>
+<button type="button" class="btn btn-gold" onclick="applyMasteryEditorInput()">Apply</button>
+</div>
+</div>
+</div>
+<!-- THREE-CHOICE CONFIRM -->
+<div aria-describedby="confirm3-msg" aria-labelledby="confirm3-title" aria-modal="true" class="confirm-overlay" id="confirm3-overlay" role="dialog">
+<div class="confirm-box">
+<div class="confirm-title" id="confirm3-title"></div>
+<div class="confirm-msg" id="confirm3-msg"></div>
+<div style="display:flex;flex-direction:column;gap:8px;margin-top:4px;flex-shrink:0">
+<button type="button" class="btn btn-soft" id="confirm3-primary" onclick="closeConfirm3('primary')" style="padding:13px;width:100%"></button>
+<button type="button" class="btn btn-soft" id="confirm3-secondary" onclick="closeConfirm3('secondary')" style="padding:13px;width:100%"></button>
+<button type="button" class="btn" onclick="closeConfirm3(null)" style="padding:11px;width:100%;color:var(--muted);background:none;border:none;font-size:13px">Cancel</button>
+</div>
+</div>
+</div>
+<!-- CONFIRM MODAL -->
+<div aria-describedby="confirm-msg" aria-labelledby="confirm-title" aria-modal="true" class="confirm-overlay" id="confirm-overlay" role="dialog">
+<div class="confirm-box">
+<div class="confirm-title" id="confirm-title">Are you sure?</div>
+<div class="confirm-msg" id="confirm-msg"></div>
+<div class="confirm-btns">
+<button type="button" class="btn btn-soft" onclick="closeConfirm(false)" style="flex:1">Cancel</button>
+<button type="button" class="btn" id="confirm-ok-btn" onclick="closeConfirm(true)" style="flex:1">Confirm</button>
+</div>
+</div>
+</div>
+<!-- BLANK APP STYLE MODAL -->
+<div aria-describedby="blank-style-message" aria-labelledby="blank-style-title" aria-modal="true" class="confirm-overlay" id="blank-style-overlay" onclick="if(event.target===this) closeBlankAppStyleModal()" role="dialog">
+<div class="confirm-box">
+<div class="confirm-title" id="blank-style-title">Create Blank Style</div>
+<div class="confirm-msg" id="blank-style-message">Start with generic Style Lab-only surfaces, then shape the look from scratch.</div>
+<label class="form-lbl" for="blank-style-name" style="margin-top:10px">Style name</label>
+<input class="form-inp" id="blank-style-name" maxlength="48" onkeydown="if(event.key==='Enter') submitBlankAppStyle()" placeholder="New Blank Style" type="text"/>
+<div id="blank-style-error" style="min-height:18px;color:var(--red);font-size:12px;margin-top:8px"></div>
+<div class="confirm-btns">
+<button type="button" class="btn btn-soft" onclick="closeBlankAppStyleModal()" style="flex:1">Cancel</button>
+<button type="button" class="btn btn-gold" onclick="submitBlankAppStyle()" style="flex:1">Create</button>
+</div>
+</div>
+</div>
+<!-- TAG GROUP POPUP -->
+<div aria-label="Tag group filter" aria-modal="true" class="tg-overlay" id="tg-overlay" role="dialog">
+<div class="tg-sheet">
+<div class="tg-sheet-title" id="tg-sheet-title"></div>
+<div class="tg-sheet-sub">Tap tags to filter cards</div>
+<div class="tg-tag-grid" id="tg-tag-grid"></div>
+<div class="tg-sheet-btns">
+<button type="button" class="btn btn-soft" onclick="clearTgGroup()" style="flex:1;padding:12px;font-size:13px">Clear</button>
+<button type="button" class="btn btn-gold" onclick="closeTgOverlay()" style="flex:2;padding:12px;font-size:13px">Done</button>
+</div>
+</div>
+</div>
+<!-- MANAGE TAG GROUPS -->
+<div class="view" id="tag-groups">
+<div class="top-bar">
+<button type="button" class="back-btn" onclick="showHome()">←</button>
+<span class="top-title" style="flex:1">Tag Groups</span>
+</div>
+<div class="tg-new-block">
+<div class="form-group" style="margin-bottom:10px">
+<label class="form-lbl" for="tg-new-name">Group name</label>
+<input class="form-inp" id="tg-new-name" placeholder="e.g. OT Books"/>
+</div>
+<div class="form-group" style="margin-bottom:10px">
+<label class="form-lbl" for="tg-new-tags">Tags (comma-separated)</label>
+<textarea class="form-ta" id="tg-new-tags" oninput="autoResize(this)" placeholder="Genesis, Exodus, Leviticus…" rows="1"></textarea>
+</div>
+<button type="button" class="btn btn-gold" onclick="addTagGroup()" style="width:100%;padding:12px">+ Add Group</button>
+</div>
+<div id="tg-groups-list"></div>
+</div>
+<!-- RESULT CARD POPUP -->
+<div aria-labelledby="res-card-label" aria-modal="true" class="note-overlay" id="res-card-overlay" onclick="closeResCardPopup()" role="dialog">
+<div class="note-box" onclick="event.stopPropagation()">
+<div class="note-box-label" id="res-card-label">Front</div>
+<div class="note-box-text" id="res-card-text"></div>
+<button type="button" class="note-box-close" onclick="closeResCardPopup()">Close</button>
+</div>
+</div>
+<!-- NOTE POPUP -->
+<div aria-describedby="note-box-text" aria-labelledby="note-box-label-text" aria-modal="true" class="note-overlay" id="note-overlay" role="dialog">
+<div class="note-box">
+<div class="note-box-label" id="note-box-label-text">Note</div>
+<div class="note-box-text" id="note-box-text"></div>
+<button type="button" class="note-box-close" onclick="closeNote()">Close</button>
+</div>
+</div>
+<!-- CARD LINK POPUP -->
+<div aria-describedby="cl-text" aria-labelledby="cl-side" aria-modal="true" class="cardlink-overlay" id="cardlink-overlay" role="dialog">
+<div class="cardlink-box">
+<div class="cardlink-deck" id="cl-deck"></div>
+<div class="cardlink-side" id="cl-side">Front</div>
+<div class="cardlink-lock" id="cl-lock"></div>
+<div class="cardlink-text" id="cl-text"></div>
+<button type="button" class="cardlink-flip" onclick="cardlinkFlip()">Flip ↺</button>
+<button type="button" class="cardlink-goto" onclick="goToLinkedCard()">Go to Card →</button>
+<button type="button" class="cardlink-close" onclick="closeCardlink()">Close</button>
+</div>
+</div>
+<!-- DEV TOOLS MODAL -->
+<div aria-labelledby="devtools-title" aria-modal="true" class="export-modal" id="devtools-modal" role="dialog">
+<div class="export-sheet" style="max-height:88vh;overflow-y:auto;padding:20px">
+<div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:16px">
+<h3 id="devtools-title" style="margin:0">🧪 Dev Tools</h3>
+<button type="button" aria-label="Close Dev Tools" onclick="closeDevTools()" style="background:none;border:none;color:var(--muted);font-size:22px;cursor:pointer;padding:0;line-height:1">×</button>
+</div>
+<!-- TAB BAR -->
+<div id="dt-tabs" style="display:flex;gap:6px;margin-bottom:18px;flex-wrap:wrap">
+<button type="button" class="dt-tab on" onclick="dtTab('xp')">XP &amp; Streak</button>
+<button type="button" class="dt-tab" onclick="dtTab('items')">Items</button>
+<button type="button" class="dt-tab" onclick="dtTab('badges')">Badges</button>
+<button type="button" class="dt-tab" onclick="dtTab('decks')">Deck Levels</button>
+<button type="button" class="dt-tab" onclick="dtTab('guided')">Guided</button>
+<button type="button" class="dt-tab" onclick="dtTab('reset')">Reset</button>
+</div>
+<!-- XP & STREAK TAB -->
+<div class="dt-panel" id="dt-xp">
+<div class="dt-row">
+<span class="dt-lbl">XP</span>
+<div class="dt-controls">
+<button type="button" class="dt-btn" onclick="dtAdjXP(-500)">−500</button>
+<button type="button" class="dt-btn" onclick="dtAdjXP(-100)">−100</button>
+<input aria-label="XP amount" class="form-inp dt-num-inp" id="dt-xp-val" min="0" style="width:80px;text-align:center;padding:7px 8px" type="number" value="0"/>
+<button type="button" class="dt-btn btn-gold-sm" onclick="dtSetXP()">Set</button>
+<button type="button" class="dt-btn" onclick="dtAdjXP(100)">+100</button>
+<button type="button" class="dt-btn" onclick="dtAdjXP(500)">+500</button>
+</div>
+</div>
+<div class="dt-row">
+<span class="dt-lbl">Level jump</span>
+<div class="dt-controls">
+<input aria-label="Level to jump to" class="form-inp dt-num-inp" id="dt-lv-val" max="50" min="1" style="width:64px;text-align:center;padding:7px 8px" type="number" value="1"/>
+<button type="button" class="dt-btn btn-gold-sm" onclick="dtJumpLevel()">Jump to Level</button>
+</div>
+</div>
+<div class="dt-row">
+<span class="dt-lbl">🪙 Shekels</span>
+<div class="dt-controls">
+<button type="button" class="dt-btn" onclick="dtAdjShekels(-500)">−500</button>
+<button type="button" class="dt-btn" onclick="dtAdjShekels(-100)">−100</button>
+<input aria-label="Shekels amount" class="form-inp dt-num-inp" id="dt-sk-val" min="0" style="width:80px;text-align:center;padding:7px 8px" type="number" value="0"/>
+<button type="button" class="dt-btn btn-gold-sm" onclick="dtSetShekels()">Set</button>
+<button type="button" class="dt-btn" onclick="dtAdjShekels(100)">+100</button>
+<button type="button" class="dt-btn" onclick="dtAdjShekels(500)">+500</button>
+</div>
+</div>
+<div class="dt-row">
+<span class="dt-lbl">🔥 Streak</span>
+<div class="dt-controls">
+<button type="button" class="dt-btn" onclick="dtAdjStreak(-10)">−10</button>
+<button type="button" class="dt-btn" onclick="dtAdjStreak(-1)">−1</button>
+<input aria-label="Study streak count" class="form-inp dt-num-inp" id="dt-st-val" min="0" style="width:64px;text-align:center;padding:7px 8px" type="number" value="0"/>
+<button type="button" class="dt-btn btn-gold-sm" onclick="dtSetStreak()">Set</button>
+<button type="button" class="dt-btn" onclick="dtAdjStreak(1)">+1</button>
+<button type="button" class="dt-btn" onclick="dtAdjStreak(10)">+10</button>
+</div>
+</div>
+<div class="dt-row">
+<span class="dt-lbl">🧊 Freezes</span>
+<div class="dt-controls">
+<button type="button" class="dt-btn" onclick="dtAdjFreezes(-1)">−1</button>
+<input aria-label="Streak freeze count" class="form-inp dt-num-inp" id="dt-fr-val" max="5" min="0" style="width:64px;text-align:center;padding:7px 8px" type="number" value="0"/>
+<button type="button" class="dt-btn btn-gold-sm" onclick="dtSetFreezes()">Set</button>
+<button type="button" class="dt-btn" onclick="dtAdjFreezes(1)">+1</button>
+</div>
+</div>
+</div>
+<!-- ITEMS TAB -->
+<div class="dt-panel" id="dt-items" style="display:none">
+<div style="font-size:11px;color:var(--muted);margin-bottom:10px">Check to own, uncheck to remove. No Shekels deducted.</div>
+<div id="dt-items-list"></div>
+</div>
+<!-- BADGES TAB -->
+<div class="dt-panel" id="dt-badges" style="display:none">
+<div style="font-size:11px;color:var(--muted);margin-bottom:10px">Check to award, uncheck to revoke.</div>
+<div style="margin-bottom:8px;display:flex;gap:8px">
+<button type="button" class="dt-btn btn-gold-sm" onclick="dtAllBadges(true)">Award All</button>
+<button type="button" class="dt-btn" onclick="dtAllBadges(false)">Revoke All</button>
+</div>
+<div id="dt-badges-list"></div>
+</div>
+<!-- DECK LEVELS TAB -->
+<div class="dt-panel" id="dt-decks" style="display:none">
+<div style="font-size:11px;color:var(--muted);margin-bottom:10px">Set the current unlocked card level per deck.</div>
+<div id="dt-decks-list"></div>
+</div>
+<!-- GUIDED TAB -->
+<div class="dt-panel" id="dt-guided" style="display:none">
+<div style="font-size:11px;color:var(--muted);margin-bottom:10px">Author-only controls for testing the Guided Learning prototype.</div>
+<div id="dt-guided-status"></div>
+<div class="dt-row">
+<span class="dt-lbl">Author view</span>
+<div class="dt-controls">
+<button type="button" class="dt-btn btn-gold-sm" onclick="closeDevTools();showGuidedAuthorTools()">Open Guided Author Tools</button>
+</div>
+</div>
+<div class="dt-row">
+<span class="dt-lbl">Jump to node</span>
+<div class="dt-controls">
+<select aria-label="Guided node to open" class="form-inp dt-num-inp" id="dt-guided-node-select" style="min-width:220px;padding:7px 8px"></select>
+<button type="button" class="dt-btn btn-gold-sm" onclick="dtGuidedJumpToNode()">Open</button>
+</div>
+</div>
+<div class="dt-row">
+<span class="dt-lbl">Current bracket tools</span>
+<div class="dt-controls">
+<button type="button" class="dt-btn" onclick="dtGuidedUnlockBracket()">Unlock bracket</button>
+<button type="button" class="dt-btn" onclick="dtGuidedCompleteBracket()">Complete bracket</button>
+<button type="button" class="dt-btn btn-gold-sm" onclick="dtGuidedOpenBracketSummary()">View summary</button>
+</div>
+</div>
+<div class="dt-row">
+<span class="dt-lbl">Session tools</span>
+<div class="dt-controls">
+<button type="button" class="dt-btn" onclick="dtGuidedClearSession()">Clear active node session</button>
+<button type="button" class="dt-btn" onclick="dtGuidedCopySnapshot()">Copy state snapshot</button>
+</div>
+</div>
+<button type="button" class="btn btn-soft" onclick="dtGuidedReset()" style="width:100%;padding:13px;color:#EF4444;border-color:rgba(239,68,68,0.3)">Reset Guided prototype only</button>
+</div>
+<!-- RESET TAB -->
+<div class="dt-panel" id="dt-reset" style="display:none">
+<div style="font-size:13px;color:var(--muted);line-height:1.6;margin-bottom:16px">Safety backups are written automatically before critical saves and resets. Use export/restore here if testing exposes a bad local state.</div>
+<button type="button" class="btn btn-gold" onclick="dtExportCriticalBackup()" style="width:100%;padding:13px;margin-bottom:10px">Export latest safety backup</button>
+<button type="button" class="btn btn-soft" onclick="dtRestoreCriticalBackup()" style="width:100%;padding:13px;margin-bottom:16px">Restore latest safety backup</button>
+<div style="font-size:13px;color:var(--muted);line-height:1.6;margin-bottom:16px">These reset actions are for testing the fresh-user experience. A safety backup is saved before each reset.</div>
+<button type="button" class="btn btn-soft" onclick="dtResetGameData()" style="width:100%;padding:13px;margin-bottom:10px">🗑 Reset all game data (XP, streak, badges, items)</button>
+<button type="button" class="btn btn-soft" onclick="dtResetMastery()" style="width:100%;padding:13px;margin-bottom:10px">🗑 Reset all card mastery scores</button>
+<button type="button" class="btn btn-soft" onclick="dtResetAll()" style="width:100%;padding:13px;color:#EF4444;border-color:rgba(239,68,68,0.3)">💥 Reset EVERYTHING</button>
+</div>
+</div>
+</div>
+<!-- SHOP PREVIEW MODAL -->
+<div aria-describedby="sprev-desc" aria-labelledby="sprev-name" aria-modal="true" class="export-modal" id="shop-preview-modal" role="dialog">
+<div class="export-sheet" style="padding:20px;max-width:340px;width:100%">
+<div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:14px">
+<div>
+<div id="sprev-name" style="font-family:var(--serif);font-size:18px;font-weight:700"></div>
+<div id="sprev-desc" style="font-size:12px;color:var(--muted);margin-top:2px"></div>
+</div>
+<button type="button" aria-label="Close shop preview" onclick="closeShopPreview()" style="background:none;border:none;color:var(--muted);font-size:24px;cursor:pointer;padding:0;line-height:1;flex-shrink:0">×</button>
+</div>
+<!-- Mini card flip preview -->
+<div style="display:flex;align-items:center;justify-content:center;margin-bottom:10px">
+<div style="perspective:900px;width:230px;height:300px;position:relative">
+<div id="sprev-card3d" onclick="toggleShopPreviewFlip()" style="width:100%;height:100%;position:relative;transform-style:preserve-3d;transition:transform .55s cubic-bezier(.4,0,.2,1);cursor:pointer">
+<!-- front face -->
+<div id="sprev-front" style="position:absolute;inset:0;backface-visibility:hidden;border-radius:22px;display:flex;flex-direction:column;align-items:center;justify-content:center;padding:26px 18px;text-align:center">
+<div id="sprev-front-side" style="font-size:10px;letter-spacing:.14em;text-transform:uppercase;color:rgba(255,255,255,0.42);margin-bottom:10px">Front</div>
+<div id="sprev-front-text" style="font-family:Inter,system-ui,sans-serif;font-size:16px;font-weight:700;line-height:1.5;color:var(--text)"></div>
+<div id="sprev-front-meta" style="margin-top:14px;font-size:11px;color:rgba(255,255,255,0.45)"></div>
+</div>
+<!-- back face -->
+<div id="sprev-back" style="position:absolute;inset:0;backface-visibility:hidden;border-radius:22px;transform:rotateY(180deg);display:flex;flex-direction:column;align-items:center;justify-content:center;padding:26px 18px;text-align:center">
+<div id="sprev-back-side" style="font-size:10px;letter-spacing:.14em;text-transform:uppercase;color:rgba(255,255,255,0.42);margin-bottom:10px">Back</div>
+<div id="sprev-back-text" style="font-family:Inter,system-ui,sans-serif;font-size:22px;font-weight:800;line-height:1.35;color:var(--gold)"></div>
+<div id="sprev-back-meta" style="margin-top:14px;font-size:11px;color:rgba(255,255,255,0.45)"></div>
+</div>
+<!-- frame overlays inside card-3d (flip with card) -->
+<div id="sprev-frame-under-front" style="position:absolute;inset:-10px;pointer-events:none;backface-visibility:hidden;z-index:0;overflow:visible;transform:translateZ(-1px)"></div>
+<div id="sprev-frame-under-back" style="position:absolute;inset:-10px;pointer-events:none;backface-visibility:hidden;transform:rotateY(180deg) translateZ(-1px);z-index:0;overflow:visible"></div>
+<div id="sprev-frame-front" style="position:absolute;inset:-10px;pointer-events:none;backface-visibility:hidden;z-index:20;overflow:visible;transform:translateZ(2px)"></div>
+<div id="sprev-frame-back" style="position:absolute;inset:-10px;pointer-events:none;backface-visibility:hidden;transform:rotateY(180deg) translateZ(2px);z-index:20;overflow:visible"></div>
+</div>
+</div>
+</div>
+<div style="text-align:center;margin-bottom:16px;font-size:11px;color:var(--muted)">Tap the preview card to flip it</div>
+<!-- Variant navigator (shown only when item has variants) -->
+<div id="sprev-variants" style="display:none;align-items:center;justify-content:center;gap:12px;margin-bottom:10px">
+<button type="button" onclick="sprevNav(-1)" style="background:rgba(255,255,255,0.07);border:1px solid rgba(255,255,255,0.12);color:#ccc;width:32px;height:32px;border-radius:50%;font-size:16px;cursor:pointer;display:flex;align-items:center;justify-content:center">‹</button>
+<div style="text-align:center">
+<div id="sprev-variant-name" style="font-size:13px;font-weight:600;color:var(--text)"></div>
+<div id="sprev-variant-index" style="font-size:10px;color:var(--muted)"></div>
+</div>
+<button type="button" onclick="sprevNav(1)" style="background:rgba(255,255,255,0.07);border:1px solid rgba(255,255,255,0.12);color:#ccc;width:32px;height:32px;border-radius:50%;font-size:16px;cursor:pointer;display:flex;align-items:center;justify-content:center">›</button>
+</div>
+<!-- Flip toggle -->
+<div style="text-align:center;margin-bottom:16px">
+<button type="button" class="btn btn-soft" onclick="toggleShopPreviewFlip()" style="padding:8px 24px;font-size:13px">↺ Flip card</button>
+</div>
+<!-- Action button -->
+<button type="button" class="btn btn-gold" id="sprev-action-btn" style="width:100%;padding:14px;font-size:15px"></button>
+</div>
+</div>
+<!-- REPLACE DECK MODAL -->
+<div aria-describedby="replace-deck-desc" aria-labelledby="replace-deck-title" aria-modal="true" class="export-modal" id="replace-deck-modal" role="dialog">
+<div class="export-sheet">
+<h3 id="replace-deck-title">🔄 Replace deck content</h3>
+<p id="replace-deck-desc" style="font-size:12px;color:var(--muted);margin-bottom:12px">Cards with matching UIDs will be updated while keeping all study progress. New cards will be added. Missing cards will be handled separately.</p>
+<div class="form-group" style="margin-bottom:10px">
+<label class="form-lbl" for="replace-deck-version">Replacement version</label>
+<input class="form-inp" id="replace-deck-version" maxlength="12" placeholder="e.g. v65-final"/>
+</div>
+<textarea aria-label="Replacement deck JSON" class="export-textarea" id="replace-deck-text" placeholder="Paste new deck JSON here…" style="margin-bottom:10px"></textarea>
+<div style="display:flex;gap:10px;margin-bottom:10px">
+<button type="button" class="btn btn-gold" onclick="previewReplaceDeck()" style="flex:1;padding:12px;font-size:13px">Preview pasted JSON</button>
+<label class="btn btn-soft" style="flex:1;padding:12px;font-size:13px;text-align:center;cursor:pointer;display:flex;align-items:center;justify-content:center">
+          📂 Import from file
+          <input accept=".json" aria-label="Import replacement deck JSON file" id="replace-deck-file" onchange="previewReplaceDeckFromFile(event)" style="display:none" type="file"/>
+</label>
+</div>
+<button type="button" class="btn btn-soft" onclick="closeReplaceDeckModal()" style="width:100%;padding:12px;font-size:13px">Cancel</button>
+</div>
+</div>
+<!-- PASTE DECK MODAL -->
+<div aria-describedby="paste-deck-desc" aria-labelledby="paste-deck-title" aria-modal="true" class="export-modal" id="paste-deck-modal" role="dialog">
+<div class="export-sheet">
+<h3 id="paste-deck-title">Import deck from code</h3>
+<p id="paste-deck-desc">Paste the exported deck JSON below. This can be a single deck export or a full backup — if it's a full backup, the first deck will be imported.</p>
+<textarea aria-label="Pasted deck JSON" class="export-textarea" id="paste-deck-text" placeholder="Paste deck JSON here…"></textarea>
+<div class="export-btns">
+<button type="button" class="btn btn-soft" onclick="closePasteDeckModal()" style="padding:13px">Cancel</button>
+<button type="button" class="btn btn-gold" onclick="importDeckFromPaste()" style="padding:13px">Import Deck</button>
+</div>
+</div>
+</div>
+<!-- BIBLE BOOKS REFERENCE MODAL -->
+<div aria-labelledby="bq-ref-title" aria-modal="true" class="export-modal" id="bq-ref-modal" role="dialog" style="align-items:flex-end">
+<div class="export-sheet" style="max-height:80vh;overflow-y:auto;padding:20px">
+<h3 id="bq-ref-title" style="margin-bottom:14px">Bible Books Reference</h3>
+<div style="display:flex;gap:16px">
+<div style="flex:1">
+<div style="font-size:11px;text-transform:uppercase;letter-spacing:.08em;color:var(--gold);margin-bottom:8px;font-weight:700">Old Testament (39)</div>
+<div style="font-size:12px;line-height:2;color:var(--text)">
+            1. Genesis<br/>2. Exodus<br/>3. Leviticus<br/>4. Numbers<br/>5. Deuteronomy<br/>6. Joshua<br/>7. Judges<br/>8. Ruth<br/>9. 1 Samuel<br/>10. 2 Samuel<br/>11. 1 Kings<br/>12. 2 Kings<br/>13. 1 Chronicles<br/>14. 2 Chronicles<br/>15. Ezra<br/>16. Nehemiah<br/>17. Esther<br/>18. Job<br/>19. Psalms<br/>20. Proverbs<br/>21. Ecclesiastes<br/>22. Song of Solomon<br/>23. Isaiah<br/>24. Jeremiah<br/>25. Lamentations<br/>26. Ezekiel<br/>27. Daniel<br/>28. Hosea<br/>29. Joel<br/>30. Amos<br/>31. Obadiah<br/>32. Jonah<br/>33. Micah<br/>34. Nahum<br/>35. Habakkuk<br/>36. Zephaniah<br/>37. Haggai<br/>38. Zechariah<br/>39. Malachi
+          </div>
+</div>
+<div style="flex:1">
+<div style="font-size:11px;text-transform:uppercase;letter-spacing:.08em;color:var(--gold);margin-bottom:8px;font-weight:700">New Testament (27)</div>
+<div style="font-size:12px;line-height:2;color:var(--text)">
+            1. Matthew<br/>2. Mark<br/>3. Luke<br/>4. John<br/>5. Acts<br/>6. Romans<br/>7. 1 Corinthians<br/>8. 2 Corinthians<br/>9. Galatians<br/>10. Ephesians<br/>11. Philippians<br/>12. Colossians<br/>13. 1 Thessalonians<br/>14. 2 Thessalonians<br/>15. 1 Timothy<br/>16. 2 Timothy<br/>17. Titus<br/>18. Philemon<br/>19. Hebrews<br/>20. James<br/>21. 1 Peter<br/>22. 2 Peter<br/>23. 1 John<br/>24. 2 John<br/>25. 3 John<br/>26. Jude<br/>27. Revelation
+          </div>
+</div>
+</div>
+<button type="button" class="btn btn-gold" onclick="closeBQRef()" style="width:100%;padding:13px;margin-top:18px">Close</button>
+</div>
+</div>
+<!-- DISTRACTOR MODAL -->
+<div aria-describedby="distractor-desc" aria-labelledby="distractor-title" aria-modal="true" class="export-modal" id="distractor-modal" role="dialog">
+<div class="export-sheet" style="max-height:80vh;overflow-y:auto">
+<h3 id="distractor-title" style="margin-bottom:4px">✗ Distractors</h3>
+<div id="distractor-desc" style="font-size:12px;color:var(--muted);margin-bottom:14px">Wrong answers shown during quiz (max 5). More plausible = more challenging.</div>
+<div id="distractor-list" style="margin-bottom:14px"></div>
+<div id="distractor-add-wrap" style="display:none">
+<div class="form-group" style="margin-bottom:8px">
+<label class="form-lbl" for="distractor-new-inp">New wrong answer</label>
+<input class="form-inp" id="distractor-new-inp" oninput="updateDistractorAddBtn()" placeholder="e.g. Genesis 9-10"/>
+</div>
+<div style="display:flex;gap:8px;margin-bottom:14px">
+<button type="button" class="btn btn-soft" onclick="closeDistractorAdd()" style="padding:10px;font-size:13px">Cancel</button>
+<button type="button" class="btn btn-gold" id="distractor-add-btn" onclick="commitDistractor()" style="padding:10px;font-size:13px">+ Add</button>
+</div>
+</div>
+<button type="button" class="btn btn-soft" id="distractor-show-add" onclick="openDistractorAdd()" style="width:100%;padding:11px;font-size:13px;margin-bottom:10px">+ Add wrong answer</button>
+<button type="button" class="btn btn-gold" onclick="closeDistractorModal()" style="width:100%;padding:13px">Done</button>
+</div>
+</div>
+<!-- EXPORT MODAL -->
+<div aria-describedby="export-modal-desc" aria-labelledby="export-modal-title" aria-modal="true" class="export-modal" id="export-modal" role="dialog">
+<div class="export-sheet">
+<h3 id="export-modal-title">Export backup</h3>
+<p id="export-modal-desc">Copy all the text below and paste it into a <strong>plain text</strong> file.<br/>
+<strong>Mac:</strong> Open TextEdit → Format menu → <em>Make Plain Text</em> → paste → save as <code>backup.json</code>.<br/>
+<strong>Windows:</strong> Use Notepad (not Word) → paste → save as <code>backup.json</code>.<br/>
+      Or just tap <em>Copy to clipboard</em> and paste it into any message to Claude when requesting changes.</p>
+<label class="export-filename-field" id="export-filename-wrap" style="display:none">
+<span>File name</span>
+<input id="export-filename-input" oninput="studyDeckUpdateExportFileNameFromInput()" placeholder="studydeck-export.json" type="text"/>
+<small>Used by local bridge, Chrome download, and native save when available. Unsafe characters become hyphens.</small>
+</label>
+<textarea aria-label="Exported JSON text" class="export-textarea" id="export-text" readonly=""></textarea>
+<div class="export-btns">
+<button type="button" class="btn btn-soft" onclick="closeExport()" style="padding:13px">Cancel</button>
+<button type="button" class="btn btn-gold" id="export-bridge-save-btn" onclick="studyDeckSaveCurrentExportWithBridge()" style="padding:13px;display:none">Save via local bridge</button>
+<button type="button" class="btn btn-soft" id="export-save-file-btn" onclick="studyDeckSaveCurrentExportWithPicker()" style="padding:13px;display:none">Save JSON file</button>
+<a class="btn btn-soft" download="studydeck-export.json" href="#" id="export-download-link" style="padding:13px;text-align:center;text-decoration:none;display:none">Download JSON file</a>
+<button type="button" class="btn btn-soft" id="export-copy-btn" onclick="copyExport()" style="padding:13px">Copy to clipboard</button>
+</div>
+</div>
+</div>
+<!-- PIN MODAL -->
+<div aria-label="Author access PIN" aria-modal="true" class="pin-overlay" id="pin-overlay" role="dialog">
+<div class="pin-box" id="pin-box">
+<div class="pin-title">Author Access</div>
+<div class="pin-sub">Enter PIN to unlock editing</div>
+<div class="pin-dots">
+<div class="pin-dot" id="pd0"></div>
+<div class="pin-dot" id="pd1"></div>
+<div class="pin-dot" id="pd2"></div>
+<div class="pin-dot" id="pd3"></div>
+</div>
+<div class="pin-error" id="pin-error"></div>
+<div class="pin-pad">
+<button type="button" class="pin-key" onclick="pinKey('1')">1</button>
+<button type="button" class="pin-key" onclick="pinKey('2')">2</button>
+<button type="button" class="pin-key" onclick="pinKey('3')">3</button>
+<button type="button" class="pin-key" onclick="pinKey('4')">4</button>
+<button type="button" class="pin-key" onclick="pinKey('5')">5</button>
+<button type="button" class="pin-key" onclick="pinKey('6')">6</button>
+<button type="button" class="pin-key" onclick="pinKey('7')">7</button>
+<button type="button" class="pin-key" onclick="pinKey('8')">8</button>
+<button type="button" class="pin-key" onclick="pinKey('9')">9</button>
+<button type="button" class="pin-key cancel" onclick="closePin()">Cancel</button>
+<button type="button" class="pin-key zero" onclick="pinKey('0')">0</button>
+<button type="button" class="pin-key del" onclick="pinDel()">⌫</button>
+</div>
+</div>
+</div>
+<!-- STYLE LAB -->
+<button type="button" class="style-lab-launch" id="style-lab-launch" onclick="toggleStyleLab(event)" title="Style Lab">Style</button>
+<div class="style-lab-panel" id="style-lab-panel">
+<div class="style-lab-head">
+<div class="style-lab-title">
+Style Lab
+<div class="style-lab-sub" id="style-lab-sub">Tap an element to edit this app style.</div>
+</div>
+<button type="button" class="style-lab-btn" onclick="resetStyleLabTarget()">Reset</button>
+<button type="button" class="style-lab-btn primary" onclick="closeStyleLab()">Done</button>
+</div>
+<div class="style-lab-body">
+<div class="style-lab-section" data-sl-section="target">
+<div class="style-lab-section-title">Target</div>
+<div class="style-lab-grid">
+<div class="style-lab-field full">
+<label for="style-lab-target">Element preset</label>
+<select id="style-lab-target" onchange="setStyleLabTarget(this.value)" data-sl-ui-only="target-select"></select>
+</div>
+<div class="style-lab-field full">
+<label>Interactive state</label>
+<div class="style-lab-state-row">
+<button class="style-lab-state-btn on" id="style-lab-state-base" onclick="setStyleLabState('base')" type="button">Default</button>
+<button class="style-lab-state-btn" id="style-lab-state-hover" onclick="setStyleLabState('hover')" type="button">Hover</button>
+</div>
+</div>
+<div class="style-lab-field full" data-sl-ui-only="preset-select">
+<label for="style-lab-preset-select">Style presets for this element</label>
+<select id="style-lab-preset-select" data-sl-ui-only="preset-select" onchange="syncStyleLabPresetNameFromSelect()"></select>
+</div>
+<div class="style-lab-field full" data-sl-ui-only="preset-actions">
+<label for="style-lab-preset-name">Preset name</label>
+<input class="form-inp" id="style-lab-preset-name" data-sl-ui-only="preset-name" placeholder="Name this look..." type="text"/>
+<div class="style-lab-preset-row">
+<button class="style-lab-btn" onclick="saveStyleLabPreset()" type="button" data-sl-ui-only="preset-save">Save look</button>
+<button class="style-lab-btn" onclick="applyStyleLabPreset()" type="button" data-sl-ui-only="preset-apply">Apply</button>
+<button class="style-lab-btn" onclick="deleteStyleLabPreset()" type="button" data-sl-ui-only="preset-delete">Delete</button>
+</div>
+<div class="style-lab-preset-status" id="style-lab-preset-status" data-sl-ui-only="preset-status"></div>
+</div>
+<div class="style-lab-field style-lab-check full">
+<input checked data-sl-ui-only="selection-outline" id="style-lab-show-selection" onchange="setStyleLabSelectionOutline(this.checked)" type="checkbox"/>
+<label>Show blue target outline</label>
+</div>
+</div>
+<div class="style-lab-target-note">Changes apply to this element type in the current App Style. While Style Lab is open, tapping page elements selects them instead of activating them. Hover state edits are independent from the default state and preview live while you work. Command-click a numeric control to open expressions. Option-click resets.</div>
+</div>
+
+<div class="style-lab-section" data-sl-section="icon">
+<div class="style-lab-section-title">Icon</div>
+<div class="style-lab-grid">
+<div class="style-lab-group">
+<div class="style-lab-group-title">Color</div>
+<div class="style-lab-group-grid">
+<div class="style-lab-field style-lab-check full">
+<input data-sl="iconColorOn" type="checkbox"/>
+<label>Use icon color</label>
+</div>
+<div class="style-lab-field" data-sl-show-if-key="iconColorOn" data-sl-show-if-values="true">
+<label>Icon color</label>
+<input data-sl="iconColor" type="color"/>
+</div>
+</div>
+</div>
+<div class="style-lab-group">
+<div class="style-lab-group-title">Size &amp; Position</div>
+<div class="style-lab-group-grid">
+<div class="style-lab-field">
+<label>Icon size px</label>
+<div class="style-lab-range-row"><input data-sl="iconSize" max="220" min="20" type="range"/><input data-sl-number="iconSize" max="220" min="20" type="number"/></div>
+</div>
+<div class="style-lab-field">
+<label>Icon X px</label>
+<div class="style-lab-range-row"><input data-sl="iconX" max="180" min="-180" type="range"/><input data-sl-number="iconX" max="180" min="-180" type="number"/></div>
+</div>
+<div class="style-lab-field">
+<label>Icon Y px</label>
+<div class="style-lab-range-row"><input data-sl="iconY" max="180" min="-180" type="range"/><input data-sl-number="iconY" max="180" min="-180" type="number"/></div>
+</div>
+<div class="style-lab-field">
+<label>Icon opacity %</label>
+<div class="style-lab-range-row"><input data-sl="iconOpacity" max="100" min="0" type="range"/><input data-sl-number="iconOpacity" max="100" min="0" type="number"/></div>
+</div>
+</div>
+</div>
+<div class="style-lab-group">
+<div class="style-lab-group-title">Filter</div>
+<div class="style-lab-group-grid">
+<div class="style-lab-field">
+<label>Saturation %</label>
+<div class="style-lab-range-row"><input data-sl="iconSaturation" max="300" min="0" type="range"/><input data-sl-number="iconSaturation" max="300" min="0" type="number"/></div>
+</div>
+<div class="style-lab-field">
+<label>Brightness %</label>
+<div class="style-lab-range-row"><input data-sl="iconBrightness" max="250" min="0" type="range"/><input data-sl-number="iconBrightness" max="250" min="0" type="number"/></div>
+</div>
+<div class="style-lab-field">
+<label>Contrast %</label>
+<div class="style-lab-range-row"><input data-sl="iconContrast" max="300" min="0" type="range"/><input data-sl-number="iconContrast" max="300" min="0" type="number"/></div>
+</div>
+<div class="style-lab-field">
+<label>Hue rotate deg</label>
+<div class="style-lab-range-row"><input data-sl="iconHue" max="180" min="-180" type="range"/><input data-sl-number="iconHue" max="180" min="-180" type="number"/></div>
+</div>
+<div class="style-lab-field">
+<label>Blur px</label>
+<div class="style-lab-range-row"><input data-sl="iconBlur" max="40" min="0" type="range"/><input data-sl-number="iconBlur" max="40" min="0" type="number"/></div>
+</div>
+</div>
+</div>
+<div class="style-lab-group">
+<div class="style-lab-group-title">Glow</div>
+<div class="style-lab-group-grid">
+<div class="style-lab-field style-lab-check full">
+<input data-sl="iconGlowOn" type="checkbox"/>
+<label>Use icon glow</label>
+</div>
+<div class="style-lab-field" data-sl-show-if-key="iconGlowOn" data-sl-show-if-values="true">
+<label>Glow color</label>
+<input data-sl="iconGlowColor" type="color"/>
+</div>
+<div class="style-lab-field" data-sl-show-if-key="iconGlowOn" data-sl-show-if-values="true">
+<label>Glow opacity %</label>
+<div class="style-lab-range-row"><input data-sl="iconGlowOpacity" max="100" min="0" type="range"/><input data-sl-number="iconGlowOpacity" max="100" min="0" type="number"/></div>
+</div>
+<div class="style-lab-field" data-sl-show-if-key="iconGlowOn" data-sl-show-if-values="true">
+<label>Glow blur px</label>
+<div class="style-lab-range-row"><input data-sl="iconGlowBlur" max="80" min="0" type="range"/><input data-sl-number="iconGlowBlur" max="80" min="0" type="number"/></div>
+</div>
+<div class="style-lab-field" data-sl-show-if-key="iconGlowOn" data-sl-show-if-values="true">
+<label>Glow X px</label>
+<div class="style-lab-range-row"><input data-sl="iconGlowX" max="60" min="-60" type="range"/><input data-sl-number="iconGlowX" max="60" min="-60" type="number"/></div>
+</div>
+<div class="style-lab-field" data-sl-show-if-key="iconGlowOn" data-sl-show-if-values="true">
+<label>Glow Y px</label>
+<div class="style-lab-range-row"><input data-sl="iconGlowY" max="60" min="-60" type="range"/><input data-sl-number="iconGlowY" max="60" min="-60" type="number"/></div>
+</div>
+</div>
+</div>
+</div>
+</div>
+
+<div class="style-lab-section" data-sl-section="base-surface">
+<div class="style-lab-section-title">Base Surface</div>
+<div class="style-lab-grid">
+<div class="style-lab-subsection" data-sl-subsection="base-fill">
+<div class="style-lab-subsection-title">Fill &amp; Opacity</div>
+<div class="style-lab-grid">
+<div class="style-lab-group">
+<div class="style-lab-group-title">Base Paint</div>
+<div class="style-lab-group-grid">
+<div class="style-lab-field style-lab-check full">
+<input data-sl="fillColorOn" type="checkbox"/>
+<label>Use base fill color</label>
+</div>
+<div class="style-lab-field">
+<label>Base fill color</label>
+<input data-sl="fillColor" type="color"/>
+</div>
+<div class="style-lab-field">
+<label>Base fill opacity</label>
+<div class="style-lab-range-row"><input data-sl="fillOpacity" max="100" min="0" type="range"/><input data-sl-number="fillOpacity" max="100" min="0" type="number"/></div>
+</div>
+<div class="style-lab-field">
+<label>Element opacity %</label>
+<input data-sl="opacity" max="100" min="5" type="number"/>
+</div>
+</div>
+</div>
+</div>
+</div>
+<div class="style-lab-subsection" data-sl-subsection="base-corners">
+<div class="style-lab-subsection-title">Corners</div>
+<div class="style-lab-grid">
+<div class="style-lab-group">
+<div class="style-lab-group-title">Corner Mode</div>
+<div class="style-lab-group-grid">
+<div class="style-lab-field">
+<label>Corner style</label>
+<select data-sl="cornerStyle">
+<option value="rounded">Rounded</option>
+<option value="beveled">Beveled</option>
+</select>
+</div>
+<div class="style-lab-field style-lab-check full">
+<input data-sl="cornerLinked" type="checkbox"/>
+<label>Link all corners</label>
+</div>
+</div>
+</div>
+<div class="style-lab-group" data-sl-show-if-key="cornerStyle" data-sl-show-if-value="rounded">
+<div class="style-lab-group-title">Rounded Corners</div>
+<div class="style-lab-group-grid">
+<div class="style-lab-field" data-sl-show-if-key="cornerLinked" data-sl-show-if-value="true">
+<label>Corner radius px</label>
+<input data-sl="radius" inputmode="decimal" min="0" placeholder="unchanged" type="number"/>
+</div>
+</div>
+<div class="style-lab-group-grid" data-sl-show-if-key="cornerLinked" data-sl-show-if-value="false">
+<div class="style-lab-field">
+<label>Top-left radius px</label>
+<input data-sl="radiusTL" inputmode="decimal" min="0" placeholder="same" type="number"/>
+</div>
+<div class="style-lab-field">
+<label>Top-right radius px</label>
+<input data-sl="radiusTR" inputmode="decimal" min="0" placeholder="same" type="number"/>
+</div>
+<div class="style-lab-field">
+<label>Bottom-right radius px</label>
+<input data-sl="radiusBR" inputmode="decimal" min="0" placeholder="same" type="number"/>
+</div>
+<div class="style-lab-field">
+<label>Bottom-left radius px</label>
+<input data-sl="radiusBL" inputmode="decimal" min="0" placeholder="same" type="number"/>
+</div>
+</div>
+</div>
+<div class="style-lab-group" data-sl-show-if-key="cornerStyle" data-sl-show-if-value="beveled">
+<div class="style-lab-group-title">Beveled Corners</div>
+<div class="style-lab-group-grid">
+<div class="style-lab-field" data-sl-show-if-key="cornerLinked" data-sl-show-if-value="true">
+<label>Bevel size px</label>
+<input data-sl="cornerBevel" inputmode="decimal" min="0" type="number"/>
+</div>
+</div>
+<div class="style-lab-group-grid" data-sl-show-if-key="cornerLinked" data-sl-show-if-value="false">
+<div class="style-lab-field">
+<label>Top-left bevel px</label>
+<input data-sl="cornerBevelTL" inputmode="decimal" min="0" placeholder="same" type="number"/>
+</div>
+<div class="style-lab-field">
+<label>Top-right bevel px</label>
+<input data-sl="cornerBevelTR" inputmode="decimal" min="0" placeholder="same" type="number"/>
+</div>
+<div class="style-lab-field">
+<label>Bottom-right bevel px</label>
+<input data-sl="cornerBevelBR" inputmode="decimal" min="0" placeholder="same" type="number"/>
+</div>
+<div class="style-lab-field">
+<label>Bottom-left bevel px</label>
+<input data-sl="cornerBevelBL" inputmode="decimal" min="0" placeholder="same" type="number"/>
+</div>
+</div>
+</div>
+</div>
+</div>
+<div class="style-lab-subsection" data-sl-subsection="base-backdrop">
+<div class="style-lab-subsection-title">Backdrop / Frost</div>
+<div class="style-lab-grid">
+<div class="style-lab-group">
+<div class="style-lab-group-title">Frosted Glass</div>
+<div class="style-lab-group-grid">
+<div class="style-lab-field style-lab-check full">
+<input data-sl="surfaceBackdropOn" type="checkbox"/>
+<label>Use backdrop frost</label>
+</div>
+<div class="style-lab-field" data-sl-show-if-key="surfaceBackdropOn" data-sl-show-if-values="true">
+<label>Backdrop blur px</label>
+<div class="style-lab-range-row"><input data-sl="surfaceBackdropBlur" max="40" min="0" type="range"/><input data-sl-number="surfaceBackdropBlur" max="40" min="0" type="number"/></div>
+</div>
+<div class="style-lab-field" data-sl-show-if-key="surfaceBackdropOn" data-sl-show-if-values="true">
+<label>Backdrop saturation %</label>
+<div class="style-lab-range-row"><input data-sl="surfaceBackdropSaturation" max="250" min="0" type="range"/><input data-sl-number="surfaceBackdropSaturation" max="250" min="0" type="number"/></div>
+</div>
+<div class="style-lab-field" data-sl-show-if-key="surfaceBackdropOn" data-sl-show-if-values="true">
+<label>Backdrop brightness %</label>
+<div class="style-lab-range-row"><input data-sl="surfaceBackdropBrightness" max="200" min="0" type="range"/><input data-sl-number="surfaceBackdropBrightness" max="200" min="0" type="number"/></div>
+</div>
+</div>
+</div>
+</div>
+</div>
+<div class="style-lab-subsection" data-sl-subsection="base-pattern">
+<div class="style-lab-subsection-title">Base Pattern</div>
+<div class="style-lab-grid">
+<div class="style-lab-group">
+<div class="style-lab-group-title">Material</div>
+<div class="style-lab-group-grid">
+<div class="style-lab-field style-lab-check full">
+<input data-sl="basePatternOn" type="checkbox"/>
+<label>Use base pattern</label>
+</div>
+<div class="style-lab-field" data-sl-show-if-key="basePatternOn" data-sl-show-if-values="true">
+<label>Texture</label>
+<select data-sl="basePattern">
+<option value="none">None</option>
+<option value="leather">Dark leather</option>
+<option value="paper">Scholarly paper</option>
+<option value="wood">Dark wood</option>
+<option value="grid">Fine tech grid</option>
+<option value="arcadePixels">Arcade pixel matrix</option>
+<option value="scanlines">CRT scanlines</option>
+</select>
+</div>
+<div class="style-lab-field" data-sl-show-if-key="basePatternOn" data-sl-show-if-values="true">
+<label>Texture opacity</label>
+<div class="style-lab-range-row"><input data-sl="basePatternOpacity" max="100" min="0" type="range"/><input data-sl-number="basePatternOpacity" max="100" min="0" type="number"/></div>
+</div>
+<div class="style-lab-field" data-sl-show-if-key="basePatternOn" data-sl-show-if-values="true">
+<label>Texture tint</label>
+<input data-sl="basePatternTint" type="color"/>
+</div>
+<div class="style-lab-field" data-sl-show-if-key="basePatternOn" data-sl-show-if-values="true">
+<label>Tint blend</label>
+<select data-sl="basePatternTintBlendMode">
+<option value="soft-light">Soft light (default)</option>
+<option value="normal">Normal — solid tint fills texture</option>
+<option value="multiply">Multiply</option>
+<option value="screen">Screen</option>
+<option value="overlay">Overlay</option>
+<option value="hard-light">Hard light</option>
+<option value="color-dodge">Color dodge</option>
+<option value="color-burn">Color burn</option>
+<option value="lighten">Lighten</option>
+<option value="darken">Darken</option>
+<option value="saturation">Saturation</option>
+</select>
+</div>
+</div>
+</div>
+<div class="style-lab-group">
+<div class="style-lab-group-title">Placement</div>
+<div class="style-lab-group-grid">
+<div class="style-lab-field" data-sl-show-if-key="basePatternOn" data-sl-show-if-values="true">
+<label>Texture scale px</label>
+<div class="style-lab-range-row"><input data-sl="basePatternScale" max="900" min="80" type="range"/><input data-sl-number="basePatternScale" max="900" min="80" type="number"/></div>
+</div>
+<div class="style-lab-field" data-sl-show-if-key="basePatternOn" data-sl-show-if-values="true">
+<label>Texture X px</label>
+<div class="style-lab-range-row"><input data-sl="basePatternX" max="400" min="-400" type="range"/><input data-sl-number="basePatternX" max="400" min="-400" type="number"/></div>
+</div>
+<div class="style-lab-field" data-sl-show-if-key="basePatternOn" data-sl-show-if-values="true">
+<label>Texture Y px</label>
+<div class="style-lab-range-row"><input data-sl="basePatternY" max="400" min="-400" type="range"/><input data-sl-number="basePatternY" max="400" min="-400" type="number"/></div>
+</div>
+<div class="style-lab-field" data-sl-show-if-key="basePatternOn" data-sl-show-if-values="true">
+<label>Rotation</label>
+<div class="style-lab-range-row"><input data-sl="basePatternRotation" max="180" min="-180" type="range"/><input data-sl-number="basePatternRotation" max="180" min="-180" type="number"/></div>
+</div>
+</div>
+</div>
+<div class="style-lab-group">
+<div class="style-lab-group-title">Finish</div>
+<div class="style-lab-group-grid">
+<div class="style-lab-field" data-sl-show-if-key="basePatternOn" data-sl-show-if-values="true">
+<label>Texture contrast %</label>
+<div class="style-lab-range-row"><input data-sl="basePatternContrast" max="300" min="0" type="range"/><input data-sl-number="basePatternContrast" max="300" min="0" type="number"/></div>
+</div>
+<div class="style-lab-field" data-sl-show-if-key="basePatternOn" data-sl-show-if-values="true">
+<label>Texture brightness %</label>
+<div class="style-lab-range-row"><input data-sl="basePatternBrightness" max="200" min="0" type="range"/><input data-sl-number="basePatternBrightness" max="200" min="0" type="number"/></div>
+</div>
+<div class="style-lab-field" data-sl-show-if-key="basePatternOn" data-sl-show-if-values="true">
+<label>Blur / softness</label>
+<div class="style-lab-range-row"><input data-sl="basePatternBlur" max="40" min="0" type="range"/><input data-sl-number="basePatternBlur" max="40" min="0" type="number"/></div>
+</div>
+<div class="style-lab-field" data-sl-show-if-key="basePatternOn" data-sl-show-if-values="true">
+<label>Emboss amount</label>
+<div class="style-lab-range-row"><input data-sl="basePatternEmboss" max="100" min="0" type="range"/><input data-sl-number="basePatternEmboss" max="100" min="0" type="number"/></div>
+</div>
+<div class="style-lab-field style-lab-check full" data-sl-show-if-key="basePatternOn" data-sl-show-if-values="true">
+<input data-sl="basePatternInvert" type="checkbox"/>
+<label>Invert texture</label>
+</div>
+<div class="style-lab-field style-lab-check full" data-sl-show-if-key="basePatternOn" data-sl-show-if-values="true">
+<input data-sl="basePatternMonochrome" type="checkbox"/>
+<label>Monochrome texture</label>
+</div>
+</div>
+</div>
+<div class="style-lab-group">
+<div class="style-lab-group-title">Blend &amp; Layer</div>
+<div class="style-lab-group-grid">
+<div class="style-lab-field" data-sl-show-if-key="basePatternOn" data-sl-show-if-values="true">
+<label>Blend mode</label>
+<select data-sl="basePatternBlendMode">
+<option value="normal">Normal</option>
+<option value="multiply">Multiply</option>
+<option value="screen">Screen</option>
+<option value="overlay">Overlay</option>
+<option value="soft-light">Soft light</option>
+<option value="hard-light">Hard light</option>
+<option value="color-dodge">Color dodge</option>
+<option value="color-burn">Color burn</option>
+<option value="lighten">Lighten</option>
+<option value="darken">Darken</option>
+<option value="saturation">Saturation</option>
+</select>
+</div>
+<div class="style-lab-field" data-sl-show-if-key="basePatternOn" data-sl-show-if-values="true">
+<label>Layer</label>
+<select data-sl="basePatternLayer">
+<option value="0">0 — Back (deepest)</option>
+<option value="1">1 — Below fill (default)</option>
+<option value="2">2 — Above fill</option>
+<option value="3">3 — Mid layer</option>
+<option value="4">4 — Above content</option>
+<option value="5">5 — Front (topmost)</option>
+</select>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+
+<div class="style-lab-section" data-sl-section="transform">
+<div class="style-lab-section-title style-lab-effect-title">
+<label class="style-lab-effect-toggle"><input data-sl="effectTransformOn" type="checkbox"/> Transform</label>
+</div>
+<div class="style-lab-grid">
+<div class="style-lab-group">
+<div class="style-lab-group-title">Position</div>
+<div class="style-lab-group-grid">
+<div class="style-lab-field style-lab-check full">
+<input data-sl="transformLinkXY" type="checkbox"/>
+<label>Link transform X and Y</label>
+</div>
+<div class="style-lab-field">
+<label>Translate X px</label>
+<div class="style-lab-range-row"><input data-sl="transformX" max="120" min="-120" step="0.1" type="range"/><input data-sl-number="transformX" max="120" min="-120" step="0.1" type="number"/></div>
+</div>
+<div class="style-lab-field">
+<label>Translate Y px</label>
+<div class="style-lab-range-row"><input data-sl="transformY" max="120" min="-120" step="0.1" type="range"/><input data-sl-number="transformY" max="120" min="-120" step="0.1" type="number"/></div>
+</div>
+</div>
+</div>
+<div class="style-lab-group">
+<div class="style-lab-group-title">Scale &amp; Rotation</div>
+<div class="style-lab-group-grid">
+<div class="style-lab-field style-lab-check full">
+<input data-sl="transformScaleLinked" type="checkbox"/>
+<label>Link scale X and Y</label>
+</div>
+<div class="style-lab-field" data-sl-show-if-key="transformScaleLinked" data-sl-show-if-values="true">
+<label>Scale %</label>
+<div class="style-lab-range-row"><input data-sl="transformScale" max="220" min="10" step="0.1" type="range"/><input data-sl-number="transformScale" max="220" min="10" step="0.1" type="number"/></div>
+</div>
+<div class="style-lab-field" data-sl-show-if-key="transformScaleLinked" data-sl-show-if-values="false">
+<label>Scale X %</label>
+<div class="style-lab-range-row"><input data-sl="transformScaleX" max="220" min="10" step="0.1" type="range"/><input data-sl-number="transformScaleX" max="220" min="10" step="0.1" type="number"/></div>
+</div>
+<div class="style-lab-field" data-sl-show-if-key="transformScaleLinked" data-sl-show-if-values="false">
+<label>Scale Y %</label>
+<div class="style-lab-range-row"><input data-sl="transformScaleY" max="220" min="10" step="0.1" type="range"/><input data-sl-number="transformScaleY" max="220" min="10" step="0.1" type="number"/></div>
+</div>
+<div class="style-lab-field">
+<label>Rotate deg</label>
+<div class="style-lab-range-row"><input data-sl="transformRotate" max="180" min="-180" step="0.1" type="range"/><input data-sl-number="transformRotate" max="180" min="-180" step="0.1" type="number"/></div>
+</div>
+</div>
+</div>
+<div class="style-lab-group">
+<div class="style-lab-group-title">Origin &amp; Motion</div>
+<div class="style-lab-group-grid">
+<div class="style-lab-field">
+<label>Origin X %</label>
+<div class="style-lab-range-row"><input data-sl="transformOriginX" max="150" min="-50" step="0.1" type="range"/><input data-sl-number="transformOriginX" max="150" min="-50" step="0.1" type="number"/></div>
+</div>
+<div class="style-lab-field">
+<label>Origin Y %</label>
+<div class="style-lab-range-row"><input data-sl="transformOriginY" max="150" min="-50" step="0.1" type="range"/><input data-sl-number="transformOriginY" max="150" min="-50" step="0.1" type="number"/></div>
+</div>
+<div class="style-lab-field">
+<label>Transition ms</label>
+<div class="style-lab-range-row"><input data-sl="transformTransitionMs" max="2000" min="0" step="10" type="range"/><input data-sl-number="transformTransitionMs" max="2000" min="0" step="10" type="number"/></div>
+</div>
+<div class="style-lab-field">
+<label>Easing</label>
+<select data-sl="transformEasing">
+<option value="ease">Ease</option>
+<option value="ease-out">Ease out</option>
+<option value="ease-in-out">Ease in/out</option>
+<option value="linear">Linear</option>
+<option value="cubic-bezier(.2,.8,.2,1)">Soft snap</option>
+<option value="cubic-bezier(.34,1.56,.64,1)">Spring pop</option>
+</select>
+</div>
+</div>
+</div>
+</div>
+</div>
+
+<div class="style-lab-section" data-sl-section="bevel">
+<div class="style-lab-section-title style-lab-effect-title">
+<label class="style-lab-effect-toggle"><input data-sl="effectBevelOn" type="checkbox"/> Bevel &amp; Emboss</label>
+</div>
+<div class="style-lab-grid">
+<div class="style-lab-subsection" data-sl-subsection="shape-bevel">
+<div class="style-lab-subsection-title">Shape Bevel &amp; Emboss</div>
+<div class="style-lab-grid">
+<div class="style-lab-group">
+<div class="style-lab-group-title">Structure</div>
+<div class="style-lab-group-grid">
+<div class="style-lab-field">
+<label>Style</label>
+<select data-sl="shapeBevelStyle">
+<option value="none">None</option>
+<option value="inner">Inner bevel</option>
+<option value="outer">Outer bevel</option>
+<option value="emboss">Emboss</option>
+</select>
+</div>
+<div class="style-lab-field">
+<label>Technique</label>
+<select data-sl="shapeBevelTechnique">
+<option value="smooth">Smooth</option>
+<option value="chiselSoft">Chisel soft</option>
+<option value="chiselHard">Chisel hard</option>
+</select>
+</div>
+<div class="style-lab-field">
+<label>Depth %</label>
+<div class="style-lab-range-row"><input data-sl="shapeBevelDepth" max="300" min="0" type="range"/><input data-sl-number="shapeBevelDepth" max="300" min="0" type="number"/></div>
+</div>
+<div class="style-lab-field">
+<label>Direction</label>
+<select data-sl="shapeBevelDirection">
+<option value="up">Up</option>
+<option value="down">Down</option>
+</select>
+</div>
+<div class="style-lab-field">
+<label>Size px</label>
+<div class="style-lab-range-row"><input data-sl="shapeBevelSize" max="80" min="0" type="range"/><input data-sl-number="shapeBevelSize" max="80" min="0" type="number"/></div>
+</div>
+<div class="style-lab-field">
+<label>Soften px</label>
+<div class="style-lab-range-row"><input data-sl="shapeBevelSoften" max="60" min="0" type="range"/><input data-sl-number="shapeBevelSoften" max="60" min="0" type="number"/></div>
+</div>
+</div>
+</div>
+<div class="style-lab-group">
+<div class="style-lab-group-title">Shading</div>
+<div class="style-lab-group-grid">
+<div class="style-lab-field">
+<label>Angle deg</label>
+<div class="style-lab-range-row"><input data-sl="shapeBevelAngle" max="360" min="0" type="range"/><input data-sl-number="shapeBevelAngle" max="360" min="0" type="number"/></div>
+</div>
+<div class="style-lab-field">
+<label>Altitude deg</label>
+<div class="style-lab-range-row"><input data-sl="shapeBevelAltitude" max="90" min="0" type="range"/><input data-sl-number="shapeBevelAltitude" max="90" min="0" type="number"/></div>
+</div>
+<div class="style-lab-field">
+<label>Highlight color</label>
+<input data-sl="shapeBevelHighlightColor" type="color"/>
+</div>
+<div class="style-lab-field">
+<label>Highlight opacity</label>
+<div class="style-lab-range-row"><input data-sl="shapeBevelHighlightOpacity" max="100" min="0" type="range"/><input data-sl-number="shapeBevelHighlightOpacity" max="100" min="0" type="number"/></div>
+</div>
+<div class="style-lab-field">
+<label>Shadow color</label>
+<input data-sl="shapeBevelShadowColor" type="color"/>
+</div>
+<div class="style-lab-field">
+<label>Shadow opacity</label>
+<div class="style-lab-range-row"><input data-sl="shapeBevelShadowOpacity" max="100" min="0" type="range"/><input data-sl-number="shapeBevelShadowOpacity" max="100" min="0" type="number"/></div>
+</div>
+</div>
+</div>
+<div class="style-lab-group">
+<div class="style-lab-group-title">Blend &amp; Layer</div>
+<div class="style-lab-group-grid">
+<div class="style-lab-field">
+<label>Blend mode</label>
+<select data-sl="shapeBevelBlendMode">
+<option value="normal">Normal</option>
+<option value="multiply">Multiply</option>
+<option value="screen">Screen</option>
+<option value="overlay">Overlay</option>
+<option value="soft-light">Soft light</option>
+<option value="hard-light">Hard light</option>
+<option value="color-dodge">Color dodge</option>
+<option value="color-burn">Color burn</option>
+<option value="lighten">Lighten</option>
+<option value="darken">Darken</option>
+<option value="saturation">Saturation</option>
+</select>
+</div>
+<div class="style-lab-field">
+<label>Layer</label>
+<select data-sl="shapeBevelLayer">
+<option value="0">0 — Back (deepest)</option>
+<option value="1">1 — Below fill</option>
+<option value="2">2 — Above fill (default)</option>
+<option value="3">3 — Mid layer</option>
+<option value="4">4 — Above content</option>
+<option value="5">5 — Front (topmost)</option>
+</select>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+
+<div class="style-lab-section" data-sl-section="stroke">
+<div class="style-lab-section-title style-lab-effect-title">
+<label class="style-lab-effect-toggle"><input data-sl="effectStrokeOn" type="checkbox"/> Stroke</label>
+<button class="style-lab-effect-add" data-sl-add="stroke" onclick="styleLabAddEffectInstance('stroke', event)" type="button">+</button>
+</div>
+<div class="style-lab-grid">
+<div class="style-lab-group">
+<div class="style-lab-group-title">Stroke Setup</div>
+<div class="style-lab-group-grid">
+<div class="style-lab-field">
+<label>Stroke width px</label>
+<input data-sl="strokeWidth" inputmode="decimal" min="0" placeholder="unchanged" type="number"/>
+</div>
+<div class="style-lab-field">
+<label>Stroke mode</label>
+<select data-sl="strokeMode">
+<option value="color">Color</option>
+<option value="gradient">Gradient</option>
+</select>
+</div>
+<div class="style-lab-field">
+<label>Stroke position</label>
+<select data-sl="strokePosition">
+<option value="inside">Inside</option>
+<option value="center">Center</option>
+<option value="outside">Outside</option>
+</select>
+</div>
+<div class="style-lab-field">
+<label>Stroke style</label>
+<select data-sl="strokeStyle">
+<option value="solid">Solid</option>
+<option value="dashed">Dashed</option>
+<option value="dotted">Dotted</option>
+</select>
+</div>
+<div class="style-lab-field">
+<label>Stroke opacity</label>
+<div class="style-lab-range-row"><input data-sl="strokeOpacity" max="100" min="0" type="range"/><input data-sl-number="strokeOpacity" max="100" min="0" type="number"/></div>
+</div>
+<div class="style-lab-field">
+<label>Join style</label>
+<select data-sl="strokeJoin">
+<option value="round">Round</option>
+<option value="miter">Miter</option>
+<option value="bevel">Bevel</option>
+</select>
+</div>
+<div class="style-lab-field">
+<label>Cap style</label>
+<select data-sl="strokeCap">
+<option value="round">Round</option>
+<option value="butt">Butt</option>
+<option value="square">Square</option>
+</select>
+</div>
+</div>
+</div>
+<div class="style-lab-group">
+<div class="style-lab-group-title">Color Paint</div>
+<div class="style-lab-group-grid">
+<div class="style-lab-field" data-sl-show-if-key="strokeMode" data-sl-show-if-value="color">
+<label>Stroke color</label>
+<input data-sl="strokeColor" type="color"/>
+</div>
+</div>
+</div>
+<div class="style-lab-group">
+<div class="style-lab-group-title">Gradient Paint</div>
+<div class="style-lab-group-grid">
+<div class="style-lab-field" data-sl-show-if-key="strokeMode" data-sl-show-if-value="gradient">
+<label>Stroke gradient A</label>
+<input data-sl="strokeGradientA" type="color"/>
+</div>
+<div class="style-lab-field" data-sl-show-if-key="strokeMode" data-sl-show-if-value="gradient">
+<label>Stroke gradient B</label>
+<input data-sl="strokeGradientB" type="color"/>
+</div>
+<div class="style-lab-field" data-sl-show-if-key="strokeMode" data-sl-show-if-value="gradient">
+<label>Gradient A opacity</label>
+<div class="style-lab-range-row"><input data-sl="strokeGradientAOpacity" max="100" min="0" type="range"/><input data-sl-number="strokeGradientAOpacity" max="100" min="0" type="number"/></div>
+</div>
+<div class="style-lab-field" data-sl-show-if-key="strokeMode" data-sl-show-if-value="gradient">
+<label>Gradient B opacity</label>
+<div class="style-lab-range-row"><input data-sl="strokeGradientBOpacity" max="100" min="0" type="range"/><input data-sl-number="strokeGradientBOpacity" max="100" min="0" type="number"/></div>
+</div>
+<div class="style-lab-field" data-sl-show-if-key="strokeMode" data-sl-show-if-value="gradient">
+<label>Gradient type</label>
+<select data-sl="strokeGradientType">
+<option value="linear">Linear</option>
+<option value="radial">Radial</option>
+<option value="reflected">Reflected</option>
+</select>
+</div>
+<div class="style-lab-field" data-sl-show-if-key="strokeMode" data-sl-show-if-value="gradient">
+<label>Gradient angle</label>
+<div class="style-lab-range-row"><input data-sl="strokeGradientAngle" max="360" min="0" type="range"/><input data-sl-number="strokeGradientAngle" max="360" min="0" type="number"/></div>
+</div>
+<div class="style-lab-field" data-sl-show-if-key="strokeMode" data-sl-show-if-value="gradient">
+<label>Gradient scale %</label>
+<div class="style-lab-range-row"><input data-sl="strokeGradientScale" max="300" min="10" type="range"/><input data-sl-number="strokeGradientScale" max="300" min="10" type="number"/></div>
+</div>
+<div class="style-lab-field style-lab-check full" data-sl-show-if-key="strokeMode" data-sl-show-if-value="gradient">
+<input data-sl="strokeGradientLinkXY" type="checkbox"/>
+<label>Link gradient X and Y</label>
+</div>
+<div class="style-lab-field" data-sl-show-if-key="strokeMode" data-sl-show-if-value="gradient">
+<label>Gradient X %</label>
+<div class="style-lab-range-row"><input data-sl="strokeGradientX" max="150" min="-50" type="range"/><input data-sl-number="strokeGradientX" max="150" min="-50" type="number"/></div>
+</div>
+<div class="style-lab-field" data-sl-show-if-key="strokeMode" data-sl-show-if-value="gradient">
+<label>Gradient Y %</label>
+<div class="style-lab-range-row"><input data-sl="strokeGradientY" max="150" min="-50" type="range"/><input data-sl-number="strokeGradientY" max="150" min="-50" type="number"/></div>
+</div>
+</div>
+</div>
+<div class="style-lab-group">
+<div class="style-lab-group-title">Blend &amp; Layer</div>
+<div class="style-lab-group-grid">
+<div class="style-lab-field">
+<label>Blend mode</label>
+<select data-sl="strokeBlendMode">
+<option value="normal">Normal</option>
+<option value="multiply">Multiply</option>
+<option value="screen">Screen</option>
+<option value="overlay">Overlay</option>
+<option value="soft-light">Soft light</option>
+<option value="hard-light">Hard light</option>
+<option value="color-dodge">Color dodge</option>
+<option value="color-burn">Color burn</option>
+<option value="lighten">Lighten</option>
+<option value="darken">Darken</option>
+<option value="saturation">Saturation</option>
+</select>
+</div>
+<div class="style-lab-field">
+<label>Layer</label>
+<select data-sl="strokeLayer">
+<option value="0">0 — Back (deepest)</option>
+<option value="1">1 — Below fill</option>
+<option value="2">2 — Above fill (default)</option>
+<option value="3">3 — Mid layer</option>
+<option value="4">4 — Above content</option>
+<option value="5">5 — Front (topmost)</option>
+</select>
+</div>
+</div>
+</div>
+<div class="style-lab-instance-list" data-sl-instance-list="stroke"></div>
+</div>
+</div>
+
+<div class="style-lab-section" data-sl-section="inner-shadow">
+<div class="style-lab-section-title style-lab-effect-title">
+<label class="style-lab-effect-toggle"><input data-sl="effectInnerShadowOn" type="checkbox"/> Inner Shadow</label>
+<button class="style-lab-effect-add" data-sl-add="innerShadow" onclick="styleLabAddEffectInstance('innerShadow', event)" type="button">+</button>
+</div>
+<div class="style-lab-grid">
+<div class="style-lab-group">
+<div class="style-lab-group-title">Color &amp; Strength</div>
+<div class="style-lab-group-grid">
+<div class="style-lab-field">
+<label>Inner shadow color</label>
+<input data-sl="innerShadowColor" type="color"/>
+</div>
+<div class="style-lab-field">
+<label>Inner shadow opacity</label>
+<div class="style-lab-range-row"><input data-sl="innerShadowOpacity" max="100" min="0" type="range"/><input data-sl-number="innerShadowOpacity" max="100" min="0" type="number"/></div>
+</div>
+</div>
+</div>
+<div class="style-lab-group">
+<div class="style-lab-group-title">Position &amp; Softness</div>
+<div class="style-lab-group-grid">
+<div class="style-lab-field style-lab-check full">
+<input data-sl="innerShadowLinkXY" type="checkbox"/>
+<label>Link inner shadow X and Y</label>
+</div>
+<div class="style-lab-field">
+<label>Inner shadow X px</label>
+<div class="style-lab-range-row"><input data-sl="innerShadowX" max="60" min="-60" type="range"/><input data-sl-number="innerShadowX" max="60" min="-60" type="number"/></div>
+</div>
+<div class="style-lab-field">
+<label>Inner shadow Y px</label>
+<div class="style-lab-range-row"><input data-sl="innerShadowY" max="60" min="-60" type="range"/><input data-sl-number="innerShadowY" max="60" min="-60" type="number"/></div>
+</div>
+<div class="style-lab-field">
+<label>Inner shadow blur px</label>
+<div class="style-lab-range-row"><input data-sl="innerShadowBlur" max="120" min="0" type="range"/><input data-sl-number="innerShadowBlur" max="120" min="0" type="number"/></div>
+</div>
+</div>
+</div>
+<div class="style-lab-group">
+<div class="style-lab-group-title">Blend &amp; Layer</div>
+<div class="style-lab-group-grid">
+<div class="style-lab-field">
+<label>Blend mode</label>
+<select data-sl="innerShadowBlendMode">
+<option value="normal">Normal</option>
+<option value="multiply">Multiply</option>
+<option value="screen">Screen</option>
+<option value="overlay">Overlay</option>
+<option value="soft-light">Soft light</option>
+<option value="hard-light">Hard light</option>
+<option value="color-dodge">Color dodge</option>
+<option value="color-burn">Color burn</option>
+<option value="lighten">Lighten</option>
+<option value="darken">Darken</option>
+<option value="saturation">Saturation</option>
+</select>
+</div>
+<div class="style-lab-field">
+<label>Layer</label>
+<select data-sl="innerShadowLayer">
+<option value="0">0 — Back (deepest)</option>
+<option value="1">1 — Below fill</option>
+<option value="2">2 — Above fill (default)</option>
+<option value="3">3 — Mid layer</option>
+<option value="4">4 — Above content</option>
+<option value="5">5 — Front (topmost)</option>
+</select>
+</div>
+</div>
+</div>
+<div class="style-lab-instance-list" data-sl-instance-list="innerShadow"></div>
+</div>
+</div>
+
+<div class="style-lab-section" data-sl-section="inner-glow">
+<div class="style-lab-section-title style-lab-effect-title">
+<label class="style-lab-effect-toggle"><input data-sl="effectInnerGlowOn" type="checkbox"/> Inner Glow</label>
+</div>
+<div class="style-lab-grid">
+<div class="style-lab-group">
+<div class="style-lab-group-title">Color &amp; Strength</div>
+<div class="style-lab-group-grid">
+<div class="style-lab-field">
+<label>Inner glow color</label>
+<input data-sl="innerGlowColor" type="color"/>
+</div>
+<div class="style-lab-field">
+<label>Inner glow opacity</label>
+<div class="style-lab-range-row"><input data-sl="innerGlowOpacity" max="100" min="0" type="range"/><input data-sl-number="innerGlowOpacity" max="100" min="0" type="number"/></div>
+</div>
+<div class="style-lab-field">
+<label>Inner glow blur px</label>
+<div class="style-lab-range-row"><input data-sl="innerGlowBlur" max="120" min="0" type="range"/><input data-sl-number="innerGlowBlur" max="120" min="0" type="number"/></div>
+</div>
+</div>
+</div>
+<div class="style-lab-group">
+<div class="style-lab-group-title">Blend &amp; Layer</div>
+<div class="style-lab-group-grid">
+<div class="style-lab-field">
+<label>Blend mode</label>
+<select data-sl="innerGlowBlendMode">
+<option value="normal">Normal</option>
+<option value="multiply">Multiply</option>
+<option value="screen">Screen</option>
+<option value="overlay">Overlay</option>
+<option value="soft-light">Soft light</option>
+<option value="hard-light">Hard light</option>
+<option value="color-dodge">Color dodge</option>
+<option value="color-burn">Color burn</option>
+<option value="lighten">Lighten</option>
+<option value="darken">Darken</option>
+<option value="saturation">Saturation</option>
+</select>
+</div>
+<div class="style-lab-field">
+<label>Layer</label>
+<select data-sl="innerGlowLayer">
+<option value="0">0 — Back (deepest)</option>
+<option value="1">1 — Below fill</option>
+<option value="2">2 — Above fill (default)</option>
+<option value="3">3 — Mid layer</option>
+<option value="4">4 — Above content</option>
+<option value="5">5 — Front (topmost)</option>
+</select>
+</div>
+</div>
+</div>
+</div>
+</div>
+
+<div class="style-lab-section" data-sl-section="color-overlay">
+<div class="style-lab-section-title style-lab-effect-title">
+<label class="style-lab-effect-toggle"><input data-sl="effectColorOverlayOn" type="checkbox"/> Color Overlay</label>
+<button class="style-lab-effect-add" data-sl-add="colorOverlay" onclick="styleLabAddEffectInstance('colorOverlay', event)" type="button">+</button>
+</div>
+<div class="style-lab-grid">
+<div class="style-lab-group">
+<div class="style-lab-group-title">Color &amp; Strength</div>
+<div class="style-lab-group-grid">
+<div class="style-lab-field">
+<label>Color overlay</label>
+<input data-sl="overlayColor" type="color"/>
+</div>
+<div class="style-lab-field">
+<label>Overlay opacity</label>
+<div class="style-lab-range-row"><input data-sl="overlayOpacity" max="100" min="0" type="range"/><input data-sl-number="overlayOpacity" max="100" min="0" type="number"/></div>
+</div>
+</div>
+</div>
+<div class="style-lab-group">
+<div class="style-lab-group-title">Blend &amp; Layer</div>
+<div class="style-lab-group-grid">
+<div class="style-lab-field">
+<label>Blend mode</label>
+<select data-sl="colorOverlayBlendMode">
+<option value="normal">Normal</option>
+<option value="multiply">Multiply</option>
+<option value="screen">Screen</option>
+<option value="overlay">Overlay</option>
+<option value="soft-light">Soft light</option>
+<option value="hard-light">Hard light</option>
+<option value="color-dodge">Color dodge</option>
+<option value="color-burn">Color burn</option>
+<option value="lighten">Lighten</option>
+<option value="darken">Darken</option>
+<option value="saturation">Saturation</option>
+</select>
+</div>
+<div class="style-lab-field">
+<label>Layer</label>
+<select data-sl="colorOverlayLayer">
+<option value="0">0 — Back (deepest)</option>
+<option value="1">1 — Below fill</option>
+<option value="2">2 — Above fill (default)</option>
+<option value="3">3 — Mid layer</option>
+<option value="4">4 — Above content</option>
+<option value="5">5 — Front (topmost)</option>
+</select>
+</div>
+</div>
+</div>
+<div class="style-lab-instance-list" data-sl-instance-list="colorOverlay"></div>
+</div>
+</div>
+
+<div class="style-lab-section" data-sl-section="gradient-overlay">
+<div class="style-lab-section-title style-lab-effect-title">
+<label class="style-lab-effect-toggle"><input data-sl="effectGradientOverlayOn" type="checkbox"/> Gradient Overlay</label>
+<button class="style-lab-effect-add" data-sl-add="gradient" onclick="styleLabAddEffectInstance('gradient', event)" type="button">+</button>
+</div>
+<div class="style-lab-grid">
+<div class="style-lab-group">
+<div class="style-lab-group-title">Colors</div>
+<div class="style-lab-group-grid">
+<div class="style-lab-field">
+<label>Gradient color A</label>
+<input data-sl="gradientA" type="color"/>
+</div>
+<div class="style-lab-field">
+<label>Gradient color B</label>
+<input data-sl="gradientB" type="color"/>
+</div>
+<div class="style-lab-field">
+<label>Color A opacity</label>
+<div class="style-lab-range-row"><input data-sl="gradientAOpacity" max="100" min="0" type="range"/><input data-sl-number="gradientAOpacity" max="100" min="0" type="number"/></div>
+</div>
+<div class="style-lab-field">
+<label>Color B opacity</label>
+<div class="style-lab-range-row"><input data-sl="gradientBOpacity" max="100" min="0" type="range"/><input data-sl-number="gradientBOpacity" max="100" min="0" type="number"/></div>
+</div>
+</div>
+</div>
+<div class="style-lab-group">
+<div class="style-lab-group-title">Shape &amp; Size</div>
+<div class="style-lab-group-grid">
+<div class="style-lab-field">
+<label>Gradient type</label>
+<select data-sl="gradientType">
+<option value="linear">Linear</option>
+<option value="radial">Radial</option>
+<option value="reflected">Reflected</option>
+</select>
+</div>
+<div class="style-lab-field">
+<label>Gradient angle</label>
+<div class="style-lab-range-row"><input data-sl="gradientAngle" max="360" min="0" type="range"/><input data-sl-number="gradientAngle" max="360" min="0" type="number"/></div>
+</div>
+<div class="style-lab-field">
+<label>Gradient opacity</label>
+<div class="style-lab-range-row"><input data-sl="gradientOpacity" max="100" min="0" type="range"/><input data-sl-number="gradientOpacity" max="100" min="0" type="number"/></div>
+</div>
+<div class="style-lab-field">
+<label>Gradient scale %</label>
+<div class="style-lab-range-row"><input data-sl="gradientScale" max="300" min="10" type="range"/><input data-sl-number="gradientScale" max="300" min="10" type="number"/></div>
+</div>
+<div class="style-lab-field">
+<label>Gradient width %</label>
+<div class="style-lab-range-row"><input data-sl="gradientAspectX" max="300" min="10" type="range"/><input data-sl-number="gradientAspectX" max="300" min="10" type="number"/></div>
+</div>
+<div class="style-lab-field">
+<label>Gradient height %</label>
+<div class="style-lab-range-row"><input data-sl="gradientAspectY" max="300" min="10" type="range"/><input data-sl-number="gradientAspectY" max="300" min="10" type="number"/></div>
+</div>
+</div>
+</div>
+<div class="style-lab-group">
+<div class="style-lab-group-title">Placement</div>
+<div class="style-lab-group-grid">
+<div class="style-lab-field style-lab-check full">
+<input data-sl="gradientLinkXY" type="checkbox"/>
+<label>Link gradient X and Y</label>
+</div>
+<div class="style-lab-field">
+<label>Gradient X %</label>
+<div class="style-lab-range-row"><input data-sl="gradientX" max="150" min="-50" type="range"/><input data-sl-number="gradientX" max="150" min="-50" type="number"/></div>
+</div>
+<div class="style-lab-field">
+<label>Gradient Y %</label>
+<div class="style-lab-range-row"><input data-sl="gradientY" max="150" min="-50" type="range"/><input data-sl-number="gradientY" max="150" min="-50" type="number"/></div>
+</div>
+</div>
+</div>
+<div class="style-lab-group">
+<div class="style-lab-group-title">Blend &amp; Layer</div>
+<div class="style-lab-group-grid">
+<div class="style-lab-field">
+<label>Blend mode</label>
+<select data-sl="gradientBlendMode">
+<option value="normal">Normal</option>
+<option value="multiply">Multiply</option>
+<option value="screen">Screen</option>
+<option value="overlay">Overlay</option>
+<option value="soft-light">Soft light</option>
+<option value="hard-light">Hard light</option>
+<option value="color-dodge">Color dodge</option>
+<option value="color-burn">Color burn</option>
+<option value="lighten">Lighten</option>
+<option value="darken">Darken</option>
+<option value="saturation">Saturation</option>
+</select>
+</div>
+<div class="style-lab-field">
+<label>Layer</label>
+<select data-sl="gradientLayer">
+<option value="0">0 — Back (deepest)</option>
+<option value="1">1 — Below fill</option>
+<option value="2">2 — Above fill (default)</option>
+<option value="3">3 — Mid layer</option>
+<option value="4">4 — Above content</option>
+<option value="5">5 — Front (topmost)</option>
+</select>
+</div>
+</div>
+</div>
+<div class="style-lab-instance-list" data-sl-instance-list="gradient"></div>
+</div>
+</div>
+
+<div class="style-lab-section" data-sl-section="pattern-overlay">
+<div class="style-lab-section-title style-lab-effect-title">
+<label class="style-lab-effect-toggle"><input data-sl="effectPatternOverlayOn" type="checkbox"/> Pattern Overlay</label>
+</div>
+<div class="style-lab-grid">
+<div class="style-lab-group">
+<div class="style-lab-group-title">Material</div>
+<div class="style-lab-group-grid">
+<div class="style-lab-field">
+<label>Texture</label>
+<select data-sl="pattern">
+<option value="none">None</option>
+<option value="leather">Dark leather</option>
+<option value="paper">Scholarly paper</option>
+<option value="wood">Dark wood</option>
+<option value="grid">Fine tech grid</option>
+<option value="arcadePixels">Arcade pixel matrix</option>
+<option value="scanlines">CRT scanlines</option>
+</select>
+</div>
+<div class="style-lab-field">
+<label>Texture opacity</label>
+<div class="style-lab-range-row"><input data-sl="patternOpacity" max="100" min="0" type="range"/><input data-sl-number="patternOpacity" max="100" min="0" type="number"/></div>
+</div>
+<div class="style-lab-field">
+<label>Texture tint</label>
+<input data-sl="patternTint" type="color"/>
+</div>
+<div class="style-lab-field">
+<label>Tint blend</label>
+<select data-sl="patternTintBlendMode">
+<option value="soft-light">Soft light (default)</option>
+<option value="normal">Normal — solid tint fills texture</option>
+<option value="multiply">Multiply</option>
+<option value="screen">Screen</option>
+<option value="overlay">Overlay</option>
+<option value="hard-light">Hard light</option>
+<option value="color-dodge">Color dodge</option>
+<option value="color-burn">Color burn</option>
+<option value="lighten">Lighten</option>
+<option value="darken">Darken</option>
+<option value="saturation">Saturation</option>
+</select>
+</div>
+</div>
+</div>
+<div class="style-lab-group">
+<div class="style-lab-group-title">Placement</div>
+<div class="style-lab-group-grid">
+<div class="style-lab-field">
+<label>Texture scale px</label>
+<div class="style-lab-range-row"><input data-sl="patternScale" max="900" min="80" type="range"/><input data-sl-number="patternScale" max="900" min="80" type="number"/></div>
+</div>
+<div class="style-lab-field">
+<label>Texture X px</label>
+<div class="style-lab-range-row"><input data-sl="patternX" max="400" min="-400" type="range"/><input data-sl-number="patternX" max="400" min="-400" type="number"/></div>
+</div>
+<div class="style-lab-field">
+<label>Texture Y px</label>
+<div class="style-lab-range-row"><input data-sl="patternY" max="400" min="-400" type="range"/><input data-sl-number="patternY" max="400" min="-400" type="number"/></div>
+</div>
+<div class="style-lab-field">
+<label>Rotation</label>
+<div class="style-lab-range-row"><input data-sl="patternRotation" max="180" min="-180" type="range"/><input data-sl-number="patternRotation" max="180" min="-180" type="number"/></div>
+</div>
+</div>
+</div>
+<div class="style-lab-group">
+<div class="style-lab-group-title">Finish</div>
+<div class="style-lab-group-grid">
+<div class="style-lab-field">
+<label>Texture contrast %</label>
+<div class="style-lab-range-row"><input data-sl="patternContrast" max="300" min="0" type="range"/><input data-sl-number="patternContrast" max="300" min="0" type="number"/></div>
+</div>
+<div class="style-lab-field">
+<label>Texture brightness %</label>
+<div class="style-lab-range-row"><input data-sl="patternBrightness" max="200" min="0" type="range"/><input data-sl-number="patternBrightness" max="200" min="0" type="number"/></div>
+</div>
+<div class="style-lab-field">
+<label>Blur / softness</label>
+<div class="style-lab-range-row"><input data-sl="patternBlur" max="40" min="0" type="range"/><input data-sl-number="patternBlur" max="40" min="0" type="number"/></div>
+</div>
+<div class="style-lab-field">
+<label>Emboss amount</label>
+<div class="style-lab-range-row"><input data-sl="patternEmboss" max="100" min="0" type="range"/><input data-sl-number="patternEmboss" max="100" min="0" type="number"/></div>
+</div>
+<div class="style-lab-field style-lab-check full">
+<input data-sl="patternInvert" type="checkbox"/>
+<label>Invert texture</label>
+</div>
+<div class="style-lab-field style-lab-check full">
+<input data-sl="patternMonochrome" type="checkbox"/>
+<label>Monochrome texture</label>
+</div>
+</div>
+</div>
+<div class="style-lab-group">
+<div class="style-lab-group-title">Blend &amp; Layer</div>
+<div class="style-lab-group-grid">
+<div class="style-lab-field">
+<label>Blend mode</label>
+<select data-sl="patternBlendMode">
+<option value="normal">Normal</option>
+<option value="multiply">Multiply</option>
+<option value="screen">Screen</option>
+<option value="overlay">Overlay</option>
+<option value="soft-light">Soft light</option>
+<option value="hard-light">Hard light</option>
+<option value="color-dodge">Color dodge</option>
+<option value="color-burn">Color burn</option>
+<option value="lighten">Lighten</option>
+<option value="darken">Darken</option>
+<option value="saturation">Saturation</option>
+</select>
+</div>
+<div class="style-lab-field">
+<label>Layer</label>
+<select data-sl="patternLayer">
+<option value="0">0 — Back (deepest)</option>
+<option value="1">1 — Below fill</option>
+<option value="2">2 — Above fill (default)</option>
+<option value="3">3 — Mid layer</option>
+<option value="4">4 — Above content</option>
+<option value="5">5 — Front (topmost)</option>
+</select>
+</div>
+</div>
+</div>
+</div>
+</div>
+
+<div class="style-lab-section" data-sl-section="outer-glow">
+<div class="style-lab-section-title style-lab-effect-title">
+<label class="style-lab-effect-toggle"><input data-sl="effectOuterGlowOn" type="checkbox"/> Outer Glow</label>
+</div>
+<div class="style-lab-grid">
+<div class="style-lab-group">
+<div class="style-lab-group-title">Color &amp; Strength</div>
+<div class="style-lab-group-grid">
+<div class="style-lab-field">
+<label>Outer glow color</label>
+<input data-sl="outerGlowColor" type="color"/>
+</div>
+<div class="style-lab-field">
+<label>Outer glow opacity</label>
+<div class="style-lab-range-row"><input data-sl="outerGlowOpacity" max="100" min="0" type="range"/><input data-sl-number="outerGlowOpacity" max="100" min="0" type="number"/></div>
+</div>
+<div class="style-lab-field">
+<label>Outer glow blur px</label>
+<div class="style-lab-range-row"><input data-sl="outerGlowBlur" max="120" min="0" type="range"/><input data-sl-number="outerGlowBlur" max="120" min="0" type="number"/></div>
+</div>
+</div>
+</div>
+<div class="style-lab-group">
+<div class="style-lab-group-title">Blend &amp; Layer</div>
+<div class="style-lab-group-grid">
+<div class="style-lab-field">
+<label>Blend mode</label>
+<select data-sl="outerGlowBlendMode">
+<option value="normal">Normal</option>
+<option value="multiply">Multiply</option>
+<option value="screen">Screen</option>
+<option value="overlay">Overlay</option>
+<option value="soft-light">Soft light</option>
+<option value="hard-light">Hard light</option>
+<option value="color-dodge">Color dodge</option>
+<option value="color-burn">Color burn</option>
+<option value="lighten">Lighten</option>
+<option value="darken">Darken</option>
+<option value="saturation">Saturation</option>
+</select>
+</div>
+<div class="style-lab-field">
+<label>Layer</label>
+<select data-sl="outerGlowLayer">
+<option value="0">0 — Back (deepest)</option>
+<option value="1">1 — Below fill</option>
+<option value="2">2 — Above fill (default)</option>
+<option value="3">3 — Mid layer</option>
+<option value="4">4 — Above content</option>
+<option value="5">5 — Front (topmost)</option>
+</select>
+</div>
+</div>
+</div>
+</div>
+</div>
+
+<div class="style-lab-section" data-sl-section="drop-shadow">
+<div class="style-lab-section-title style-lab-effect-title">
+<label class="style-lab-effect-toggle"><input data-sl="effectDropShadowOn" type="checkbox"/> Drop Shadow</label>
+<button class="style-lab-effect-add" data-sl-add="dropShadow" onclick="styleLabAddEffectInstance('dropShadow', event)" type="button">+</button>
+</div>
+<div class="style-lab-grid">
+<div class="style-lab-group">
+<div class="style-lab-group-title">Color &amp; Strength</div>
+<div class="style-lab-group-grid">
+<div class="style-lab-field">
+<label>Drop shadow color</label>
+<input data-sl="outerShadowColor" type="color"/>
+</div>
+<div class="style-lab-field">
+<label>Drop shadow opacity</label>
+<div class="style-lab-range-row"><input data-sl="outerShadowOpacity" max="100" min="0" type="range"/><input data-sl-number="outerShadowOpacity" max="100" min="0" type="number"/></div>
+</div>
+</div>
+</div>
+<div class="style-lab-group">
+<div class="style-lab-group-title">Position &amp; Softness</div>
+<div class="style-lab-group-grid">
+<div class="style-lab-field style-lab-check full">
+<input data-sl="outerShadowLinkXY" type="checkbox"/>
+<label>Link drop shadow X and Y</label>
+</div>
+<div class="style-lab-field">
+<label>Drop shadow X px</label>
+<div class="style-lab-range-row"><input data-sl="outerShadowX" max="80" min="-80" type="range"/><input data-sl-number="outerShadowX" max="80" min="-80" type="number"/></div>
+</div>
+<div class="style-lab-field">
+<label>Drop shadow Y px</label>
+<div class="style-lab-range-row"><input data-sl="outerShadowY" max="80" min="-80" type="range"/><input data-sl-number="outerShadowY" max="80" min="-80" type="number"/></div>
+</div>
+<div class="style-lab-field">
+<label>Drop shadow blur px</label>
+<div class="style-lab-range-row"><input data-sl="outerShadowBlur" max="120" min="0" type="range"/><input data-sl-number="outerShadowBlur" max="120" min="0" type="number"/></div>
+</div>
+<div class="style-lab-field">
+<label>Drop shadow spread px</label>
+<div class="style-lab-range-row"><input data-sl="outerShadowSpread" max="60" min="-30" type="range"/><input data-sl-number="outerShadowSpread" max="60" min="-30" type="number"/></div>
+</div>
+</div>
+</div>
+<div class="style-lab-group">
+<div class="style-lab-group-title">Blend &amp; Layer</div>
+<div class="style-lab-group-grid">
+<div class="style-lab-field">
+<label>Blend mode</label>
+<select data-sl="dropShadowBlendMode">
+<option value="normal">Normal</option>
+<option value="multiply">Multiply</option>
+<option value="screen">Screen</option>
+<option value="overlay">Overlay</option>
+<option value="soft-light">Soft light</option>
+<option value="hard-light">Hard light</option>
+<option value="color-dodge">Color dodge</option>
+<option value="color-burn">Color burn</option>
+<option value="lighten">Lighten</option>
+<option value="darken">Darken</option>
+<option value="saturation">Saturation</option>
+</select>
+</div>
+<div class="style-lab-field">
+<label>Layer</label>
+<select data-sl="dropShadowLayer">
+<option value="0">0 — Back (deepest)</option>
+<option value="1">1 — Below fill</option>
+<option value="2">2 — Above fill (default)</option>
+<option value="3">3 — Mid layer</option>
+<option value="4">4 — Above content</option>
+<option value="5">5 — Front (topmost)</option>
+</select>
+</div>
+</div>
+</div>
+<div class="style-lab-instance-list" data-sl-instance-list="dropShadow"></div>
+</div>
+</div>
+
+<div class="style-lab-section" data-sl-section="text">
+<div class="style-lab-section-title">Text</div>
+<div class="style-lab-grid">
+<div class="style-lab-subsection" data-sl-subsection="text-font">
+<div class="style-lab-subsection-title">Text &amp; Font</div>
+<div class="style-lab-grid">
+<div class="style-lab-group">
+<div class="style-lab-group-title">Color &amp; Blend</div>
+<div class="style-lab-group-grid">
+<div class="style-lab-field style-lab-check full">
+<input data-sl="fontColorOn" type="checkbox"/>
+<label>Use custom font color</label>
+</div>
+<div class="style-lab-field">
+<label>Font color</label>
+<input data-sl="fontColor" type="color"/>
+</div>
+<div class="style-lab-field">
+<label>Text fill opacity</label>
+<div class="style-lab-range-row"><input data-sl="fontFillOpacity" max="100" min="0" type="range"/><input data-sl-number="fontFillOpacity" max="100" min="0" type="number"/></div>
+</div>
+<div class="style-lab-field style-lab-check full">
+<input data-sl="effectTextBlendOn" type="checkbox"/>
+<label>Use text blend mode</label>
+</div>
+<div class="style-lab-field">
+<label>Text blend mode</label>
+<select data-sl="textBlendMode">
+<option value="normal">Normal</option>
+<option value="multiply">Multiply</option>
+<option value="screen">Screen</option>
+<option value="overlay">Overlay</option>
+<option value="soft-light">Soft light</option>
+<option value="hard-light">Hard light</option>
+<option value="color-dodge">Color dodge</option>
+<option value="color-burn">Color burn</option>
+<option value="lighten">Lighten</option>
+<option value="darken">Darken</option>
+<option value="saturation">Saturation</option>
+</select>
+</div>
+</div>
+</div>
+<div class="style-lab-group">
+<div class="style-lab-group-title">Text Stroke</div>
+<div class="style-lab-group-grid">
+<div class="style-lab-field style-lab-check full">
+<input data-sl="textStrokeOn" type="checkbox"/>
+<label>Use text stroke</label>
+</div>
+<div class="style-lab-field">
+<label>Text stroke color</label>
+<input data-sl="textStrokeColor" type="color"/>
+</div>
+<div class="style-lab-field">
+<label>Text stroke width px</label>
+<div class="style-lab-range-row"><input data-sl="textStrokeWidth" max="4" min="0" step="0.1" type="range"/><input data-sl-number="textStrokeWidth" max="4" min="0" step="0.1" type="number"/></div>
+</div>
+<div class="style-lab-field">
+<label>Outline alignment feel</label>
+<select data-sl="textStrokeAlign">
+<option value="outside">Outside</option>
+<option value="center">Center</option>
+<option value="inside">Inside</option>
+</select>
+</div>
+</div>
+</div>
+<div class="style-lab-group">
+<div class="style-lab-group-title">Type &amp; Spacing</div>
+<div class="style-lab-group-grid">
+<div class="style-lab-field">
+<label>Font size px</label>
+<input data-sl="fontSize" inputmode="decimal" min="1" placeholder="unchanged" type="number"/>
+</div>
+<div class="style-lab-field">
+<label>Font weight</label>
+<select data-sl="fontWeight">
+<option value="">Unchanged</option>
+<option value="300">Light</option>
+<option value="400">Regular</option>
+<option value="500">Medium</option>
+<option value="600">Semibold</option>
+<option value="700">Bold</option>
+<option value="800">Extra bold</option>
+</select>
+</div>
+<div class="style-lab-field">
+<label>Line height</label>
+<input data-sl="lineHeight" inputmode="decimal" min="0.5" placeholder="unchanged" step="0.05" type="number"/>
+</div>
+<div class="style-lab-field">
+<label>Letter spacing px</label>
+<input data-sl="letterSpacing" inputmode="decimal" placeholder="unchanged" step="0.1" type="number"/>
+</div>
+<div class="style-lab-field">
+<label>Word spacing px</label>
+<input data-sl="wordSpacing" inputmode="decimal" placeholder="unchanged" step="0.1" type="number"/>
+</div>
+<div class="style-lab-field">
+<label>Baseline shift px</label>
+<div class="style-lab-range-row"><input data-sl="baselineShift" max="40" min="-40" step="0.1" type="range"/><input data-sl-number="baselineShift" max="40" min="-40" step="0.1" type="number"/></div>
+</div>
+<div class="style-lab-field style-lab-check full">
+<input data-sl="textSmallCaps" type="checkbox"/>
+<label>Small caps</label>
+</div>
+<div class="style-lab-field style-lab-check full">
+<input data-sl="textUppercase" type="checkbox"/>
+<label>Uppercase transform</label>
+</div>
+<div class="style-lab-field full">
+<label>Font family</label>
+<select data-sl="fontFamily">
+<option value="">Unchanged</option>
+<option value="var(--serif)">Current serif</option>
+<option value="var(--sans)">Current sans</option>
+<option value="'Cormorant Garamond', Georgia, serif">Cormorant Garamond</option>
+<option value="'EB Garamond', Georgia, serif">EB Garamond</option>
+<option value="'Lora', Georgia, serif">Lora</option>
+<option value="'Cinzel', Georgia, serif">Cinzel</option>
+<option value="'Outfit', system-ui, sans-serif">Outfit</option>
+<option value="'DM Sans', system-ui, sans-serif">DM Sans</option>
+</select>
+</div>
+</div>
+</div>
+<div class="style-lab-group">
+<div class="style-lab-group-title">Layer</div>
+<div class="style-lab-group-grid">
+<div class="style-lab-field">
+<label>Layer z-index</label>
+<input data-sl="zIndex" inputmode="numeric" placeholder="unchanged" type="number"/>
+</div>
+</div>
+</div>
+</div>
+</div>
+<div class="style-lab-subsection" data-sl-subsection="text-shadow">
+<div class="style-lab-subsection-title">Text Shadow</div>
+<div class="style-lab-grid">
+<div class="style-lab-group">
+<div class="style-lab-group-title">Color &amp; Strength</div>
+<div class="style-lab-group-grid">
+<div class="style-lab-field style-lab-check full">
+<input data-sl="effectTextShadowOn" type="checkbox"/>
+<label>Use text shadow</label>
+</div>
+<div class="style-lab-field">
+<label>Text shadow color</label>
+<input data-sl="textShadowColor" type="color"/>
+</div>
+<div class="style-lab-field">
+<label>Text shadow opacity</label>
+<div class="style-lab-range-row"><input data-sl="textShadowOpacity" max="100" min="0" type="range"/><input data-sl-number="textShadowOpacity" max="100" min="0" type="number"/></div>
+</div>
+</div>
+</div>
+<div class="style-lab-group">
+<div class="style-lab-group-title">Position &amp; Softness</div>
+<div class="style-lab-group-grid">
+<div class="style-lab-field style-lab-check full">
+<input data-sl="textShadowLinkXY" type="checkbox"/>
+<label>Link text shadow X and Y</label>
+</div>
+<div class="style-lab-field">
+<label>Text shadow X px</label>
+<div class="style-lab-range-row"><input data-sl="textShadowX" max="40" min="-40" type="range"/><input data-sl-number="textShadowX" max="40" min="-40" type="number"/></div>
+</div>
+<div class="style-lab-field">
+<label>Text shadow Y px</label>
+<div class="style-lab-range-row"><input data-sl="textShadowY" max="40" min="-40" type="range"/><input data-sl-number="textShadowY" max="40" min="-40" type="number"/></div>
+</div>
+<div class="style-lab-field">
+<label>Text shadow blur px</label>
+<div class="style-lab-range-row"><input data-sl="textShadowBlur" max="80" min="0" type="range"/><input data-sl-number="textShadowBlur" max="80" min="0" type="number"/></div>
+</div>
+</div>
+</div>
+</div>
+</div>
+<div class="style-lab-subsection" data-sl-subsection="text-bevel">
+<div class="style-lab-subsection-title">Text Bevel &amp; Emboss</div>
+<div class="style-lab-grid">
+<div class="style-lab-group">
+<div class="style-lab-group-title">Structure</div>
+<div class="style-lab-group-grid">
+<div class="style-lab-field style-lab-check full">
+<input data-sl="effectTextBevelOn" type="checkbox"/>
+<label>Use text bevel</label>
+</div>
+<div class="style-lab-field">
+<label>Style</label>
+<select data-sl="textBevelStyle">
+<option value="none">None</option>
+<option value="inner">Inner bevel</option>
+<option value="outer">Outer bevel</option>
+<option value="emboss">Emboss</option>
+</select>
+</div>
+<div class="style-lab-field">
+<label>Technique</label>
+<select data-sl="textBevelTechnique">
+<option value="smooth">Smooth</option>
+<option value="chiselSoft">Chisel soft</option>
+<option value="chiselHard">Chisel hard</option>
+</select>
+</div>
+<div class="style-lab-field">
+<label>Depth %</label>
+<div class="style-lab-range-row"><input data-sl="textBevelDepth" max="300" min="0" type="range"/><input data-sl-number="textBevelDepth" max="300" min="0" type="number"/></div>
+</div>
+<div class="style-lab-field">
+<label>Direction</label>
+<select data-sl="textBevelDirection">
+<option value="up">Up</option>
+<option value="down">Down</option>
+</select>
+</div>
+<div class="style-lab-field">
+<label>Size px</label>
+<div class="style-lab-range-row"><input data-sl="textBevelSize" max="24" min="0" step="0.1" type="range"/><input data-sl-number="textBevelSize" max="24" min="0" step="0.1" type="number"/></div>
+</div>
+<div class="style-lab-field">
+<label>Soften px</label>
+<div class="style-lab-range-row"><input data-sl="textBevelSoften" max="24" min="0" step="0.1" type="range"/><input data-sl-number="textBevelSoften" max="24" min="0" step="0.1" type="number"/></div>
+</div>
+</div>
+</div>
+<div class="style-lab-group">
+<div class="style-lab-group-title">Shading</div>
+<div class="style-lab-group-grid">
+<div class="style-lab-field">
+<label>Angle deg</label>
+<div class="style-lab-range-row"><input data-sl="textBevelAngle" max="360" min="0" type="range"/><input data-sl-number="textBevelAngle" max="360" min="0" type="number"/></div>
+</div>
+<div class="style-lab-field">
+<label>Altitude deg</label>
+<div class="style-lab-range-row"><input data-sl="textBevelAltitude" max="90" min="0" type="range"/><input data-sl-number="textBevelAltitude" max="90" min="0" type="number"/></div>
+</div>
+<div class="style-lab-field">
+<label>Highlight color</label>
+<input data-sl="textBevelHighlightColor" type="color"/>
+</div>
+<div class="style-lab-field">
+<label>Highlight opacity</label>
+<div class="style-lab-range-row"><input data-sl="textBevelHighlightOpacity" max="100" min="0" type="range"/><input data-sl-number="textBevelHighlightOpacity" max="100" min="0" type="number"/></div>
+</div>
+<div class="style-lab-field">
+<label>Shadow color</label>
+<input data-sl="textBevelShadowColor" type="color"/>
+</div>
+<div class="style-lab-field">
+<label>Shadow opacity</label>
+<div class="style-lab-range-row"><input data-sl="textBevelShadowOpacity" max="100" min="0" type="range"/><input data-sl-number="textBevelShadowOpacity" max="100" min="0" type="number"/></div>
+</div>
+</div>
+</div>
+<div class="style-lab-group">
+<div class="style-lab-group-title">Manual Emboss</div>
+<div class="style-lab-group-grid">
+<div class="style-lab-field style-lab-check full">
+<input data-sl="effectTextEmbossOn" type="checkbox"/>
+<label>Use manual text emboss</label>
+</div>
+<div class="style-lab-field">
+<label>Manual emboss amount</label>
+<div class="style-lab-range-row"><input data-sl="textEmboss" max="100" min="0" type="range"/><input data-sl-number="textEmboss" max="100" min="0" type="number"/></div>
+</div>
+<div class="style-lab-field">
+<label>Emboss contrast %</label>
+<div class="style-lab-range-row"><input data-sl="textEmbossContrast" max="300" min="0" type="range"/><input data-sl-number="textEmbossContrast" max="300" min="0" type="number"/></div>
+</div>
+<div class="style-lab-field">
+<label>Emboss spread px</label>
+<div class="style-lab-range-row"><input data-sl="textEmbossSpread" max="12" min="0" step="0.1" type="range"/><input data-sl-number="textEmbossSpread" max="12" min="0" step="0.1" type="number"/></div>
+</div>
+<div class="style-lab-field">
+<label>Emboss highlight color</label>
+<input data-sl="textEmbossHighlightColor" type="color"/>
+</div>
+<div class="style-lab-field">
+<label>Emboss highlight opacity</label>
+<div class="style-lab-range-row"><input data-sl="textEmbossHighlightOpacity" max="100" min="0" type="range"/><input data-sl-number="textEmbossHighlightOpacity" max="100" min="0" type="number"/></div>
+</div>
+<div class="style-lab-field">
+<label>Emboss shadow color</label>
+<input data-sl="textEmbossShadowColor" type="color"/>
+</div>
+<div class="style-lab-field">
+<label>Emboss shadow opacity</label>
+<div class="style-lab-range-row"><input data-sl="textEmbossShadowOpacity" max="100" min="0" type="range"/><input data-sl-number="textEmbossShadowOpacity" max="100" min="0" type="number"/></div>
+</div>
+<div class="style-lab-field style-lab-check full">
+<input data-sl="textEmbossLinkXY" type="checkbox"/>
+<label>Link emboss X and Y</label>
+</div>
+<div class="style-lab-field">
+<label>Emboss X px</label>
+<div class="style-lab-range-row"><input data-sl="textEmbossX" max="12" min="-12" step="0.1" type="range"/><input data-sl-number="textEmbossX" max="12" min="-12" step="0.1" type="number"/></div>
+</div>
+<div class="style-lab-field">
+<label>Emboss Y px</label>
+<div class="style-lab-range-row"><input data-sl="textEmbossY" max="12" min="-12" step="0.1" type="range"/><input data-sl-number="textEmbossY" max="12" min="-12" step="0.1" type="number"/></div>
+</div>
+<div class="style-lab-field">
+<label>Emboss blur px</label>
+<div class="style-lab-range-row"><input data-sl="textEmbossBlur" max="16" min="0" step="0.1" type="range"/><input data-sl-number="textEmbossBlur" max="16" min="0" step="0.1" type="number"/></div>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+<div class="style-lab-expression-popover" id="style-lab-expression-popover" aria-hidden="true">
+<div class="style-lab-expression-head">
+<div class="style-lab-expression-title">Expression<span class="style-lab-expression-target" id="style-lab-expression-target">Choose a numeric control.</span></div>
+<button class="style-lab-expression-close" onclick="closeStyleLabExpressionEditor()" type="button" aria-label="Close expression editor">×</button>
+</div>
+<div class="style-lab-expression-grid">
+<div class="style-lab-expression-field full">
+<label>Loop type</label>
+<select id="style-lab-expression-type">
+<option value="sine">Sine — base ± amount</option>
+<option value="pulse">Pulse — base to base + amount</option>
+<option value="pingpong">Ping-pong — up and back</option>
+<option value="flicker">Flicker — irregular jitter</option>
+</select>
+</div>
+<div class="style-lab-expression-field">
+<label>Base value</label>
+<input id="style-lab-expression-base" inputmode="decimal" type="number"/>
+</div>
+<div class="style-lab-expression-field">
+<label>Amount</label>
+<input id="style-lab-expression-amount" inputmode="decimal" type="number"/>
+</div>
+<div class="style-lab-expression-field">
+<label>Cycle seconds</label>
+<input id="style-lab-expression-duration" inputmode="decimal" min="0.1" step="0.1" type="number"/>
+</div>
+<div class="style-lab-expression-field">
+<label>Phase degrees</label>
+<input id="style-lab-expression-phase" inputmode="decimal" type="number"/>
+</div>
+<div class="style-lab-expression-field">
+<label>Clamp min</label>
+<input id="style-lab-expression-min" inputmode="decimal" placeholder="auto" type="number"/>
+</div>
+<div class="style-lab-expression-field">
+<label>Clamp max</label>
+<input id="style-lab-expression-max" inputmode="decimal" placeholder="auto" type="number"/>
+</div>
+</div>
+<div class="style-lab-expression-actions">
+<button class="style-lab-btn danger" onclick="removeStyleLabExpressionEditor()" type="button">Remove</button>
+<button class="style-lab-btn" onclick="closeStyleLabExpressionEditor()" type="button">Cancel</button>
+<button class="style-lab-btn primary" onclick="applyStyleLabExpressionEditor()" type="button">Apply</button>
+</div>
+</div>
+<!-- XP TOAST -->
+<div class="xp-toast" id="xp-toast"></div>
+<!-- CALENDAR VIEW -->
+<div class="view" id="calendar">
+<div class="top-bar">
+<button type="button" class="back-btn" onclick="showHome()">←</button>
+<span class="top-title" style="flex:1">Study Calendar</span>
+</div>
+<div class="cal-streak-summary">
+<div class="cal-stat"><strong id="cal-streak">0</strong><span>Current streak</span></div>
+<div class="cal-stat"><strong id="cal-studied-days">0</strong><span>Days studied</span></div>
+<div class="cal-stat"><strong id="cal-freezes-used">0</strong><span>Freezes used</span></div>
+</div>
+<div class="cal-nav">
+<button type="button" class="cal-nav-btn" onclick="calPrevMonth()">‹</button>
+<div class="cal-month-label" id="cal-month-label"></div>
+<button type="button" class="cal-nav-btn" onclick="calNextMonth()">›</button>
+</div>
+<div class="cal-grid" id="cal-grid"></div>
+<div class="cal-legend">
+<div class="cal-legend-item"><div class="cal-legend-swatch" style="background:rgba(245,158,11,0.2);border:1px solid var(--gold)"></div>Studied 🔥</div>
+<div class="cal-legend-item"><div class="cal-legend-swatch" style="background:rgba(59,130,246,0.15);border:1px solid #3B82F6"></div>Freeze used 🧊</div>
+<div class="cal-legend-item"><div class="cal-legend-swatch" style="border:1.5px solid var(--gold)"></div>Today</div>
+</div>
+</div>
+<!-- SHOP VIEW -->
+<div class="view" id="shop">
+<div class="top-bar">
+<button type="button" class="back-btn" onclick="showHome()">←</button>
+<span class="top-title" style="flex:1">Shop</span>
+</div>
+<div class="shop-xp-banner">
+<div style="font-size:24px">💰</div>
+<div>
+<div class="shop-xp-amount" id="shop-xp-amount">0 XP</div>
+<div class="shop-xp-sub">available to spend</div>
+</div>
+</div>
+<div id="shop-items"></div>
+</div>
+<div class="view" id="shop-preview-page">
+<div class="top-bar">
+<button type="button" class="back-btn" onclick="closeShopPreviewPage()">←</button>
+<span class="top-title" id="spp-title" style="flex:1">Preview</span>
+</div>
+<div id="spp-desc" style="padding:0 20px 10px;color:var(--muted);font-size:13px;line-height:1.4"></div>
+<div class="card-scene">
+<div class="card-3d" id="spp-card-3d" onclick="toggleShopPreviewPageFlip()">
+<div id="spp-frame-under-front" style="position:absolute;inset:-10px;pointer-events:none;backface-visibility:hidden;z-index:0;overflow:visible;transform:translateZ(-1px)"></div>
+<div id="spp-frame-under-back" style="position:absolute;inset:-10px;pointer-events:none;backface-visibility:hidden;z-index:0;overflow:visible;transform:rotateY(180deg) translateZ(-1px)"></div>
+<div class="card-face face-front" id="spp-face-front"></div>
+<div class="card-face face-back" id="spp-face-back"></div>
+<div id="spp-frame-front" style="position:absolute;inset:-10px;pointer-events:none;backface-visibility:hidden;z-index:20;overflow:visible;transform:translateZ(2px)"></div>
+<div id="spp-frame-back" style="position:absolute;inset:-10px;pointer-events:none;backface-visibility:hidden;transform:rotateY(180deg) translateZ(2px);z-index:20;overflow:visible"></div>
+</div>
+</div>
+<div id="spp-meta" class="fc-hint" style="margin-top:-2px"></div>
+<div style="padding:0 20px 10px">
+<button type="button" id="spp-action-btn" class="btn btn-gold" style="width:100%;padding:14px;font-size:15px"></button>
+</div>
+<div class="fc-nav">
+<button type="button" class="nav-btn" id="spp-prev" onclick="shopPreviewPageNav(-1)">←</button>
+<button type="button" class="nav-btn flip" onclick="toggleShopPreviewPageFlip()">Flip</button>
+<button type="button" class="nav-btn" id="spp-next" onclick="shopPreviewPageNav(1)">→</button>
+</div>
+<div id="spp-variant-label" style="text-align:center;color:var(--muted);font-size:12px;margin-top:8px;min-height:18px"></div>
+</div>
+<!-- BADGES VIEW -->
+<div class="view" id="badges">
+<div class="top-bar">
+<button type="button" class="back-btn" onclick="showHome()">←</button>
+<span class="top-title" style="flex:1">Achievements</span>
+</div>
+<div style="padding:0 20px 16px;display:flex;align-items:center;gap:16px">
+<div>
+<div class="xp-level" id="bdg-level" style="font-size:20px"></div>
+<div id="bdg-xp" style="font-size:12px;color:var(--muted)"></div>
+</div>
+<div style="flex:1">
+<div class="xp-bar" style="height:8px"><div class="xp-fill" id="bdg-xp-fill"></div></div>
+</div>
+</div>
+<div class="badges-grid" id="badges-grid"></div>
+</div>
+<!-- HOME -->
+<div class="view active" id="home">
+<div class="home-status-row">
+<button type="button" class="home-status-pill streak-pill cold" id="streak-pill" onclick="show('calendar');renderCalendar()" aria-label="Study streak">
+<span class="home-status-icon home-flame-icon" aria-hidden="true">
+<svg viewBox="0 0 32 32"><path d="M17.7 2.7c1.1 4.5-1.4 6.5-1.4 9.5 0 1.7 1 3.1 2.5 3.8-.2-3.8 2-6 3.3-7.4 3.1 3.4 5 6.6 5 10.9 0 5.8-4.7 10.1-10.9 10.1S5.4 25.4 5.4 19.4c0-5.6 4.1-8.9 6.6-12.2 1.5-2 2.7-3.7 2.8-6.1 1.2.2 2.1.7 2.9 1.6Z" fill="url(#homeFlameGrad)"/><path d="M16.1 27.5c-3.1 0-5.2-2.2-5.2-5.1 0-2.9 2.4-4.8 3.5-7.1.8 2.9 3.9 3.6 3.9 6.1 1-1 1.5-2.2 1.6-3.6 1.3 1.2 2 2.8 2 4.5 0 3.1-2.4 5.2-5.8 5.2Z" fill="#ffe789"/><defs><linearGradient id="homeFlameGrad" x1="9" x2="25" y1="30" y2="4" gradientUnits="userSpaceOnUse"><stop stop-color="#ff526f"/><stop offset=".5" stop-color="#ff9f3f"/><stop offset="1" stop-color="#ffe76a"/></linearGradient></defs></svg>
+</span>
+<span id="streak-num">0</span>
+<span id="freeze-count" style="display:none"></span>
+</button>
+<button type="button" class="home-status-pill home-shekel-pill" onclick="show('shop');renderShopView()" aria-label="Open shop">
+<span class="home-status-icon home-coin-icon" aria-hidden="true">
+<svg viewBox="0 0 32 32"><circle cx="16" cy="16" r="12.5" fill="#f6c451"/><circle cx="16" cy="16" r="9.2" fill="#ffe08a" opacity=".82"/><path d="M12 20.4c1.2 1.1 2.7 1.6 4.5 1.6 2.2 0 4-1 4-2.9 0-1.7-1.2-2.5-3.9-3.1-1.6-.4-2.1-.7-2.1-1.4 0-.7.7-1.1 1.8-1.1 1.2 0 2.2.4 3.1 1.1l1.2-2.1c-.8-.7-1.8-1.1-3-1.3V9.3h-2.5v1.9c-2.1.3-3.5 1.6-3.5 3.5 0 1.8 1.2 2.7 3.9 3.2 1.6.3 2.1.7 2.1 1.3 0 .7-.7 1.1-1.9 1.1-1.3 0-2.5-.5-3.5-1.3L12 20.4Z" fill="#8c5520"/><path d="M8.1 10.7c1.5-2.7 4.5-4.7 7.9-4.7 2.8 0 5.4 1.3 7.1 3.4" fill="none" stroke="#fff3b0" stroke-width="1.5" stroke-linecap="round" opacity=".8"/></svg>
+</span>
+<span id="home-shekels">0</span>
+</button>
+</div>
+<div class="home-hero">
+<div class="home-brand-copy">
+<div class="home-brand-critical">Critical</div>
+<div class="home-brand-subtitle">Bible Study</div>
+</div>
+<button type="button" class="lock-btn" id="lock-btn" onclick="lockTap()" title="Author access">🔒</button>
+</div>
+<div class="xp-bar-wrap home-xp-card" onclick="show('badges');renderBadgesView()" style="cursor:pointer">
+<div class="xp-bar-row">
+<span class="xp-level" id="home-level">Level 1</span>
+<span id="home-title" style="font-size:12px;color:var(--muted);font-style:italic"></span>
+<span class="xp-label" id="home-xp-label">0 XP</span>
+</div>
+<div class="xp-bar"><div class="xp-fill" id="home-xp-fill" style="width:0%"></div></div>
+</div>
+<div class="home-dashboard-grid">
+<div class="guided-home-btn" id="guided-entry" onclick="showGuided()" style="display:none">
+<div class="guided-home-copy">
+<div class="guided-home-kicker">Guided Learning</div>
+<div class="guided-home-title" id="guided-entry-title">Build your learning path</div>
+<div class="guided-home-sub" id="guided-entry-sub">Choose categories and start your first bracket.</div>
+<div class="guided-home-meta" id="guided-entry-meta" aria-hidden="true"></div>
+</div>
+<div class="guided-home-arrow" id="guided-entry-action">Open →</div>
+</div>
+<button type="button" class="timeline-home-btn" id="timeline-entry" onclick="showTimelineViewer()">
+<div class="timeline-home-copy">
+<div class="timeline-home-kicker">Timeline</div>
+<div class="timeline-home-title">Graphic date view</div>
+<div class="timeline-home-sub" id="timeline-entry-sub">Compare writings, people, and rulers on one date line.</div>
+<div class="timeline-home-meta"><span id="timeline-entry-count">30 pilot cards</span><span>Sidecar pilot</span></div>
+</div>
+<div class="timeline-home-arrow">Open →</div>
+</button>
+<div class="daily-btn" id="daily-btn" onclick="startDailyChallenge()">
+<div class="daily-ring-wrap">
+<svg height="46" viewBox="0 0 46 46" width="46">
+<circle cx="23" cy="23" fill="none" r="19" stroke="rgba(255,255,255,0.08)" stroke-width="4"></circle>
+<circle class="daily-ring-fill" cx="23" cy="23" fill="none" id="daily-ring-fill" r="19" stroke="#F59E0B" stroke-dasharray="119.4" stroke-dashoffset="119.4" stroke-linecap="round" stroke-width="4"></circle>
+</svg>
+<div id="daily-pct" style="position:absolute;inset:0;display:flex;align-items:center;justify-content:center;font-size:11px;font-weight:700;color:var(--gold)">0%</div>
+</div>
+<div class="daily-info">
+<div class="daily-title">Daily Challenge</div>
+<div class="daily-sub" id="daily-sub">Cards due for review today</div>
+</div>
+<div style="color:var(--muted);font-size:18px">→</div>
+</div>
+<div class="home-achievement-card" onclick="show('badges');renderBadgesView()" role="button" tabindex="0">
+<div class="home-card-kicker">Recent achievement</div>
+<div class="home-achievement-row">
+<div class="home-achievement-icon" id="home-achievement-icon">✦</div>
+<div>
+<div class="home-achievement-title" id="home-achievement-title">No achievement yet</div>
+<div class="home-achievement-sub" id="home-achievement-sub">Complete a quiz or keep a streak to earn one.</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+<!-- TIMELINE -->
+<div class="view" id="timeline">
+<div id="timeline-root"></div>
+</div>
+<!-- DECKS -->
+<div class="view" id="decks">
+<div class="hero decks-hero" style="display:flex;align-items:flex-start;justify-content:space-between;padding-right:20px">
+<div>
+<div class="eyebrow">Ready to study?</div>
+<div class="hero-title">Your <em>Decks</em></div>
+</div>
+</div>
+<div class="section-head" id="deck-count"></div>
+<div class="deck-list" id="deck-list"></div>
+<button type="button" class="add-btn" id="add-deck-btn" onclick="showCreate()" style="display:none">+ Create new deck</button>
+<div id="author-tools" style="display:none;padding:0 20px 24px;flex-direction:column;gap:10px">
+<button type="button" class="btn btn-soft" onclick="show('tag-groups');renderTagGroupsView()" style="width:100%;padding:13px;font-size:13px">🏷 Manage Tag Groups</button>
+<button type="button" class="btn btn-soft" onclick="exportData()" style="width:100%;padding:13px;font-size:13px">⬇ Export decks as backup file</button>
+<button type="button" class="btn btn-gold" onclick="exportReaderFile()" style="width:100%;padding:13px;font-size:13px">📤 Export reader file (share with others)</button>
+<label class="btn btn-soft" style="width:100%;padding:13px;font-size:13px;text-align:center;cursor:pointer;display:block">
+        ⬆ Import decks from backup file
+        <input accept=".json" aria-label="Import decks backup JSON file" id="import-input" onchange="importData(event)" style="display:none" type="file"/>
+</label>
+<div style="display:flex;gap:10px">
+<label class="btn btn-soft" style="flex:1;padding:13px;font-size:13px;text-align:center;cursor:pointer;display:flex;align-items:center;justify-content:center;gap:6px">
+          📂 Import JSON deck
+          <input accept=".json" aria-label="Import single deck JSON file" id="deck-import-input" onchange="importSingleDeck(event)" style="display:none" type="file"/>
+</label>
+<button type="button" class="btn btn-soft" onclick="openPasteDeckModal()" style="flex:1;padding:13px;font-size:13px">📋 Import pasted deck</button>
+</div>
+<button type="button" class="btn btn-soft" onclick="openDevTools()" style="width:100%;padding:13px;font-size:13px;border-color:rgba(245,158,11,0.3);color:var(--gold)">🧪 Dev Tools</button>
+<button type="button" class="btn btn-soft" onclick="showGuidedAuthorTools()" style="width:100%;padding:13px;font-size:13px;border-color:rgba(56,189,248,0.35);color:#7DD3FC">🛠 Guided Author Tools</button>
+</div>
+</div>
+<!-- GUIDED LEARNING -->
+<div class="view guided-view" id="guided">
+<div id="guided-root"></div>
+</div>
+<!-- PROFILE -->
+<div class="view" id="profile">
+<div class="profile-hero">
+<div class="profile-avatar-shell">
+<div class="profile-avatar-medallion" aria-hidden="true">
+<svg viewBox="0 0 72 72"><circle cx="36" cy="36" r="31" fill="#172335" stroke="#65d8ff" stroke-width="2"/><path d="M22 57c2.5-9.1 7.1-13 14-13s11.5 3.9 14 13" fill="#6ee7ff" opacity=".42"/><circle cx="36" cy="28" r="10" fill="#f2ddad"/><path d="M26 29c1.2-8.2 5.5-12.3 12.7-12.3 5.8 0 9.6 3.7 10.7 10.5-3.2-1.3-6.2-3.2-9-5.6-3.5 3.2-8.3 5.6-14.4 7.4Z" fill="#8367ff"/></svg>
+</div>
+</div>
+<div>
+<div class="profile-kicker">Profile</div>
+<div class="profile-title" id="profile-title">Study profile</div>
+<div class="profile-sub" id="profile-sub">Achievements, settings, and author tools.</div>
+</div>
+</div>
+<div class="profile-card profile-stats-card">
+<div class="profile-stats-head">
+<div>
+<div class="profile-card-title">Study stats</div>
+<div class="profile-card-sub">A quick snapshot of your progress.</div>
+</div>
+<button type="button" class="profile-inline-btn" id="profile-achievements-btn" onclick="show('badges');renderBadgesView()">Achievements <span id="profile-achievements-count">0</span></button>
+</div>
+<div class="profile-stat-grid">
+<div class="profile-stat"><span>Level</span><strong id="profile-stat-level">1</strong></div>
+<div class="profile-stat"><span>XP</span><strong id="profile-stat-xp">0</strong></div>
+<div class="profile-stat"><span>Streak</span><strong id="profile-stat-streak">0</strong></div>
+<div class="profile-stat"><span>Mastered</span><strong id="profile-stat-mastered">0</strong></div>
+</div>
+</div>
+<div class="profile-card profile-settings-card">
+<div class="profile-settings-main">
+<div>
+<div class="profile-card-title">App settings</div>
+<div class="profile-card-sub">Theme, Bible version, quiz difficulty, and sound.</div>
+</div>
+<button type="button" class="profile-settings-summary" id="profile-settings-summary" aria-label="Open app settings." aria-expanded="false" aria-controls="options-menu" onclick="openProfileSettingsMenu(event)">
+<span><em>Style</em><strong id="profile-setting-style">Chic Splash</strong></span>
+<span><em>Bible</em><strong id="profile-setting-bible">NRSVUE</strong></span>
+<span><em>Quiz</em><strong id="profile-setting-quiz">Hard</strong></span>
+<span><em>Sound</em><strong id="profile-setting-sound">Off</strong></span>
+</button>
+</div>
+<div class="header-options" id="header-options">
+<button type="button" class="options-cog profile-options-cog" id="options-cog" onclick="toggleOptionsMenu(event)" title="Open app settings" aria-label="Open app settings" aria-expanded="false" aria-controls="options-menu">⚙</button>
+<div class="options-menu" id="options-menu" role="dialog" aria-modal="false" aria-labelledby="options-menu-title">
+<div class="options-menu-head">
+<div>
+<div class="options-menu-kicker">App settings</div>
+<div class="options-menu-title" id="options-menu-title">Choose how StudyDeck feels</div>
+</div>
+<button type="button" class="options-menu-close" onclick="closeOptionsMenu()" aria-label="Close app settings">×</button>
+</div>
+<div class="options-section">
+<div class="options-section-title">Look and reading</div>
+<div class="options-label">App style</div>
+<select aria-label="App visual style" class="options-select" id="app-style-select" onchange="onAppStyleChange(this.value)"></select>
+<button class="options-add-style-btn" id="add-app-style-btn" onclick="openBlankAppStyleModal()" type="button">+ Add New Style</button>
+<div class="options-theme-tools" id="theme-tools">
+<button class="options-theme-btn" onclick="exportThemeSettings()" type="button">Export Theme</button>
+<button class="options-theme-btn" onclick="document.getElementById('theme-import-input').click()" type="button">Import Theme</button>
+<button class="options-theme-btn danger" id="delete-custom-style-btn" onclick="confirmDeleteCurrentCustomAppStyle()" type="button">Delete Custom Style</button>
+<input accept=".json,application/json" aria-label="Import theme JSON file" id="theme-import-input" onchange="importThemeSettingsFile(event)" style="display:none" type="file"/>
+</div>
+<div class="options-label options-label-spaced">Bible version</div>
+<select aria-label="Bible version" class="options-select" id="bible-version-select" onchange="onBibleVersionChange(this.value)"></select>
+<div class="options-label options-label-spaced">Quiz difficulty</div>
+<select aria-label="Quiz difficulty" class="options-select" id="quiz-difficulty-select" onchange="onQuizDifficultyChange(this.value)"></select>
+</div>
+<div class="options-section">
+<div class="options-section-title">Sound</div>
+<div class="options-label">Sound feedback</div>
+<div class="options-audio-panel" aria-label="Sound feedback settings">
+<div class="options-audio-row">
+<span>Interface sounds</span>
+<button type="button" class="dc-toggle-btn" id="sound-feedback-toggle" onclick="toggleSoundFeedback()">Off</button>
+</div>
+<div class="options-audio-volume">
+<label for="sound-volume-range">Volume <strong id="sound-volume-value">35%</strong></label>
+<input id="sound-volume-range" type="range" min="0" max="100" step="1" value="35" oninput="setSoundFeedbackVolume(this.value)" aria-label="Sound feedback volume"/>
+</div>
+<button type="button" class="options-theme-btn options-audio-test" onclick="testSoundFeedback()">Test sound</button>
+</div>
+</div>
+</div>
+</div>
+</div>
+<div class="profile-action-list profile-author-actions" id="profile-author-actions" style="display:none">
+<button type="button" class="profile-action-btn profile-author-only" id="profile-guided-author-btn" onclick="showGuidedAuthorTools()"><span>Guided Author Tools</span><strong>→</strong></button>
+<button type="button" class="profile-action-btn profile-author-only" id="profile-devtools-btn" onclick="openDevTools()"><span>Dev Tools</span><strong>→</strong></button>
+</div>
+</div>
+<!-- DECK DETAIL -->
+<div class="view" id="detail">
+<div class="top-bar">
+<button type="button" class="back-btn" onclick="showDecks()">←</button>
+<span class="top-title" style="flex:1">Deck</span>
+<button type="button" class="back-btn" id="detail-edit-btn" onclick="if(activeDeck && !activeDeck._isAll && activeDeck.id !== '__daily__') showEditDeck(activeDeck.id)" style="display:none" title="Edit deck">✏</button>
+<button type="button" class="back-btn" id="opts-btn" onclick="toggleOpts()" title="Options">⚙</button>
+</div>
+<div class="deck-hero" id="detail-hero"></div>
+<!-- OPTIONS PANEL -->
+<div class="opts-panel" id="opts-panel">
+<div class="opts-section">
+<div class="opts-label">Card order</div>
+<div class="opts-row">
+<button type="button" class="opt-choice on" id="opt-learning" onclick="setOrder('learning')">Learning<br/>mix</button>
+<button type="button" class="opt-choice" id="opt-seq" onclick="setOrder('default')">Default<br/>sequence</button>
+<button type="button" class="opt-choice" id="opt-rand" onclick="setOrder('random')">Random<br/>shuffle</button>
+</div>
+</div>
+<div class="opts-section">
+<div class="opts-label">Card orientation</div>
+<div class="opts-row">
+<button type="button" class="opt-choice on" id="opt-top" onclick="setFace('front')">Front<br/>first</button>
+<button type="button" class="opt-choice" id="opt-mix" onclick="setFace('mixed')">Shuffled<br/>sides</button>
+<button type="button" class="opt-choice" id="opt-bot" onclick="setFace('back')">Back<br/>first</button>
+</div>
+</div>
+<div class="opts-section">
+<div class="opts-label">Quiz length</div>
+<select aria-label="Quiz length" class="form-inp" id="opt-quiz-len" onchange="setQuizLength(this.value)" style="padding:10px 12px;margin-top:4px">
+<option value="6">6 questions</option>
+<option value="12">12 questions</option>
+<option value="18">18 questions</option>
+<option value="24">24 questions</option>
+<option value="30">30 questions</option>
+<option value="36">36 questions</option>
+<option selected value="all">All cards</option>
+</select>
+</div>
+<div class="opts-section">
+<div class="opts-label">Flashcards</div>
+<div style="display:flex;align-items:center;justify-content:space-between;margin-top:8px;gap:14px">
+<span style="font-size:13px;color:var(--muted);line-height:1.35">Auto-advance after “I know it!”</span>
+<button type="button" class="dc-toggle-btn" id="opt-fc-auto" onclick="toggleFcAutoAdvance()">Off</button>
+</div>
+</div>
+<div class="opts-section" id="opt-dc-section">
+<div class="opts-label">Daily Challenge</div>
+<div style="display:flex;align-items:center;justify-content:space-between;margin-top:8px">
+<span style="font-size:13px;color:var(--muted)">Include this deck</span>
+<button type="button" class="dc-toggle-btn" id="opt-dc-toggle" onclick="toggleDCDeck()">Off</button>
+</div>
+</div>
+</div>
+<div class="action-row" id="detail-action-row">
+<button type="button" class="btn btn-gold" id="btn-flash" onclick="startFlash()">🃏 Flashcards</button>
+<button type="button" class="btn btn-soft" id="btn-quiz" onclick="startQuiz()">📝 Quiz</button>
+</div>
+<div id="btn-order-quiz-wrap" style="display:none;padding:0 20px;margin-bottom:22px;gap:10px">
+<button type="button" class="btn btn-soft" onclick="openBQRef()" style="flex:1;font-size:13px;padding:11px">📋 Reference</button>
+<button type="button" class="btn btn-soft" onclick="startOrderGuide()" style="flex:1.35;font-size:13px;padding:11px">🧭 Books Order Guide</button>
+<button type="button" class="btn btn-soft" onclick="startOrderQuiz()" style="flex:1.45;font-size:13px;padding:11px">📖 Books Order Quiz</button>
+</div>
+<div style="padding:0 20px 10px;display:flex;align-items:center;gap:8px">
+<input aria-label="Search cards in this deck" class="form-inp" id="deck-search" oninput="setDeckSearch(this.value)" placeholder="🔍 Search cards…" style="flex:1;padding:10px 14px;font-size:13px"/>
+<button type="button" id="deck-search-clear" onclick="setDeckSearch('')" style="display:none;background:none;border:none;color:var(--muted);font-size:18px;cursor:pointer;padding:4px 6px;line-height:1">✕</button>
+</div>
+<div class="filter-sec" id="filter-sec"></div>
+<div class="cards-sec" id="cards-sec"></div>
+</div>
+<!-- BOOKS ORDER QUIZ -->
+<div class="view" id="books-quiz">
+<div class="top-bar">
+<button type="button" class="back-btn" onclick="showDetail()">←</button>
+<span class="top-title" id="bq-title" style="flex:1">Books Order Quiz</span>
+<span id="bq-score-badge" style="display:none;font-size:12px;font-weight:600;padding:4px 10px;border-radius:12px;background:rgba(16,185,129,0.15);color:#10B981;margin-left:6px"></span>
+</div>
+<!-- Queue -->
+<div style="padding:0 16px 8px">
+<div id="bq-queue-label" style="font-size:11px;text-transform:uppercase;letter-spacing:.08em;color:var(--muted);margin-bottom:6px">Queue — alphabetical <span id="bq-queue-count" style="color:var(--gold)"></span></div>
+<div class="bq-queue" id="bq-queue"></div>
+</div>
+<!-- Drop zones -->
+<div style="display:flex;gap:10px;padding:0 16px;flex:1;min-height:0">
+<div style="flex:1;display:flex;flex-direction:column;min-height:0">
+<div style="font-size:11px;text-transform:uppercase;letter-spacing:.08em;color:var(--muted);margin-bottom:4px">Old Testament <span id="bq-ot-count" style="color:var(--gold)"></span></div>
+<div class="bq-zone" data-zone="ot" id="bq-ot"></div>
+</div>
+<div style="flex:1;display:flex;flex-direction:column;min-height:0">
+<div style="font-size:11px;text-transform:uppercase;letter-spacing:.08em;color:var(--muted);margin-bottom:4px">New Testament <span id="bq-nt-count" style="color:var(--gold)"></span></div>
+<div class="bq-zone" data-zone="nt" id="bq-nt"></div>
+</div>
+</div>
+<div style="padding:12px 16px 16px">
+<button type="button" class="btn btn-gold" id="bq-submit" onclick="submitOrderQuiz()" style="width:100%;padding:14px;display:none">Submit →</button>
+<button type="button" class="btn btn-soft" id="bq-retry" onclick="restartBQ()" style="width:100%;padding:14px;display:none">Try Again</button>
+</div>
+</div>
+<!-- FLASHCARD -->
+<div class="view" id="flashcard">
+<div class="top-bar">
+<button type="button" class="back-btn" id="fc-exit-btn" onclick="leaveFlashcards()" title="Back to deck">←</button>
+<span class="top-title" id="fc-deck-name"></span>
+</div>
+<div class="fc-progress">
+<div class="prog-bar"><div class="prog-fill" id="fc-prog"></div></div>
+<div class="prog-text" id="fc-prog-text"></div>
+</div>
+<div class="card-scene">
+<div class="card-3d" id="card-3d" onclick="flipCard()">
+<div id="frame-under-front" style="position:absolute;inset:-10px;pointer-events:none;backface-visibility:hidden;z-index:0;overflow:visible;transform:translateZ(-1px)"></div>
+<div id="frame-under-back" style="position:absolute;inset:-10px;pointer-events:none;backface-visibility:hidden;z-index:0;overflow:visible;transform:rotateY(180deg) translateZ(-1px)"></div>
+<div class="card-face face-front" id="face-front"></div>
+<div class="card-face face-back" id="face-back"></div>
+<div id="frame-front" style="position:absolute;inset:-10px;pointer-events:none;backface-visibility:hidden;z-index:20;overflow:visible;transform:translateZ(2px)"></div>
+<div id="frame-back" style="position:absolute;inset:-10px;pointer-events:none;backface-visibility:hidden;transform:rotateY(180deg) translateZ(2px);z-index:20;overflow:visible"></div>
+</div>
+</div>
+<div class="fc-controls">
+<div class="fc-hint" id="fc-hint">Tap card to reveal back</div>
+<div class="fc-icons">
+<button type="button" class="fc-icon-btn dontknow-btn" id="fc-dontknow-btn" onclick="fcToggleDontKnow()">✕ I don’t know</button>
+<button type="button" class="fc-icon-btn know-btn" id="fc-know-btn" onclick="fcMarkKnown()">✓ I know it!</button>
+</div>
+<div class="fc-nav">
+<button type="button" class="nav-btn" id="btn-prev" onclick="prevCard()">←</button>
+<button type="button" class="nav-btn flip" onclick="flipCard()">Flip</button>
+<button type="button" class="nav-btn" id="btn-next" onclick="nextCard()">→</button>
+</div>
+</div>
+</div>
+<!-- FLASHCARD SUMMARY -->
+<div class="view" id="flash-summary">
+<div class="top-bar">
+<button type="button" class="back-btn" onclick="showDetail()">←</button>
+<span class="top-title">Flashcard Summary</span>
+</div>
+<div class="fc-summary-wrap">
+<div class="fc-summary-kicker">Session changes</div>
+<div class="fc-summary-title">Nice pass.</div>
+<div class="fc-summary-sub" id="fc-summary-sub"></div>
+<div class="fc-summary-grid" id="fc-summary-grid"></div>
+<div class="fc-summary-note" id="fc-summary-note"></div>
+<div class="results-btns">
+<button type="button" class="btn btn-gold btn-full" onclick="showDetail()" style="padding:15px">Back to Deck</button>
+<button type="button" class="btn btn-soft btn-full" onclick="show('flashcard')" style="padding:15px">Return to Cards</button>
+</div>
+</div>
+</div>
+<!-- QUIZ -->
+<div class="view" id="quiz">
+<div class="top-bar">
+<button type="button" class="back-btn" onclick="showDetail()">←</button>
+<span class="top-title">Quiz</span>
+</div>
+<div class="fc-progress" style="margin-bottom:24px;">
+<div class="prog-bar"><div class="prog-fill" id="qz-prog"></div></div>
+</div>
+<div class="quiz-qnum" id="qz-num"></div>
+<div class="quiz-q" id="qz-q"></div>
+<div class="quiz-opts" id="qz-opts"></div>
+<button type="button" class="quiz-next" id="qz-next" onclick="nextQuestion()" style="display:none">Next →</button>
+</div>
+<!-- CELEBRATION CANVAS -->
+<canvas id="celebrate-canvas" style="position:fixed;inset:0;width:100%;height:100%;pointer-events:none;z-index:800;display:none"></canvas>
+<!-- RESULTS -->
+<div class="view" id="results">
+<div class="results-ring">
+<div class="results-pct" id="res-pct"></div>
+<div class="results-pct-sub">score</div>
+</div>
+<div class="results-title" id="res-title"></div>
+<div class="results-sub" id="res-sub"></div>
+<div class="results-xp" id="res-xp" style="text-align:center"></div>
+<div class="results-new-badges" id="res-badges"></div>
+<div id="res-card-changes" style="padding:0 4px 16px"></div>
+<div class="results-btns">
+<button type="button" class="btn btn-gold btn-full" onclick="startQuiz()" style="padding:15px">Retake Quiz</button>
+<button type="button" class="btn btn-soft btn-full" onclick="showDetail()" style="padding:15px">Back to Deck</button>
+</div>
+</div>
+<!-- CREATE -->
+<div class="view" id="create">
+<div class="top-bar">
+<button type="button" class="back-btn" onclick="showDecks()">←</button>
+<span class="top-title">New Deck</span>
+</div>
+<div class="form-group">
+<label class="form-lbl" for="new-name">Deck name</label>
+<input class="form-inp" id="new-name" placeholder="e.g. Spanish Vocabulary"/>
+</div>
+<div class="form-group">
+<label class="form-lbl" for="new-desc">Description</label>
+<input class="form-inp" id="new-desc" placeholder="Brief description…"/>
+</div>
+<div class="form-group">
+<span class="form-lbl">Color</span>
+<div class="color-row" id="color-row"></div>
+</div>
+<div id="added-cards"></div>
+<div class="form-group">
+<label class="form-lbl" for="new-q">Front</label>
+<input class="form-inp" id="new-q" placeholder="What is…?"/>
+</div>
+<div class="form-group">
+<label class="form-lbl" for="new-a">Back</label>
+<input class="form-inp" id="new-a" placeholder="The back side…"/>
+</div>
+<div class="form-group">
+<label class="form-lbl" for="new-tags">Tags (comma-separated)</label>
+<input class="form-inp" id="new-tags" placeholder="e.g. Verbs, Present Tense"/>
+</div>
+<button type="button" class="btn btn-soft" onclick="addCard()" style="width:100%;padding:13px;margin-bottom:10px">+ Add Card</button>
+<button type="button" class="btn btn-gold" id="create-btn" onclick="createDeck()" style="width:100%;padding:14px">Create Deck</button>
+</div>
+<!-- EDIT DECK -->
+<div class="view" id="edit-deck">
+<div class="top-bar">
+<button type="button" class="back-btn" onclick="activeDeck ? showDetail() : showDecks()">←</button>
+<span class="top-title" style="flex:1">Edit Deck</span>
+</div>
+<div class="form-group">
+<label class="form-lbl" for="edit-name">Deck name</label>
+<input class="form-inp" id="edit-name" placeholder="Deck name"/>
+</div>
+<div class="form-group">
+<label class="form-lbl" for="edit-desc">Description</label>
+<input class="form-inp" id="edit-desc" placeholder="Brief description…"/>
+</div>
+<div class="form-group">
+<label class="form-lbl" for="edit-content-version">Content version</label>
+<input class="form-inp" id="edit-content-version" readonly="" value="Not set"/>
+</div>
+<div class="form-group">
+<span class="form-lbl">Color</span>
+<div class="color-row" id="edit-color-row"></div>
+</div>
+<div class="divider"></div>
+<div class="md-cheatsheet" style="margin-bottom:12px">
+<strong style="color:var(--text)">Text formatting:</strong>
+<code>**bold**</code> · <code>*italic*</code> · <code>__underline__</code> · <code>~~strikethrough~~</code> · <code>`code`</code>
+</div>
+<div class="section-title">Cards <span id="edit-cards-count" style="font-family:var(--sans);font-size:12px;font-weight:600;color:var(--muted);letter-spacing:0;text-transform:none"></span></div>
+<div style="display:flex;align-items:center;gap:8px;margin-bottom:10px">
+<input aria-label="Search cards while editing this deck" class="form-inp" id="edit-search-inp" oninput="setEditSearch(this.value)" placeholder="🔍 Search cards…" style="flex:1;padding:10px 14px;font-size:13px"/>
+<button type="button" id="edit-search-clear" onclick="setEditSearch('')" style="display:none;background:none;border:none;color:var(--muted);font-size:18px;cursor:pointer;padding:4px 6px;line-height:1">✕</button>
+</div>
+<div id="edit-cards-list"></div>
+<div class="edit-card-block" style="border-style:dashed;border-color:rgba(255,255,255,0.12)">
+<div class="edit-card-num">New card</div>
+<div class="form-group" style="margin-bottom:10px">
+<label class="form-lbl" for="edit-new-q">Front</label>
+<textarea class="form-ta" id="edit-new-q" oninput="autoResize(this)" placeholder="Front…" rows="1"></textarea>
+</div>
+<div class="form-group" style="margin-bottom:10px">
+<label class="form-lbl" for="edit-new-a">Back</label>
+<textarea class="form-ta" id="edit-new-a" oninput="autoResize(this)" placeholder="Back…" rows="1"></textarea>
+</div>
+<div class="form-group" style="margin-bottom:10px">
+<label class="form-lbl" for="edit-new-t">Tags (comma-separated)</label>
+<input class="form-inp" id="edit-new-t" placeholder="e.g. Biology, Chapter 1"/>
+</div>
+<button type="button" class="btn btn-soft" onclick="editAddCard()" style="width:100%;padding:11px">+ Add Card</button>
+</div>
+<button type="button" class="btn btn-gold" onclick="saveEditDeck()" style="width:100%;padding:14px;margin-top:4px">Save Changes</button>
+<div class="divider"></div>
+<button type="button" class="btn btn-soft" onclick="exportSingleDeck()" style="width:100%;padding:13px;font-size:13px;margin-bottom:8px">⬇ Export this deck</button>
+<button type="button" class="btn btn-soft" onclick="openReplaceDeckModal()" style="width:100%;padding:13px;font-size:13px;margin-bottom:8px">🔄 Replace deck content</button>
+<button type="button" class="del-deck-btn" onclick="deleteDeck()">Delete this deck</button>
+</div>
+<nav class="main-dock" id="main-dock" aria-label="Main sections">
+<button type="button" class="main-dock-btn" data-main-tab="home" data-main-label="Home" onclick="showMainTab('home')" aria-label="Open Home" aria-controls="home" title="Home">
+<span class="main-dock-dot" aria-hidden="true"></span>
+<span class="main-dock-icon" aria-hidden="true">
+<svg viewBox="0 0 48 48"><path d="M8 25.5 24 10l16 15.5v14.2a2.3 2.3 0 0 1-2.3 2.3H10.3A2.3 2.3 0 0 1 8 39.7V25.5Z" fill="#21314a" stroke="#7dd3fc" stroke-width="2"/><path d="M15 27.5h18v12H15z" fill="#111827" stroke="#60a5fa" stroke-width="1.5"/><path d="M19 27.5c.5-4 2.2-6 5-6s4.5 2 5 6" fill="none" stroke="#facc15" stroke-width="2" stroke-linecap="round"/><path d="M18.5 33h11" stroke="#a7f3d0" stroke-width="2" stroke-linecap="round"/><path d="M24 14.5 35.5 26H12.5L24 14.5Z" fill="#8b5cf6" opacity=".7"/></svg>
+</span>
+<span class="sr-only">Home</span>
+</button>
+<button type="button" class="main-dock-btn" data-main-tab="guided" data-main-label="Guided Learning" onclick="showMainTab('guided')" aria-label="Open Guided Learning" aria-controls="guided" title="Guided Learning">
+<span class="main-dock-dot" aria-hidden="true"></span>
+<span class="main-dock-icon" aria-hidden="true">
+<svg viewBox="0 0 48 48"><path d="M9 26.2c5.5-2.4 10.5-2 15 1.2 4.5-3.2 9.5-3.6 15-1.2v13.5c-5.8-1.9-10.8-1.4-15 1.7-4.2-3.1-9.2-3.6-15-1.7V26.2Z" fill="#111827" stroke="#67e8f9" stroke-width="1.8"/><path d="M12 28.8c3.8-1.1 7-.8 9.8 1v7.8c-2.8-1.5-6-1.8-9.8-.8v-8Z" fill="#1f3350"/><path d="M36 28.8c-3.8-1.1-7-.8-9.8 1v7.8c2.8-1.5 6-1.8 9.8-.8v-8Z" fill="#241c4a"/><circle cx="24" cy="18" r="12" fill="#172335" stroke="#a78bfa" stroke-width="2"/><circle cx="24" cy="18" r="8.2" fill="#0d1324" stroke="#22d3ee" stroke-width="1.5" opacity=".96"/><path d="M27.4 13.1 25.2 20l-6.6 2.9 2.2-6.9 6.6-2.9Z" fill="#facc15" stroke="#fff7c2" stroke-width="1"/><circle cx="24" cy="18" r="2" fill="#f9a8d4"/><path d="M24 6.6v3M24 26.4v3M12.6 18h3M32.4 18h3" stroke="#67e8f9" stroke-width="1.4" stroke-linecap="round"/><path d="M15.7 9.7 13.6 7.6M32.3 9.7l2.1-2.1M15.7 26.3l-2.1 2.1M32.3 26.3l2.1 2.1" stroke="#c084fc" stroke-width="1.3" stroke-linecap="round"/></svg>
+</span>
+<span class="sr-only">Guided Learning</span>
+</button>
+<button type="button" class="main-dock-btn" data-main-tab="decks" data-main-label="Decks" onclick="showMainTab('decks')" aria-label="Open Decks" aria-controls="decks" title="Decks">
+<span class="main-dock-dot" aria-hidden="true"></span>
+<span class="main-dock-icon" aria-hidden="true">
+<svg viewBox="0 0 48 48"><path d="M8 15h32v24H8z" fill="#101827" stroke="#67e8f9" stroke-width="2"/><path d="M12 11h8v28h-8z" fill="#f97316"/><path d="M21 8h8v31h-8z" fill="#8b5cf6"/><path d="M30 13h8v26h-8z" fill="#22c55e"/><path d="M13.5 18h5M22.5 16h5M31.5 20h5M13.5 31h5M22.5 29h5M31.5 32h5" stroke="#fff7ed" stroke-width="1.6" stroke-linecap="round" opacity=".8"/><path d="M7 39h34" stroke="#facc15" stroke-width="3" stroke-linecap="round"/></svg>
+</span>
+<span class="sr-only">Decks</span>
+</button>
+<button type="button" class="main-dock-btn" data-main-tab="profile" data-main-label="Profile" onclick="showMainTab('profile')" aria-label="Open Profile" aria-controls="profile" title="Profile">
+<span class="main-dock-dot" aria-hidden="true"></span>
+<span class="main-dock-icon" aria-hidden="true">
+<svg viewBox="0 0 48 48"><circle cx="24" cy="24" r="18" fill="#111827" stroke="#c084fc" stroke-width="2"/><circle cx="24" cy="19" r="7" fill="#f6d7a7"/><path d="M12 39c2.7-8.8 6.7-13 12-13s9.3 4.2 12 13" fill="#60a5fa" opacity=".75"/><path d="M16 18c1-5.5 4.2-8.2 9.4-8.2 4 0 6.4 2.4 7 6.8-3.3-.4-6.3-1.7-9-4-2.1 2.8-4.5 4.6-7.4 5.4Z" fill="#34d399"/><circle cx="24" cy="24" r="21" fill="none" stroke="#f0abfc" stroke-width="1" opacity=".5"/></svg>
+</span>
+<span class="sr-only">Profile</span>
+</button>
+</nav>
+</div>
+<script src="js/studydeck-persistence.js" defer></script>
+<script src="js/studydeck-rewards.js" defer></script>
+<script src="js/studydeck-guided-maps.js" defer></script>
+<script src="js/studydeck-guided-map-authoring.js" defer></script>
+<script src="js/studydeck-guided-author-sidecars.js" defer></script>
+<script src="js/studydeck-guided-author-qa.js" defer></script>
+<script src="js/studydeck-timeline-pilot-sidecar.js?v=timeline-no-matches-removed-20260608a" defer></script>
+<script src="js/studydeck-timelines.js?v=timeline-no-matches-removed-20260608a" defer></script>
+<script src="preview-data.js?v=20260618200355" defer></script>
+<script src="app.js?v=20260618200355" defer></script>
+<script src="register-service-worker.js?v=20260618200355" defer></script>
+</body>
+</html>
