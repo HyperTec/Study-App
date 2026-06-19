@@ -2747,13 +2747,17 @@
   };
   window.studyDeckTimelineClearCategoryFilters = window.studyDeckTimelineClearFilters;
   window.showTimelineViewer = function(){
-    renderViewer({ preserveScroll: true });
     if (typeof show === 'function') show('timeline');
     else {
       document.querySelectorAll('.view').forEach(function(view){ view.classList.remove('active'); });
       var view = document.getElementById('timeline');
       if (view) view.classList.add('active');
     }
+    var render = function(){
+      renderViewer({ preserveScroll: true });
+    };
+    if (typeof studyDeckAfterPaint === 'function') studyDeckAfterPaint(render);
+    else setTimeout(render, 0);
   };
   window.studyDeckTimelineFlashcardPanelHTML = renderFlashcardPanel;
   window.studyDeckTimelineFlashMarker = function(button, type, label, date, note, meta){

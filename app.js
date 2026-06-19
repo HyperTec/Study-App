@@ -10,6 +10,16 @@ function studyDeckPrefersReducedMotion() {
 function studyDeckMotionDuration(defaultMs, reducedMs) {
   return studyDeckPrefersReducedMotion() ? Math.max(0, Number(reducedMs) || 0) : defaultMs;
 }
+function studyDeckAfterPaint(callback) {
+  if (typeof callback !== 'function') return;
+  if (typeof requestAnimationFrame === 'function') {
+    requestAnimationFrame(function(){
+      setTimeout(callback, 0);
+    });
+    return;
+  }
+  setTimeout(callback, 0);
+}
 // ── IN-APP CONFIRM (replaces confirm() which is blocked in iframes) ──
 var _confirmCallback = null;
 var _confirm3Callback = null;
@@ -389,23 +399,50 @@ document.addEventListener('keydown', function(event){
   target.click();
 });
 var studyDeckFormFieldA11yScheduled = false;
-function studyDeckScheduleFormFieldAccessibility() {
+var studyDeckA11yPendingRoots = [];
+function studyDeckQueueAccessibilityRoot(root) {
+  root = root && root.nodeType === 1 ? root : (root && root.parentElement);
+  root = root || document.getElementById('app') || document;
+  if (studyDeckA11yPendingRoots.indexOf(root) === -1) studyDeckA11yPendingRoots.push(root);
+}
+function studyDeckCompactAccessibilityRoots(roots) {
+  roots = roots.filter(function(root){
+    return root === document || (root && document.contains(root));
+  });
+  if (roots.length > 8) {
+    return [document.querySelector('.view.active') || document.getElementById('app') || document];
+  }
+  return roots.filter(function(root, index){
+    if (roots.indexOf(root) !== index) return false;
+    return !roots.some(function(other){
+      return other !== root && other.contains && other.contains(root);
+    });
+  });
+}
+function studyDeckScheduleFormFieldAccessibility(mutations) {
+  if (mutations && mutations.length) {
+    Array.prototype.forEach.call(mutations, function(mutation){
+      studyDeckQueueAccessibilityRoot(mutation && mutation.target);
+    });
+  } else {
+    studyDeckQueueAccessibilityRoot(document.getElementById('app') || document);
+  }
   if (studyDeckFormFieldA11yScheduled) return;
   studyDeckFormFieldA11yScheduled = true;
-  requestAnimationFrame(function(){
+  studyDeckAfterPaint(function(){
     studyDeckFormFieldA11yScheduled = false;
-    var root = document.getElementById('app') || document;
-    studyDeckEnsureFormFieldAccessibility(root);
-    studyDeckEnsureButtonAccessibility(root);
-    studyDeckEnsureClickableCardAccessibility(root);
+    var roots = studyDeckCompactAccessibilityRoots(studyDeckA11yPendingRoots.slice());
+    studyDeckA11yPendingRoots = [];
+    roots.forEach(function(root){
+      studyDeckEnsureFormFieldAccessibility(root);
+      studyDeckEnsureButtonAccessibility(root);
+      studyDeckEnsureClickableCardAccessibility(root);
+    });
   });
 }
 function studyDeckStartFormFieldAccessibilityObserver() {
-  var root = document.getElementById('app') || document;
-  studyDeckEnsureFormFieldAccessibility(root);
-  studyDeckEnsureButtonAccessibility(root);
-  studyDeckEnsureClickableCardAccessibility(root);
   var target = document.getElementById('app') || document.body;
+  studyDeckScheduleFormFieldAccessibility([{ target: target || document }]);
   if (!target || typeof MutationObserver === 'undefined') return;
   var observer = new MutationObserver(studyDeckScheduleFormFieldAccessibility);
   observer.observe(target, { childList: true, subtree: true });
@@ -2747,7 +2784,17 @@ function showMainTab(tab) {
   if (tab === 'profile') { showProfile(); return; }
   showHome();
 }
+var studyDeckDeferredViewRenderToken = 0;
+function studyDeckRenderAfterViewShown(viewId, renderFn) {
+  var token = studyDeckDeferredViewRenderToken;
+  studyDeckAfterPaint(function(){
+    if (token !== studyDeckDeferredViewRenderToken) return;
+    if (getMainDockActiveViewId() !== viewId) return;
+    renderFn();
+  });
+}
 function show(id) {
+  studyDeckDeferredViewRenderToken++;
   if (id !== 'guided' && typeof guidedDiscardNodePositionOnExit === 'function' && guidedDiscardNodePositionOnExit()) {
     if (typeof saveGuidedState === 'function') saveGuidedState();
   }
@@ -2766,9 +2813,9 @@ function rememberTimelineViewBeforeExit() {
     studyDeckTimelineRememberScroll();
   }
 }
-function showHome()   { rememberTimelineViewBeforeExit(); stopCelebration(); renderHome();   show('home'); }
-function showDecks()  { rememberTimelineViewBeforeExit(); stopCelebration(); renderDecks();  show('decks'); }
-function showProfile(){ rememberTimelineViewBeforeExit(); stopCelebration(); renderProfile(); show('profile'); }
+function showHome()   { rememberTimelineViewBeforeExit(); stopCelebration(); show('home');    studyDeckRenderAfterViewShown('home', renderHome); }
+function showDecks()  { rememberTimelineViewBeforeExit(); stopCelebration(); show('decks');   studyDeckRenderAfterViewShown('decks', renderDecks); }
+function showProfile(){ rememberTimelineViewBeforeExit(); stopCelebration(); show('profile'); studyDeckRenderAfterViewShown('profile', renderProfile); }
 function showDetail() { rememberTimelineViewBeforeExit(); stopCelebration(); renderDetail(); show('detail'); }
 function showCreate() { rememberTimelineViewBeforeExit(); renderCreate(); show('create'); }
 
@@ -10987,8 +11034,11 @@ function showGuided() {
 	    guidedState.screen = GUIDED_SCREEN_HUB;
 	  }
   saveGuidedState();
-  renderGuidedView();
   show('guided');
+  studyDeckRenderAfterViewShown('guided', function(){
+    renderGuidedView();
+    guidedScrollAppToTop();
+  });
   guidedScrollAppToTop();
 }
 function showGuidedHub() {
@@ -21055,8 +21105,6 @@ function renderHomeGamification() {
     if (todayBox) todayBox.textContent = studiedToday ? '✓' : '';
   }
   renderDailyButton();
-  renderProfile();
-  renderRecentAchievement();
 }
 
 // ── BADGES VIEW ──
@@ -23493,7 +23541,6 @@ function renderHome() {
   if (typeof renderTimelineHomeEntry === 'function') renderTimelineHomeEntry();
   renderHomeGamification();
   renderRecentAchievement();
-  renderProfile();
   if (typeof refreshStyleLabView === 'function') refreshStyleLabView();
 }
 
