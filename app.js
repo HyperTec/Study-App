@@ -10755,6 +10755,158 @@ function ensureGuidedPathMaskSync() {
   if (appEl) appEl.addEventListener('scroll', scheduleGuidedPathMaskSync, { passive: true });
   window.addEventListener('resize', scheduleGuidedPathMaskSync);
 }
+function guidedTrustPlural(count, one, many) {
+  count = Number(count || 0) || 0;
+  return count + ' ' + (count === 1 ? one : many);
+}
+function guidedTrustCategoryStatus(cat) {
+  var deck = cat && cat.deckId != null ? guidedGetDeckById(cat.deckId) : null;
+  var cards = typeof deckReadinessCards === 'function' ? deckReadinessCards(deck) : (deck && Array.isArray(deck.cards) ? deck.cards : []);
+  var total = cards.length;
+  var guided = deck && typeof deckReadinessGuidedSummary === 'function'
+    ? deckReadinessGuidedSummary(deck)
+    : { reports: [], totals: {} };
+  var totals = guided && guided.totals || {};
+  var matched = Math.min(total, Number(totals.matchedCards || 0) || 0);
+  var sidecarCards = Number(totals.sidecarCards || 0) || 0;
+  var errors = Number(totals.validationErrors || 0) || 0;
+  var warnings = Number(totals.validationWarnings || 0) || 0;
+  var fallbacks = Number(totals.genericLearnFallbacks || 0) || 0;
+  var readyTarget = total ? Math.ceil(total * 0.85) : 0;
+  var status = {
+    category: cat || null,
+    deck: deck || null,
+    total: total,
+    matched: matched,
+    missing: Math.max(0, total - matched),
+    sidecarCards: sidecarCards,
+    errors: errors,
+    warnings: warnings,
+    fallbacks: fallbacks,
+    state: 'missing',
+    tone: 'missing',
+    label: 'Needs content',
+    detail: 'No rich Guided lessons found yet.',
+    isReady: false
+  };
+
+  if (!cat || !cat.available || !deck) {
+    status.label = 'Deck missing';
+    status.detail = 'Load this deck before Guided can use it.';
+    return status;
+  }
+  if (!total) {
+    status.label = 'No cards yet';
+    status.detail = 'This deck needs cards before Guided can use it.';
+    return status;
+  }
+  if (errors) {
+    status.state = 'repair';
+    status.label = 'Needs repair';
+    status.detail = 'Guided content has a data problem that should be fixed first.';
+    return status;
+  }
+  if (matched >= readyTarget && !fallbacks) {
+    status.state = 'ready';
+    status.tone = warnings ? 'warning' : 'ready';
+    status.label = warnings ? 'Mostly ready' : 'Ready';
+    status.detail = 'Rich Guided lessons cover ' + matched + '/' + total + ' cards.';
+    status.isReady = !warnings;
+    return status;
+  }
+  if (matched > 0) {
+    status.state = 'partial';
+    status.tone = 'warning';
+    status.label = 'Partial';
+    status.detail = 'Rich Guided lessons cover ' + matched + '/' + total + ' cards.';
+  } else if (sidecarCards > 0) {
+    status.state = 'unmatched';
+    status.label = 'Not matched';
+    status.detail = 'A Guided file exists, but it is not matching this deck yet.';
+  }
+  if (fallbacks) {
+    status.tone = status.tone === 'missing' ? 'missing' : 'warning';
+    status.label = status.state === 'missing' ? status.label : (status.state === 'partial' ? 'Partial' : 'Fallbacks active');
+    status.detail += ' Basic fallback questions may appear.';
+  }
+  return status;
+}
+function guidedTrustReport(categories) {
+  var items = (categories || []).filter(function(cat){ return cat && cat.available; }).map(guidedTrustCategoryStatus);
+  var report = items.reduce(function(out, item){
+    out.totalCards += item.total;
+    out.matchedCards += item.matched;
+    out.fallbacks += item.fallbacks;
+    if (item.isReady || (item.state === 'ready' && item.tone === 'ready')) out.ready += 1;
+    else if (item.state === 'partial' || item.state === 'fallback') out.partial += 1;
+    else out.needsWork += 1;
+    return out;
+  }, {
+    items: items,
+    totalCards: 0,
+    matchedCards: 0,
+    fallbacks: 0,
+    ready: 0,
+    partial: 0,
+    needsWork: 0,
+    tone: 'ready',
+    title: 'Guided content ready',
+    body: 'Rich Guided lessons look ready for the selected decks.'
+  });
+  if (!items.length) {
+    report.tone = 'missing';
+    report.title = 'Guided content unavailable';
+    report.body = 'Load at least one Guided deck before starting.';
+    return report;
+  }
+  if (report.needsWork || report.partial || report.fallbacks) {
+    var parts = [];
+    report.tone = report.needsWork ? 'missing' : 'warning';
+    report.title = 'Guided content needs work';
+    if (report.needsWork) parts.push(guidedTrustPlural(report.needsWork, 'deck needs rich lessons', 'decks need rich lessons'));
+    if (report.partial) parts.push(guidedTrustPlural(report.partial, 'deck is partial', 'decks are partial'));
+    if (report.fallbacks) parts.push('basic fallback questions may appear');
+    report.body = parts.join('; ') + '.';
+  }
+  return report;
+}
+function guidedTrustRowText(item) {
+  if (!item) return '';
+  if (item.total) return item.label + ' · ' + item.matched + '/' + item.total + ' rich';
+  return item.label;
+}
+function guidedRenderTrustNotice(report, options) {
+  options = options || {};
+  if (!report || !report.items || !report.items.length) return '';
+  var compact = !!options.compact;
+  var tone = report.tone || 'warning';
+  var rows = report.items.filter(function(item){
+    return compact ? !(item.isReady || item.state === 'ready') : true;
+  }).slice(0, compact ? 3 : 5);
+  if (!rows.length && compact) rows = report.items.slice(0, 2);
+  var more = Math.max(0, report.items.length - rows.length);
+  return '<div class="guided-trust-notice is-' + guidedEsc(tone) + (compact ? ' is-compact' : '') + '">'
+    + '<div class="guided-trust-title">' + guidedEsc(report.title) + '</div>'
+    + '<div class="guided-trust-body">' + guidedEsc(report.body) + '</div>'
+    + (rows.length
+      ? '<div class="guided-trust-list">' + rows.map(function(item){
+          return '<span class="guided-trust-chip is-' + guidedEsc(item.tone || 'warning') + '">' + guidedEsc((item.category && item.category.label ? item.category.label + ': ' : '') + guidedTrustRowText(item)) + '</span>';
+        }).join('') + (more ? '<span class="guided-trust-chip">+' + guidedEsc(String(more)) + ' more</span>' : '') + '</div>'
+      : '')
+    + '</div>';
+}
+function guidedRenderCategoryTrustLine(status) {
+  if (!status || !status.category || !status.category.available) return '';
+  return '<div class="guided-category-trust is-' + guidedEsc(status.tone || 'warning') + '">'
+    + '<span>' + guidedEsc(status.label) + '</span>'
+    + '<em>' + guidedEsc(status.total ? (status.matched + '/' + status.total + ' rich') : status.detail) + '</em>'
+    + '</div>';
+}
+function guidedEntryTrustCategories(run, available) {
+  var ids = run ? guidedNormalizeCategoryIds(run.selectedCategoryIds || guidedGetPlannedCategoryIds(run) || []) : [];
+  var selected = ids.map(guidedResolveCategoryById).filter(function(cat){ return cat && cat.available; });
+  return selected.length ? selected : (available || []);
+}
 function renderGuidedEntry() {
   var entry = document.getElementById('guided-entry');
   if (!entry) return;
@@ -10768,6 +10920,7 @@ function renderGuidedEntry() {
   var titleEl = document.getElementById('guided-entry-title');
   var subEl = document.getElementById('guided-entry-sub');
   var metaEl = document.getElementById('guided-entry-meta');
+  var statusEl = document.getElementById('guided-entry-status');
   var actionEl = document.getElementById('guided-entry-action');
   if (!titleEl || !subEl) return;
   function renderMeta(items) {
@@ -10776,10 +10929,17 @@ function renderGuidedEntry() {
       return '<span class="guided-home-pill">' + guidedEsc(item) + '</span>';
     }).join('');
   }
+  function renderTrust(categories) {
+    if (!statusEl) return;
+    var report = guidedTrustReport(categories || []);
+    statusEl.innerHTML = guidedRenderTrustNotice(report, { compact: true });
+    statusEl.style.display = report && report.items && report.items.length ? '' : 'none';
+  }
   if (!run) {
     titleEl.textContent = 'Start Guided Learning';
     subEl.textContent = 'Choose categories, then build your first bracket.';
     renderMeta(['Setup', available.length + ' available']);
+    renderTrust(available);
     if (actionEl) actionEl.textContent = 'Start →';
     entry.setAttribute('aria-label', 'Start Guided Learning. Choose categories, then build your first bracket.');
     return;
@@ -10791,6 +10951,7 @@ function renderGuidedEntry() {
     ? 'This bracket is complete. Open the path to choose what comes next.'
     : (nextNode ? ('Next: ' + nextNode.categoryLabel + ' · ' + nextNode.title + '.') : 'Open your current bracket.');
   renderMeta([run.tierLabel, run.bracketLabel, bracketComplete ? 'Complete' : 'In progress']);
+  renderTrust(guidedEntryTrustCategories(run, available));
   if (actionEl) actionEl.textContent = 'Open →';
   entry.setAttribute('aria-label', titleEl.textContent + '. ' + subEl.textContent);
 }
@@ -18837,6 +18998,7 @@ function renderGuidedSetupScreen() {
     ? 'showGuidedPathMap()'
     : (run ? 'guidedSavePendingCategoryChanges()' : 'guidedCreatePrototypeRun()');
   var primaryLabel = run && setupSaveState ? setupSaveState.buttonLabel : 'Begin Guided Journey';
+  var trustReport = guidedTrustReport(selectedAvailable);
   return ''
     + '<div class="guided-shell guided-setup-shell">'
     + '<div class="top-bar"><button class="back-btn" onclick="' + (run ? 'showGuidedOptions()' : 'showHome()') + '">←</button><span class="top-title" style="flex:1">' + guidedEsc(entryCopy.topTitle) + '</span></div>'
@@ -18850,6 +19012,7 @@ function renderGuidedSetupScreen() {
     +     '<span>' + guidedEsc(availableText) + '</span>'
     +   '</div>'
     + '</div>'
+    + guidedRenderTrustNotice(trustReport)
     + '<div class="guided-setup-section-head">'
     +   '<div><strong>Study categories</strong><span>Tap a row to include or remove it.</span></div>'
     +   '<em>' + guidedEsc(selectionText) + '</em>'
@@ -18858,11 +19021,12 @@ function renderGuidedSetupScreen() {
     + availableCategories.map(function(cat){
       var isSelected = selected.indexOf(cat.id) !== -1;
       var stateLabel = cat.available ? (isSelected ? (selectedAvailable.length === 1 ? 'Required' : 'Selected') : 'Add') : 'Not loaded';
+      var trustStatus = guidedTrustCategoryStatus(cat);
       return '<button class="guided-category-row' + (isSelected ? ' is-selected' : '') + (cat.available ? '' : ' is-disabled') + '"'
         + (cat.available ? ' onclick="guidedToggleCategory(\'' + guidedEsc(cat.id) + '\')"' : ' disabled')
         + ' style="--guided-accent:' + guidedEsc(cat.color) + '">'
         + '<span class="guided-category-dot" style="background:' + guidedEsc(cat.color) + '"></span>'
-        + '<div class="guided-category-copy"><div class="guided-category-title">' + guidedEsc(cat.label) + '</div><div class="guided-category-blurb">' + guidedEsc(cat.available ? cat.blurb : 'Load or import this deck before adding it to Guided Learning.') + '</div></div>'
+        + '<div class="guided-category-copy"><div class="guided-category-title">' + guidedEsc(cat.label) + '</div><div class="guided-category-blurb">' + guidedEsc(cat.available ? cat.blurb : 'Load or import this deck before adding it to Guided Learning.') + '</div>' + guidedRenderCategoryTrustLine(trustStatus) + '</div>'
         + '<div class="guided-category-state">' + guidedEsc(stateLabel) + '</div>'
         + '</button>';
     }).join('')

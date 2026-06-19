@@ -7628,6 +7628,9 @@ html[data-theme^="custom_style_"] .deck-accent {
   gap: 6px;
   margin-top: 10px;
 }
+.guided-home-status {
+  margin-top: 10px;
+}
 .guided-home-pill {
   min-height: 23px;
   display: inline-flex;
@@ -7643,6 +7646,7 @@ html[data-theme^="custom_style_"] .deck-accent {
   white-space: nowrap;
 }
 .guided-home-arrow {
+  flex: 0 0 auto;
   min-height: 34px;
   display: inline-flex;
   align-items: center;
@@ -9549,6 +9553,77 @@ html.main-dock-visible .guided-setup-shell {
   text-transform: uppercase;
   white-space: nowrap;
 }
+.guided-trust-notice {
+  border: 1px solid color-mix(in srgb, var(--blue) 30%, var(--border));
+  border-radius: 15px;
+  padding: 12px 14px;
+  background:
+    radial-gradient(circle at top right, color-mix(in srgb, var(--blue) 10%, transparent), transparent 42%),
+    linear-gradient(180deg, color-mix(in srgb, var(--surface2) 76%, transparent), color-mix(in srgb, var(--surface) 96%, transparent));
+}
+.guided-trust-notice.is-ready {
+  border-color: color-mix(in srgb, var(--green) 38%, var(--border));
+  background:
+    radial-gradient(circle at top right, color-mix(in srgb, var(--green) 12%, transparent), transparent 42%),
+    linear-gradient(180deg, color-mix(in srgb, var(--surface2) 76%, transparent), color-mix(in srgb, var(--surface) 96%, transparent));
+}
+.guided-trust-notice.is-warning {
+  border-color: color-mix(in srgb, var(--gold) 42%, var(--border));
+  background:
+    radial-gradient(circle at top right, color-mix(in srgb, var(--gold) 13%, transparent), transparent 42%),
+    linear-gradient(180deg, color-mix(in srgb, var(--surface2) 78%, transparent), color-mix(in srgb, var(--surface) 96%, transparent));
+}
+.guided-trust-notice.is-missing {
+  border-color: color-mix(in srgb, var(--red) 34%, var(--border));
+  background:
+    radial-gradient(circle at top right, color-mix(in srgb, var(--red) 10%, transparent), transparent 42%),
+    linear-gradient(180deg, color-mix(in srgb, var(--surface2) 78%, transparent), color-mix(in srgb, var(--surface) 96%, transparent));
+}
+.guided-trust-notice.is-compact {
+  max-width: 100%;
+  padding: 9px 10px;
+  border-radius: 12px;
+}
+.guided-trust-title {
+  color: var(--text);
+  font: 850 12px/1.15 var(--sans);
+}
+.guided-trust-body {
+  margin-top: 4px;
+  color: color-mix(in srgb, var(--muted) 88%, var(--text));
+  font: 600 11px/1.35 var(--sans);
+}
+.guided-trust-list {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+  margin-top: 9px;
+}
+.guided-trust-chip {
+  min-height: 22px;
+  display: inline-flex;
+  align-items: center;
+  max-width: 100%;
+  border: 1px solid color-mix(in srgb, var(--blue) 26%, var(--border));
+  border-radius: 999px;
+  padding: 0 8px;
+  background: color-mix(in srgb, var(--surface2) 66%, transparent);
+  color: color-mix(in srgb, var(--text) 82%, var(--muted));
+  font: 800 10px/1.05 var(--sans);
+  white-space: nowrap;
+}
+.guided-trust-chip.is-ready {
+  border-color: color-mix(in srgb, var(--green) 34%, var(--border));
+  color: color-mix(in srgb, var(--green) 66%, var(--text));
+}
+.guided-trust-chip.is-warning {
+  border-color: color-mix(in srgb, var(--gold) 38%, var(--border));
+  color: color-mix(in srgb, var(--gold) 72%, var(--text));
+}
+.guided-trust-chip.is-missing {
+  border-color: color-mix(in srgb, var(--red) 34%, var(--border));
+  color: color-mix(in srgb, var(--red) 68%, var(--text));
+}
 .guided-setup-section-head {
   display: flex;
   align-items: flex-end;
@@ -9942,6 +10017,43 @@ html.main-dock-visible .guided-setup-shell {
   margin-top: 5px;
   font: 500 12px/1.35 var(--sans);
   color: var(--muted);
+}
+.guided-category-trust {
+  display: inline-flex;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 5px;
+  max-width: 100%;
+  margin-top: 8px;
+  color: color-mix(in srgb, var(--muted) 90%, var(--text));
+  font: 800 10px/1.1 var(--sans);
+}
+.guided-category-trust span,
+.guided-category-trust em {
+  display: inline-flex;
+  align-items: center;
+  min-height: 20px;
+  border: 1px solid color-mix(in srgb, var(--blue) 24%, var(--border));
+  border-radius: 999px;
+  padding: 0 7px;
+  background: color-mix(in srgb, var(--surface2) 66%, transparent);
+  font-style: normal;
+  white-space: nowrap;
+}
+.guided-category-trust.is-ready span {
+  border-color: color-mix(in srgb, var(--green) 34%, var(--border));
+  color: color-mix(in srgb, var(--green) 68%, var(--text));
+}
+.guided-category-trust.is-warning span {
+  border-color: color-mix(in srgb, var(--gold) 38%, var(--border));
+  color: color-mix(in srgb, var(--gold) 72%, var(--text));
+}
+.guided-category-trust.is-missing span {
+  border-color: color-mix(in srgb, var(--red) 34%, var(--border));
+  color: color-mix(in srgb, var(--red) 68%, var(--text));
+}
+.guided-category-trust em {
+  color: color-mix(in srgb, var(--text) 74%, var(--muted));
 }
 .guided-category-state {
   font: 800 11px/1 var(--sans);
