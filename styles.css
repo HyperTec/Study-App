@@ -18095,6 +18095,165 @@ button.guided-map-pin:focus-visible {
   font: 750 12px/1.4 var(--sans);
 }
 
+.guided-workbench-return {
+  margin-top: 12px;
+  border: 1px solid color-mix(in srgb, var(--blue) 28%, var(--border));
+  border-radius: 14px;
+  padding: 12px;
+  background:
+    radial-gradient(circle at top right, color-mix(in srgb, var(--blue) 10%, transparent), transparent 42%),
+    linear-gradient(180deg, color-mix(in srgb, var(--surface2) 70%, white 4%), color-mix(in srgb, var(--surface) 88%, transparent));
+}
+
+.guided-workbench-return-head {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 10px;
+  margin-bottom: 10px;
+}
+
+.guided-workbench-return-head strong,
+.guided-workbench-return-head span {
+  display: block;
+  min-width: 0;
+}
+
+.guided-workbench-return-head strong {
+  color: var(--text);
+  font: 900 13px/1.15 var(--sans);
+}
+
+.guided-workbench-return-head span {
+  margin-top: 4px;
+  color: var(--muted);
+  font: 700 11px/1.35 var(--sans);
+}
+
+.guided-workbench-return-input {
+  width: 100%;
+  min-height: 118px;
+  resize: vertical;
+  border: 1px solid color-mix(in srgb, var(--border2) 82%, transparent);
+  border-radius: 12px;
+  background: color-mix(in srgb, var(--surface) 84%, black 10%);
+  color: var(--text);
+  padding: 10px;
+  font: 650 12px/1.45 ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace;
+  outline: none;
+}
+
+.guided-workbench-return-input:focus {
+  border-color: color-mix(in srgb, var(--blue) 58%, var(--border2));
+  box-shadow: 0 0 0 3px color-mix(in srgb, var(--blue) 18%, transparent);
+}
+
+.guided-workbench-return-actions {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 8px;
+  margin-top: 9px;
+}
+
+.guided-workbench-return-actions .btn {
+  min-height: 40px;
+  padding: 8px 10px;
+  white-space: normal;
+}
+
+.guided-workbench-return-actions .btn:disabled,
+.profile-inline-btn:disabled {
+  opacity: .52;
+  cursor: not-allowed;
+}
+
+.guided-workbench-return-result {
+  margin-top: 10px;
+  border: 1px dashed color-mix(in srgb, var(--border) 86%, transparent);
+  border-radius: 12px;
+  padding: 10px;
+  color: var(--muted);
+  font: 750 12px/1.4 var(--sans);
+}
+
+.guided-workbench-return-result.is-ready {
+  border-style: solid;
+  border-color: rgba(34,197,94,.34);
+  background: rgba(34,197,94,.08);
+}
+
+.guided-workbench-return-result.is-warning {
+  border-style: solid;
+  border-color: rgba(245,158,11,.34);
+  background: rgba(245,158,11,.08);
+}
+
+.guided-workbench-return-result.is-missing {
+  border-style: solid;
+  border-color: rgba(239,68,68,.34);
+  background: rgba(239,68,68,.08);
+}
+
+.guided-workbench-return-result strong,
+.guided-workbench-return-result span {
+  display: block;
+  min-width: 0;
+}
+
+.guided-workbench-return-result strong {
+  color: var(--text);
+  font: 900 12px/1.15 var(--sans);
+}
+
+.guided-workbench-return-result span {
+  margin-top: 4px;
+}
+
+.guided-workbench-return-chips {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+  margin-top: 9px;
+}
+
+.guided-workbench-return-chips em {
+  min-height: 22px;
+  display: inline-flex;
+  align-items: center;
+  border: 1px solid color-mix(in srgb, var(--blue) 28%, var(--border));
+  border-radius: 999px;
+  padding: 0 8px;
+  color: color-mix(in srgb, var(--text) 82%, var(--muted));
+  background: color-mix(in srgb, var(--surface2) 66%, transparent);
+  font: 900 10px/1 var(--sans);
+  font-style: normal;
+}
+
+.guided-workbench-return-issues {
+  display: grid;
+  gap: 5px;
+  margin-top: 9px;
+}
+
+.guided-workbench-return-issues p {
+  margin: 0;
+  border-radius: 9px;
+  padding: 7px 8px;
+  background: rgba(255,255,255,.035);
+  color: var(--muted);
+  font: 750 11px/1.35 var(--sans);
+}
+
+.guided-workbench-return-issues p.is-error {
+  color: #fecaca;
+  background: rgba(239,68,68,.10);
+}
+
+.guided-workbench-return-issues p.is-warning {
+  color: #fde68a;
+  background: rgba(245,158,11,.10);
+}
+
 .profile-backup-summary {
   display: grid;
   grid-template-columns: repeat(2, minmax(0, 1fr));
@@ -18264,6 +18423,7 @@ button.guided-map-pin:focus-visible {
   .profile-builder-summary,
   .guided-workbench-summary,
   .guided-workbench-actions,
+  .guided-workbench-return-actions,
   .profile-backup-actions {
     grid-template-columns: 1fr;
   }

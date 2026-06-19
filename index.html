@@ -2497,6 +2497,20 @@ Style Lab
 <span><em>Next batch</em><strong>Checking...</strong></span>
 </div>
 <div class="guided-workbench-list" id="profile-guided-workbench-list"></div>
+<div class="guided-workbench-return">
+<div class="guided-workbench-return-head">
+<div>
+<strong>Return completed batch</strong>
+<span>Paste finished Guided JSON, then check it before saving.</span>
+</div>
+</div>
+<textarea class="guided-workbench-return-input" id="profile-guided-return-input" oninput="guidedWorkbenchReturnInputChanged()" placeholder="Paste completed Guided batch JSON here"></textarea>
+<div class="guided-workbench-return-actions">
+<button type="button" class="btn btn-soft" onclick="guidedWorkbenchCheckReturnedBatch()">Check returned batch</button>
+<button type="button" class="btn btn-gold" id="profile-guided-return-save-btn" onclick="guidedWorkbenchSaveReturnedBatch()" disabled>Save checked batch</button>
+</div>
+<div class="guided-workbench-return-result" id="profile-guided-return-result">No returned batch checked yet.</div>
+</div>
 </div>
 <div class="profile-card profile-backup-card">
 <div class="profile-card-head">
@@ -2843,8 +2857,8 @@ Style Lab
 <script src="js/studydeck-guided-author-qa.js" defer></script>
 <script src="js/studydeck-timeline-pilot-sidecar.js?v=timeline-no-matches-removed-20260608a" defer></script>
 <script src="js/studydeck-timelines.js?v=timeline-no-matches-removed-20260608a" defer></script>
-<script src="preview-data.js?v=20260619182906" defer></script>
-<script src="app.js?v=20260619182906" defer></script>
-<script src="register-service-worker.js?v=20260619182906" defer></script>
+<script src="preview-data.js?v=20260619194056" defer></script>
+<script src="app.js?v=20260619194056" defer></script>
+<script src="register-service-worker.js?v=20260619194056" defer></script>
 </body>
 </html>

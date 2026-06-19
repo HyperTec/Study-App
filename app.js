@@ -23911,6 +23911,39 @@ function backupCenterRenderDeckReadiness() {
 
 var GUIDED_WORKBENCH_BATCH_SIZE = 8;
 var GUIDED_WORKBENCH_VISIBLE_BATCH_LIMIT = 4;
+var guidedWorkbenchReturnCheck = null;
+var guidedWorkbenchReturnLastText = '';
+
+var GUIDED_WORKBENCH_RETURN_TEXT_FIELDS = [
+  'helperCue',
+  'rememberThis',
+  'whyThisMatters',
+  'teachingPrompt',
+  'commonMistake',
+  'briefingTitle',
+  'harmSummary',
+  'eventSummary',
+  'ethicalTension',
+  'actor',
+  'reference',
+  'passage'
+];
+var GUIDED_WORKBENCH_RETURN_ARRAY_FIELDS = [
+  'questions',
+  'questionBank',
+  'learnQuestions',
+  'learningQuestions',
+  'practiceQuestions',
+  'challengeQuestions',
+  'contentQuestions',
+  'scholarQuestions',
+  'briefingScreens',
+  'exactPassageDetails'
+];
+var GUIDED_WORKBENCH_RETURN_OBJECT_FIELDS = [
+  'eventStructure',
+  'mapLocation'
+];
 
 function guidedWorkbenchText(value) {
   return String(value == null ? '' : value).trim();
@@ -24057,6 +24090,7 @@ function guidedWorkbenchRender() {
   if (!listEl) return;
   if (!models.length) {
     listEl.innerHTML = '<div class="guided-workbench-empty">No Guided decks are available yet. Load a deck first, then this area will show what to improve next.</div>';
+    guidedWorkbenchRenderReturnResult();
     return;
   }
   listEl.innerHTML = models.map(function(model){
@@ -24078,6 +24112,7 @@ function guidedWorkbenchRender() {
       + '</div>'
       + '</div>';
   }).join('');
+  guidedWorkbenchRenderReturnResult();
 }
 
 function guidedWorkbenchBatchPayload(categoryId) {
@@ -24127,6 +24162,360 @@ function guidedWorkbenchCopyBatch(categoryId) {
   } else {
     openExportTextModal(title, body, text, 'guided-content-next-batch.json', { description: 'Guided content batch', bridgeFolder: 'sidecars' });
   }
+}
+
+function guidedWorkbenchClone(value) {
+  if (typeof guidedSidecarClone === 'function') return guidedSidecarClone(value);
+  try { return JSON.parse(JSON.stringify(value)); } catch(e) { return value; }
+}
+
+function guidedWorkbenchNormalizeName(value) {
+  if (typeof guidedNormalizeName === 'function') return guidedNormalizeName(value || '');
+  return String(value || '').trim().toLowerCase().replace(/[^a-z0-9]+/g, ' ').trim();
+}
+
+function guidedWorkbenchFindDeckByName(value) {
+  var wanted = guidedWorkbenchNormalizeName(value);
+  if (!wanted || !Array.isArray(decks)) return null;
+  return decks.find(function(deck){
+    var deckName = guidedWorkbenchNormalizeName(deck && deck.name);
+    return deckName && (deckName === wanted || deckName.indexOf(wanted) !== -1 || wanted.indexOf(deckName) !== -1);
+  }) || null;
+}
+
+function guidedWorkbenchFindCategoryByValue(value) {
+  var wanted = guidedWorkbenchNormalizeName(value);
+  if (!wanted) return null;
+  return guidedGetAvailableCategories().find(function(cat){
+    return guidedWorkbenchNormalizeName(cat.id) === wanted
+      || guidedWorkbenchNormalizeName(cat.label) === wanted
+      || guidedWorkbenchNormalizeName(cat.deckName) === wanted;
+  }) || null;
+}
+
+function guidedWorkbenchFindCategoryForDeck(deck) {
+  if (!deck) return null;
+  return guidedGetAvailableCategories().find(function(cat){
+    return String(cat.deckId) === String(deck.id);
+  }) || null;
+}
+
+function guidedWorkbenchCardListFromReturnedJson(parsed) {
+  var cards = parsed && parsed.cards;
+  if (!cards && parsed && parsed.sidecar) cards = parsed.sidecar.cards;
+  if (!cards && parsed && parsed.batch) cards = parsed.batch.cards;
+  if (!cards) return [];
+  if (Array.isArray(cards)) return cards.map(function(card){ return card || {}; });
+  if (typeof cards === 'object') {
+    return Object.keys(cards).map(function(key){
+      var copy = guidedWorkbenchClone(cards[key] || {}) || {};
+      if (copy.cardUid == null && copy.uid == null && copy.guidedUid == null) copy.cardUid = key;
+      copy.__returnKey = key;
+      return copy;
+    });
+  }
+  return [];
+}
+
+function guidedWorkbenchInferDeckFromUids(rawCards) {
+  var uidLookup = {};
+  (rawCards || []).forEach(function(card){
+    var uid = guidedWorkbenchNormalizeUid(card && (card.cardUid || card.uid || card.guidedUid || card.id || card.__returnKey));
+    if (uid) uidLookup[uid] = true;
+  });
+  var best = null;
+  (decks || []).forEach(function(deck){
+    var score = 0;
+    deckReadinessCards(deck).forEach(function(card){
+      var uid = guidedWorkbenchCardUid(card);
+      if (uid && uidLookup[uid]) score += 1;
+    });
+    if (!best || score > best.score) best = { deck: deck, score: score };
+  });
+  return best && best.score ? best.deck : null;
+}
+
+function guidedWorkbenchReturnedContext(parsed, rawCards) {
+  parsed = parsed || {};
+  var sidecar = parsed.sidecar || parsed;
+  var category = [
+    parsed.categoryId,
+    parsed.deckCategory,
+    parsed.category,
+    sidecar.categoryId,
+    sidecar.deckCategory,
+    sidecar.category,
+    parsed.deckName,
+    sidecar.deckName,
+    sidecar.sourceDeckName
+  ].map(guidedWorkbenchFindCategoryByValue).filter(Boolean)[0] || null;
+  var deck = category ? guidedGetDeckById(category.deckId) : null;
+  deck = deck || guidedWorkbenchFindDeckByName(parsed.deckName || sidecar.deckName || sidecar.sourceDeckName || sidecar.targetDeck || sidecar.deck);
+  deck = deck || guidedWorkbenchInferDeckFromUids(rawCards);
+  category = category || guidedWorkbenchFindCategoryForDeck(deck);
+  return { deck: deck || null, category: category || null };
+}
+
+function guidedWorkbenchReturnedGuidedPayload(raw) {
+  var payload = {};
+  raw = raw || {};
+  if (raw.guidedLearning && typeof raw.guidedLearning === 'object') payload = typeof guidedSidecarMergeObject === 'function' ? guidedSidecarMergeObject(payload, raw.guidedLearning) : Object.assign(payload, guidedWorkbenchClone(raw.guidedLearning));
+  if (raw.guided && typeof raw.guided === 'object') payload = typeof guidedSidecarMergeObject === 'function' ? guidedSidecarMergeObject(payload, raw.guided) : Object.assign(payload, guidedWorkbenchClone(raw.guided));
+  GUIDED_WORKBENCH_RETURN_TEXT_FIELDS.concat(GUIDED_WORKBENCH_RETURN_ARRAY_FIELDS, GUIDED_WORKBENCH_RETURN_OBJECT_FIELDS).forEach(function(key){
+    if (raw[key] !== undefined) payload[key] = guidedWorkbenchClone(raw[key]);
+  });
+  if (payload.questionBank && !payload.questions) payload.questions = guidedWorkbenchClone(payload.questionBank);
+  return payload;
+}
+
+function guidedWorkbenchValueHasContent(value) {
+  if (value == null) return false;
+  if (Array.isArray(value)) return value.length > 0;
+  if (typeof value === 'object') return Object.keys(value).length > 0;
+  return !!guidedWorkbenchText(value);
+}
+
+function guidedWorkbenchReturnedEntryHasContent(entry) {
+  var gl = entry && entry.guidedLearning || {};
+  return GUIDED_WORKBENCH_RETURN_TEXT_FIELDS.concat(GUIDED_WORKBENCH_RETURN_ARRAY_FIELDS, GUIDED_WORKBENCH_RETURN_OBJECT_FIELDS).some(function(key){
+    return guidedWorkbenchValueHasContent(gl[key]) || guidedWorkbenchValueHasContent(entry && entry[key]);
+  });
+}
+
+function guidedWorkbenchBuildReturnedSidecar(parsed) {
+  var rawCards = guidedWorkbenchCardListFromReturnedJson(parsed);
+  var context = guidedWorkbenchReturnedContext(parsed || {}, rawCards);
+  var deck = context.deck;
+  var category = context.category;
+  var source = parsed && (parsed.sidecar || parsed) || {};
+  var now = new Date().toISOString();
+  var label = category && category.label || deck && deck.name || source.deckName || parsed && parsed.category || 'Guided';
+  var sidecar = {
+    schemaVersion: source.schemaVersion || 1,
+    sidecarType: 'guidedLearningOverlay',
+    title: 'Guided Workbench Returned Batch - ' + label + ' - ' + now.replace(/[:.]/g, '-'),
+    deckName: deck && deck.name || source.deckName || parsed && parsed.deckName || '',
+    sourceDeckName: deck && deck.name || source.sourceDeckName || source.deckName || parsed && parsed.deckName || '',
+    deckCategory: category && category.id || source.deckCategory || source.categoryId || parsed && (parsed.deckCategory || parsed.categoryId) || '',
+    description: 'Returned through the StudyDeck Guided Content Workbench.',
+    sourceTranslation: source.sourceTranslation || source.translation || '',
+    createdForDeckUidPolicy: source.createdForDeckUidPolicy || 'cardUid',
+    guidedLearning: {
+      source: 'StudyDeck Guided Content Workbench',
+      returnedAt: now
+    },
+    cards: {}
+  };
+  rawCards.forEach(function(raw, idx){
+    raw = raw || {};
+    var rawUid = raw.cardUid || raw.uid || raw.guidedUid || raw.id || raw.__returnKey || '';
+    var uid = guidedWorkbenchNormalizeUid(rawUid);
+    var card = deck && uid ? deckReadinessCards(deck).find(function(item){
+      return guidedWorkbenchCardUid(item) === uid;
+    }) : null;
+    var payload = guidedWorkbenchReturnedGuidedPayload(raw);
+    var entry = {
+      cardUid: uid || String(rawUid || ''),
+      stage: raw.stage || raw.level || card && card.level || 1,
+      titleHint: raw.titleHint || raw.question || raw.prompt || card && card.q || '',
+      deckAnswer: raw.deckAnswer || raw.answer || raw.reference || card && card.a || '',
+      sourceTags: Array.isArray(raw.sourceTags) ? raw.sourceTags : (Array.isArray(raw.tags) ? raw.tags : (card && Array.isArray(card.tags) ? card.tags : [])),
+      guidedLearning: payload
+    };
+    if (raw.sourceReference || raw.reference || card && card.a) entry.sourceReference = raw.sourceReference || raw.reference || card && card.a || '';
+    var key = uid || ('returned-' + (idx + 1));
+    sidecar.cards[key] = entry;
+  });
+  return { sidecar: sidecar, deck: deck, category: category, rawCards: rawCards };
+}
+
+function guidedWorkbenchReturnedIssue(kind, text) {
+  return { kind: kind || 'warning', text: text || '' };
+}
+
+function guidedWorkbenchAnalyzeReturnedBatch(text) {
+  text = guidedWorkbenchText(text);
+  if (!text) {
+    return {
+      tone: 'missing',
+      title: 'Paste a returned batch first',
+      body: 'Nothing has been checked yet.',
+      chips: [],
+      issues: [guidedWorkbenchReturnedIssue('error', 'Paste completed Guided JSON before checking.')],
+      canSave: false
+    };
+  }
+  var parsed = null;
+  try {
+    parsed = JSON.parse(text);
+  } catch(err) {
+    return {
+      tone: 'missing',
+      title: 'JSON needs fixing',
+      body: 'The pasted text is not valid JSON yet.',
+      chips: [],
+      issues: [guidedWorkbenchReturnedIssue('error', err && err.message ? err.message : 'Unable to parse JSON.')],
+      canSave: false
+    };
+  }
+  var built = guidedWorkbenchBuildReturnedSidecar(parsed);
+  var sidecar = built.sidecar;
+  var entries = typeof guidedAuthorSidecarCardEntries === 'function' ? guidedAuthorSidecarCardEntries(sidecar) : [];
+  var report = typeof guidedAuthorValidateSidecarObject === 'function'
+    ? guidedAuthorValidateSidecarObject(sidecar, 'Guided Workbench returned batch')
+    : { matchedDeck: built.deck, totals: { sidecarCards: entries.length, matchedCards: 0, missingCards: entries.length, errors: 1, warnings: 0 }, issues: [] };
+  var totals = report.totals || {};
+  var seen = {};
+  var duplicateUids = [];
+  var missingUidCount = 0;
+  var emptyContentCount = 0;
+  entries.forEach(function(item){
+    var uid = guidedWorkbenchNormalizeUid(guidedWorkbenchEntryUid(item));
+    if (!uid) missingUidCount += 1;
+    else if (seen[uid]) duplicateUids.push(uid);
+    else seen[uid] = true;
+    if (!guidedWorkbenchReturnedEntryHasContent(item && item.entry || {})) emptyContentCount += 1;
+  });
+  var alreadyCovered = 0;
+  if (built.deck) {
+    var activeLookup = guidedWorkbenchMatchedUidLookup(built.deck);
+    Object.keys(seen).forEach(function(uid){
+      if (activeLookup[uid]) alreadyCovered += 1;
+    });
+  }
+  var issues = [];
+  if (!entries.length) issues.push(guidedWorkbenchReturnedIssue('error', 'No returned cards were found in the JSON.'));
+  if (!report.matchedDeck) issues.push(guidedWorkbenchReturnedIssue('error', 'No deck could be matched for this returned batch.'));
+  if (missingUidCount) issues.push(guidedWorkbenchReturnedIssue('error', missingUidCount + ' returned card' + (missingUidCount === 1 ? ' is' : 's are') + ' missing a card ID.'));
+  if (duplicateUids.length) issues.push(guidedWorkbenchReturnedIssue('error', duplicateUids.length + ' duplicate card ID' + (duplicateUids.length === 1 ? '' : 's') + ' found in the returned batch.'));
+  if (Number(totals.missingCards || 0)) issues.push(guidedWorkbenchReturnedIssue('error', totals.missingCards + ' card ID' + (totals.missingCards === 1 ? ' does' : 's do') + ' not match the deck.'));
+  if (emptyContentCount) issues.push(guidedWorkbenchReturnedIssue('error', emptyContentCount + ' returned card' + (emptyContentCount === 1 ? ' has' : 's have') + ' no rich Guided content yet.'));
+  if (alreadyCovered) issues.push(guidedWorkbenchReturnedIssue('error', alreadyCovered + ' returned card' + (alreadyCovered === 1 ? ' is' : 's are') + ' already covered by active Guided content.'));
+  if (Number(totals.errors || 0)) issues.push(guidedWorkbenchReturnedIssue('error', totals.errors + ' Guided validation error' + (totals.errors === 1 ? '' : 's') + ' found.'));
+  if (Number(totals.warnings || 0)) issues.push(guidedWorkbenchReturnedIssue('warning', totals.warnings + ' Guided validation warning' + (totals.warnings === 1 ? '' : 's') + ' found.'));
+  var errorCount = issues.filter(function(issue){ return issue.kind === 'error'; }).length;
+  var canSave = !errorCount;
+  return {
+    tone: canSave ? (issues.length ? 'warning' : 'ready') : 'missing',
+    title: canSave ? 'Ready to save' : 'Needs fixes before saving',
+    body: canSave
+      ? (entries.length + ' returned card' + (entries.length === 1 ? '' : 's') + ' checked; all card IDs match.')
+      : 'Fix the items below, then check the returned batch again.',
+    chips: [
+      entries.length + ' card' + (entries.length === 1 ? '' : 's') + ' found',
+      (totals.matchedCards || 0) + ' ID match' + ((totals.matchedCards || 0) === 1 ? '' : 'es'),
+      (entries.length - alreadyCovered) + ' new',
+      (totals.warnings || 0) + ' warning' + ((totals.warnings || 0) === 1 ? '' : 's')
+    ],
+    issues: issues,
+    canSave: canSave,
+    sidecar: sidecar,
+    report: report,
+    deck: built.deck,
+    category: built.category
+  };
+}
+
+function guidedWorkbenchReturnInputChanged() {
+  var input = document.getElementById('profile-guided-return-input');
+  var text = input ? input.value : '';
+  if (guidedWorkbenchReturnLastText && text !== guidedWorkbenchReturnLastText) {
+    guidedWorkbenchReturnCheck = {
+      tone: 'warning',
+      title: 'Batch changed',
+      body: 'Check the returned batch again before saving.',
+      chips: [],
+      issues: [],
+      canSave: false
+    };
+    guidedWorkbenchRenderReturnResult();
+  }
+}
+
+function guidedWorkbenchCheckReturnedBatch() {
+  var input = document.getElementById('profile-guided-return-input');
+  var text = input ? input.value : '';
+  guidedWorkbenchReturnLastText = text;
+  guidedWorkbenchReturnCheck = guidedWorkbenchAnalyzeReturnedBatch(text);
+  guidedWorkbenchRenderReturnResult();
+}
+
+function guidedWorkbenchRenderReturnResult() {
+  var el = document.getElementById('profile-guided-return-result');
+  var saveBtn = document.getElementById('profile-guided-return-save-btn');
+  var check = guidedWorkbenchReturnCheck;
+  if (saveBtn) saveBtn.disabled = !(check && check.canSave);
+  if (!el) return;
+  if (!check) {
+    el.className = 'guided-workbench-return-result';
+    el.textContent = 'No returned batch checked yet.';
+    return;
+  }
+  el.className = 'guided-workbench-return-result is-' + escHtml(check.tone || 'warning');
+  el.innerHTML = '<strong>' + escHtml(check.title || 'Returned batch check') + '</strong>'
+    + '<span>' + escHtml(check.body || '') + '</span>'
+    + ((check.chips || []).length ? '<div class="guided-workbench-return-chips">' + check.chips.map(function(chip){
+        return '<em>' + escHtml(chip) + '</em>';
+      }).join('') + '</div>' : '')
+    + ((check.issues || []).length ? '<div class="guided-workbench-return-issues">' + check.issues.slice(0, 6).map(function(issue){
+        return '<p class="is-' + escHtml(issue.kind || 'warning') + '">' + escHtml(issue.text) + '</p>';
+      }).join('') + '</div>' : '');
+}
+
+function guidedWorkbenchSaveReturnedBatch() {
+  var input = document.getElementById('profile-guided-return-input');
+  var text = input ? input.value : '';
+  if (!guidedWorkbenchReturnCheck || text !== guidedWorkbenchReturnLastText) {
+    guidedWorkbenchReturnLastText = text;
+    guidedWorkbenchReturnCheck = guidedWorkbenchAnalyzeReturnedBatch(text);
+    guidedWorkbenchRenderReturnResult();
+    if (!guidedWorkbenchReturnCheck.canSave) return;
+  }
+  if (!guidedWorkbenchReturnCheck.canSave) {
+    guidedWorkbenchRenderReturnResult();
+    return;
+  }
+  if (typeof guidedAuthorCommitActiveSidecar !== 'function') {
+    guidedWorkbenchReturnCheck = {
+      tone: 'missing',
+      title: 'Save path unavailable',
+      body: 'Guided content storage is not ready in this browser.',
+      chips: [],
+      issues: [guidedWorkbenchReturnedIssue('error', 'Reload the app and try again.')],
+      canSave: false
+    };
+    guidedWorkbenchRenderReturnResult();
+    return;
+  }
+  if (typeof writeCriticalProgressBackup === 'function') {
+    writeCriticalProgressBackup('before_guided_workbench_return_save', { includeDecks: false, includeSidecars: true });
+  }
+  var idBase = [
+    'guided-workbench-return',
+    guidedWorkbenchReturnCheck.category && guidedWorkbenchReturnCheck.category.id,
+    guidedWorkbenchReturnCheck.deck && guidedWorkbenchReturnCheck.deck.id,
+    Date.now()
+  ].filter(Boolean).join(' ');
+  var id = typeof guidedSidecarCleanKey === 'function'
+    ? guidedSidecarCleanKey(idBase)
+    : idBase.toLowerCase().replace(/[^a-z0-9]+/g, '-').replace(/^-|-$/g, '');
+  var prepared = guidedAuthorCommitActiveSidecar(guidedWorkbenchClone(guidedWorkbenchReturnCheck.sidecar), guidedWorkbenchReturnCheck.report, id);
+  var savedTitle = prepared && prepared.sidecar && prepared.sidecar.title || 'Returned Guided batch';
+  guidedWorkbenchReturnCheck = {
+    tone: 'ready',
+    title: 'Returned batch saved',
+    body: savedTitle + ' is now active Guided content in this browser.',
+    chips: [],
+    issues: [],
+    canSave: false
+  };
+  guidedWorkbenchReturnLastText = '';
+  if (input) input.value = '';
+  guidedWorkbenchRender();
+  contentBuilderRefreshStatus();
+  backupCenterRenderDeckReadiness();
+  guidedWorkbenchRenderReturnResult();
+  if (typeof showXpToast === 'function') showXpToast('Returned Guided batch saved.');
 }
 
 function contentBuilderGuidedCount() {
