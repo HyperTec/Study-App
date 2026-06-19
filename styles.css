@@ -17843,18 +17843,21 @@ button.guided-map-pin:focus-visible {
 
 .profile-backup-card,
 .profile-builder-card,
+.profile-guided-workbench-card,
 .profile-readiness-card {
   padding: 16px;
 }
 
-.profile-builder-summary {
+.profile-builder-summary,
+.guided-workbench-summary {
   display: grid;
   grid-template-columns: repeat(4, minmax(0, 1fr));
   gap: 8px;
   margin-bottom: 12px;
 }
 
-.profile-builder-summary span {
+.profile-builder-summary span,
+.guided-workbench-summary span {
   min-width: 0;
   border: 1px solid color-mix(in srgb, var(--border) 82%, transparent);
   border-radius: 12px;
@@ -17864,7 +17867,8 @@ button.guided-map-pin:focus-visible {
     color-mix(in srgb, var(--surface2) 66%, transparent);
 }
 
-.profile-builder-summary em {
+.profile-builder-summary em,
+.guided-workbench-summary em {
   display: block;
   color: var(--muted);
   font: 900 9px/1 var(--sans);
@@ -17874,7 +17878,8 @@ button.guided-map-pin:focus-visible {
   margin-bottom: 5px;
 }
 
-.profile-builder-summary strong {
+.profile-builder-summary strong,
+.guided-workbench-summary strong {
   display: block;
   overflow: hidden;
   text-overflow: ellipsis;
@@ -17946,6 +17951,148 @@ button.guided-map-pin:focus-visible {
   background:
     radial-gradient(circle at 18% 0%, rgba(250,204,21,.15), transparent 48%),
     linear-gradient(180deg, color-mix(in srgb, var(--surface2) 80%, white 5%), color-mix(in srgb, var(--surface) 92%, black 8%));
+}
+
+.guided-workbench-list {
+  display: grid;
+  gap: 10px;
+}
+
+.guided-workbench-row {
+  border: 1px solid color-mix(in srgb, var(--border) 82%, transparent);
+  border-radius: 14px;
+  padding: 12px;
+  background:
+    linear-gradient(180deg, color-mix(in srgb, var(--surface2) 72%, white 4%), color-mix(in srgb, var(--surface) 88%, transparent));
+}
+
+.guided-workbench-row.is-ready {
+  border-color: rgba(34,197,94,.28);
+}
+
+.guided-workbench-row.is-warning {
+  border-color: rgba(245,158,11,.32);
+}
+
+.guided-workbench-row.is-missing {
+  border-color: rgba(239,68,68,.30);
+}
+
+.guided-workbench-row-head {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 10px;
+  margin-bottom: 10px;
+}
+
+.guided-workbench-row-head > div {
+  min-width: 0;
+}
+
+.guided-workbench-row-head strong,
+.guided-workbench-row-head span {
+  display: block;
+  min-width: 0;
+}
+
+.guided-workbench-row-head strong {
+  color: var(--text);
+  font: 900 14px/1.15 var(--sans);
+}
+
+.guided-workbench-row-head span {
+  margin-top: 4px;
+  color: var(--muted);
+  font: 750 11px/1.3 var(--sans);
+}
+
+.guided-workbench-meter {
+  height: 7px;
+  overflow: hidden;
+  border-radius: 999px;
+  background: color-mix(in srgb, var(--surface) 72%, black 18%);
+  margin-bottom: 10px;
+}
+
+.guided-workbench-meter span {
+  display: block;
+  height: 100%;
+  border-radius: inherit;
+}
+
+.guided-workbench-batch {
+  display: grid;
+  gap: 7px;
+}
+
+.guided-workbench-card-row {
+  min-width: 0;
+  border: 1px solid color-mix(in srgb, var(--border) 76%, transparent);
+  border-radius: 12px;
+  padding: 9px 10px;
+  background: color-mix(in srgb, var(--surface2) 58%, transparent);
+}
+
+.guided-workbench-card-row strong,
+.guided-workbench-card-row span,
+.guided-workbench-card-row em {
+  display: block;
+  min-width: 0;
+}
+
+.guided-workbench-card-row strong {
+  color: color-mix(in srgb, var(--blue) 68%, var(--text));
+  font: 900 10px/1 var(--sans);
+  letter-spacing: .06em;
+}
+
+.guided-workbench-card-row span {
+  margin-top: 5px;
+  color: var(--text);
+  font: 850 12px/1.25 var(--sans);
+}
+
+.guided-workbench-card-row em {
+  margin-top: 4px;
+  color: var(--muted);
+  font: 650 11px/1.35 var(--sans);
+  font-style: normal;
+}
+
+.guided-workbench-more {
+  min-height: 28px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  justify-self: start;
+  border: 1px solid color-mix(in srgb, var(--blue) 28%, var(--border));
+  border-radius: 999px;
+  padding: 0 10px;
+  color: color-mix(in srgb, var(--blue) 72%, var(--text));
+  background: color-mix(in srgb, var(--blue) 10%, transparent);
+  font: 900 10px/1 var(--sans);
+}
+
+.guided-workbench-actions {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 8px;
+  margin-top: 10px;
+}
+
+.guided-workbench-actions .btn {
+  min-height: 38px;
+  padding: 8px 10px;
+  white-space: normal;
+}
+
+.guided-workbench-empty {
+  border: 1px dashed color-mix(in srgb, var(--border) 86%, transparent);
+  border-radius: 12px;
+  padding: 11px;
+  color: var(--muted);
+  font: 750 12px/1.4 var(--sans);
 }
 
 .profile-backup-summary {
@@ -18115,6 +18262,8 @@ button.guided-map-pin:focus-visible {
 
   .profile-backup-summary,
   .profile-builder-summary,
+  .guided-workbench-summary,
+  .guided-workbench-actions,
   .profile-backup-actions {
     grid-template-columns: 1fr;
   }

@@ -23909,6 +23909,226 @@ function backupCenterRenderDeckReadiness() {
   }).join('');
 }
 
+var GUIDED_WORKBENCH_BATCH_SIZE = 8;
+var GUIDED_WORKBENCH_VISIBLE_BATCH_LIMIT = 4;
+
+function guidedWorkbenchText(value) {
+  return String(value == null ? '' : value).trim();
+}
+
+function guidedWorkbenchSnippet(value, max) {
+  var text = guidedWorkbenchText(value).replace(/\s+/g, ' ');
+  max = Number(max || 0) || 0;
+  if (max && text.length > max) return text.slice(0, Math.max(0, max - 1)).trim() + '...';
+  return text;
+}
+
+function guidedWorkbenchNormalizeUid(value) {
+  if (typeof guidedSidecarNormalizeUid === 'function') return guidedSidecarNormalizeUid(value);
+  return String(value || '').trim().toUpperCase();
+}
+
+function guidedWorkbenchCardUid(card) {
+  if (typeof guidedSidecarCardUid === 'function') return guidedSidecarCardUid(card);
+  return guidedWorkbenchNormalizeUid(card && (card.uid || card.cardUid || card.guidedUid || ''));
+}
+
+function guidedWorkbenchEntryUid(item) {
+  if (typeof guidedAuthorSidecarEntryUid === 'function') return guidedAuthorSidecarEntryUid(item);
+  var entry = item && item.entry || {};
+  return String(entry.cardUid || entry.uid || item && item.key || '').trim();
+}
+
+function guidedWorkbenchMatchedUidLookup(deck) {
+  var lookup = {};
+  var deckUids = {};
+  deckReadinessCards(deck).forEach(function(card){
+    var uid = guidedWorkbenchCardUid(card);
+    if (uid) deckUids[uid] = true;
+  });
+  var guided = deckReadinessGuidedSummary(deck);
+  (guided.reports || []).forEach(function(report){
+    var sidecar = report && report.sidecar;
+    var entries = typeof guidedAuthorSidecarCardEntries === 'function' ? guidedAuthorSidecarCardEntries(sidecar) : [];
+    entries.forEach(function(item){
+      var uid = guidedWorkbenchNormalizeUid(guidedWorkbenchEntryUid(item));
+      if (uid && deckUids[uid]) lookup[uid] = true;
+    });
+  });
+  return lookup;
+}
+
+function guidedWorkbenchMissingCards(deck) {
+  var matched = guidedWorkbenchMatchedUidLookup(deck);
+  return deckReadinessCards(deck).filter(function(card){
+    var uid = guidedWorkbenchCardUid(card);
+    return !uid || !matched[uid];
+  });
+}
+
+function guidedWorkbenchCardRowModel(card) {
+  return {
+    uid: guidedWorkbenchCardUid(card) || 'No ID',
+    question: guidedWorkbenchSnippet(card && (card.q || card.question || card.title || card.prompt), 130) || 'Untitled card',
+    answer: guidedWorkbenchSnippet(card && (card.a || card.answer || card.back || card.reference), 140) || '',
+    tags: Array.isArray(card && card.tags) ? card.tags.slice(0, 4).map(guidedWorkbenchText).filter(Boolean) : []
+  };
+}
+
+function guidedWorkbenchDeckModel(cat) {
+  var status = guidedTrustCategoryStatus(cat);
+  var deck = status.deck;
+  var cards = deckReadinessCards(deck);
+  var missing = deck ? guidedWorkbenchMissingCards(deck) : [];
+  var nextBatch = missing.slice(0, GUIDED_WORKBENCH_BATCH_SIZE).map(guidedWorkbenchCardRowModel);
+  var percent = status.total ? Math.round((status.matched / status.total) * 100) : 0;
+  return {
+    category: cat,
+    deck: deck,
+    status: status,
+    total: status.total,
+    matched: status.matched,
+    missingCount: missing.length,
+    percent: percent,
+    nextBatch: nextBatch
+  };
+}
+
+function guidedWorkbenchModels() {
+  return guidedGetAvailableCategories().map(guidedWorkbenchDeckModel).sort(function(a, b){
+    if (!!b.missingCount !== !!a.missingCount) return b.missingCount - a.missingCount;
+    return b.missingCount - a.missingCount || String(a.category && a.category.label || '').localeCompare(String(b.category && b.category.label || ''));
+  });
+}
+
+function guidedWorkbenchSummary(models) {
+  models = models || [];
+  return models.reduce(function(out, model){
+    out.decks += 1;
+    out.ready += model.missingCount ? 0 : 1;
+    out.missing += model.missingCount;
+    out.nextBatch += model.nextBatch.length;
+    return out;
+  }, { decks: 0, ready: 0, missing: 0, nextBatch: 0 });
+}
+
+function guidedWorkbenchProgressColor(model) {
+  if (!model || model.percent >= 85) return '#22c55e';
+  if (model.percent > 0) return '#facc15';
+  return '#f87171';
+}
+
+function guidedWorkbenchRenderCardList(model) {
+  if (!model || !model.nextBatch.length) {
+    return '<div class="guided-workbench-empty">No missing cards in this deck right now.</div>';
+  }
+  var visibleCards = model.nextBatch.slice(0, GUIDED_WORKBENCH_VISIBLE_BATCH_LIMIT);
+  var moreCount = Math.max(0, model.nextBatch.length - visibleCards.length);
+  return '<div class="guided-workbench-batch">'
+    + visibleCards.map(function(card){
+      return '<div class="guided-workbench-card-row">'
+        + '<strong>' + escHtml(card.uid) + '</strong>'
+        + '<span>' + escHtml(card.question) + '</span>'
+        + (card.answer ? '<em>' + escHtml(card.answer) + '</em>' : '')
+        + '</div>';
+    }).join('')
+    + (moreCount ? '<div class="guided-workbench-more">+' + escHtml(moreCount) + ' more included when copied</div>' : '')
+    + '</div>';
+}
+
+function guidedWorkbenchRender() {
+  var statusEl = document.getElementById('profile-guided-workbench-status');
+  var summaryEl = document.getElementById('profile-guided-workbench-summary');
+  var listEl = document.getElementById('profile-guided-workbench-list');
+  if (!statusEl && !summaryEl && !listEl) return;
+  var models = guidedWorkbenchModels();
+  var summary = guidedWorkbenchSummary(models);
+  if (statusEl) {
+    statusEl.textContent = summary.missing
+      ? summary.missing + ' cards still need rich Guided lessons.'
+      : 'All available Guided decks look covered.';
+  }
+  if (summaryEl) {
+    summaryEl.innerHTML = '<span><em>Decks</em><strong>' + escHtml(summary.decks) + '</strong></span>'
+      + '<span><em>Ready</em><strong>' + escHtml(summary.ready + '/' + summary.decks) + '</strong></span>'
+      + '<span><em>Missing</em><strong>' + escHtml(summary.missing + ' cards') + '</strong></span>'
+      + '<span><em>Next batch</em><strong>' + escHtml(summary.nextBatch + ' cards') + '</strong></span>';
+  }
+  if (!listEl) return;
+  if (!models.length) {
+    listEl.innerHTML = '<div class="guided-workbench-empty">No Guided decks are available yet. Load a deck first, then this area will show what to improve next.</div>';
+    return;
+  }
+  listEl.innerHTML = models.map(function(model){
+    var cat = model.category || {};
+    var tone = model.missingCount ? (model.matched ? 'warning' : 'missing') : 'ready';
+    var batchLabel = model.nextBatch.length ? ('Copy next ' + model.nextBatch.length) : 'Covered';
+    var batchAria = model.nextBatch.length ? ('Copy next ' + model.nextBatch.length + ' ' + (cat.label || 'Guided') + ' cards') : ((cat.label || 'Guided') + ' covered');
+    return '<div class="guided-workbench-row is-' + escHtml(tone) + '">'
+      + '<div class="guided-workbench-row-head">'
+      + '<div><strong>' + escHtml(cat.label || (model.deck && model.deck.name) || 'Guided deck') + '</strong>'
+      + '<span>' + escHtml(model.matched + '/' + model.total + ' rich · ' + model.missingCount + ' still need lessons') + '</span></div>'
+      + '<button type="button" class="profile-inline-btn" aria-label="' + escHtml(batchAria) + '" ' + (model.nextBatch.length ? 'onclick="guidedWorkbenchCopyBatch(\'' + escHtml(cat.id || '') + '\')"' : 'disabled') + '>' + escHtml(batchLabel) + '</button>'
+      + '</div>'
+      + '<div class="guided-workbench-meter" aria-hidden="true"><span style="width:' + escHtml(model.percent) + '%;background:' + escHtml(guidedWorkbenchProgressColor(model)) + '"></span></div>'
+      + guidedWorkbenchRenderCardList(model)
+      + '<div class="guided-workbench-actions">'
+      + '<button type="button" class="btn btn-soft" onclick="contentBuilderOpenGuidedContent()">Open Guided files</button>'
+      + '<button type="button" class="btn btn-soft" onclick="contentBuilderCheckQuality()">View full readiness</button>'
+      + '</div>'
+      + '</div>';
+  }).join('');
+}
+
+function guidedWorkbenchBatchPayload(categoryId) {
+  var model = guidedWorkbenchModels().filter(function(item){
+    return String(item.category && item.category.id || '') === String(categoryId || '');
+  })[0];
+  if (!model || !model.nextBatch.length) return '';
+  return JSON.stringify({
+    deckName: model.deck && model.deck.name || model.category && model.category.label || '',
+    category: model.category && model.category.label || '',
+    batchSize: model.nextBatch.length,
+    goal: 'Create rich Guided Learning content for these cards. Keep each cardUid exactly as shown.',
+    suggestedFields: [
+      'helperCue',
+      'rememberThis',
+      'whyThisMatters',
+      'teachingPrompt',
+      'commonMistake',
+      'briefingScreens',
+      'questions'
+    ],
+    cards: model.nextBatch.map(function(card){
+      return {
+        cardUid: card.uid,
+        question: card.question,
+        answer: card.answer,
+        tags: card.tags
+      };
+    })
+  }, null, 2);
+}
+
+function guidedWorkbenchCopyBatch(categoryId) {
+  var text = guidedWorkbenchBatchPayload(categoryId);
+  if (!text) {
+    if (typeof showXpToast === 'function') showXpToast('No missing cards in that batch.');
+    return;
+  }
+  var title = 'Guided content batch';
+  var body = '<strong>Next Guided batch</strong><br>Use this card list when writing the next rich Guided lessons.';
+  if (navigator.clipboard && navigator.clipboard.writeText) {
+    navigator.clipboard.writeText(text).then(function(){
+      if (typeof showXpToast === 'function') showXpToast('Guided batch copied.');
+    }).catch(function(){
+      openExportTextModal(title, body, text, 'guided-content-next-batch.json', { description: 'Guided content batch', bridgeFolder: 'sidecars' });
+    });
+  } else {
+    openExportTextModal(title, body, text, 'guided-content-next-batch.json', { description: 'Guided content batch', bridgeFolder: 'sidecars' });
+  }
+}
+
 function contentBuilderGuidedCount() {
   return deckReadinessStoredGuidedSidecars().length;
 }
@@ -23997,6 +24217,11 @@ function contentBuilderOpenGuidedContent() {
   contentBuilderOpenGuidedAuthorTab('sidecars');
 }
 
+function contentBuilderOpenGuidedWorkbench() {
+  guidedWorkbenchRender();
+  contentBuilderScrollTo('profile-guided-workbench-card');
+}
+
 function contentBuilderScrollTo(id) {
   showProfile();
   setTimeout(function(){
@@ -24045,6 +24270,7 @@ function renderProfile() {
   updateAudioFeedbackControls();
   updateProfileSettingsSummary();
   contentBuilderRefreshStatus();
+  guidedWorkbenchRender();
   backupCenterRefreshStatus();
   backupCenterRenderDeckReadiness();
   if (typeof refreshStyleLabView === 'function') refreshStyleLabView();

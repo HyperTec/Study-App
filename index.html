@@ -2478,10 +2478,25 @@ Style Lab
 <div class="profile-builder-flow" aria-label="Content builder workflow">
 <button type="button" class="profile-builder-step is-primary" onclick="contentBuilderCreateDeck()"><strong>Create a deck</strong><span>Start a new collection</span><b>→</b></button>
 <button type="button" class="profile-builder-step" onclick="contentBuilderOpenDecks()"><strong>Add cards</strong><span>Edit deck content</span><b>→</b></button>
-<button type="button" class="profile-builder-step" onclick="contentBuilderOpenGuidedContent()"><strong>Guided lesson</strong><span>Load or edit lesson content</span><b>→</b></button>
+<button type="button" class="profile-builder-step" onclick="contentBuilderOpenGuidedWorkbench()"><strong>Improve Guided</strong><span>See missing lesson batches</span><b>→</b></button>
 <button type="button" class="profile-builder-step" onclick="contentBuilderCheckQuality()"><strong>Check quality</strong><span>Review readiness scores</span><b>→</b></button>
 <button type="button" class="profile-builder-step" onclick="contentBuilderPublishUpdate()"><strong>Publish/update</strong><span>Export reader or backup files</span><b>→</b></button>
 </div>
+</div>
+<div class="profile-card profile-guided-workbench-card" id="profile-guided-workbench-card">
+<div class="profile-card-head">
+<div>
+<div class="profile-card-title">Guided Content Workbench</div>
+<div class="profile-card-sub" id="profile-guided-workbench-status">Finding the next Guided content batch...</div>
+</div>
+<button type="button" class="profile-inline-btn" onclick="guidedWorkbenchRender()">Refresh</button>
+</div>
+<div class="guided-workbench-summary" id="profile-guided-workbench-summary">
+<span><em>Decks</em><strong>Checking...</strong></span>
+<span><em>Missing</em><strong>Checking...</strong></span>
+<span><em>Next batch</em><strong>Checking...</strong></span>
+</div>
+<div class="guided-workbench-list" id="profile-guided-workbench-list"></div>
 </div>
 <div class="profile-card profile-backup-card">
 <div class="profile-card-head">
@@ -2828,8 +2843,8 @@ Style Lab
 <script src="js/studydeck-guided-author-qa.js" defer></script>
 <script src="js/studydeck-timeline-pilot-sidecar.js?v=timeline-no-matches-removed-20260608a" defer></script>
 <script src="js/studydeck-timelines.js?v=timeline-no-matches-removed-20260608a" defer></script>
-<script src="preview-data.js?v=20260619173438" defer></script>
-<script src="app.js?v=20260619173438" defer></script>
-<script src="register-service-worker.js?v=20260619173438" defer></script>
+<script src="preview-data.js?v=20260619182906" defer></script>
+<script src="app.js?v=20260619182906" defer></script>
+<script src="register-service-worker.js?v=20260619182906" defer></script>
 </body>
 </html>
