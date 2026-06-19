@@ -10944,9 +10944,9 @@ function renderGuidedEntry() {
   }
   var nextNode = guidedGetNextNode(run);
   var bracketComplete = guidedIsCurrentBracketComplete(run);
-  titleEl.textContent = 'Current path';
+  titleEl.textContent = bracketComplete ? 'Next step' : 'Current path';
   subEl.textContent = bracketComplete
-    ? 'Bracket complete.'
+    ? 'Choose what comes next.'
     : (nextNode ? ('Next: ' + nextNode.title + '.') : 'Continue your path.');
   clearTrust();
   if (actionEl) actionEl.textContent = 'Open →';
