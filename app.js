@@ -1,7 +1,7 @@
 
 const COLORS = ['#F59E0B','#10B981','#8B5CF6','#EF4444','#3B82F6','#EC4899'];
 const AUTHOR_PIN  = '2222'; // ← change this to your preferred PIN
-const AUTHOR_PIN_REQUIRED = true;
+const AUTHOR_PIN_REQUIRED = false; // Temporary preview toggle; final release should remove the lock entirely.
 // ── PERSISTENCE / STORAGE BOOTSTRAP ──
 // Loaded from js/studydeck-persistence.js before this file.
 function studyDeckPrefersReducedMotion() {
