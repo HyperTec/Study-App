@@ -1,7 +1,7 @@
 
 const COLORS = ['#F59E0B','#10B981','#8B5CF6','#EF4444','#3B82F6','#EC4899'];
 const AUTHOR_PIN  = '2222'; // ← change this to your preferred PIN
-const AUTHOR_PIN_REQUIRED = false; // Set true to require the PIN keypad for Author Mode again.
+const AUTHOR_PIN_REQUIRED = true;
 // ── PERSISTENCE / STORAGE BOOTSTRAP ──
 // Loaded from js/studydeck-persistence.js before this file.
 function studyDeckPrefersReducedMotion() {
@@ -24606,8 +24606,10 @@ function contentBuilderOpenGuidedContent() {
 }
 
 function contentBuilderOpenGuidedWorkbench() {
-  guidedWorkbenchRender();
-  contentBuilderScrollTo('profile-guided-workbench-card');
+  contentBuilderRequireAuthor(function(){
+    guidedWorkbenchRender();
+    contentBuilderScrollTo('profile-guided-workbench-card');
+  });
 }
 
 function contentBuilderScrollTo(id) {
@@ -24619,12 +24621,22 @@ function contentBuilderScrollTo(id) {
 }
 
 function contentBuilderCheckQuality() {
-  backupCenterRenderDeckReadiness();
-  contentBuilderScrollTo('profile-deck-readiness');
+  contentBuilderRequireAuthor(function(){
+    backupCenterRenderDeckReadiness();
+    contentBuilderScrollTo('profile-deck-readiness');
+  });
 }
 
 function contentBuilderPublishUpdate() {
-  contentBuilderScrollTo('profile-backup-status');
+  contentBuilderRequireAuthor(function(){
+    contentBuilderScrollTo('profile-backup-status');
+  });
+}
+
+function profileSetVisible(selector, visible) {
+  document.querySelectorAll(selector).forEach(function(el){
+    el.style.display = visible ? '' : 'none';
+  });
 }
 
 function renderProfile() {
@@ -24652,15 +24664,23 @@ function renderProfile() {
   if (statMasteredEl) statMasteredEl.textContent = masteredCount;
   if (achievementCountEl) achievementCountEl.textContent = badgeCount;
   if (achievementBtn) achievementBtn.setAttribute('aria-label', 'Open achievements. ' + badgeCount + ' achievement' + (badgeCount === 1 ? '' : 's') + ' earned.');
+  profileSetVisible('.profile-builder-card', authorMode);
+  profileSetVisible('#profile-guided-workbench-card', authorMode);
+  profileSetVisible('.profile-readiness-card', authorMode);
+  profileSetVisible('.profile-author-backup-action', authorMode);
+  profileSetVisible('#add-app-style-btn', authorMode);
+  profileSetVisible('#theme-tools', authorMode);
   if (authorActions) authorActions.style.display = authorMode ? '' : 'none';
   if (authorBtn) authorBtn.style.display = authorMode ? '' : 'none';
   if (devBtn) devBtn.style.display = authorMode ? '' : 'none';
   updateAudioFeedbackControls();
   updateProfileSettingsSummary();
   contentBuilderRefreshStatus();
-  guidedWorkbenchRender();
   backupCenterRefreshStatus();
-  backupCenterRenderDeckReadiness();
+  if (authorMode) {
+    guidedWorkbenchRender();
+    backupCenterRenderDeckReadiness();
+  }
   if (typeof refreshStyleLabView === 'function') refreshStyleLabView();
 }
 function toggleOpts() {
