@@ -10923,33 +10923,31 @@ function renderGuidedEntry() {
   var statusEl = document.getElementById('guided-entry-status');
   var actionEl = document.getElementById('guided-entry-action');
   if (!titleEl || !subEl) return;
-  function renderMeta(items) {
+  function clearMeta() {
     if (!metaEl) return;
-    metaEl.innerHTML = (items || []).filter(Boolean).slice(0, 3).map(function(item){
-      return '<span class="guided-home-pill">' + guidedEsc(item) + '</span>';
-    }).join('');
+    metaEl.innerHTML = '';
+    metaEl.style.display = 'none';
   }
   function clearTrust() {
     if (!statusEl) return;
     statusEl.innerHTML = '';
     statusEl.style.display = 'none';
   }
+  clearMeta();
   if (!run) {
-    titleEl.textContent = 'Start Guided Learning';
-    subEl.textContent = 'Choose categories, then build your first bracket.';
-    renderMeta(['Setup', available.length + ' available']);
+    titleEl.textContent = 'Start path';
+    subEl.textContent = 'Start a guided path.';
     clearTrust();
     if (actionEl) actionEl.textContent = 'Start →';
-    entry.setAttribute('aria-label', 'Start Guided Learning. Choose categories, then build your first bracket.');
+    entry.setAttribute('aria-label', 'Start Guided Learning.');
     return;
   }
   var nextNode = guidedGetNextNode(run);
   var bracketComplete = guidedIsCurrentBracketComplete(run);
-  titleEl.textContent = bracketComplete ? 'Review Guided Path' : 'Continue Guided Path';
+  titleEl.textContent = 'Current path';
   subEl.textContent = bracketComplete
-    ? 'This bracket is complete. Open the path to choose what comes next.'
-    : (nextNode ? ('Next: ' + nextNode.categoryLabel + ' · ' + nextNode.title + '.') : 'Open your current bracket.');
-  renderMeta([run.tierLabel, run.bracketLabel, bracketComplete ? 'Complete' : 'In progress']);
+    ? 'Bracket complete.'
+    : (nextNode ? ('Next: ' + nextNode.title + '.') : 'Continue your path.');
   clearTrust();
   if (actionEl) actionEl.textContent = 'Open →';
   entry.setAttribute('aria-label', titleEl.textContent + '. ' + subEl.textContent);

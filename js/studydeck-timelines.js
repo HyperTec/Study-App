@@ -855,12 +855,10 @@
     var sidecars = timelineSidecars();
     var sidecar = sidecars[0] || null;
     var count = sidecar ? Object.keys(sidecarCards(sidecar)).length : 0;
-    var countEl = document.getElementById('timeline-entry-count');
     var subEl = document.getElementById('timeline-entry-sub');
-    if (countEl) countEl.textContent = count ? count + ' pilot cards' : 'No sidecar loaded';
     if (subEl) subEl.textContent = count
-      ? 'Compare writings, people, and rulers on one date line.'
-      : 'Load a timeline sidecar to preview date ranges.';
+      ? 'Compare key dates.'
+      : 'Timeline unavailable.';
     entry.disabled = !count;
     entry.classList.toggle('is-empty', !count);
   }
