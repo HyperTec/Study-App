@@ -19045,7 +19045,6 @@ function renderGuidedSetupScreen() {
     ? 'showGuidedPathMap()'
     : (run ? 'guidedSavePendingCategoryChanges()' : 'guidedCreatePrototypeRun()');
   var primaryLabel = run && setupSaveState ? setupSaveState.buttonLabel : 'Begin Guided Journey';
-  var trustReport = guidedTrustReport(selectedAvailable);
   return ''
     + '<div class="guided-shell guided-setup-shell">'
     + '<div class="top-bar"><button class="back-btn" onclick="' + (run ? 'showGuidedOptions()' : 'showHome()') + '">←</button><span class="top-title" style="flex:1">' + guidedEsc(entryCopy.topTitle) + '</span></div>'
@@ -19059,7 +19058,6 @@ function renderGuidedSetupScreen() {
     +     '<span>' + guidedEsc(availableText) + '</span>'
     +   '</div>'
     + '</div>'
-    + guidedRenderTrustNotice(trustReport)
     + '<div class="guided-setup-section-head">'
     +   '<div><strong>Study categories</strong><span>Tap a row to include or remove it.</span></div>'
     +   '<em>' + guidedEsc(selectionText) + '</em>'
@@ -19068,12 +19066,11 @@ function renderGuidedSetupScreen() {
     + availableCategories.map(function(cat){
       var isSelected = selected.indexOf(cat.id) !== -1;
       var stateLabel = cat.available ? (isSelected ? (selectedAvailable.length === 1 ? 'Required' : 'Selected') : 'Add') : 'Not loaded';
-      var trustStatus = guidedTrustCategoryStatus(cat);
       return '<button class="guided-category-row' + (isSelected ? ' is-selected' : '') + (cat.available ? '' : ' is-disabled') + '"'
         + (cat.available ? ' onclick="guidedToggleCategory(\'' + guidedEsc(cat.id) + '\')"' : ' disabled')
         + ' style="--guided-accent:' + guidedEsc(cat.color) + '">'
         + '<span class="guided-category-dot" style="background:' + guidedEsc(cat.color) + '"></span>'
-        + '<div class="guided-category-copy"><div class="guided-category-title">' + guidedEsc(cat.label) + '</div><div class="guided-category-blurb">' + guidedEsc(cat.available ? cat.blurb : 'Load or import this deck before adding it to Guided Learning.') + '</div>' + guidedRenderCategoryTrustLine(trustStatus) + '</div>'
+        + '<div class="guided-category-copy"><div class="guided-category-title">' + guidedEsc(cat.label) + '</div><div class="guided-category-blurb">' + guidedEsc(cat.available ? cat.blurb : 'Load or import this deck before adding it to Guided Learning.') + '</div></div>'
         + '<div class="guided-category-state">' + guidedEsc(stateLabel) + '</div>'
         + '</button>';
     }).join('')
