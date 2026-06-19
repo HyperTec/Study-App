@@ -23745,6 +23745,111 @@ function backupCenterRenderDeckReadiness() {
   }).join('');
 }
 
+function contentBuilderGuidedCount() {
+  return deckReadinessStoredGuidedSidecars().length;
+}
+
+function contentBuilderStats() {
+  var reports = Array.isArray(decks) ? decks.map(deckReadinessBuild) : [];
+  return {
+    decks: Array.isArray(decks) ? decks.length : 0,
+    cards: Array.isArray(decks) ? decks.reduce(function(total, deck){
+      return total + deckReadinessCards(deck).length;
+    }, 0) : 0,
+    ready: reports.filter(function(report){ return report.score >= 85; }).length,
+    close: reports.filter(function(report){ return report.score >= 70 && report.score < 85; }).length,
+    needsWork: reports.filter(function(report){ return report.score < 70; }).length,
+    guided: contentBuilderGuidedCount()
+  };
+}
+
+function contentBuilderRefreshStatus() {
+  var statusEl = document.getElementById('profile-builder-status');
+  var summaryEl = document.getElementById('profile-builder-summary');
+  var authorBtn = document.getElementById('profile-builder-author-btn');
+  if (!statusEl && !summaryEl && !authorBtn) return;
+  var stats = contentBuilderStats();
+  if (statusEl) {
+    statusEl.textContent = authorMode
+      ? 'Creator tools are unlocked.'
+      : 'Unlock Author Mode before changing deck or Guided content.';
+  }
+  if (authorBtn) authorBtn.textContent = authorMode ? 'Lock' : 'Unlock';
+  if (summaryEl) {
+    summaryEl.innerHTML = '<span><em>Decks</em><strong>' + escHtml(stats.decks) + '</strong></span>'
+      + '<span><em>Cards</em><strong>' + escHtml(stats.cards) + '</strong></span>'
+      + '<span><em>Readiness</em><strong>' + escHtml(stats.ready + ' ready / ' + stats.close + ' close / ' + stats.needsWork + ' work') + '</strong></span>'
+      + '<span><em>Guided</em><strong>' + escHtml(stats.guided + ' active file' + (stats.guided === 1 ? '' : 's')) + '</strong></span>';
+  }
+}
+
+function contentBuilderToggleAuthor() {
+  lockTap();
+  renderProfile();
+}
+
+function contentBuilderRequireAuthor(next) {
+  if (authorMode) {
+    next();
+    return true;
+  }
+  if (!AUTHOR_PIN_REQUIRED) {
+    authorMode = true;
+    closePin();
+    renderHome();
+    renderDecks();
+    renderProfile();
+    updateStyleLabChrome();
+    if (typeof showXpToast === 'function') showXpToast('Author Mode unlocked.');
+    next();
+    return true;
+  }
+  lockTap();
+  if (typeof showXpToast === 'function') showXpToast('Unlock Author Mode, then choose the builder step again.');
+  return false;
+}
+
+function contentBuilderCreateDeck() {
+  contentBuilderRequireAuthor(function(){
+    showCreate();
+  });
+}
+
+function contentBuilderOpenDecks() {
+  contentBuilderRequireAuthor(function(){
+    showDecks();
+  });
+}
+
+function contentBuilderOpenGuidedAuthorTab(tab) {
+  contentBuilderRequireAuthor(function(){
+    guidedAuthorActiveTab = guidedAuthorNormalizeTab(tab || 'sidecars');
+    guidedAuthorPersistTab(guidedAuthorActiveTab);
+    showGuidedAuthorTools();
+  });
+}
+
+function contentBuilderOpenGuidedContent() {
+  contentBuilderOpenGuidedAuthorTab('sidecars');
+}
+
+function contentBuilderScrollTo(id) {
+  showProfile();
+  setTimeout(function(){
+    var el = document.getElementById(id);
+    if (el && el.scrollIntoView) el.scrollIntoView({ behavior: 'smooth', block: 'start' });
+  }, 60);
+}
+
+function contentBuilderCheckQuality() {
+  backupCenterRenderDeckReadiness();
+  contentBuilderScrollTo('profile-deck-readiness');
+}
+
+function contentBuilderPublishUpdate() {
+  contentBuilderScrollTo('profile-backup-status');
+}
+
 function renderProfile() {
   var titleEl = document.getElementById('profile-title');
   var subEl = document.getElementById('profile-sub');
@@ -23775,6 +23880,7 @@ function renderProfile() {
   if (devBtn) devBtn.style.display = authorMode ? '' : 'none';
   updateAudioFeedbackControls();
   updateProfileSettingsSummary();
+  contentBuilderRefreshStatus();
   backupCenterRefreshStatus();
   backupCenterRenderDeckReadiness();
   if (typeof refreshStyleLabView === 'function') refreshStyleLabView();
