@@ -10929,17 +10929,16 @@ function renderGuidedEntry() {
       return '<span class="guided-home-pill">' + guidedEsc(item) + '</span>';
     }).join('');
   }
-  function renderTrust(categories) {
+  function clearTrust() {
     if (!statusEl) return;
-    var report = guidedTrustReport(categories || []);
-    statusEl.innerHTML = guidedRenderTrustNotice(report, { compact: true });
-    statusEl.style.display = report && report.items && report.items.length ? '' : 'none';
+    statusEl.innerHTML = '';
+    statusEl.style.display = 'none';
   }
   if (!run) {
     titleEl.textContent = 'Start Guided Learning';
     subEl.textContent = 'Choose categories, then build your first bracket.';
     renderMeta(['Setup', available.length + ' available']);
-    renderTrust(available);
+    clearTrust();
     if (actionEl) actionEl.textContent = 'Start →';
     entry.setAttribute('aria-label', 'Start Guided Learning. Choose categories, then build your first bracket.');
     return;
@@ -10951,7 +10950,7 @@ function renderGuidedEntry() {
     ? 'This bracket is complete. Open the path to choose what comes next.'
     : (nextNode ? ('Next: ' + nextNode.categoryLabel + ' · ' + nextNode.title + '.') : 'Open your current bracket.');
   renderMeta([run.tierLabel, run.bracketLabel, bracketComplete ? 'Complete' : 'In progress']);
-  renderTrust(guidedEntryTrustCategories(run, available));
+  clearTrust();
   if (actionEl) actionEl.textContent = 'Open →';
   entry.setAttribute('aria-label', titleEl.textContent + '. ' + subEl.textContent);
 }
