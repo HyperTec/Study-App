@@ -1,4 +1,4 @@
-const STUDYDECK_CACHE = 'studydeck-preview-20260620005448';
+const STUDYDECK_CACHE = 'studydeck-preview-20260620192019';
 const STUDYDECK_ASSETS = [
   "./",
   "./app.js",

@@ -17,7 +17,7 @@
 <link href="https://fonts.googleapis.com" rel="preconnect"/>
 <link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect"/>
 <link href="https://fonts.googleapis.com/css2?family=Lora:wght@600;700&amp;family=DM+Sans:wght@300;400;500;600&amp;family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;0,700;1,400&amp;family=EB+Garamond:ital,wght@0,400;0,500;0,600;0,700;1,400;1,500&amp;family=Cinzel:wght@500;600;700&amp;family=Outfit:wght@300;400;500;600;700;800&amp;display=swap" rel="stylesheet"/>
-<link rel="stylesheet" href="styles.css?v=20260620005448">
+<link rel="stylesheet" href="styles.css?v=20260620192019">
 
 
 
@@ -2277,11 +2277,22 @@ Style Lab
 </button>
 </div>
 <div class="home-hero">
+<div class="home-hero-head">
 <div class="home-brand-copy">
 <div class="home-brand-critical">Critical</div>
 <div class="home-brand-subtitle">Bible Study</div>
 </div>
 <button type="button" class="lock-btn" id="lock-btn" onclick="lockTap()" title="Author access">🔒</button>
+</div>
+<div class="home-companion-stage" aria-label="Selected companion preview">
+<div class="home-companion-glow" aria-hidden="true"></div>
+<div class="home-companion-shadow" aria-hidden="true"></div>
+<div class="home-companion-placeholder" aria-hidden="true">
+<span class="home-companion-antenna"></span>
+<span class="home-companion-head"><span class="home-companion-face"></span></span>
+<span class="home-companion-body"></span>
+</div>
+</div>
 </div>
 <div class="xp-bar-wrap home-xp-card" onclick="show('badges');renderBadgesView()" style="cursor:pointer">
 <div class="xp-bar-row">
@@ -2292,7 +2303,11 @@ Style Lab
 <div class="xp-bar"><div class="xp-fill" id="home-xp-fill" style="width:0%"></div></div>
 </div>
 <div class="home-dashboard-grid">
+<div class="home-primary-grid">
 <div class="guided-home-btn" id="guided-entry" onclick="showGuided()" style="display:none">
+<div class="home-action-icon guided-action-icon" aria-hidden="true">
+<svg viewBox="0 0 64 64"><path d="M12 42c8-8.5 14.5-15.4 24.3-15.4 7 0 11.5 3.3 15 8.7l-8.2 5c-1.8-2.7-3.6-3.9-6.4-3.9-5.3 0-9 4.3-16.4 12.7L12 42Z" fill="#ffd041"></path><circle cx="16.2" cy="43.2" fill="#40d28f" r="8"></circle><circle cx="36" cy="30.3" fill="#9c73ff" r="8"></circle><circle cx="49.5" cy="37.3" fill="#f66aa6" r="8"></circle></svg>
+</div>
 <div class="guided-home-copy">
 <div class="guided-home-kicker">Guided Learning</div>
 <div class="guided-home-title" id="guided-entry-title">Build your learning path</div>
@@ -2303,13 +2318,17 @@ Style Lab
 <div class="guided-home-arrow" id="guided-entry-action">Open →</div>
 </div>
 <button type="button" class="decks-home-btn" id="decks-entry" onclick="showDecks()">
+<div class="home-action-icon decks-action-icon" aria-hidden="true">
+<svg viewBox="0 0 64 64"><path d="M15 16h11v34H15V16Z" fill="#ff8a34"></path><path d="M28 11h11v39H28V11Z" fill="#9c73ff"></path><path d="M41 20h11v30H41V20Z" fill="#40d28f"></path><path d="M11 49h45v6H11v-6Z" fill="#ffd041"></path><path d="M18 23h5v4h-5v-4ZM31 19h5v4h-5v-4ZM44 27h5v4h-5v-4Z" fill="#fff2c2" opacity=".76"></path></svg>
+</div>
 <div class="decks-home-copy">
 <div class="decks-home-kicker">Decks</div>
-<div class="decks-home-title">Study decks</div>
+<div class="decks-home-title">Decks</div>
 <div class="decks-home-sub">Practice flashcards and quizzes.</div>
 </div>
 <div class="decks-home-arrow">Open →</div>
 </button>
+</div>
 <button type="button" class="timeline-home-btn reference-home-btn" id="timeline-entry" onclick="showTimelineViewer()">
 <div class="timeline-home-copy">
 <div class="timeline-home-kicker">Reference</div>
@@ -2327,8 +2346,8 @@ Style Lab
 <div id="daily-pct" style="position:absolute;inset:0;display:flex;align-items:center;justify-content:center;font-size:11px;font-weight:700;color:var(--gold)">0%</div>
 </div>
 <div class="daily-info">
-<div class="daily-title">Daily Challenge</div>
-<div class="daily-sub" id="daily-sub">Cards due for review today</div>
+<div class="daily-title">Daily</div>
+<div class="daily-sub" id="daily-sub">0 cards due</div>
 </div>
 <div style="color:var(--muted);font-size:18px">→</div>
 </div>
@@ -2864,8 +2883,8 @@ Style Lab
 <script src="js/studydeck-guided-author-qa.js" defer></script>
 <script src="js/studydeck-timeline-pilot-sidecar.js?v=timeline-no-matches-removed-20260608a" defer></script>
 <script src="js/studydeck-timelines.js?v=nav-responsive-20260619a" defer></script>
-<script src="preview-data.js?v=20260620005448" defer></script>
-<script src="app.js?v=20260620005448" defer></script>
-<script src="register-service-worker.js?v=20260620005448" defer></script>
+<script src="preview-data.js?v=20260620192019" defer></script>
+<script src="app.js?v=20260620192019" defer></script>
+<script src="register-service-worker.js?v=20260620192019" defer></script>
 </body>
 </html>

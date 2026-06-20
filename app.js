@@ -10982,7 +10982,7 @@ function renderGuidedEntry() {
   }
   clearMeta();
   if (!run) {
-    titleEl.textContent = 'Guided Learning';
+    titleEl.textContent = 'Guided';
     subEl.textContent = 'Start a guided path.';
     clearTrust();
     if (actionEl) actionEl.textContent = 'Start →';
@@ -10991,7 +10991,7 @@ function renderGuidedEntry() {
   }
   var nextNode = guidedGetNextNode(run);
   var bracketComplete = guidedIsCurrentBracketComplete(run);
-  titleEl.textContent = 'Guided Learning';
+  titleEl.textContent = 'Guided';
   subEl.textContent = bracketComplete
     ? 'Choose what comes next.'
     : (nextNode ? ('Next: ' + nextNode.title + '.') : 'Continue your path.');
@@ -21054,7 +21054,7 @@ function renderDailyButton() {
   var tot  = (gd.dailyDate === today) ? gd.dailyTotal : Math.min(10, due);
   if (tot === 0) tot = due || 0;
   var pct  = tot > 0 ? Math.round(prog/tot*100) : 0;
-  sub.textContent = prog >= tot && tot > 0 ? 'Complete! ✓ Come back tomorrow' : due + ' card' + (due!==1?'s':'') + ' due for review';
+  sub.textContent = prog >= tot && tot > 0 ? 'Done for today' : due + ' card' + (due!==1?'s':'') + ' due';
   if (pctEl) pctEl.textContent = pct + '%';
   if (ringEl) { var circ = 119.4; ringEl.style.strokeDashoffset = (circ - circ * pct/100).toFixed(1); }
   var btn = document.getElementById('daily-btn');
