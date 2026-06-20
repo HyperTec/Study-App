@@ -17,7 +17,7 @@
 <link href="https://fonts.googleapis.com" rel="preconnect"/>
 <link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect"/>
 <link href="https://fonts.googleapis.com/css2?family=Lora:wght@600;700&amp;family=DM+Sans:wght@300;400;500;600&amp;family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;0,700;1,400&amp;family=EB+Garamond:ital,wght@0,400;0,500;0,600;0,700;1,400;1,500&amp;family=Cinzel:wght@500;600;700&amp;family=Outfit:wght@300;400;500;600;700;800&amp;display=swap" rel="stylesheet"/>
-<link rel="stylesheet" href="styles.css?v=20260620203431">
+<link rel="stylesheet" href="styles.css?v=20260620205658">
 
 
 
@@ -2325,7 +2325,11 @@ Style Lab
 <div class="decks-home-arrow">Open →</div>
 </button>
 </div>
-<button type="button" class="timeline-home-btn reference-home-btn" id="timeline-entry" onclick="showTimelineViewer()">
+<div class="home-reference-grid" aria-label="Reference tools">
+<button type="button" class="timeline-home-btn reference-home-btn home-reference-btn" id="timeline-entry" onclick="showTimelineViewer()">
+<div class="home-reference-icon timeline-reference-icon" aria-hidden="true">
+<svg viewBox="0 0 64 64"><path d="M12 42h40v8H12v-8Z" fill="#ffd45a"></path><path d="M16 18h10v28H16V18Z" fill="#45d0c1"></path><path d="M27 26h10v20H27V26Z" fill="#9c73ff"></path><path d="M38 14h10v32H38V14Z" fill="#ff8a4a"></path><circle cx="21" cy="18" r="6" fill="#63e6be"></circle><circle cx="32" cy="26" r="6" fill="#b593ff"></circle><circle cx="43" cy="14" r="6" fill="#ffb15e"></circle></svg>
+</div>
 <div class="timeline-home-copy">
 <div class="timeline-home-kicker">Reference</div>
 <div class="timeline-home-title">Timeline</div>
@@ -2333,6 +2337,18 @@ Style Lab
 </div>
 <div class="timeline-home-arrow">Open →</div>
 </button>
+<button type="button" class="map-home-btn reference-home-btn home-reference-btn is-faux" id="map-entry" onclick="showMapPreviewNotice()" aria-label="Map planned for later">
+<div class="home-reference-icon map-reference-icon" aria-hidden="true">
+<svg viewBox="0 0 64 64"><path d="M10 17l13-5 18 5 13-5v35l-13 5-18-5-13 5V17Z" fill="#263547"></path><path d="M23 12v35l18 5V17L23 12Z" fill="#31465d"></path><path d="M10 17v35l13-5V12L10 17Z" fill="#42c99a"></path><path d="M41 17v35l13-5V12l-13 5Z" fill="#45b7ff"></path><path d="M18 27c5.5-4 9.3-3.9 14 .2 4.6 4 8 4.1 14-.2v7.2c-5.7 3.8-9.8 3.6-14.6-.5-4.5-3.8-8-3.8-13.4.3V27Z" fill="#ffe07a"></path><path d="M37 20c0 7-8 14-8 14s-8-7-8-14a8 8 0 1 1 16 0Z" fill="#ff6b6b"></path><circle cx="29" cy="20" r="3.4" fill="#fff2c2"></circle></svg>
+</div>
+<div class="timeline-home-copy">
+<div class="timeline-home-kicker">Reference</div>
+<div class="timeline-home-title">Map</div>
+<div class="timeline-home-sub">Planned.</div>
+</div>
+<div class="timeline-home-arrow">Soon</div>
+</button>
+</div>
 <div class="daily-btn" id="daily-btn" onclick="startDailyChallenge()">
 <div class="daily-ring-wrap">
 <svg height="46" viewBox="0 0 46 46" width="46">
@@ -2879,8 +2895,8 @@ Style Lab
 <script src="js/studydeck-guided-author-qa.js" defer></script>
 <script src="js/studydeck-timeline-pilot-sidecar.js?v=timeline-no-matches-removed-20260608a" defer></script>
 <script src="js/studydeck-timelines.js?v=nav-responsive-20260619a" defer></script>
-<script src="preview-data.js?v=20260620203431" defer></script>
-<script src="app.js?v=20260620203431" defer></script>
-<script src="register-service-worker.js?v=20260620203431" defer></script>
+<script src="preview-data.js?v=20260620205658" defer></script>
+<script src="app.js?v=20260620205658" defer></script>
+<script src="register-service-worker.js?v=20260620205658" defer></script>
 </body>
 </html>

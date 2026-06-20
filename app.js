@@ -20969,6 +20969,10 @@ function showXpToast(msg, duration) {
   _xpToastTimer = setTimeout(function(){ t.classList.remove('show'); }, duration || 2000);
 }
 
+function showMapPreviewNotice() {
+  showXpToast('Map is planned for later.', 1600);
+}
+
 // ── SPACED REPETITION ──
 function cardsDueNow() {
   var now = Date.now();
