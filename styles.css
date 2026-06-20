@@ -7575,8 +7575,9 @@ html[data-theme^="custom_style_"] .deck-accent {
   border-color: color-mix(in srgb, var(--red) 48%, var(--border2));
   color: color-mix(in srgb, var(--red) 72%, var(--text));
 }
-/* Guided Learning prototype */
-.guided-home-btn {
+/* Home study paths */
+.guided-home-btn,
+.decks-home-btn {
   margin: 0 20px 16px;
   padding: 16px 18px;
   border-radius: 16px;
@@ -7591,6 +7592,10 @@ html[data-theme^="custom_style_"] .deck-accent {
   cursor: pointer;
   position: relative;
   overflow: hidden;
+  min-height: 106px;
+  color: var(--text);
+  font: inherit;
+  text-align: left;
 }
 .guided-home-btn::before {
   content: "";
@@ -7602,22 +7607,45 @@ html[data-theme^="custom_style_"] .deck-accent {
 .guided-home-btn:hover {
   border-color: color-mix(in srgb, var(--gold) 42%, var(--border));
 }
-.guided-home-copy {
+.decks-home-btn {
+  background:
+    radial-gradient(circle at top right, rgba(79,207,255,0.12), transparent 38%),
+    linear-gradient(180deg, color-mix(in srgb, var(--surface2) 74%, transparent), var(--surface));
+}
+.decks-home-btn::before {
+  content: "";
+  position: absolute;
+  inset: 0 auto 0 0;
+  width: 4px;
+  background: linear-gradient(180deg, rgba(79,207,255,0.9), rgba(52,211,153,0.82));
+}
+.decks-home-btn:hover {
+  border-color: color-mix(in srgb, var(--blue) 42%, var(--border));
+}
+.guided-home-copy,
+.decks-home-copy {
   min-width: 0;
   padding-left: 4px;
 }
-.guided-home-kicker {
+.guided-home-kicker,
+.decks-home-kicker {
   font: 800 11px/1 var(--sans);
   letter-spacing: .12em;
   text-transform: uppercase;
   color: var(--muted);
   margin-bottom: 7px;
 }
-.guided-home-title {
+.home-dashboard-grid .guided-home-kicker,
+.home-dashboard-grid .decks-home-kicker {
+  display: none;
+}
+.guided-home-title,
+.decks-home-title {
   font: 800 19px/1.1 var(--sans);
   color: var(--text);
 }
-.guided-home-sub {
+.guided-home-sub,
+.decks-home-sub {
   margin-top: 6px;
   font: 500 12px/1.4 var(--sans);
   color: var(--muted);
@@ -7645,7 +7673,8 @@ html[data-theme^="custom_style_"] .deck-accent {
   text-transform: uppercase;
   white-space: nowrap;
 }
-.guided-home-arrow {
+.guided-home-arrow,
+.decks-home-arrow {
   flex: 0 0 auto;
   min-height: 34px;
   display: inline-flex;
@@ -7660,6 +7689,10 @@ html[data-theme^="custom_style_"] .deck-accent {
   text-transform: uppercase;
   color: var(--text);
   flex-shrink: 0;
+}
+.decks-home-arrow {
+  border-color: color-mix(in srgb, var(--blue) 36%, var(--border));
+  background: color-mix(in srgb, var(--blue) 10%, transparent);
 }
 .timeline-home-btn {
   width: 100%;
@@ -7749,6 +7782,33 @@ html[data-theme^="custom_style_"] .deck-accent {
   font: 900 11px/1 var(--sans);
   letter-spacing: .06em;
   white-space: nowrap;
+}
+.reference-home-btn {
+  padding: 12px 15px;
+  border-radius: 14px;
+  background:
+    radial-gradient(circle at 14% 16%, rgba(47,119,116,.12), transparent 34%),
+    linear-gradient(180deg, color-mix(in srgb, var(--surface2) 72%, white 3%), color-mix(in srgb, var(--surface) 94%, black 6%));
+  box-shadow: 0 9px 18px rgba(0,0,0,.14), inset 0 1px 0 rgba(255,255,255,.05);
+}
+.reference-home-btn::before {
+  width: 3px;
+  opacity: .72;
+}
+.reference-home-btn .timeline-home-kicker {
+  display: none;
+}
+.reference-home-btn .timeline-home-title {
+  font: 850 16px/1.15 var(--sans);
+}
+.reference-home-btn .timeline-home-sub {
+  margin-top: 3px;
+  font: 650 11px/1.35 var(--sans);
+}
+.reference-home-btn .timeline-home-arrow {
+  min-height: 30px;
+  padding: 0 10px;
+  font-size: 10px;
 }
 
 /* Timeline viewer */
@@ -9444,6 +9504,9 @@ html[data-theme^="custom_style_"] .deck-accent {
 @media (max-width: 560px) {
   .timeline-home-btn {
     align-items: flex-start;
+  }
+  .timeline-home-btn.reference-home-btn {
+    align-items: center;
   }
   .timeline-toolbar-card {
     align-items: stretch;
@@ -17564,6 +17627,7 @@ button.guided-map-pin:focus-visible {
 }
 
 .home-dashboard-grid .guided-home-btn,
+.home-dashboard-grid .decks-home-btn,
 .home-dashboard-grid .daily-btn {
   width: 100%;
   margin: 0;
@@ -18681,6 +18745,7 @@ html.main-dock-visible:not(.style-lab-open) .view.active {
 .daily-btn:active,
 .card-row-tapzone:active,
 .guided-home-btn:active,
+.decks-home-btn:active,
 .timeline-home-btn:active,
 .guided-path-node-btn:not(:disabled):not(.is-locked):active,
 .guided-resource-btn:active {
@@ -18753,6 +18818,7 @@ button.guided-map-pin:active {
   .daily-btn:active,
   .card-row-tapzone:active,
   .guided-home-btn:active,
+  .decks-home-btn:active,
   .timeline-home-btn:active,
   .guided-path-node-btn:not(:disabled):not(.is-locked):active,
   .guided-resource-btn:active,

@@ -10982,7 +10982,7 @@ function renderGuidedEntry() {
   }
   clearMeta();
   if (!run) {
-    titleEl.textContent = 'Start path';
+    titleEl.textContent = 'Guided Learning';
     subEl.textContent = 'Start a guided path.';
     clearTrust();
     if (actionEl) actionEl.textContent = 'Start →';
@@ -10991,7 +10991,7 @@ function renderGuidedEntry() {
   }
   var nextNode = guidedGetNextNode(run);
   var bracketComplete = guidedIsCurrentBracketComplete(run);
-  titleEl.textContent = bracketComplete ? 'Next step' : 'Current path';
+  titleEl.textContent = 'Guided Learning';
   subEl.textContent = bracketComplete
     ? 'Choose what comes next.'
     : (nextNode ? ('Next: ' + nextNode.title + '.') : 'Continue your path.');
