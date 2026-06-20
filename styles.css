@@ -18892,9 +18892,9 @@ html.main-dock-visible:not(.style-lab-open) .view.active {
 }
 
 .home-dashboard-grid .home-reference-btn {
-  min-height: 112px;
+  min-height: 98px;
   margin: 0;
-  padding: 13px 12px 12px;
+  padding: 12px;
   border: 0;
   border-radius: 22px;
   display: grid;
@@ -18931,15 +18931,9 @@ html.main-dock-visible:not(.style-lab-open) .view.active {
   color: var(--text);
 }
 
-.home-dashboard-grid .home-reference-btn .timeline-home-sub {
-  margin-top: 4px;
-  font: 800 11px/1.25 var(--sans);
-  color: color-mix(in srgb, var(--muted) 92%, var(--text));
-}
-
 .home-reference-icon {
   width: 66px;
-  height: 58px;
+  height: 54px;
   display: grid;
   place-items: center;
 }
