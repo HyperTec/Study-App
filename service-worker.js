@@ -1,4 +1,4 @@
-const STUDYDECK_CACHE = 'studydeck-preview-20260620192019';
+const STUDYDECK_CACHE = 'studydeck-preview-20260620203431';
 const STUDYDECK_ASSETS = [
   "./",
   "./app.js",
@@ -10,6 +10,7 @@ const STUDYDECK_ASSETS = [
   "./assets/studydeck-icon-192.png",
   "./assets/studydeck-icon-512.png",
   "./assets/studydeck-icon.svg",
+  "./assets/studydeck-signal-companion-spritesheet.webp",
   "./js/studydeck-guided-author-qa.js",
   "./js/studydeck-guided-author-sidecars.js",
   "./js/studydeck-guided-map-authoring.js",

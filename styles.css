@@ -18807,123 +18807,26 @@ html.main-dock-visible:not(.style-lab-open) .view.active {
 
 .home-companion-shadow {
   position: absolute;
-  width: 138px;
-  height: 20px;
+  width: 118px;
+  height: 18px;
   border-radius: 50%;
-  bottom: 28px;
+  bottom: 30px;
   background: rgba(0,0,0,.34);
   filter: blur(4px);
 }
 
-.home-companion-placeholder {
+.home-companion-avatar {
+  width: min(158px, 42vw);
+  aspect-ratio: 192 / 208;
   position: relative;
-  width: 134px;
-  height: 156px;
+  z-index: 1;
+  background-image: url("assets/studydeck-signal-companion-spritesheet.webp");
+  background-repeat: no-repeat;
+  background-size: 800% 900%;
+  background-position: 0% 0%;
   image-rendering: pixelated;
-  filter: drop-shadow(0 16px 8px rgba(0,0,0,.26));
-}
-
-.home-companion-head,
-.home-companion-body,
-.home-companion-antenna,
-.home-companion-face {
-  position: absolute;
-  display: block;
-}
-
-.home-companion-antenna {
-  left: 62px;
-  top: 0;
-  width: 13px;
-  height: 42px;
-  border-radius: 10px 10px 4px 4px;
-  background: linear-gradient(180deg, #2e3748, #111827);
-  transform: rotate(-24deg);
-  transform-origin: bottom center;
-}
-
-.home-companion-antenna::after {
-  content: "";
-  position: absolute;
-  left: -2px;
-  top: -7px;
-  width: 22px;
-  height: 18px;
-  border-radius: 50%;
-  background: #242d3c;
-}
-
-.home-companion-head {
-  left: 22px;
-  top: 34px;
-  width: 90px;
-  height: 78px;
-  border-radius: 20px;
-  background: linear-gradient(180deg, #2c3445, #171e2b);
-  box-shadow:
-    inset 0 7px 0 rgba(255,255,255,.08),
-    inset -8px -8px 0 rgba(0,0,0,.18);
-}
-
-.home-companion-face {
-  left: 14px;
-  top: 17px;
-  width: 62px;
-  height: 42px;
-  border-radius: 12px;
-  background: #080d15;
-}
-
-.home-companion-face::before {
-  content: "";
-  position: absolute;
-  inset: 13px 10px auto;
-  height: 10px;
-  border-radius: 999px;
-  background:
-    radial-gradient(circle at 8px 50%, #ff4d4d 0 3px, transparent 4px),
-    radial-gradient(circle at 42px 50%, #ff4d4d 0 3px, transparent 4px);
-}
-
-.home-companion-face::after {
-  content: "";
-  position: absolute;
-  left: 20px;
-  top: 26px;
-  width: 22px;
-  height: 4px;
-  border-radius: 999px;
-  background: rgba(255,77,77,.86);
-}
-
-.home-companion-body {
-  left: 42px;
-  top: 108px;
-  width: 50px;
-  height: 40px;
-  border-radius: 11px 11px 16px 16px;
-  background: linear-gradient(180deg, #222a39, #121824);
-}
-
-.home-companion-body::before,
-.home-companion-body::after {
-  content: "";
-  position: absolute;
-  top: 7px;
-  width: 13px;
-  height: 26px;
-  border-radius: 999px;
-  background: #151b28;
-}
-
-.home-companion-body::before {
-  left: -12px;
-  transform: rotate(20deg);
-}
-
-.home-companion-body::after {
-  right: -12px;
-  transform: rotate(-20deg);
+  filter: drop-shadow(0 16px 8px rgba(0,0,0,.24));
+  animation: homeCompanionIdle 6.6s step-end infinite;
 }
 
 .home-primary-grid {
@@ -18941,11 +18844,11 @@ html.main-dock-visible:not(.style-lab-open) .view.active {
   display: grid;
   justify-items: center;
   align-content: center;
-  gap: 10px;
+  gap: 8px;
   text-align: center;
   background:
-    radial-gradient(circle at 50% 18%, rgba(255,255,255,.12), transparent 40%),
-    linear-gradient(180deg, color-mix(in srgb, var(--surface2) 86%, #263b5b 14%), color-mix(in srgb, var(--surface) 94%, black 6%));
+    radial-gradient(circle at 50% 22%, rgba(255,255,255,.10), transparent 42%),
+    linear-gradient(180deg, color-mix(in srgb, var(--surface2) 82%, #263b5b 18%), color-mix(in srgb, var(--surface) 96%, black 4%));
   box-shadow: inset 0 1px 0 rgba(255,255,255,.08), 0 14px 26px rgba(0,0,0,.18);
 }
 
@@ -18969,21 +18872,17 @@ html.main-dock-visible:not(.style-lab-open) .view.active {
 }
 
 .home-action-icon {
-  width: 78px;
-  height: 78px;
-  border-radius: 28px;
+  width: 76px;
+  height: 70px;
   display: grid;
   place-items: center;
-  background:
-    radial-gradient(circle at 38% 20%, rgba(255,255,255,.14), transparent 38%),
-    rgba(0,0,0,.14);
-  box-shadow: inset 0 1px 0 rgba(255,255,255,.06);
 }
 
 .home-action-icon svg {
-  width: 52px;
-  height: 52px;
+  width: 58px;
+  height: 58px;
   overflow: visible;
+  filter: drop-shadow(0 10px 9px rgba(0,0,0,.22));
 }
 
 .home-dashboard-grid .daily-btn {
@@ -19008,6 +18907,39 @@ html.main-dock-visible:not(.style-lab-open) .view.active {
 
 .home-dashboard-grid .reference-home-btn {
   min-height: 64px;
+}
+
+@keyframes homeCompanionIdle {
+  0%,
+  25.45% {
+    background-position: 0% 0%;
+  }
+  25.46%,
+  35.45% {
+    background-position: 14.2857% 0%;
+  }
+  35.46%,
+  45.45% {
+    background-position: 28.5714% 0%;
+  }
+  45.46%,
+  58.18% {
+    background-position: 42.8571% 0%;
+  }
+  58.19%,
+  70.90% {
+    background-position: 57.1429% 0%;
+  }
+  70.91%,
+  100% {
+    background-position: 71.4286% 0%;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .home-companion-avatar {
+    animation: none;
+  }
 }
 
 /* Pressed-state consistency: one small "pressed down" response across tappable UI. */
