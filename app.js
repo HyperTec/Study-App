@@ -19153,6 +19153,20 @@ function guidedRenderPathNodeButton(run, node) {
     + '<span class="guided-path-node-label">' + guidedEsc(node.title) + '</span>'
     + '</button>';
 }
+function guidedRenderPathNodeRail(run, nodes) {
+  nodes = nodes || [];
+  var learn = nodes.find(function(node){ return node && node.type === 'learn'; });
+  var practice = nodes.find(function(node){ return node && node.type === 'practice'; });
+  var challenge = nodes.find(function(node){ return node && node.type === 'challenge'; });
+  var learnComplete = learn && guidedNodeIsComplete(run, learn);
+  var practiceComplete = practice && guidedNodeIsComplete(run, practice);
+  var challengeComplete = challenge && guidedNodeIsComplete(run, challenge);
+  return '<span class="guided-path-node-rail" aria-hidden="true">'
+    + '<span class="guided-path-rail-segment is-learn-practice' + (learnComplete ? ' is-lit' : '') + '"></span>'
+    + '<span class="guided-path-rail-segment is-practice-challenge' + (practiceComplete ? ' is-lit' : '') + '"></span>'
+    + '<span class="guided-path-rail-segment is-challenge-exit' + (challengeComplete ? ' is-lit' : '') + '"></span>'
+    + '</span>';
+}
 function guidedRenderPathCategoryColumn(run, cat) {
   var nodes = guidedCategoryNodes(run, cat.id);
   var laneComplete = guidedCategoryRunComplete(run, cat.id);
@@ -19163,7 +19177,7 @@ function guidedRenderPathCategoryColumn(run, cat) {
     + '<div class="guided-path-column-icon">' + icon + '</div>'
     + '<div class="guided-path-column-title">' + guidedEsc(cat.label) + '</div>'
     + '<div class="guided-path-column-stage">' + guidedEsc(guidedStageLabel(cat.guidedLevel || 1)) + '</div>'
-    + '<div class="guided-path-node-stack">' + nodes.map(function(node){ return guidedRenderPathNodeButton(run, node); }).join('') + '</div>'
+    + '<div class="guided-path-node-stack">' + guidedRenderPathNodeRail(run, nodes) + nodes.map(function(node){ return guidedRenderPathNodeButton(run, node); }).join('') + '</div>'
     + '</div>';
 }
 function guidedConnectorPathForX(x) {
@@ -19184,11 +19198,12 @@ function guidedRenderPathConnectors(run) {
   var paths = categories.map(function(cat, idx){
     var complete = guidedCategoryRunComplete(run, cat.id);
     var stroke = complete ? cat.color : 'rgba(148,163,184,0.34)';
-    return '<path d="' + guidedConnectorPathForX(positions[idx] || 150) + '" stroke="' + guidedEsc(stroke) + '" class="' + (complete ? 'is-complete' : 'is-locked') + '"/>';
+    return '<path d="' + guidedConnectorPathForX(positions[idx] || 150) + '" stroke="' + guidedEsc(stroke) + '" style="color:' + guidedEsc(stroke) + '" class="' + (complete ? 'is-complete' : 'is-locked') + '"/>';
   }).join('');
+  var starStroke = allComplete ? 'var(--gold)' : 'rgba(148,163,184,0.34)';
   return '<div class="guided-path-connector-wrap' + (allComplete ? ' is-ready' : '') + '" aria-hidden="true"><svg class="guided-path-connector-svg' + (allComplete ? ' is-ready' : '') + '" viewBox="0 0 300 58" preserveAspectRatio="none">'
     + paths
-    + '<path d="M150 16 V39" stroke="' + (allComplete ? 'var(--gold)' : 'rgba(148,163,184,0.34)') + '" class="' + (allComplete ? 'is-star-ready' : 'is-locked') + '"/>'
+    + '<path d="M150 16 V39" stroke="' + starStroke + '" style="color:' + starStroke + '" class="' + (allComplete ? 'is-star-ready' : 'is-locked') + '"/>'
     + '</svg><span class="guided-path-star"></span></div>';
 }
 function guidedRenderPathReviewCard(run, node, type) {
