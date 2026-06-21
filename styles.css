@@ -10319,9 +10319,7 @@ html.main-dock-visible .guided-setup-shell {
     linear-gradient(180deg, color-mix(in srgb, var(--surface2) 86%, transparent), var(--surface));
 }
 .guided-path-status-row {
-  display: flex;
-  justify-content: center;
-  margin: 0 0 2px;
+  display: none;
 }
 .guided-path-bracket-pill {
   display: inline-flex;
@@ -10351,9 +10349,9 @@ html.main-dock-visible .guided-setup-shell {
 .guided-path-map {
   display: grid;
   grid-template-columns: repeat(3, minmax(0, 1fr));
-  gap: 9px;
+  gap: 8px;
   align-items: start;
-  padding-top: 28px;
+  padding-top: 40px;
 }
 .guided-path-map.is-count-1 {
   grid-template-columns: minmax(168px, 202px);
@@ -10366,69 +10364,144 @@ html.main-dock-visible .guided-setup-shell {
 .guided-path-column {
   --guided-accent: var(--gold);
   position: relative;
-  min-height: 300px;
-  border: 1px solid color-mix(in srgb, var(--guided-accent) 42%, var(--border));
-  border-radius: 20px;
-  padding: 43px 10px 14px;
-  background:
-    radial-gradient(circle at 50% -10%, color-mix(in srgb, var(--guided-accent) 18%, transparent), transparent 46%),
-    linear-gradient(180deg, color-mix(in srgb, var(--surface2) 80%, transparent), color-mix(in srgb, var(--surface) 92%, transparent));
-  box-shadow:
-    inset 0 0 0 1px rgba(255,255,255,0.025),
-    0 18px 38px rgba(0,0,0,0.24);
+  min-height: 278px;
+  border: 0;
+  border-radius: 24px;
+  padding: 0 8px 12px;
+  background: transparent;
+  box-shadow: none;
+  overflow: visible;
   text-align: center;
 }
-.guided-path-column.is-current-column {
-  border-color: color-mix(in srgb, var(--guided-accent) 68%, white 8%);
+.guided-path-column::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  bottom: 6px;
+  left: 50%;
+  width: 112px;
+  transform: translateX(-50%);
+  border-radius: 0;
+  background: linear-gradient(
+    90deg,
+    color-mix(in srgb, var(--guided-accent) 10%, transparent) 0%,
+    color-mix(in srgb, var(--guided-accent) 27%, transparent) 48%,
+    color-mix(in srgb, var(--guided-accent) 27%, transparent) 52%,
+    color-mix(in srgb, var(--guided-accent) 10%, transparent) 100%
+  );
+  pointer-events: none;
+  filter: blur(.2px);
+  opacity: .9;
   box-shadow:
-    inset 0 0 0 1px color-mix(in srgb, var(--guided-accent) 16%, transparent),
-    0 18px 44px color-mix(in srgb, var(--guided-accent) 13%, rgba(0,0,0,0.2));
+    -1px 0 0 color-mix(in srgb, var(--guided-accent) 8%, transparent),
+    1px 0 0 color-mix(in srgb, var(--guided-accent) 8%, transparent);
+  -webkit-mask-image: linear-gradient(180deg, transparent 0%, #000 13%, #000 78%, transparent 100%);
+  mask-image: linear-gradient(180deg, transparent 0%, #000 13%, #000 78%, transparent 100%);
+  z-index: 0;
+}
+.guided-path-column::after {
+  content: "";
+  position: absolute;
+  top: 58px;
+  bottom: 0;
+  left: 50%;
+  width: 3px;
+  transform: translateX(-50%);
+  border-radius: 999px;
+  background: linear-gradient(
+    180deg,
+    color-mix(in srgb, var(--guided-accent) 72%, white 8%) 0,
+    color-mix(in srgb, var(--guided-accent) 56%, rgba(148,163,184,0.18)) 78px,
+    transparent 78px,
+    transparent 144px,
+    color-mix(in srgb, var(--guided-accent) 46%, rgba(148,163,184,0.2)) 144px,
+    color-mix(in srgb, var(--guided-accent) 40%, rgba(148,163,184,0.2)) 156px,
+    transparent 156px,
+    transparent 198px,
+    color-mix(in srgb, var(--guided-accent) 34%, rgba(148,163,184,0.18)) 198px,
+    color-mix(in srgb, var(--guided-accent) 30%, rgba(148,163,184,0.18)) 210px,
+    transparent 210px,
+    transparent 100%
+  );
+  opacity: .42;
+  pointer-events: none;
+  z-index: 0;
+}
+.guided-path-column-glow {
+  position: absolute;
+  top: -2px;
+  bottom: 2px;
+  left: 50%;
+  width: 72px;
+  transform: translateX(-50%);
+  border-radius: 999px 999px 44px 44px;
+  background:
+    radial-gradient(ellipse at 50% 17%, color-mix(in srgb, var(--guided-accent) 34%, transparent), transparent 48%),
+    radial-gradient(ellipse at 50% 56%, color-mix(in srgb, var(--guided-accent) 22%, transparent), transparent 57%),
+    linear-gradient(180deg, color-mix(in srgb, var(--guided-accent) 13%, transparent), color-mix(in srgb, var(--guided-accent) 17%, transparent) 54%, transparent 100%);
+  pointer-events: none;
+  opacity: .82;
+  filter: blur(.4px);
+  -webkit-mask-image: linear-gradient(180deg, transparent 0%, #000 8%, #000 72%, transparent 100%);
+  mask-image: linear-gradient(180deg, transparent 0%, #000 8%, #000 72%, transparent 100%);
+  z-index: 0;
+}
+.guided-path-column.is-current-column {
+  box-shadow:
+    inset 0 1px 0 rgba(255,255,255,0.08),
+    0 18px 38px color-mix(in srgb, var(--guided-accent) 18%, rgba(0,0,0,0.28));
 }
 .guided-path-column.is-complete-column {
-  border-color: color-mix(in srgb, var(--guided-accent) 78%, var(--gold) 20%);
+  filter: saturate(1.04) brightness(1.03);
 }
 .guided-path-column-icon {
-  position: absolute;
-  left: 50%;
-  top: -27px;
-  transform: translateX(-50%);
-  width: 62px;
-  height: 62px;
+  position: relative;
+  z-index: 1;
+  margin: 0 auto;
+  width: 64px;
+  height: 64px;
   border-radius: 999px;
-  border: 1px solid color-mix(in srgb, var(--guided-accent) 48%, var(--border2));
+  border: 1px solid color-mix(in srgb, var(--guided-accent) 58%, rgba(255,255,255,0.16));
   background:
-    radial-gradient(circle at 38% 30%, color-mix(in srgb, var(--guided-accent) 30%, white 8%), transparent 36%),
-    color-mix(in srgb, var(--surface) 92%, black 8%);
+    radial-gradient(circle at 34% 25%, color-mix(in srgb, var(--guided-accent) 42%, white 6%), transparent 42%),
+    #0b1320;
   color: var(--guided-accent);
   display: grid;
   place-items: center;
-  box-shadow: 0 14px 24px rgba(0,0,0,0.34);
+  box-shadow: 0 14px 24px rgba(0,0,0,0.36);
 }
 .guided-path-column-icon svg {
-  width: 38px;
-  height: 38px;
+  width: 39px;
+  height: 39px;
   display: block;
+  filter: drop-shadow(0 8px 8px rgba(0,0,0,0.24));
 }
 .guided-path-column-title {
-  min-height: 34px;
-  display: grid;
-  place-items: center;
-  font: 900 15px/1.08 var(--sans);
-  color: color-mix(in srgb, var(--guided-accent) 82%, white 18%);
+  position: relative;
+  z-index: 1;
+  min-height: 0;
+  display: block;
+  margin-top: 14px;
+  font: 950 16px/1 var(--sans);
+  color: color-mix(in srgb, var(--guided-accent) 78%, white 22%);
   text-wrap: balance;
 }
 .guided-path-column-stage {
-  margin-top: 3px;
-  font: 800 10px/1 var(--sans);
-  letter-spacing: .12em;
+  position: relative;
+  z-index: 1;
+  margin-top: 14px;
+  font: 950 10px/1 var(--sans);
+  letter-spacing: .16em;
   text-transform: uppercase;
-  color: var(--muted);
+  color: color-mix(in srgb, var(--guided-accent) 64%, #dbe7ff 36%);
 }
 .guided-path-node-stack {
+  position: relative;
+  z-index: 1;
   display: grid;
   justify-items: center;
-  gap: 10px;
-  margin-top: 13px;
+  gap: 14px;
+  margin-top: 20px;
 }
 .guided-path-node-btn {
   width: 100%;
@@ -10437,39 +10510,46 @@ html.main-dock-visible .guided-setup-shell {
   color: var(--text);
   display: grid;
   justify-items: center;
-  gap: 6px;
+  gap: 0;
   padding: 0;
   cursor: pointer;
 }
 .guided-path-node-orb {
   position: relative;
-  width: 52px;
-  height: 52px;
+  width: 46px;
+  height: 46px;
   border-radius: 999px;
-  border: 1px solid color-mix(in srgb, var(--guided-accent) 62%, white 6%);
+  border: 1px solid color-mix(in srgb, var(--guided-accent) 60%, white 8%);
   background:
-    radial-gradient(circle at 34% 27%, rgba(255,255,255,0.22), transparent 46%),
-    linear-gradient(145deg, color-mix(in srgb, var(--guided-accent) 86%, white 8%), color-mix(in srgb, var(--guided-accent) 68%, black 10%));
-  color: color-mix(in srgb, #04070d 88%, var(--guided-accent) 12%);
+    radial-gradient(circle at 34% 26%, rgba(255,255,255,0.28), transparent 42%),
+    linear-gradient(145deg, color-mix(in srgb, var(--guided-accent) 92%, white 6%), color-mix(in srgb, var(--guided-accent) 76%, black 10%));
+  color: rgba(5,8,14,0.9);
   display: grid;
   place-items: center;
   box-shadow:
-    inset 0 1px 0 rgba(255,255,255,0.28),
-    0 12px 22px color-mix(in srgb, var(--guided-accent) 18%, rgba(0,0,0,0.28));
+    inset 0 1px 0 rgba(255,255,255,0.24),
+    0 11px 20px color-mix(in srgb, var(--guided-accent) 20%, rgba(0,0,0,0.28));
 }
 .guided-path-node-icon svg {
-  width: 30px;
-  height: 30px;
+  width: 26px;
+  height: 26px;
   display: block;
 }
 .guided-path-node-label {
-  font: 800 12px/1.15 var(--sans);
-  color: color-mix(in srgb, var(--text) 90%, var(--guided-accent) 10%);
+  display: none;
 }
-.guided-path-node-btn.is-current .guided-path-node-orb {
+.guided-path-node-btn.is-current .guided-path-node-orb,
+.guided-path-node-btn.is-available .guided-path-node-orb {
+  width: 62px;
+  height: 62px;
   box-shadow:
-    0 0 0 3px color-mix(in srgb, var(--guided-accent) 19%, transparent),
-    0 0 21px color-mix(in srgb, var(--guided-accent) 38%, transparent);
+    0 0 0 4px color-mix(in srgb, var(--guided-accent) 18%, transparent),
+    0 0 28px color-mix(in srgb, var(--guided-accent) 50%, transparent);
+}
+.guided-path-node-btn.is-current .guided-path-node-orb svg,
+.guided-path-node-btn.is-available .guided-path-node-orb svg {
+  width: 31px;
+  height: 31px;
 }
 .guided-path-node-btn.is-complete .guided-path-node-orb {
   filter: saturate(1.08) brightness(1.08);
@@ -10497,37 +10577,39 @@ html.main-dock-visible .guided-setup-shell {
 }
 .guided-path-node-btn.is-locked .guided-path-node-orb,
 .guided-path-node-btn:disabled .guided-path-node-orb {
-  border-color: rgba(148,163,184,0.24);
+  width: 40px;
+  height: 40px;
+  border-color: rgba(148,163,184,0.22);
   background:
-    radial-gradient(circle at 36% 25%, rgba(255,255,255,0.12), transparent 35%),
-    linear-gradient(145deg, rgba(71,85,105,0.42), rgba(15,23,42,0.72));
-  color: rgba(203,213,225,0.48);
-  box-shadow: inset 0 1px 0 rgba(255,255,255,0.07);
+    radial-gradient(circle at 34% 26%, rgba(255,255,255,0.1), transparent 42%),
+    linear-gradient(145deg, rgba(64,78,99,0.32), rgba(10,16,27,0.7));
+  color: rgba(203,213,225,0.45);
+  box-shadow: inset 0 1px 0 rgba(255,255,255,0.06);
 }
 .guided-path-node-btn.is-locked .guided-path-node-label {
   color: rgba(203,213,225,0.62);
 }
 .guided-path-lock {
   position: absolute;
-  right: -3px;
-  top: -3px;
-  width: 24px;
-  height: 24px;
+  right: -5px;
+  top: -5px;
+  width: 20px;
+  height: 20px;
   border-radius: 999px;
   border: 1px solid rgba(148,163,184,0.32);
-  background: color-mix(in srgb, var(--surface) 92%, black 8%);
-  color: rgba(203,213,225,0.72);
+  background: #111827;
+  color: rgba(203,213,225,0.7);
   display: grid;
   place-items: center;
 }
 .guided-path-lock svg {
-  width: 15px;
-  height: 15px;
+  width: 12px;
+  height: 12px;
 }
 .guided-path-connector-wrap {
   position: relative;
-  height: 58px;
-  margin: -12px 0 -18px;
+  height: 52px;
+  margin: -1px 0 -12px;
   z-index: 1;
 }
 .guided-path-connector-svg {
@@ -10540,55 +10622,52 @@ html.main-dock-visible .guided-setup-shell {
 }
 .guided-path-connector-svg path {
   fill: none;
-  stroke-width: 2.2;
+  stroke-width: 2;
   stroke-linecap: round;
   stroke-linejoin: round;
 }
 .guided-path-connector-svg path.is-complete,
 .guided-path-connector-svg path.is-star-ready {
-  filter: drop-shadow(0 0 5px currentColor);
+  filter: none;
 }
 .guided-path-star {
   position: absolute;
   z-index: 2;
   left: 50%;
-  top: 36px;
-  width: 29px;
-  height: 29px;
+  top: 16px;
+  width: 22px;
+  height: 22px;
   transform: translate(-50%, -50%);
-  background: rgba(148,163,184,0.46);
-  border: 1px solid rgba(226,232,240,0.3);
+  background: radial-gradient(circle at 50% 50%, #a3acba 0 18%, #738092 48%, #4c5868 100%);
+  border: 1px solid #768293;
   clip-path: polygon(50% 0, 62% 36%, 100% 50%, 62% 64%, 50% 100%, 38% 64%, 0 50%, 38% 36%);
-  box-shadow: 0 0 0 1px rgba(255,255,255,0.04), 0 0 15px rgba(148,163,184,0.18);
+  box-shadow: 0 0 8px rgba(148,163,184,0.18);
   pointer-events: none;
 }
 .guided-path-connector-wrap.is-ready .guided-path-star {
-  background: linear-gradient(135deg, #fff7b8, var(--gold) 46%, #58a6ff 72%, #fff);
-  border-color: color-mix(in srgb, var(--gold) 74%, white 18%);
-  box-shadow:
-    0 0 0 1px color-mix(in srgb, var(--gold) 24%, transparent),
-    0 0 20px color-mix(in srgb, var(--gold) 70%, transparent),
-    0 0 34px rgba(88,166,255,0.3);
+  background: radial-gradient(circle at 50% 50%, #a3acba 0 18%, #738092 48%, #4c5868 100%);
+  border-color: #768293;
+  box-shadow: 0 0 8px rgba(148,163,184,0.18);
 }
 .guided-path-review-card {
   position: relative;
   z-index: 2;
   width: 100%;
-  min-height: 74px;
-  border-radius: 16px;
-  border: 1px solid color-mix(in srgb, var(--gold) 42%, var(--border));
+  min-height: 66px;
+  border-radius: 18px;
+  border: 1px solid rgba(148,163,184,0.18);
   background:
-    radial-gradient(circle at left center, rgba(245,158,11,0.12), transparent 34%),
-    linear-gradient(180deg, color-mix(in srgb, var(--surface2) 78%, transparent), color-mix(in srgb, var(--surface) 94%, transparent));
+    radial-gradient(circle at 8% 50%, rgba(88,166,255,0.1), transparent 30%),
+    linear-gradient(180deg, rgba(24,31,44,0.72), rgba(10,14,23,0.88));
   color: var(--text);
   display: grid;
-  grid-template-columns: 50px minmax(0, 1fr) 22px;
-  gap: 11px;
+  grid-template-columns: 54px minmax(0, 1fr) 26px;
+  gap: 8px;
   align-items: center;
-  padding: 11px 13px;
+  padding: 10px 14px;
   text-align: left;
   cursor: pointer;
-  box-shadow: inset 0 0 0 1px rgba(255,255,255,0.025);
+  box-shadow: none;
 }
 .guided-path-review-card.is-type-spiral_review {
   border-color: color-mix(in srgb, #d287ff 38%, var(--border));
@@ -10597,8 +10676,9 @@ html.main-dock-visible .guided-setup-shell {
     linear-gradient(180deg, color-mix(in srgb, var(--surface2) 78%, transparent), color-mix(in srgb, var(--surface) 94%, transparent));
 }
 .guided-path-review-icon {
-  width: 44px;
-  height: 44px;
+  width: 43px;
+  height: 43px;
+  border-radius: 14px;
   color: var(--gold);
   display: grid;
   place-items: center;
@@ -10607,21 +10687,17 @@ html.main-dock-visible .guided-setup-shell {
   color: #ffb86b;
 }
 .guided-path-review-icon svg {
-  width: 39px;
-  height: 39px;
+  width: 35px;
+  height: 35px;
 }
 .guided-path-review-copy strong {
   display: block;
-  font: 900 20px/1.05 var(--serif);
+  font: 950 21px/1 var(--sans);
   letter-spacing: 0;
-  color: var(--text);
+  color: rgba(238,244,255,0.78);
 }
 .guided-path-review-copy em {
-  display: block;
-  margin-top: 5px;
-  font: 600 12px/1.25 var(--sans);
-  color: var(--muted);
-  font-style: normal;
+  display: none;
 }
 .guided-path-review-arrow {
   font: 900 28px/1 var(--sans);
@@ -10658,14 +10734,10 @@ html.main-dock-visible .guided-setup-shell {
 .guided-up-next-block {
   display: grid;
   gap: 10px;
-  margin-top: 4px;
+  margin-top: 20px;
 }
 .guided-up-next-label {
-  display: grid;
-  grid-template-columns: minmax(34px, 1fr) auto minmax(34px, 1fr);
-  gap: 14px;
-  align-items: center;
-  color: var(--muted);
+  display: none;
 }
 .guided-up-next-label span {
   height: 1px;
@@ -10693,9 +10765,9 @@ html.main-dock-visible .guided-setup-shell {
   min-width: max-content;
 }
 .guided-bracket-mini {
-  min-height: 102px;
+  min-height: 58px;
   border: 1px solid rgba(148,163,184,0.22);
-  border-radius: 15px;
+  border-radius: 18px;
   background:
     radial-gradient(circle at top, rgba(255,255,255,0.06), transparent 42%),
     color-mix(in srgb, var(--surface) 82%, transparent);
@@ -10703,8 +10775,8 @@ html.main-dock-visible .guided-setup-shell {
   display: grid;
   justify-items: center;
   align-content: center;
-  gap: 8px;
-  padding: 12px;
+  gap: 5px;
+  padding: 10px 16px;
 }
 .guided-bracket-mini.is-current {
   border-color: color-mix(in srgb, var(--gold) 42%, var(--border));
@@ -10776,13 +10848,14 @@ html.main-dock-visible .guided-setup-shell {
   }
 }
 .guided-bracket-mini-title {
-  font: 900 16px/1.08 var(--serif);
+  font: 950 18px/1 var(--sans);
   color: var(--text);
 }
 .guided-bracket-mini-dots {
   display: inline-flex;
-  gap: 8px;
+  gap: 5px;
   align-items: center;
+  margin-top: -6px;
 }
 .guided-bracket-dot {
   width: 8px;
@@ -10797,43 +10870,59 @@ html.main-dock-visible .guided-setup-shell {
 }
 @media (max-width: 520px) and (max-height: 1050px) {
   .guided-path-content {
-    gap: 9px;
+    gap: 10px;
     padding-top: 10px;
   }
   .guided-path-map {
-    padding-top: 22px;
+    gap: 8px;
+    padding-top: 40px;
   }
   .guided-path-column {
-    min-height: 238px;
-    padding-top: 33px;
-    padding-bottom: 10px;
+    min-height: 278px;
+    padding: 0 8px 12px;
   }
   .guided-path-column-icon {
-    width: 50px;
-    height: 50px;
-    top: -21px;
+    width: 64px;
+    height: 64px;
   }
   .guided-path-column-icon svg {
-    width: 30px;
-    height: 30px;
-  }
-  .guided-path-column-title {
-    min-height: 27px;
-  }
-  .guided-path-node-stack {
-    gap: 6px;
-    margin-top: 8px;
-  }
-  .guided-path-node-orb {
     width: 39px;
     height: 39px;
   }
-  .guided-path-node-icon svg {
-    width: 23px;
-    height: 23px;
+  .guided-path-column-title {
+    min-height: 0;
+    margin-top: 14px;
+    font-size: 16px;
   }
-  .guided-path-node-label {
-    font-size: 11px;
+  .guided-path-column-stage {
+    margin-top: 14px;
+  }
+  .guided-path-node-stack {
+    gap: 14px;
+    margin-top: 20px;
+  }
+  .guided-path-node-orb {
+    width: 46px;
+    height: 46px;
+  }
+  .guided-path-node-btn.is-current .guided-path-node-orb,
+  .guided-path-node-btn.is-available .guided-path-node-orb {
+    width: 62px;
+    height: 62px;
+  }
+  .guided-path-node-btn.is-locked .guided-path-node-orb,
+  .guided-path-node-btn:disabled .guided-path-node-orb {
+    width: 40px;
+    height: 40px;
+  }
+  .guided-path-node-icon svg {
+    width: 26px;
+    height: 26px;
+  }
+  .guided-path-node-btn.is-current .guided-path-node-orb svg,
+  .guided-path-node-btn.is-available .guided-path-node-orb svg {
+    width: 31px;
+    height: 31px;
   }
   .guided-path-node-btn.is-complete .guided-path-node-orb::after {
     width: 15px;
@@ -10841,37 +10930,33 @@ html.main-dock-visible .guided-setup-shell {
     font-size: 9px;
   }
   .guided-path-connector-wrap {
-    height: 36px;
-    margin: -9px 0 -13px;
+    height: 52px;
+    margin: -1px 0 -12px;
   }
   .guided-path-connector-svg {
-    height: 36px;
+    height: 58px;
   }
   .guided-path-star {
-    top: 23px;
+    top: 16px;
     width: 22px;
     height: 22px;
   }
   .guided-path-review-card {
-    min-height: 60px;
-    grid-template-columns: 38px minmax(0, 1fr) 18px;
+    min-height: 66px;
+    grid-template-columns: 54px minmax(0, 1fr) 26px;
     gap: 8px;
-    padding: 8px 10px;
+    padding: 10px 14px;
   }
   .guided-path-review-icon {
-    width: 32px;
-    height: 32px;
+    width: 43px;
+    height: 43px;
   }
   .guided-path-review-icon svg {
-    width: 29px;
-    height: 29px;
+    width: 35px;
+    height: 35px;
   }
   .guided-path-review-copy strong {
-    font-size: 17px;
-  }
-  .guided-path-review-copy em {
-    margin-top: 3px;
-    font-size: 11px;
+    font-size: 21px;
   }
   .guided-path-review-connector {
     height: 18px;
@@ -10881,12 +10966,12 @@ html.main-dock-visible .guided-setup-shell {
     grid-auto-columns: minmax(118px, 1fr);
   }
   .guided-bracket-mini {
-    min-height: 74px;
-    gap: 4px;
-    padding: 8px;
+    min-height: 58px;
+    gap: 5px;
+    padding: 10px 16px;
   }
   .guided-bracket-mini-title {
-    font-size: 15px;
+    font-size: 18px;
   }
   .guided-bracket-mini-sub {
     font-size: 10px;

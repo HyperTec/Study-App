@@ -19159,6 +19159,7 @@ function guidedRenderPathCategoryColumn(run, cat) {
   var laneCurrent = nodes.some(function(node){ return run && run.nextNodeId === node.id; });
   var icon = getDeckIconSVG(cat.deckName || cat.label) || '';
   return '<div class="guided-path-column' + (laneCurrent ? ' is-current-column' : '') + (laneComplete ? ' is-complete-column' : '') + '" style="--guided-accent:' + guidedEsc(cat.color) + '">'
+    + '<span class="guided-path-column-glow" aria-hidden="true"></span>'
     + '<div class="guided-path-column-icon">' + icon + '</div>'
     + '<div class="guided-path-column-title">' + guidedEsc(cat.label) + '</div>'
     + '<div class="guided-path-column-stage">' + guidedEsc(guidedStageLabel(cat.guidedLevel || 1)) + '</div>'
@@ -19166,16 +19167,14 @@ function guidedRenderPathCategoryColumn(run, cat) {
     + '</div>';
 }
 function guidedConnectorPathForX(x) {
-  if (x === 150) return 'M150 0 V60';
-  var flatY = 42;
-  var bend = 28;
-  var turnY = flatY - bend;
-  var kappa = 0.552;
-  var side = x < 150 ? 1 : -1;
-  var elbowX = x < 150 ? x + bend : x - bend;
-  var cp1Y = turnY + bend * kappa;
-  var cp2X = elbowX - side * bend * kappa;
-  return 'M' + x + ' 0 V' + turnY + ' C' + x + ' ' + cp1Y.toFixed(1) + ' ' + cp2X.toFixed(1) + ' ' + flatY + ' ' + elbowX + ' ' + flatY + ' H150';
+  var starY = 16;
+  var radius = 14;
+  var startY = -9;
+  if (x === 150) return 'M150 ' + startY + ' V' + starY;
+  if (x < 150) {
+    return 'M' + x + ' ' + startY + ' V' + (starY - radius) + ' A' + radius + ' ' + radius + ' 0 0 0 ' + (x + radius) + ' ' + starY + ' H150';
+  }
+  return 'M' + x + ' ' + startY + ' V' + (starY - radius) + ' A' + radius + ' ' + radius + ' 0 0 1 ' + (x - radius) + ' ' + starY + ' H150';
 }
 function guidedRenderPathConnectors(run) {
   var categories = run && run.categories ? run.categories : [];
@@ -19187,10 +19186,9 @@ function guidedRenderPathConnectors(run) {
     var stroke = complete ? cat.color : 'rgba(148,163,184,0.34)';
     return '<path d="' + guidedConnectorPathForX(positions[idx] || 150) + '" stroke="' + guidedEsc(stroke) + '" class="' + (complete ? 'is-complete' : 'is-locked') + '"/>';
   }).join('');
-  return '<div class="guided-path-connector-wrap' + (allComplete ? ' is-ready' : '') + '" aria-hidden="true"><svg class="guided-path-connector-svg' + (allComplete ? ' is-ready' : '') + '" viewBox="0 0 300 68" preserveAspectRatio="none">'
-    + '<defs><filter id="guided-path-star-glow" x="-80%" y="-80%" width="260%" height="260%"><feGaussianBlur stdDeviation="3" result="blur"/><feMerge><feMergeNode in="blur"/><feMergeNode in="SourceGraphic"/></feMerge></filter></defs>'
+  return '<div class="guided-path-connector-wrap' + (allComplete ? ' is-ready' : '') + '" aria-hidden="true"><svg class="guided-path-connector-svg' + (allComplete ? ' is-ready' : '') + '" viewBox="0 0 300 58" preserveAspectRatio="none">'
     + paths
-    + '<path d="M150 50 V68" stroke="' + (allComplete ? 'var(--gold)' : 'rgba(148,163,184,0.34)') + '" class="' + (allComplete ? 'is-star-ready' : 'is-locked') + '"/>'
+    + '<path d="M150 16 V39" stroke="' + (allComplete ? 'var(--gold)' : 'rgba(148,163,184,0.34)') + '" class="' + (allComplete ? 'is-star-ready' : 'is-locked') + '"/>'
     + '</svg><span class="guided-path-star"></span></div>';
 }
 function guidedRenderPathReviewCard(run, node, type) {
@@ -19217,6 +19215,11 @@ function guidedRenderBracketDots(categories, colored) {
     return '<span class="guided-bracket-dot" style="--dot-color:' + guidedEsc(color) + '"></span>';
   }).join('');
 }
+function guidedBracketMiniNumber(label, fallbackIndex) {
+  var match = String(label || '').match(/\d+/);
+  if (match) return match[0];
+  return String(fallbackIndex || '');
+}
 function guidedRenderBracketCarousel(run) {
   var history = (run.bracketHistory || []).slice().sort(function(a, b){ return (a.bracketIndex || 0) - (b.bracketIndex || 0); });
   var currentIndex = run.bracketIndex || 1;
@@ -19224,9 +19227,9 @@ function guidedRenderBracketCarousel(run) {
   var nextIndex = (run.bracketIndex || 1) + 1;
   var bracketComplete = guidedIsCurrentBracketComplete(run);
   var previousCard = previous
-    ? '<button class="guided-bracket-mini is-complete" onclick="guidedOpenSavedBracket(\'' + guidedEsc(previous.bracketId || '') + '\')" aria-label="Open ' + guidedEsc(previous.bracketLabel || 'previous bracket') + '"><span class="guided-bracket-mini-title">' + guidedEsc(previous.bracketLabel || 'Previous') + '</span><span class="guided-bracket-mini-dots">' + guidedRenderBracketDots(previous.categories || [], true) + '</span><span class="guided-bracket-mini-sub">Open</span></button>'
+    ? '<button class="guided-bracket-mini is-complete" onclick="guidedOpenSavedBracket(\'' + guidedEsc(previous.bracketId || '') + '\')" aria-label="Open ' + guidedEsc(previous.bracketLabel || 'previous bracket') + '"><span class="guided-bracket-mini-title">' + guidedEsc(guidedBracketMiniNumber(previous.bracketLabel, previous.bracketIndex || currentIndex - 1)) + '</span><span class="guided-bracket-mini-dots">' + guidedRenderBracketDots(previous.categories || [], true) + '</span></button>'
     : '<div class="guided-bracket-mini is-spacer" aria-hidden="true"></div>';
-  var currentCard = '<button class="guided-bracket-mini ' + (bracketComplete ? 'is-complete' : 'is-current') + '" onclick="showGuidedPathMap()" aria-label="' + guidedEsc((bracketComplete ? 'Completed ' : 'Current ') + (run.bracketLabel || 'bracket')) + '"><span class="guided-bracket-mini-title">' + guidedEsc(run.bracketLabel || 'Current bracket') + '</span><span class="guided-bracket-mini-dots">' + guidedRenderBracketDots(run.categories || [], true) + '</span><span class="guided-bracket-mini-sub">' + guidedEsc(bracketComplete ? 'Complete' : 'Now') + '</span></button>';
+  var currentCard = '<button class="guided-bracket-mini ' + (bracketComplete ? 'is-complete' : 'is-current') + '" onclick="showGuidedPathMap()" aria-label="' + guidedEsc((bracketComplete ? 'Completed ' : 'Current ') + (run.bracketLabel || 'bracket')) + '"><span class="guided-bracket-mini-title">' + guidedEsc(guidedBracketMiniNumber(run.bracketLabel, currentIndex)) + '</span><span class="guided-bracket-mini-dots">' + guidedRenderBracketDots(run.categories || [], true) + '</span></button>';
   var futureCategories = guidedPreviewNextBracketCategories(run);
   var futureCategoryLabels = (futureCategories.length ? futureCategories : (run.categories || [])).map(function(cat){ return cat && cat.label; }).filter(Boolean);
   var futureLabelText = futureCategoryLabels.length ? (' Categories: ' + futureCategoryLabels.join(', ') + '.') : '';
@@ -19236,12 +19239,12 @@ function guidedRenderBracketCarousel(run) {
   var futureCards = [0, 1].map(function(offset){
     var stored = history.find(function(item){ return item && Number(item.bracketIndex || 0) === Number(nextIndex + offset); });
     if (stored && stored.bracketId) {
-      return '<button class="guided-bracket-mini is-complete" onclick="guidedOpenSavedBracket(\'' + guidedEsc(stored.bracketId || '') + '\')" aria-label="Open ' + guidedEsc(stored.bracketLabel || ('Bracket ' + (nextIndex + offset))) + '"><span class="guided-bracket-mini-title">' + guidedEsc(stored.bracketLabel || ('Bracket ' + (nextIndex + offset))) + '</span><span class="guided-bracket-mini-dots">' + guidedRenderBracketDots(stored.categories || [], true) + '</span><span class="guided-bracket-mini-sub">Open</span></button>';
+      return '<button class="guided-bracket-mini is-complete" onclick="guidedOpenSavedBracket(\'' + guidedEsc(stored.bracketId || '') + '\')" aria-label="Open ' + guidedEsc(stored.bracketLabel || ('Bracket ' + (nextIndex + offset))) + '"><span class="guided-bracket-mini-title">' + guidedEsc(guidedBracketMiniNumber(stored.bracketLabel, stored.bracketIndex || nextIndex + offset)) + '</span><span class="guided-bracket-mini-dots">' + guidedRenderBracketDots(stored.categories || [], true) + '</span></button>';
     }
     if (offset === 0 && bracketComplete) {
-      return '<button class="guided-bracket-mini is-available" onclick="guidedAdvanceToNextBracket()" aria-label="Start bracket ' + guidedEsc(nextIndex) + guidedEsc(futureAriaText) + '" title="' + guidedEsc('Start bracket ' + nextIndex + '.' + futureLabelText) + '"><span class="sr-only">Start</span><span class="guided-bracket-mini-title">Bracket ' + guidedEsc(nextIndex) + '</span><span class="guided-bracket-mini-dots">' + readyFutureDots + '</span><span class="guided-bracket-mini-sub">Ready</span></button>';
+      return '<button class="guided-bracket-mini is-available" onclick="guidedAdvanceToNextBracket()" aria-label="Start bracket ' + guidedEsc(nextIndex) + guidedEsc(futureAriaText) + '" title="' + guidedEsc('Start bracket ' + nextIndex + '.' + futureLabelText) + '"><span class="sr-only">Start</span><span class="guided-bracket-mini-title">' + guidedEsc(nextIndex) + '</span><span class="guided-bracket-mini-dots">' + readyFutureDots + '</span></button>';
     }
-    return '<button class="guided-bracket-mini is-locked" data-locked="true" aria-label="Locked bracket ' + guidedEsc(nextIndex + offset) + guidedEsc(futureAriaText) + '" title="' + guidedEsc('Locked bracket ' + (nextIndex + offset) + '.' + futureLabelText + ' Finish this one first.') + '"' + guidedPathLockHintClickAttr('Finish this one first') + '><span class="guided-bracket-mini-lock">' + guidedPathLockSvg() + '</span><span class="guided-bracket-mini-title">Bracket ' + guidedEsc(nextIndex + offset) + '</span><span class="guided-bracket-mini-dots">' + lockedFutureDots + '</span><span class="guided-bracket-mini-sub">Later</span></button>';
+    return '<button class="guided-bracket-mini is-locked" data-locked="true" aria-label="Locked bracket ' + guidedEsc(nextIndex + offset) + guidedEsc(futureAriaText) + '" title="' + guidedEsc('Locked bracket ' + (nextIndex + offset) + '.' + futureLabelText + ' Finish this one first.') + '"' + guidedPathLockHintClickAttr('Finish this one first') + '><span class="guided-bracket-mini-lock">' + guidedPathLockSvg() + '</span><span class="guided-bracket-mini-title">' + guidedEsc(nextIndex + offset) + '</span><span class="guided-bracket-mini-dots">' + lockedFutureDots + '</span></button>';
   }).join('');
   return '<div class="guided-up-next-block"><div class="guided-up-next-label"><span></span><strong>Path brackets</strong><span></span></div><div class="guided-bracket-carousel"><div class="guided-bracket-carousel-track">' + previousCard + currentCard + futureCards + '</div></div></div>';
 }
