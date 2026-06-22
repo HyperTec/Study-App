@@ -19200,7 +19200,7 @@ function guidedRenderPathConnectors(run) {
   var starStroke = allComplete ? 'var(--gold)' : 'rgba(148,163,184,0.34)';
   return '<div class="guided-path-connector-wrap' + (allComplete ? ' is-ready' : '') + '" aria-hidden="true"><svg class="guided-path-connector-svg' + (allComplete ? ' is-ready' : '') + '" viewBox="0 0 300 58" preserveAspectRatio="none">'
     + paths
-    + '<path d="M150 16 V39" stroke="' + starStroke + '" style="color:' + starStroke + '" class="' + (allComplete ? 'is-star-ready' : 'is-locked') + '"/>'
+    + '<path d="M150 16 V58" stroke="' + starStroke + '" style="color:' + starStroke + '" class="' + (allComplete ? 'is-star-ready' : 'is-locked') + '"/>'
     + '</svg><span class="guided-path-star"></span></div>';
 }
 function guidedRenderPathReviewCard(run, node, type) {

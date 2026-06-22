@@ -10347,6 +10347,8 @@ html.main-dock-visible .guided-setup-shell {
   color: var(--muted);
 }
 .guided-path-map {
+  position: relative;
+  z-index: 2;
   display: grid;
   grid-template-columns: repeat(3, minmax(0, 1fr));
   gap: 8px;
@@ -10640,6 +10642,7 @@ html.main-dock-visible .guided-setup-shell {
   height: 52px;
   margin: -1px 0 -12px;
   z-index: 1;
+  pointer-events: none;
 }
 .guided-path-connector-svg {
   position: relative;
@@ -10750,9 +10753,11 @@ html.main-dock-visible .guided-setup-shell {
   border-color: rgba(148,163,184,0.22);
 }
 .guided-path-review-connector {
+  position: relative;
+  z-index: 1;
   width: 2px;
-  height: 28px;
-  margin: -13px auto;
+  height: 42px;
+  margin: -20px auto;
   border-radius: 999px;
   background: rgba(148,163,184,0.34);
 }
@@ -10991,8 +10996,8 @@ html.main-dock-visible .guided-setup-shell {
     font-size: 21px;
   }
   .guided-path-review-connector {
-    height: 18px;
-    margin: -8px auto;
+    height: 42px;
+    margin: -20px auto;
   }
   .guided-bracket-carousel-track {
     grid-auto-columns: minmax(118px, 1fr);
