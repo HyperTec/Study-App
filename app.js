@@ -19157,14 +19157,11 @@ function guidedRenderPathNodeRail(run, nodes) {
   nodes = nodes || [];
   var learn = nodes.find(function(node){ return node && node.type === 'learn'; });
   var practice = nodes.find(function(node){ return node && node.type === 'practice'; });
-  var challenge = nodes.find(function(node){ return node && node.type === 'challenge'; });
   var learnComplete = learn && guidedNodeIsComplete(run, learn);
   var practiceComplete = practice && guidedNodeIsComplete(run, practice);
-  var challengeComplete = challenge && guidedNodeIsComplete(run, challenge);
   return '<span class="guided-path-node-rail" aria-hidden="true">'
     + '<span class="guided-path-rail-segment is-learn-practice' + (learnComplete ? ' is-lit' : '') + '"></span>'
     + '<span class="guided-path-rail-segment is-practice-challenge' + (practiceComplete ? ' is-lit' : '') + '"></span>'
-    + '<span class="guided-path-rail-segment is-challenge-exit' + (challengeComplete ? ' is-lit' : '') + '"></span>'
     + '</span>';
 }
 function guidedRenderPathCategoryColumn(run, cat) {
@@ -19183,7 +19180,7 @@ function guidedRenderPathCategoryColumn(run, cat) {
 function guidedConnectorPathForX(x) {
   var starY = 16;
   var radius = 14;
-  var startY = -9;
+  var startY = -57;
   if (x === 150) return 'M150 ' + startY + ' V' + starY;
   if (x < 150) {
     return 'M' + x + ' ' + startY + ' V' + (starY - radius) + ' A' + radius + ' ' + radius + ' 0 0 0 ' + (x + radius) + ' ' + starY + ' H150';

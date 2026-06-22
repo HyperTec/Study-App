@@ -10403,7 +10403,7 @@ html.main-dock-visible .guided-setup-shell {
   content: "";
   position: absolute;
   top: 58px;
-  height: 80px;
+  height: 116px;
   left: 50%;
   width: 3px;
   transform: translateX(-50%);
@@ -10497,7 +10497,7 @@ html.main-dock-visible .guided-setup-shell {
   z-index: 0;
   left: 50%;
   top: 0;
-  bottom: -16px;
+  bottom: 0;
   width: var(--guided-node-line-width);
   transform: translateX(-50%);
   pointer-events: none;
@@ -10524,10 +10524,6 @@ html.main-dock-visible .guided-setup-shell {
 .guided-path-rail-segment.is-practice-challenge {
   top: calc(var(--guided-node-slot) * 1.5);
   height: var(--guided-node-slot);
-}
-.guided-path-rail-segment.is-challenge-exit {
-  top: calc(var(--guided-node-slot) * 2.5);
-  bottom: 0;
 }
 .guided-path-node-btn {
   --guided-node-size: 46px;
@@ -10615,7 +10611,7 @@ html.main-dock-visible .guided-setup-shell {
   border-color: rgba(148,163,184,0.22);
   background:
     radial-gradient(circle at 34% 26%, rgba(255,255,255,0.1), transparent 42%),
-    linear-gradient(145deg, rgba(64,78,99,0.32), rgba(10,16,27,0.7));
+    linear-gradient(145deg, #293342, #101827);
   color: rgba(203,213,225,0.45);
   box-shadow: inset 0 1px 0 rgba(255,255,255,0.06);
 }
