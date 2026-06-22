@@ -1,5 +1,5 @@
 {
-  "buildStamp": "20260622045048",
+  "buildStamp": "20260622135822",
   "decks": [
     {
       "name": "Bible Characters and Figures",
@@ -29,7 +29,7 @@
   "sidecars": [
     {
       "id": "preview-sidecar-1",
-      "importedAt": "2026-06-22T04:50:48.106Z",
+      "importedAt": "2026-06-22T13:58:22.551Z",
       "sourceName": "Characters Guided Level 1 Pilot Sidecar v1",
       "sourceDeckName": "Characters",
       "matchedDeckName": "Characters",
@@ -38,7 +38,7 @@
     },
     {
       "id": "preview-sidecar-2",
-      "importedAt": "2026-06-22T04:50:48.108Z",
+      "importedAt": "2026-06-22T13:58:22.552Z",
       "sourceName": "Atrocities Guided Stage 1 Sidecar v1",
       "sourceDeckName": "Biblical Atrocities",
       "matchedDeckName": "Biblical Atrocities",
@@ -47,7 +47,7 @@
     },
     {
       "id": "preview-sidecar-3",
-      "importedAt": "2026-06-22T04:50:48.110Z",
+      "importedAt": "2026-06-22T13:58:22.554Z",
       "sourceName": "Geography Guided Level 1-4 Sidecar v3",
       "sourceDeckName": "Geography",
       "matchedDeckName": "Geography",
@@ -56,7 +56,7 @@
     },
     {
       "id": "preview-sidecar-4",
-      "importedAt": "2026-06-22T04:50:48.110Z",
+      "importedAt": "2026-06-22T13:58:22.555Z",
       "sourceName": "Timeline & Attribution Timeline Sidecar v1 Pilot",
       "sourceDeckName": "Biblical Timeline and Attribution",
       "matchedDeckName": "Biblical Timeline and Attribution",

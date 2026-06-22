@@ -10657,7 +10657,7 @@ html.main-dock-visible .guided-setup-shell {
 }
 .guided-path-connector-svg path {
   fill: none;
-  stroke-width: 4;
+  stroke-width: 5;
   stroke-linecap: round;
   stroke-linejoin: round;
 }
@@ -10769,7 +10769,7 @@ html.main-dock-visible .guided-setup-shell {
 .guided-path-review-connector {
   position: relative;
   z-index: 1;
-  width: 4px;
+  width: 5px;
   height: 42px;
   margin: -20px auto;
   border-radius: 999px;
