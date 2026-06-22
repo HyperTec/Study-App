@@ -10407,7 +10407,7 @@ html.main-dock-visible .guided-setup-shell {
   top: 58px;
   height: 116px;
   left: 50%;
-  width: 3px;
+  width: 5px;
   transform: translateX(-50%);
   border-radius: 999px;
   background: linear-gradient(180deg, color-mix(in srgb, var(--guided-accent) 66%, white 8%), color-mix(in srgb, var(--guided-accent) 42%, rgba(148,163,184,0.18)));
@@ -10484,7 +10484,7 @@ html.main-dock-visible .guided-setup-shell {
 }
 .guided-path-node-stack {
   --guided-node-slot: 72px;
-  --guided-node-line-width: 3px;
+  --guided-node-line-width: 5px;
   --guided-node-line-inactive: rgba(148,163,184,0.34);
   --guided-node-line-active: color-mix(in srgb, var(--guided-accent) 58%, rgba(226,232,240,0.12));
   position: relative;
@@ -10657,7 +10657,7 @@ html.main-dock-visible .guided-setup-shell {
 }
 .guided-path-connector-svg path {
   fill: none;
-  stroke-width: 2;
+  stroke-width: 4;
   stroke-linecap: round;
   stroke-linejoin: round;
 }
@@ -10769,7 +10769,7 @@ html.main-dock-visible .guided-setup-shell {
 .guided-path-review-connector {
   position: relative;
   z-index: 1;
-  width: 2px;
+  width: 4px;
   height: 42px;
   margin: -20px auto;
   border-radius: 999px;
