@@ -19153,6 +19153,37 @@ function guidedRenderPathNodeButton(run, node) {
     + '<span class="guided-path-node-label">' + guidedEsc(node.title) + '</span>'
     + '</button>';
 }
+function guidedPathNodeVisualSize(run, node) {
+  var state = guidedGetNodeState(run, node);
+  if (state === 'current' || state === 'available') return 62;
+  if (state === 'locked') return 40;
+  return 46;
+}
+function guidedRenderPathRailSegment(run, nodes, fromType, toType, className, isLit) {
+  var fromIndex = -1;
+  var toIndex = -1;
+  var fromNode = null;
+  var toNode = null;
+  nodes.forEach(function(node, idx){
+    if (!node) return;
+    if (node.type === fromType) {
+      fromIndex = idx;
+      fromNode = node;
+    }
+    if (node.type === toType) {
+      toIndex = idx;
+      toNode = node;
+    }
+  });
+  if (!fromNode || !toNode || fromIndex < 0 || toIndex < 0) return '';
+  var slot = 72;
+  var fromCenter = (fromIndex * slot) + (slot / 2);
+  var toCenter = (toIndex * slot) + (slot / 2);
+  var top = fromCenter + (guidedPathNodeVisualSize(run, fromNode) / 2) - 1;
+  var bottom = toCenter - (guidedPathNodeVisualSize(run, toNode) / 2) + 1;
+  var height = Math.max(0, bottom - top);
+  return '<span class="guided-path-rail-segment ' + className + (isLit ? ' is-lit' : '') + '" style="top:' + top.toFixed(1) + 'px;height:' + height.toFixed(1) + 'px"></span>';
+}
 function guidedRenderPathNodeRail(run, nodes) {
   nodes = nodes || [];
   var learn = nodes.find(function(node){ return node && node.type === 'learn'; });
@@ -19160,8 +19191,8 @@ function guidedRenderPathNodeRail(run, nodes) {
   var learnComplete = learn && guidedNodeIsComplete(run, learn);
   var practiceComplete = practice && guidedNodeIsComplete(run, practice);
   return '<span class="guided-path-node-rail" aria-hidden="true">'
-    + '<span class="guided-path-rail-segment is-learn-practice' + (learnComplete ? ' is-lit' : '') + '"></span>'
-    + '<span class="guided-path-rail-segment is-practice-challenge' + (practiceComplete ? ' is-lit' : '') + '"></span>'
+    + guidedRenderPathRailSegment(run, nodes, 'learn', 'practice', 'is-learn-practice', learnComplete)
+    + guidedRenderPathRailSegment(run, nodes, 'practice', 'challenge', 'is-practice-challenge', practiceComplete)
     + '</span>';
 }
 function guidedRenderPathCategoryColumn(run, cat) {
