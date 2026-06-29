@@ -1,0 +1,3654 @@
+{
+  "schemaVersion": 1,
+  "title": "Geography Guided Level 1 Sidecar v1",
+  "deckName": "Geography",
+  "sourceDeckName": "Geography",
+  "deckCategory": "geography",
+  "description": "Map-first Guided Geography pilot for all Level 1 Geography cards.",
+  "guidedLearning": {
+    "maps": {
+      "geography_bible_atlas_v1": {
+        "asset": "assets/maps/geography-bible-atlas-v1.svg",
+        "title": "Bible-world atlas",
+        "bounds": {
+          "west": -12,
+          "south": 0,
+          "east": 90,
+          "north": 58
+        },
+        "source": {
+          "name": "Natural Earth",
+          "url": "https://www.naturalearthdata.com/",
+          "termsUrl": "https://www.naturalearthdata.com/about/terms-of-use/",
+          "license": "Public domain map data; StudyDeck SVG basemaps generated from Natural Earth GeoJSON.",
+          "layers": [
+            "ne_10m_land",
+            "ne_10m_admin_0_countries",
+            "ne_10m_lakes",
+            "ne_10m_rivers_lake_centerlines"
+          ]
+        },
+        "placeLabels": [],
+        "landmarkLabels": [
+          {
+            "label": "Mediterranean Sea",
+            "x": 33.2,
+            "y": 41,
+            "labelDx": -6,
+            "labelDy": 14,
+            "displayLabel": "Mediterranean\nSea",
+            "labelAnchor": "center",
+            "labelLevel": 10,
+            "priority": 28,
+            "zoomViews": [
+              "full",
+              "region"
+            ],
+            "kind": "water"
+          },
+          {
+            "label": "Nile",
+            "x": 41.9,
+            "y": 52.7,
+            "labelDx": 11,
+            "labelDy": -12,
+            "labelAnchor": "right",
+            "labelLevel": 9,
+            "priority": 42,
+            "zoomViews": [
+              "region",
+              "area",
+              "close"
+            ],
+            "kind": "river"
+          },
+          {
+            "label": "Red Sea",
+            "x": 50.6,
+            "y": 67.1,
+            "labelDx": -9,
+            "labelDy": 9,
+            "displayLabel": "Red\nSea",
+            "labelAnchor": "left",
+            "labelLevel": 9,
+            "priority": 36,
+            "zoomViews": [
+              "full",
+              "region",
+              "area",
+              "close"
+            ],
+            "kind": "water"
+          },
+          {
+            "label": "Dead Sea",
+            "x": 46.6,
+            "y": 45.8,
+            "labelDx": 3,
+            "labelDy": 12,
+            "displayLabel": "Dead\nSea",
+            "labelAnchor": "center",
+            "labelLevel": 7,
+            "priority": 54,
+            "zoomViews": [
+              "region",
+              "area",
+              "close"
+            ],
+            "kind": "water"
+          },
+          {
+            "label": "Lower Galilee",
+            "x": 46.3,
+            "y": 43.8,
+            "labelDx": 2,
+            "labelDy": 1,
+            "displayLabel": "Lower\nGalilee",
+            "labelAnchor": "center",
+            "labelLevel": 3,
+            "priority": 38,
+            "zoomViews": [
+              "area",
+              "close"
+            ],
+            "kind": "region"
+          },
+          {
+            "label": "Sinai Peninsula",
+            "x": 45.2,
+            "y": 49.3,
+            "labelDx": -5,
+            "labelDy": 4,
+            "displayLabel": "Sinai\nPeninsula",
+            "labelAnchor": "center",
+            "labelLevel": 7,
+            "priority": 50,
+            "zoomViews": [
+              "area",
+              "close"
+            ],
+            "kind": "region"
+          },
+          {
+            "label": "Mesopotamia",
+            "x": 54,
+            "y": 41,
+            "labelDx": 0,
+            "labelDy": -2,
+            "labelAnchor": "center",
+            "labelLevel": 8,
+            "priority": 30,
+            "zoomViews": [
+              "full",
+              "region"
+            ],
+            "kind": "context"
+          },
+          {
+            "label": "Persian Gulf",
+            "x": 62.3,
+            "y": 53.1,
+            "labelDx": -17,
+            "labelDy": 13,
+            "displayLabel": "Persian\nGulf",
+            "labelAnchor": "left",
+            "labelLevel": 8,
+            "priority": 26,
+            "zoomViews": [
+              "full",
+              "region"
+            ],
+            "kind": "water"
+          }
+        ]
+      }
+    },
+    "counts": {
+      "cards": 13,
+      "bankQuestions": 65,
+      "mapPinQuestions": 13,
+      "contentChoiceQuestions": 26,
+      "clozeQuestions": 26,
+      "briefingScreens": 52,
+      "eventStructures": 0,
+      "scholarQuestions": 0,
+      "usableItems": 65
+    }
+  },
+  "cards": {
+    "JRU1": {
+      "cardUid": "JRU1",
+      "stage": 1,
+      "titleHint": "Jerusalem",
+      "guidedLearning": {
+        "mapLocation": {
+          "mapId": "geography_bible_atlas_v1",
+          "x": 46.3,
+          "y": 45.2,
+          "label": "Jerusalem",
+          "region": "Judea",
+          "labelDx": -32,
+          "labelDy": -5,
+          "labelAnchor": "left",
+          "labelLevel": 10,
+          "zoomViews": [
+            "area",
+            "close"
+          ],
+          "crop": {
+            "minSize": 2.2,
+            "padding": 1.1
+          },
+          "placeLabels": [
+            "Jerusalem",
+            "Bethlehem",
+            "Jericho",
+            "Jordan River",
+            "Judea"
+          ],
+          "landmarkLabels": [
+            "Mediterranean Sea",
+            "Dead Sea",
+            "Jordan River"
+          ],
+          "kind": "place"
+        },
+        "questions": [
+          {
+            "id": "JRU1_map_pin_01",
+            "policyType": "map_pin_choice",
+            "interactionType": "map_pin_choice",
+            "questionPattern": "map_pin",
+            "questionPurpose": "map location",
+            "reviewSafe": true,
+            "sourceLabel": "Map",
+            "requiresVisibleEvidence": [
+              "Map"
+            ],
+            "prompt": "Which pin marks Jerusalem?",
+            "answer": "Jerusalem",
+            "mapId": "geography_bible_atlas_v1",
+            "mapOptions": [
+              {
+                "pinLabel": "A",
+                "label": "Pin A",
+                "placeLabel": "Jerusalem",
+                "mapId": "geography_bible_atlas_v1",
+                "x": 46.3,
+                "y": 45.2,
+                "correct": true,
+                "region": "Judea"
+              },
+              {
+                "pinLabel": "B",
+                "label": "Pin B",
+                "placeLabel": "Judea",
+                "mapId": "geography_bible_atlas_v1",
+                "x": 46.2,
+                "y": 45.6,
+                "correct": false,
+                "region": "Judea"
+              },
+              {
+                "pinLabel": "C",
+                "label": "Pin C",
+                "placeLabel": "Jericho",
+                "mapId": "geography_bible_atlas_v1",
+                "x": 46.5,
+                "y": 45.1,
+                "correct": false,
+                "region": "Jordan Valley"
+              },
+              {
+                "pinLabel": "D",
+                "label": "Pin D",
+                "placeLabel": "Jordan River",
+                "mapId": "geography_bible_atlas_v1",
+                "x": 46.6,
+                "y": 44.5,
+                "correct": false,
+                "region": "Jordan Valley"
+              }
+            ],
+            "explanation": "Jerusalem sits in Judea, west of the Jordan Valley.",
+            "correctAnswer": "Jerusalem",
+            "correctLabel": "Jerusalem",
+            "requiresBriefingScreens": [
+              "JRU1_brief_01",
+              "JRU1_brief_02",
+              "JRU1_brief_03",
+              "JRU1_brief_04"
+            ],
+            "crop": {
+              "minSize": 1.5,
+              "padding": 0.1
+            }
+          },
+          {
+            "id": "JRU1_content_clue_01",
+            "policyType": "content_choice",
+            "interactionType": "content_choice",
+            "questionPattern": "content_detail",
+            "questionPurpose": "place identity",
+            "reviewSafe": true,
+            "sourceLabel": "Map",
+            "requiresVisibleEvidence": [
+              "Map"
+            ],
+            "prompt": "Which place is David's capital, the temple city, and the place where Jesus is crucified?",
+            "answer": "Jerusalem",
+            "distractors": [
+              "Bethlehem",
+              "Jericho",
+              "Nazareth"
+            ],
+            "explanation": "Jerusalem is the capital city associated with David, the temple, and the crucifixion.",
+            "requiresBriefingScreens": [
+              "JRU1_brief_01",
+              "JRU1_brief_02",
+              "JRU1_brief_03",
+              "JRU1_brief_04"
+            ]
+          },
+          {
+            "id": "JRU1_identity_cloze_01",
+            "policyType": "cloze_drag",
+            "interactionType": "cloze_drag",
+            "questionPattern": "fill_blank",
+            "questionPurpose": "identity reinforcement",
+            "reviewSafe": true,
+            "sourceLabel": "Map",
+            "requiresVisibleEvidence": [
+              "Map"
+            ],
+            "prompt": "David's capital and the temple city is ___.",
+            "answer": "Jerusalem",
+            "wordBank": [
+              "Jerusalem",
+              "Bethlehem",
+              "Jericho",
+              "Nazareth"
+            ],
+            "explanation": "Jerusalem is the central city tied to David's kingdom and the temple.",
+            "requiresBriefingScreens": [
+              "JRU1_brief_01",
+              "JRU1_brief_02",
+              "JRU1_brief_03",
+              "JRU1_brief_04"
+            ]
+          },
+          {
+            "id": "JRU1_relative_location_01",
+            "policyType": "content_choice",
+            "interactionType": "content_choice",
+            "questionPattern": "relative_location",
+            "questionPurpose": "map relationship",
+            "reviewSafe": true,
+            "sourceLabel": "Map",
+            "requiresVisibleEvidence": [
+              "Map"
+            ],
+            "prompt": "Which map relationship helps locate Jerusalem?",
+            "answer": "It is in Judea, west of the Jordan Valley.",
+            "distractors": [
+              "It is far west in Italy.",
+              "It is east of Babylon.",
+              "It is south of Egypt."
+            ],
+            "explanation": "Jerusalem belongs in Judea, west of the Jordan Valley and near Bethlehem and Jericho.",
+            "requiresBriefingScreens": [
+              "JRU1_brief_01",
+              "JRU1_brief_02",
+              "JRU1_brief_03",
+              "JRU1_brief_04"
+            ]
+          },
+          {
+            "id": "JRU1_map_anchor_cloze_02",
+            "policyType": "cloze_drag",
+            "interactionType": "cloze_drag",
+            "questionPattern": "fill_blank",
+            "questionPurpose": "map anchor",
+            "reviewSafe": true,
+            "sourceLabel": "Map",
+            "requiresVisibleEvidence": [
+              "Map"
+            ],
+            "prompt": "Jerusalem is in ___, west of the Jordan Valley.",
+            "answer": "Judea",
+            "wordBank": [
+              "Judea",
+              "Galilee",
+              "Egypt",
+              "Mesopotamia"
+            ],
+            "explanation": "Judea is the southern region around Jerusalem.",
+            "requiresBriefingScreens": [
+              "JRU1_brief_01",
+              "JRU1_brief_02",
+              "JRU1_brief_03",
+              "JRU1_brief_04"
+            ]
+          }
+        ],
+        "briefingScreens": [
+          {
+            "id": "JRU1_brief_01",
+            "lines": [
+              "Jerusalem is the central city tied to David’s kingdom, the temple, and Jesus’ final week."
+            ],
+            "sourceLabel": "Context",
+            "requiresVisibleEvidence": [
+              "Context"
+            ]
+          },
+          {
+            "id": "JRU1_brief_02",
+            "lines": [
+              "It sits in the hill country of Judea, west of the Jordan Valley."
+            ],
+            "sourceLabel": "Context",
+            "requiresVisibleEvidence": [
+              "Context"
+            ]
+          },
+          {
+            "id": "JRU1_brief_03",
+            "lines": [
+              "Use Bethlehem, Jericho, Judea, and the Jordan River as nearby anchors."
+            ],
+            "sourceLabel": "Context",
+            "requiresVisibleEvidence": [
+              "Context"
+            ]
+          },
+          {
+            "id": "JRU1_brief_04",
+            "lines": [],
+            "mapPanel": {
+              "type": "location_context",
+              "mapId": "geography_bible_atlas_v1",
+              "useCardLocation": true,
+              "placeLabels": [
+                "Jerusalem",
+                "Bethlehem",
+                "Jericho",
+                "Jordan River",
+                "Judea"
+              ],
+              "landmarkLabels": [
+                "Mediterranean Sea",
+                "Dead Sea",
+                "Jordan River"
+              ],
+              "crop": {
+                "minSize": 2.2,
+                "padding": 1.1
+              }
+            }
+          }
+        ]
+      }
+    },
+    "BTH1": {
+      "cardUid": "BTH1",
+      "stage": 1,
+      "titleHint": "Bethlehem",
+      "guidedLearning": {
+        "mapLocation": {
+          "mapId": "geography_bible_atlas_v1",
+          "x": 46.3,
+          "y": 45.4,
+          "label": "Bethlehem",
+          "region": "Judea",
+          "labelDx": 13,
+          "labelDy": 17,
+          "labelAnchor": "right",
+          "labelLevel": 4,
+          "crop": {
+            "minSize": 2.2,
+            "padding": 1.1
+          },
+          "placeLabels": [
+            "Bethlehem",
+            "Jerusalem",
+            "Jericho",
+            "Jordan River",
+            "Judea"
+          ],
+          "landmarkLabels": [
+            "Mediterranean Sea",
+            "Dead Sea",
+            "Jordan River"
+          ],
+          "kind": "place"
+        },
+        "questions": [
+          {
+            "id": "BTH1_map_pin_01",
+            "policyType": "map_pin_choice",
+            "interactionType": "map_pin_choice",
+            "questionPattern": "map_pin",
+            "questionPurpose": "map location",
+            "reviewSafe": true,
+            "sourceLabel": "Map",
+            "requiresVisibleEvidence": [
+              "Map"
+            ],
+            "prompt": "Which pin marks Bethlehem?",
+            "answer": "Bethlehem",
+            "mapId": "geography_bible_atlas_v1",
+            "mapOptions": [
+              {
+                "pinLabel": "A",
+                "label": "Pin A",
+                "placeLabel": "Bethlehem",
+                "correct": true,
+                "mapId": "geography_bible_atlas_v1",
+                "x": 46.3,
+                "y": 45.3,
+                "region": "Judea"
+              },
+              {
+                "pinLabel": "B",
+                "label": "Pin B",
+                "placeLabel": "Judea",
+                "correct": false,
+                "mapId": "geography_bible_atlas_v1",
+                "x": 46.2,
+                "y": 45.6,
+                "region": "Judea"
+              },
+              {
+                "pinLabel": "C",
+                "label": "Pin C",
+                "placeLabel": "Jericho",
+                "correct": false,
+                "mapId": "geography_bible_atlas_v1",
+                "x": 46.5,
+                "y": 45.1,
+                "region": "Jordan Valley"
+              },
+              {
+                "pinLabel": "D",
+                "label": "Pin D",
+                "placeLabel": "Jordan River",
+                "correct": false,
+                "mapId": "geography_bible_atlas_v1",
+                "x": 46.6,
+                "y": 44.5,
+                "region": "Jordan Valley"
+              }
+            ],
+            "explanation": "Bethlehem is just south of Jerusalem in Judea.",
+            "correctAnswer": "Bethlehem",
+            "correctLabel": "Bethlehem",
+            "requiresBriefingScreens": [
+              "BTH1_brief_01",
+              "BTH1_brief_02",
+              "BTH1_brief_03",
+              "BTH1_brief_04"
+            ]
+          },
+          {
+            "id": "BTH1_content_clue_01",
+            "policyType": "content_choice",
+            "interactionType": "content_choice",
+            "questionPattern": "content_detail",
+            "questionPurpose": "place identity",
+            "reviewSafe": true,
+            "sourceLabel": "Map",
+            "requiresVisibleEvidence": [
+              "Map"
+            ],
+            "prompt": "Which small town is linked to David's family line and the birth of Jesus?",
+            "answer": "Bethlehem",
+            "distractors": [
+              "Jerusalem",
+              "Nazareth",
+              "Jericho"
+            ],
+            "explanation": "Bethlehem is associated with David's family line and Jesus' birth.",
+            "requiresBriefingScreens": [
+              "BTH1_brief_01",
+              "BTH1_brief_02",
+              "BTH1_brief_03",
+              "BTH1_brief_04"
+            ]
+          },
+          {
+            "id": "BTH1_identity_cloze_01",
+            "policyType": "cloze_drag",
+            "interactionType": "cloze_drag",
+            "questionPattern": "fill_blank",
+            "questionPurpose": "identity reinforcement",
+            "reviewSafe": true,
+            "sourceLabel": "Map",
+            "requiresVisibleEvidence": [
+              "Map"
+            ],
+            "prompt": "The small town linked to David's family line and Jesus' birth is ___.",
+            "answer": "Bethlehem",
+            "wordBank": [
+              "Bethlehem",
+              "Jerusalem",
+              "Nazareth",
+              "Jericho"
+            ],
+            "explanation": "Bethlehem is the small Judean town tied to David and Jesus' birth.",
+            "requiresBriefingScreens": [
+              "BTH1_brief_01",
+              "BTH1_brief_02",
+              "BTH1_brief_03",
+              "BTH1_brief_04"
+            ]
+          },
+          {
+            "id": "BTH1_relative_location_01",
+            "policyType": "content_choice",
+            "interactionType": "content_choice",
+            "questionPattern": "relative_location",
+            "questionPurpose": "map relationship",
+            "reviewSafe": true,
+            "sourceLabel": "Map",
+            "requiresVisibleEvidence": [
+              "Map"
+            ],
+            "prompt": "Which map relationship helps locate Bethlehem?",
+            "answer": "It is just south of Jerusalem in Judea.",
+            "distractors": [
+              "It is far east near Babylon.",
+              "It is north of the Sea of Galilee.",
+              "It is west of Rome."
+            ],
+            "explanation": "Bethlehem is close to Jerusalem, just to the south in Judea.",
+            "requiresBriefingScreens": [
+              "BTH1_brief_01",
+              "BTH1_brief_02",
+              "BTH1_brief_03",
+              "BTH1_brief_04"
+            ]
+          },
+          {
+            "id": "BTH1_map_anchor_cloze_02",
+            "policyType": "cloze_drag",
+            "interactionType": "cloze_drag",
+            "questionPattern": "fill_blank",
+            "questionPurpose": "map anchor",
+            "reviewSafe": true,
+            "sourceLabel": "Map",
+            "requiresVisibleEvidence": [
+              "Map"
+            ],
+            "prompt": "Bethlehem is just south of ___.",
+            "answer": "Jerusalem",
+            "wordBank": [
+              "Jerusalem",
+              "Damascus",
+              "Babylon",
+              "Rome"
+            ],
+            "explanation": "Bethlehem is the nearby Judean town south of Jerusalem.",
+            "requiresBriefingScreens": [
+              "BTH1_brief_01",
+              "BTH1_brief_02",
+              "BTH1_brief_03",
+              "BTH1_brief_04"
+            ]
+          }
+        ],
+        "briefingScreens": [
+          {
+            "id": "BTH1_brief_01",
+            "lines": [
+              "Bethlehem is a Judean town near Jerusalem."
+            ],
+            "sourceLabel": "Context",
+            "requiresVisibleEvidence": [
+              "Context"
+            ]
+          },
+          {
+            "id": "BTH1_brief_02",
+            "lines": [
+              "It is remembered as David’s hometown and the birthplace of Jesus."
+            ],
+            "sourceLabel": "Context",
+            "requiresVisibleEvidence": [
+              "Context"
+            ]
+          },
+          {
+            "id": "BTH1_brief_03",
+            "lines": [
+              "On the map, look just south of Jerusalem in the Judean hill country."
+            ],
+            "sourceLabel": "Context",
+            "requiresVisibleEvidence": [
+              "Context"
+            ]
+          },
+          {
+            "id": "BTH1_brief_04",
+            "lines": [],
+            "mapPanel": {
+              "type": "location_context",
+              "mapId": "geography_bible_atlas_v1",
+              "useCardLocation": true,
+              "placeLabels": [
+                "Bethlehem",
+                "Jerusalem",
+                "Jericho",
+                "Jordan River",
+                "Judea"
+              ],
+              "landmarkLabels": [
+                "Mediterranean Sea",
+                "Dead Sea",
+                "Jordan River"
+              ],
+              "crop": {
+                "minSize": 2.2,
+                "padding": 1.1
+              }
+            }
+          }
+        ]
+      }
+    },
+    "SIN1": {
+      "cardUid": "SIN1",
+      "stage": 1,
+      "titleHint": "Mount Sinai",
+      "guidedLearning": {
+        "mapLocation": {
+          "mapId": "geography_bible_atlas_v1",
+          "x": 45.1,
+          "y": 50.8,
+          "label": "Mount Sinai",
+          "region": "Sinai",
+          "labelDx": 0,
+          "labelDy": 14,
+          "labelAnchor": "center",
+          "labelLevel": 6,
+          "crop": {
+            "minSize": 10,
+            "padding": 0
+          },
+          "placeLabels": [
+            "Mount Sinai",
+            "Egypt",
+            "Damascus",
+            "Babylon"
+          ],
+          "landmarkLabels": [
+            "Sinai Peninsula",
+            "Nile",
+            "Mediterranean Sea"
+          ],
+          "kind": "place"
+        },
+        "questions": [
+          {
+            "id": "SIN1_map_pin_01",
+            "policyType": "map_pin_choice",
+            "interactionType": "map_pin_choice",
+            "questionPattern": "map_pin",
+            "questionPurpose": "map location",
+            "reviewSafe": true,
+            "sourceLabel": "Map",
+            "requiresVisibleEvidence": [
+              "Map"
+            ],
+            "prompt": "Which pin marks Mount Sinai?",
+            "answer": "Mount Sinai",
+            "mapId": "geography_bible_atlas_v1",
+            "mapOptions": [
+              {
+                "pinLabel": "A",
+                "placeLabel": "Egypt",
+                "x": 42,
+                "y": 53.8,
+                "region": "Egypt",
+                "mapId": "geography_bible_atlas_v1",
+                "label": "Pin A"
+              },
+              {
+                "pinLabel": "B",
+                "placeLabel": "Mount Sinai",
+                "x": 45.1,
+                "y": 50.8,
+                "region": "Sinai",
+                "correct": true,
+                "mapId": "geography_bible_atlas_v1",
+                "label": "Pin B"
+              },
+              {
+                "pinLabel": "C",
+                "placeLabel": "Damascus",
+                "x": 47.3,
+                "y": 42.2,
+                "region": "Syria",
+                "mapId": "geography_bible_atlas_v1",
+                "label": "Pin C"
+              },
+              {
+                "pinLabel": "D",
+                "placeLabel": "Babylon",
+                "x": 55.3,
+                "y": 43.9,
+                "region": "Mesopotamia",
+                "mapId": "geography_bible_atlas_v1",
+                "label": "Pin D"
+              }
+            ],
+            "explanation": "Mount Sinai is shown in the Sinai region between Egypt and the eastern Mediterranean world.",
+            "correctAnswer": "Mount Sinai",
+            "correctLabel": "Mount Sinai",
+            "requiresBriefingScreens": [
+              "SIN1_brief_01",
+              "SIN1_brief_02",
+              "SIN1_brief_03",
+              "SIN1_brief_04"
+            ]
+          },
+          {
+            "id": "SIN1_content_clue_01",
+            "policyType": "content_choice",
+            "interactionType": "content_choice",
+            "questionPattern": "content_detail",
+            "questionPurpose": "place identity",
+            "reviewSafe": true,
+            "sourceLabel": "Map",
+            "requiresVisibleEvidence": [
+              "Map"
+            ],
+            "prompt": "Which mountain is where Moses meets God and receives the law?",
+            "answer": "Mount Sinai",
+            "distractors": [
+              "Mount Zion",
+              "Mount Carmel",
+              "Mount Hermon"
+            ],
+            "explanation": "Mount Sinai is the covenant location associated with Moses and the law.",
+            "requiresBriefingScreens": [
+              "SIN1_brief_01",
+              "SIN1_brief_02",
+              "SIN1_brief_03",
+              "SIN1_brief_04"
+            ]
+          },
+          {
+            "id": "SIN1_identity_cloze_01",
+            "policyType": "cloze_drag",
+            "interactionType": "cloze_drag",
+            "questionPattern": "fill_blank",
+            "questionPurpose": "identity reinforcement",
+            "reviewSafe": true,
+            "sourceLabel": "Map",
+            "requiresVisibleEvidence": [
+              "Map"
+            ],
+            "prompt": "Moses receives the law at Mount ___.",
+            "answer": "Sinai",
+            "wordBank": [
+              "Sinai",
+              "Zion",
+              "Carmel",
+              "Hermon"
+            ],
+            "explanation": "Sinai is the mountain linked to Moses receiving the law.",
+            "requiresBriefingScreens": [
+              "SIN1_brief_01",
+              "SIN1_brief_02",
+              "SIN1_brief_03",
+              "SIN1_brief_04"
+            ]
+          },
+          {
+            "id": "SIN1_relative_location_01",
+            "policyType": "content_choice",
+            "interactionType": "content_choice",
+            "questionPattern": "relative_location",
+            "questionPurpose": "map relationship",
+            "reviewSafe": true,
+            "sourceLabel": "Map",
+            "requiresVisibleEvidence": [
+              "Map"
+            ],
+            "prompt": "Which map relationship helps locate Mount Sinai?",
+            "answer": "It belongs to the wilderness setting between Egypt and the promised land.",
+            "distractors": [
+              "It is north of Galilee near Damascus.",
+              "It is far west in Italy.",
+              "It is east of Babylon in Mesopotamia."
+            ],
+            "explanation": "Mount Sinai is remembered in the wilderness setting after the exodus from Egypt.",
+            "requiresBriefingScreens": [
+              "SIN1_brief_01",
+              "SIN1_brief_02",
+              "SIN1_brief_03",
+              "SIN1_brief_04"
+            ]
+          },
+          {
+            "id": "SIN1_map_anchor_cloze_02",
+            "policyType": "cloze_drag",
+            "interactionType": "cloze_drag",
+            "questionPattern": "fill_blank",
+            "questionPurpose": "map anchor",
+            "reviewSafe": true,
+            "sourceLabel": "Map",
+            "requiresVisibleEvidence": [
+              "Map"
+            ],
+            "prompt": "Mount Sinai is associated with the ___ setting between Egypt and the promised land.",
+            "answer": "wilderness",
+            "wordBank": [
+              "wilderness",
+              "temple",
+              "coastal",
+              "imperial"
+            ],
+            "explanation": "Sinai is a wilderness setting tied to covenant and law after the exodus.",
+            "requiresBriefingScreens": [
+              "SIN1_brief_01",
+              "SIN1_brief_02",
+              "SIN1_brief_03",
+              "SIN1_brief_04"
+            ]
+          }
+        ],
+        "briefingScreens": [
+          {
+            "id": "SIN1_brief_01",
+            "lines": [
+              "Mount Sinai belongs to the wilderness setting between Egypt and the promised land."
+            ],
+            "sourceLabel": "Context",
+            "requiresVisibleEvidence": [
+              "Context"
+            ]
+          },
+          {
+            "id": "SIN1_brief_02",
+            "lines": [
+              "It is associated with covenant, law, and Israel’s formation after the exodus."
+            ],
+            "sourceLabel": "Context",
+            "requiresVisibleEvidence": [
+              "Context"
+            ]
+          },
+          {
+            "id": "SIN1_brief_03",
+            "lines": [
+              "On the overview map, use Egypt and the Sinai Peninsula as the closest anchors."
+            ],
+            "sourceLabel": "Context",
+            "requiresVisibleEvidence": [
+              "Context"
+            ]
+          },
+          {
+            "id": "SIN1_brief_04",
+            "lines": [],
+            "mapPanel": {
+              "type": "location_context",
+              "mapId": "geography_bible_atlas_v1",
+              "useCardLocation": true,
+              "placeLabels": [
+                "Mount Sinai",
+                "Egypt",
+                "Damascus",
+                "Babylon"
+              ],
+              "landmarkLabels": [
+                "Sinai Peninsula",
+                "Nile",
+                "Mediterranean Sea"
+              ],
+              "crop": {
+                "minSize": 10,
+                "padding": 0
+              }
+            }
+          }
+        ]
+      }
+    },
+    "JRD1": {
+      "cardUid": "JRD1",
+      "stage": 1,
+      "titleHint": "Jordan River",
+      "guidedLearning": {
+        "mapLocation": {
+          "mapId": "geography_bible_atlas_v1",
+          "x": 46.6,
+          "y": 44.5,
+          "label": "Jordan River",
+          "region": "Jordan Valley",
+          "labelDx": 0,
+          "labelDy": -2,
+          "displayLabel": "Jordan\nRiver",
+          "labelAnchor": "center",
+          "labelLevel": 9,
+          "zoomViews": [
+            "full",
+            "region",
+            "area",
+            "close"
+          ],
+          "crop": {
+            "minSize": 5,
+            "padding": 2.2
+          },
+          "placeLabels": [
+            "Jordan River",
+            "Jericho",
+            "Jerusalem",
+            "Sea of Galilee",
+            "Judea"
+          ],
+          "landmarkLabels": [
+            "Jordan River",
+            "Sea of Galilee",
+            "Dead Sea"
+          ],
+          "kind": "river"
+        },
+        "questions": [
+          {
+            "id": "JRD1_map_pin_01",
+            "policyType": "map_pin_choice",
+            "interactionType": "map_pin_choice",
+            "questionPattern": "map_pin",
+            "questionPurpose": "map location",
+            "reviewSafe": true,
+            "sourceLabel": "Map",
+            "requiresVisibleEvidence": [
+              "Map"
+            ],
+            "prompt": "Which pin marks the Jordan River?",
+            "answer": "Jordan River",
+            "mapId": "geography_bible_atlas_v1",
+            "mapOptions": [
+              {
+                "pinLabel": "A",
+                "label": "Pin A",
+                "placeLabel": "Jerusalem",
+                "correct": false,
+                "mapId": "geography_bible_atlas_v1",
+                "x": 46.3,
+                "y": 45.2,
+                "region": "Judea"
+              },
+              {
+                "pinLabel": "B",
+                "label": "Pin B",
+                "placeLabel": "Jordan River",
+                "correct": true,
+                "mapId": "geography_bible_atlas_v1",
+                "x": 46.6,
+                "y": 44.5,
+                "region": "Jordan Valley"
+              },
+              {
+                "pinLabel": "C",
+                "label": "Pin C",
+                "placeLabel": "Jericho",
+                "correct": false,
+                "mapId": "geography_bible_atlas_v1",
+                "x": 46.5,
+                "y": 45.1,
+                "region": "Jordan Valley"
+              },
+              {
+                "pinLabel": "D",
+                "label": "Pin D",
+                "placeLabel": "Judea",
+                "correct": false,
+                "mapId": "geography_bible_atlas_v1",
+                "x": 46.2,
+                "y": 45.6,
+                "region": "Judea"
+              }
+            ],
+            "explanation": "The Jordan River runs through the Jordan Valley.",
+            "correctAnswer": "Jordan River",
+            "correctLabel": "Jordan River",
+            "requiresBriefingScreens": [
+              "JRD1_brief_01",
+              "JRD1_brief_02",
+              "JRD1_brief_03",
+              "JRD1_brief_04"
+            ]
+          },
+          {
+            "id": "JRD1_content_clue_01",
+            "policyType": "content_choice",
+            "interactionType": "content_choice",
+            "questionPattern": "content_detail",
+            "questionPurpose": "place identity",
+            "reviewSafe": true,
+            "sourceLabel": "Map",
+            "requiresVisibleEvidence": [
+              "Map"
+            ],
+            "prompt": "Which river does Israel cross under Joshua, and where is Jesus baptized?",
+            "answer": "Jordan River",
+            "distractors": [
+              "Nile River",
+              "Euphrates River",
+              "Tigris River"
+            ],
+            "explanation": "The Jordan River is tied to Israel entering the land and to Jesus' baptism.",
+            "requiresBriefingScreens": [
+              "JRD1_brief_01",
+              "JRD1_brief_02",
+              "JRD1_brief_03",
+              "JRD1_brief_04"
+            ]
+          },
+          {
+            "id": "JRD1_identity_cloze_01",
+            "policyType": "cloze_drag",
+            "interactionType": "cloze_drag",
+            "questionPattern": "fill_blank",
+            "questionPurpose": "identity reinforcement",
+            "reviewSafe": true,
+            "sourceLabel": "Map",
+            "requiresVisibleEvidence": [
+              "Map"
+            ],
+            "prompt": "Israel crosses the ___ River before entering the promised land.",
+            "answer": "Jordan",
+            "wordBank": [
+              "Jordan",
+              "Nile",
+              "Euphrates",
+              "Tigris"
+            ],
+            "explanation": "Joshua leads Israel across the Jordan River.",
+            "requiresBriefingScreens": [
+              "JRD1_brief_01",
+              "JRD1_brief_02",
+              "JRD1_brief_03",
+              "JRD1_brief_04"
+            ]
+          },
+          {
+            "id": "JRD1_relative_location_01",
+            "policyType": "content_choice",
+            "interactionType": "content_choice",
+            "questionPattern": "relative_location",
+            "questionPurpose": "map relationship",
+            "reviewSafe": true,
+            "sourceLabel": "Map",
+            "requiresVisibleEvidence": [
+              "Map"
+            ],
+            "prompt": "Which map relationship helps locate the Jordan River?",
+            "answer": "It runs through the Jordan Valley toward the Dead Sea.",
+            "distractors": [
+              "It runs through Italy toward Rome.",
+              "It flows west from Babylon to the Mediterranean.",
+              "It circles the Sea of Galilee."
+            ],
+            "explanation": "The Jordan River runs through the Jordan Valley and connects northern and southern biblical settings.",
+            "requiresBriefingScreens": [
+              "JRD1_brief_01",
+              "JRD1_brief_02",
+              "JRD1_brief_03",
+              "JRD1_brief_04"
+            ]
+          },
+          {
+            "id": "JRD1_map_anchor_cloze_02",
+            "policyType": "cloze_drag",
+            "interactionType": "cloze_drag",
+            "questionPattern": "fill_blank",
+            "questionPurpose": "map anchor",
+            "reviewSafe": true,
+            "sourceLabel": "Map",
+            "requiresVisibleEvidence": [
+              "Map"
+            ],
+            "prompt": "The Jordan River runs through the Jordan ___.",
+            "answer": "Valley",
+            "wordBank": [
+              "Valley",
+              "Sea",
+              "Empire",
+              "Temple"
+            ],
+            "explanation": "The Jordan Valley is the north-south river corridor near Jericho and the Dead Sea.",
+            "requiresBriefingScreens": [
+              "JRD1_brief_01",
+              "JRD1_brief_02",
+              "JRD1_brief_03",
+              "JRD1_brief_04"
+            ]
+          }
+        ],
+        "briefingScreens": [
+          {
+            "id": "JRD1_brief_01",
+            "lines": [
+              "The Jordan River runs through the Jordan Valley."
+            ],
+            "sourceLabel": "Context",
+            "requiresVisibleEvidence": [
+              "Context"
+            ]
+          },
+          {
+            "id": "JRD1_brief_02",
+            "lines": [
+              "It marks key crossing, boundary, and baptism settings in biblical geography."
+            ],
+            "sourceLabel": "Context",
+            "requiresVisibleEvidence": [
+              "Context"
+            ]
+          },
+          {
+            "id": "JRD1_brief_03",
+            "lines": [
+              "On the map, trace the river line between Galilee in the north and the Dead Sea in the south."
+            ],
+            "sourceLabel": "Context",
+            "requiresVisibleEvidence": [
+              "Context"
+            ]
+          },
+          {
+            "id": "JRD1_brief_04",
+            "lines": [],
+            "mapPanel": {
+              "type": "location_context",
+              "mapId": "geography_bible_atlas_v1",
+              "useCardLocation": true,
+              "placeLabels": [
+                "Jordan River",
+                "Jericho",
+                "Jerusalem",
+                "Sea of Galilee",
+                "Judea"
+              ],
+              "landmarkLabels": [
+                "Jordan River",
+                "Sea of Galilee",
+                "Dead Sea"
+              ],
+              "crop": {
+                "minSize": 5,
+                "padding": 2.2
+              }
+            }
+          }
+        ]
+      }
+    },
+    "JRC1": {
+      "cardUid": "JRC1",
+      "stage": 1,
+      "titleHint": "Jericho",
+      "guidedLearning": {
+        "mapLocation": {
+          "mapId": "geography_bible_atlas_v1",
+          "x": 46.5,
+          "y": 45.1,
+          "label": "Jericho",
+          "region": "Jordan Valley",
+          "labelDx": 4,
+          "labelDy": 5,
+          "labelAnchor": "left",
+          "labelLevel": 4,
+          "labelPriority": 4,
+          "zoomViews": [
+            "area",
+            "close"
+          ],
+          "crop": {
+            "minSize": 2.2,
+            "padding": 1.1
+          },
+          "placeLabels": [
+            "Jericho",
+            "Jerusalem",
+            "Bethlehem",
+            "Jordan River",
+            "Judea"
+          ],
+          "landmarkLabels": [
+            "Dead Sea",
+            "Jordan River",
+            "Egypt"
+          ],
+          "kind": "place"
+        },
+        "questions": [
+          {
+            "id": "JRC1_map_pin_01",
+            "policyType": "map_pin_choice",
+            "interactionType": "map_pin_choice",
+            "questionPattern": "map_pin",
+            "questionPurpose": "map location",
+            "reviewSafe": true,
+            "sourceLabel": "Map",
+            "requiresVisibleEvidence": [
+              "Map"
+            ],
+            "prompt": "Which pin marks Jericho?",
+            "answer": "Jericho",
+            "mapId": "geography_bible_atlas_v1",
+            "mapOptions": [
+              {
+                "pinLabel": "A",
+                "label": "Pin A",
+                "placeLabel": "Jerusalem",
+                "correct": false,
+                "mapId": "geography_bible_atlas_v1",
+                "x": 46.3,
+                "y": 45.2,
+                "region": "Judea"
+              },
+              {
+                "pinLabel": "B",
+                "label": "Pin B",
+                "placeLabel": "Jericho",
+                "correct": true,
+                "mapId": "geography_bible_atlas_v1",
+                "x": 46.5,
+                "y": 45.1,
+                "region": "Jordan Valley"
+              },
+              {
+                "pinLabel": "C",
+                "label": "Pin C",
+                "placeLabel": "Jordan River",
+                "correct": false,
+                "mapId": "geography_bible_atlas_v1",
+                "x": 46.6,
+                "y": 44.5,
+                "region": "Jordan Valley"
+              },
+              {
+                "pinLabel": "D",
+                "label": "Pin D",
+                "placeLabel": "Judea",
+                "correct": false,
+                "mapId": "geography_bible_atlas_v1",
+                "x": 46.2,
+                "y": 45.6,
+                "region": "Judea"
+              }
+            ],
+            "explanation": "Jericho sits near the Jordan Valley, east of Jerusalem.",
+            "correctAnswer": "Jericho",
+            "correctLabel": "Jericho",
+            "requiresBriefingScreens": [
+              "JRC1_brief_01",
+              "JRC1_brief_02",
+              "JRC1_brief_03",
+              "JRC1_brief_04"
+            ]
+          },
+          {
+            "id": "JRC1_content_clue_01",
+            "policyType": "content_choice",
+            "interactionType": "content_choice",
+            "questionPattern": "content_detail",
+            "questionPurpose": "place identity",
+            "reviewSafe": true,
+            "sourceLabel": "Map",
+            "requiresVisibleEvidence": [
+              "Map"
+            ],
+            "prompt": "Which city has walls that fall after Israel marches around it for seven days?",
+            "answer": "Jericho",
+            "distractors": [
+              "Jerusalem",
+              "Damascus",
+              "Babylon"
+            ],
+            "explanation": "Jericho is the city linked to the falling walls story.",
+            "requiresBriefingScreens": [
+              "JRC1_brief_01",
+              "JRC1_brief_02",
+              "JRC1_brief_03",
+              "JRC1_brief_04"
+            ]
+          },
+          {
+            "id": "JRC1_identity_cloze_01",
+            "policyType": "cloze_drag",
+            "interactionType": "cloze_drag",
+            "questionPattern": "fill_blank",
+            "questionPurpose": "identity reinforcement",
+            "reviewSafe": true,
+            "sourceLabel": "Map",
+            "requiresVisibleEvidence": [
+              "Map"
+            ],
+            "prompt": "The city whose walls fall after seven days of marching is ___.",
+            "answer": "Jericho",
+            "wordBank": [
+              "Jericho",
+              "Jerusalem",
+              "Damascus",
+              "Babylon"
+            ],
+            "explanation": "Jericho is remembered for its walls falling after Israel's march.",
+            "requiresBriefingScreens": [
+              "JRC1_brief_01",
+              "JRC1_brief_02",
+              "JRC1_brief_03",
+              "JRC1_brief_04"
+            ]
+          },
+          {
+            "id": "JRC1_relative_location_01",
+            "policyType": "content_choice",
+            "interactionType": "content_choice",
+            "questionPattern": "relative_location",
+            "questionPurpose": "map relationship",
+            "reviewSafe": true,
+            "sourceLabel": "Map",
+            "requiresVisibleEvidence": [
+              "Map"
+            ],
+            "prompt": "Which map relationship helps locate Jericho?",
+            "answer": "It sits east of Jerusalem near the Jordan Valley.",
+            "distractors": [
+              "It sits far west near Rome.",
+              "It sits south of Egypt near the Nile.",
+              "It sits east of Babylon."
+            ],
+            "explanation": "Jericho is near the Jordan Valley, east of Jerusalem.",
+            "requiresBriefingScreens": [
+              "JRC1_brief_01",
+              "JRC1_brief_02",
+              "JRC1_brief_03",
+              "JRC1_brief_04"
+            ]
+          },
+          {
+            "id": "JRC1_map_anchor_cloze_02",
+            "policyType": "cloze_drag",
+            "interactionType": "cloze_drag",
+            "questionPattern": "fill_blank",
+            "questionPurpose": "map anchor",
+            "reviewSafe": true,
+            "sourceLabel": "Map",
+            "requiresVisibleEvidence": [
+              "Map"
+            ],
+            "prompt": "Jericho sits near the Jordan ___.",
+            "answer": "Valley",
+            "wordBank": [
+              "Valley",
+              "Empire",
+              "Coast",
+              "Temple"
+            ],
+            "explanation": "Jericho is a Jordan Valley city near the river corridor.",
+            "requiresBriefingScreens": [
+              "JRC1_brief_01",
+              "JRC1_brief_02",
+              "JRC1_brief_03",
+              "JRC1_brief_04"
+            ]
+          }
+        ],
+        "briefingScreens": [
+          {
+            "id": "JRC1_brief_01",
+            "lines": [
+              "Jericho sits in the Jordan Valley near the Jordan River."
+            ],
+            "sourceLabel": "Context",
+            "requiresVisibleEvidence": [
+              "Context"
+            ]
+          },
+          {
+            "id": "JRC1_brief_02",
+            "lines": [
+              "It is remembered for Israel’s entry into the land and the story of the city walls."
+            ],
+            "sourceLabel": "Context",
+            "requiresVisibleEvidence": [
+              "Context"
+            ]
+          },
+          {
+            "id": "JRC1_brief_03",
+            "lines": [
+              "On the map, look east of Jerusalem and close to the river valley."
+            ],
+            "sourceLabel": "Context",
+            "requiresVisibleEvidence": [
+              "Context"
+            ]
+          },
+          {
+            "id": "JRC1_brief_04",
+            "lines": [],
+            "mapPanel": {
+              "type": "location_context",
+              "mapId": "geography_bible_atlas_v1",
+              "useCardLocation": true,
+              "placeLabels": [
+                "Jericho",
+                "Jerusalem",
+                "Bethlehem",
+                "Jordan River",
+                "Judea"
+              ],
+              "landmarkLabels": [
+                "Dead Sea",
+                "Jordan River",
+                "Egypt"
+              ],
+              "crop": {
+                "minSize": 2.2,
+                "padding": 1.1
+              }
+            }
+          }
+        ]
+      }
+    },
+    "GLY1": {
+      "cardUid": "GLY1",
+      "stage": 1,
+      "titleHint": "Galilee",
+      "guidedLearning": {
+        "mapLocation": {
+          "mapId": "geography_bible_atlas_v1",
+          "x": 46.4,
+          "y": 43.4,
+          "label": "Galilee",
+          "region": "Galilee",
+          "labelDx": 1,
+          "labelDy": -4,
+          "labelAnchor": "center",
+          "labelLevel": 6,
+          "zoomViews": [
+            "region",
+            "area",
+            "close"
+          ],
+          "crop": {
+            "minSize": 2.2,
+            "padding": 1.1
+          },
+          "placeLabels": [
+            "Galilee",
+            "Nazareth",
+            "Sea of Galilee",
+            "Jordan River"
+          ],
+          "landmarkLabels": [
+            "Lower Galilee",
+            "Sea of Galilee",
+            "Jordan River"
+          ],
+          "kind": "region"
+        },
+        "questions": [
+          {
+            "id": "GLY1_map_pin_01",
+            "policyType": "map_pin_choice",
+            "interactionType": "map_pin_choice",
+            "questionPattern": "map_pin",
+            "questionPurpose": "map location",
+            "reviewSafe": true,
+            "sourceLabel": "Map",
+            "requiresVisibleEvidence": [
+              "Map"
+            ],
+            "prompt": "Which pin marks Galilee?",
+            "answer": "Galilee",
+            "mapId": "geography_bible_atlas_v1",
+            "mapOptions": [
+              {
+                "pinLabel": "A",
+                "placeLabel": "Galilee",
+                "x": 46.4,
+                "y": 43.4,
+                "region": "Galilee",
+                "correct": true,
+                "mapId": "geography_bible_atlas_v1",
+                "label": "Pin A"
+              },
+              {
+                "pinLabel": "B",
+                "placeLabel": "Nazareth",
+                "x": 46.4,
+                "y": 43.6,
+                "region": "Lower Galilee",
+                "mapId": "geography_bible_atlas_v1",
+                "label": "Pin B"
+              },
+              {
+                "pinLabel": "C",
+                "placeLabel": "Sea of Galilee",
+                "x": 46.7,
+                "y": 43.4,
+                "region": "Galilee",
+                "mapId": "geography_bible_atlas_v1",
+                "label": "Pin C"
+              },
+              {
+                "pinLabel": "D",
+                "placeLabel": "Jordan River",
+                "x": 46.6,
+                "y": 44.5,
+                "region": "Jordan Valley",
+                "mapId": "geography_bible_atlas_v1",
+                "label": "Pin D"
+              }
+            ],
+            "explanation": "Galilee is the northern region on the inset map.",
+            "correctAnswer": "Galilee",
+            "correctLabel": "Galilee",
+            "requiresBriefingScreens": [
+              "GLY1_brief_01",
+              "GLY1_brief_02",
+              "GLY1_brief_03",
+              "GLY1_brief_04"
+            ]
+          },
+          {
+            "id": "GLY1_content_clue_01",
+            "policyType": "content_choice",
+            "interactionType": "content_choice",
+            "questionPattern": "content_detail",
+            "questionPurpose": "place identity",
+            "reviewSafe": true,
+            "sourceLabel": "Map",
+            "requiresVisibleEvidence": [
+              "Map"
+            ],
+            "prompt": "Which northern region is tied to Jesus' upbringing and much of his public ministry?",
+            "answer": "Galilee",
+            "distractors": [
+              "Judea",
+              "Samaria",
+              "Egypt"
+            ],
+            "explanation": "Galilee is the northern region where Jesus grew up and ministered.",
+            "requiresBriefingScreens": [
+              "GLY1_brief_01",
+              "GLY1_brief_02",
+              "GLY1_brief_03",
+              "GLY1_brief_04"
+            ]
+          },
+          {
+            "id": "GLY1_identity_cloze_01",
+            "policyType": "cloze_drag",
+            "interactionType": "cloze_drag",
+            "questionPattern": "fill_blank",
+            "questionPurpose": "identity reinforcement",
+            "reviewSafe": true,
+            "sourceLabel": "Map",
+            "requiresVisibleEvidence": [
+              "Map"
+            ],
+            "prompt": "Jesus grows up and ministers much in the northern region of ___.",
+            "answer": "Galilee",
+            "wordBank": [
+              "Galilee",
+              "Judea",
+              "Samaria",
+              "Egypt"
+            ],
+            "explanation": "Galilee is the northern region associated with Jesus' early life and ministry.",
+            "requiresBriefingScreens": [
+              "GLY1_brief_01",
+              "GLY1_brief_02",
+              "GLY1_brief_03",
+              "GLY1_brief_04"
+            ]
+          },
+          {
+            "id": "GLY1_relative_location_01",
+            "policyType": "content_choice",
+            "interactionType": "content_choice",
+            "questionPattern": "relative_location",
+            "questionPurpose": "map relationship",
+            "reviewSafe": true,
+            "sourceLabel": "Map",
+            "requiresVisibleEvidence": [
+              "Map"
+            ],
+            "prompt": "Which map relationship helps locate Galilee?",
+            "answer": "It is north of Judea, around Nazareth and the Sea of Galilee.",
+            "distractors": [
+              "It is far east of Babylon.",
+              "It is west of Rome across the sea.",
+              "It is south of Egypt."
+            ],
+            "explanation": "Galilee is the northern region tied to Nazareth and the Sea of Galilee.",
+            "requiresBriefingScreens": [
+              "GLY1_brief_01",
+              "GLY1_brief_02",
+              "GLY1_brief_03",
+              "GLY1_brief_04"
+            ]
+          },
+          {
+            "id": "GLY1_map_anchor_cloze_02",
+            "policyType": "cloze_drag",
+            "interactionType": "cloze_drag",
+            "questionPattern": "fill_blank",
+            "questionPurpose": "map anchor",
+            "reviewSafe": true,
+            "sourceLabel": "Map",
+            "requiresVisibleEvidence": [
+              "Map"
+            ],
+            "prompt": "Galilee is the northern region around Nazareth and the Sea of ___.",
+            "answer": "Galilee",
+            "wordBank": [
+              "Galilee",
+              "Judea",
+              "Egypt",
+              "Rome"
+            ],
+            "explanation": "The Sea of Galilee is one of the main anchors for the Galilee region.",
+            "requiresBriefingScreens": [
+              "GLY1_brief_01",
+              "GLY1_brief_02",
+              "GLY1_brief_03",
+              "GLY1_brief_04"
+            ]
+          }
+        ],
+        "briefingScreens": [
+          {
+            "id": "GLY1_brief_01",
+            "lines": [
+              "Galilee is the northern region around Nazareth and the Sea of Galilee."
+            ],
+            "sourceLabel": "Context",
+            "requiresVisibleEvidence": [
+              "Context"
+            ]
+          },
+          {
+            "id": "GLY1_brief_02",
+            "lines": [
+              "Many Gospel scenes happen in this region."
+            ],
+            "sourceLabel": "Context",
+            "requiresVisibleEvidence": [
+              "Context"
+            ]
+          },
+          {
+            "id": "GLY1_brief_03",
+            "lines": [
+              "On the inset map, Galilee sits north of Judea and around the lake."
+            ],
+            "sourceLabel": "Context",
+            "requiresVisibleEvidence": [
+              "Context"
+            ]
+          },
+          {
+            "id": "GLY1_brief_04",
+            "lines": [],
+            "mapPanel": {
+              "type": "location_context",
+              "mapId": "geography_bible_atlas_v1",
+              "useCardLocation": true,
+              "placeLabels": [
+                "Galilee",
+                "Nazareth",
+                "Sea of Galilee",
+                "Jordan River"
+              ],
+              "landmarkLabels": [
+                "Lower Galilee",
+                "Sea of Galilee",
+                "Jordan River"
+              ],
+              "crop": {
+                "minSize": 2.2,
+                "padding": 1.1
+              }
+            }
+          }
+        ]
+      }
+    },
+    "NAZ1": {
+      "cardUid": "NAZ1",
+      "stage": 1,
+      "titleHint": "Nazareth",
+      "guidedLearning": {
+        "mapLocation": {
+          "mapId": "geography_bible_atlas_v1",
+          "x": 46.4,
+          "y": 43.6,
+          "label": "Nazareth",
+          "region": "Lower Galilee",
+          "labelDx": 0,
+          "labelDy": 15,
+          "labelAnchor": "center",
+          "labelLevel": 4,
+          "zoomViews": [
+            "area",
+            "close"
+          ],
+          "crop": {
+            "minSize": 2.2,
+            "padding": 1.1
+          },
+          "placeLabels": [
+            "Nazareth",
+            "Galilee",
+            "Sea of Galilee",
+            "Jordan River",
+            "Jerusalem"
+          ],
+          "landmarkLabels": [
+            "Lower Galilee",
+            "Sea of Galilee",
+            "Jordan River"
+          ],
+          "kind": "place"
+        },
+        "questions": [
+          {
+            "id": "NAZ1_map_pin_01",
+            "policyType": "map_pin_choice",
+            "interactionType": "map_pin_choice",
+            "questionPattern": "map_pin",
+            "questionPurpose": "map location",
+            "reviewSafe": true,
+            "sourceLabel": "Map",
+            "requiresVisibleEvidence": [
+              "Map"
+            ],
+            "prompt": "Which pin marks Nazareth?",
+            "answer": "Nazareth",
+            "mapId": "geography_bible_atlas_v1",
+            "mapOptions": [
+              {
+                "pinLabel": "A",
+                "placeLabel": "Galilee",
+                "x": 46.4,
+                "y": 43.4,
+                "region": "Galilee",
+                "mapId": "geography_bible_atlas_v1",
+                "label": "Pin A"
+              },
+              {
+                "pinLabel": "B",
+                "placeLabel": "Nazareth",
+                "x": 46.4,
+                "y": 43.6,
+                "region": "Lower Galilee",
+                "correct": true,
+                "mapId": "geography_bible_atlas_v1",
+                "label": "Pin B"
+              },
+              {
+                "pinLabel": "C",
+                "placeLabel": "Sea of Galilee",
+                "x": 46.7,
+                "y": 43.4,
+                "region": "Galilee",
+                "mapId": "geography_bible_atlas_v1",
+                "label": "Pin C"
+              },
+              {
+                "pinLabel": "D",
+                "placeLabel": "Jordan River",
+                "x": 46.6,
+                "y": 44.5,
+                "region": "Jordan Valley",
+                "mapId": "geography_bible_atlas_v1",
+                "label": "Pin D"
+              }
+            ],
+            "explanation": "Nazareth sits in Galilee, north of Jerusalem and Bethlehem.",
+            "correctAnswer": "Nazareth",
+            "correctLabel": "Nazareth",
+            "requiresBriefingScreens": [
+              "NAZ1_brief_01",
+              "NAZ1_brief_02",
+              "NAZ1_brief_03",
+              "NAZ1_brief_04"
+            ]
+          },
+          {
+            "id": "NAZ1_content_clue_01",
+            "policyType": "content_choice",
+            "interactionType": "content_choice",
+            "questionPattern": "content_detail",
+            "questionPurpose": "place identity",
+            "reviewSafe": true,
+            "sourceLabel": "Map",
+            "requiresVisibleEvidence": [
+              "Map"
+            ],
+            "prompt": "Which town is where Jesus was raised?",
+            "answer": "Nazareth",
+            "distractors": [
+              "Bethlehem",
+              "Jericho",
+              "Damascus"
+            ],
+            "explanation": "Nazareth is the town associated with Jesus' upbringing.",
+            "requiresBriefingScreens": [
+              "NAZ1_brief_01",
+              "NAZ1_brief_02",
+              "NAZ1_brief_03",
+              "NAZ1_brief_04"
+            ]
+          },
+          {
+            "id": "NAZ1_identity_cloze_01",
+            "policyType": "cloze_drag",
+            "interactionType": "cloze_drag",
+            "questionPattern": "fill_blank",
+            "questionPurpose": "identity reinforcement",
+            "reviewSafe": true,
+            "sourceLabel": "Map",
+            "requiresVisibleEvidence": [
+              "Map"
+            ],
+            "prompt": "Jesus is raised in the town of ___.",
+            "answer": "Nazareth",
+            "wordBank": [
+              "Nazareth",
+              "Bethlehem",
+              "Jericho",
+              "Damascus"
+            ],
+            "explanation": "Nazareth is the town where Jesus was raised.",
+            "requiresBriefingScreens": [
+              "NAZ1_brief_01",
+              "NAZ1_brief_02",
+              "NAZ1_brief_03",
+              "NAZ1_brief_04"
+            ]
+          },
+          {
+            "id": "NAZ1_relative_location_01",
+            "policyType": "content_choice",
+            "interactionType": "content_choice",
+            "questionPattern": "relative_location",
+            "questionPurpose": "map relationship",
+            "reviewSafe": true,
+            "sourceLabel": "Map",
+            "requiresVisibleEvidence": [
+              "Map"
+            ],
+            "prompt": "Which map relationship helps locate Nazareth?",
+            "answer": "It is in Lower Galilee, west of the Sea of Galilee.",
+            "distractors": [
+              "It is just south of Jerusalem.",
+              "It is far west in Italy.",
+              "It is east of Babylon."
+            ],
+            "explanation": "Nazareth is a town in Lower Galilee, west of the lake.",
+            "requiresBriefingScreens": [
+              "NAZ1_brief_01",
+              "NAZ1_brief_02",
+              "NAZ1_brief_03",
+              "NAZ1_brief_04"
+            ]
+          },
+          {
+            "id": "NAZ1_map_anchor_cloze_02",
+            "policyType": "cloze_drag",
+            "interactionType": "cloze_drag",
+            "questionPattern": "fill_blank",
+            "questionPurpose": "map anchor",
+            "reviewSafe": true,
+            "sourceLabel": "Map",
+            "requiresVisibleEvidence": [
+              "Map"
+            ],
+            "prompt": "Nazareth is a town in Lower ___.",
+            "answer": "Galilee",
+            "wordBank": [
+              "Galilee",
+              "Judea",
+              "Egypt",
+              "Mesopotamia"
+            ],
+            "explanation": "Lower Galilee is the regional setting for Nazareth.",
+            "requiresBriefingScreens": [
+              "NAZ1_brief_01",
+              "NAZ1_brief_02",
+              "NAZ1_brief_03",
+              "NAZ1_brief_04"
+            ]
+          }
+        ],
+        "briefingScreens": [
+          {
+            "id": "NAZ1_brief_01",
+            "lines": [
+              "Nazareth is a town in Lower Galilee."
+            ],
+            "sourceLabel": "Context",
+            "requiresVisibleEvidence": [
+              "Context"
+            ]
+          },
+          {
+            "id": "NAZ1_brief_02",
+            "lines": [
+              "It is closely tied to Jesus’ upbringing."
+            ],
+            "sourceLabel": "Context",
+            "requiresVisibleEvidence": [
+              "Context"
+            ]
+          },
+          {
+            "id": "NAZ1_brief_03",
+            "lines": [
+              "On the Galilee map, look west of the Sea of Galilee."
+            ],
+            "sourceLabel": "Context",
+            "requiresVisibleEvidence": [
+              "Context"
+            ]
+          },
+          {
+            "id": "NAZ1_brief_04",
+            "lines": [],
+            "mapPanel": {
+              "type": "location_context",
+              "mapId": "geography_bible_atlas_v1",
+              "useCardLocation": true,
+              "placeLabels": [
+                "Nazareth",
+                "Galilee",
+                "Sea of Galilee",
+                "Jordan River",
+                "Jerusalem"
+              ],
+              "landmarkLabels": [
+                "Lower Galilee",
+                "Sea of Galilee",
+                "Jordan River"
+              ],
+              "crop": {
+                "minSize": 2.2,
+                "padding": 1.1
+              }
+            }
+          }
+        ]
+      }
+    },
+    "SGA1": {
+      "cardUid": "SGA1",
+      "stage": 1,
+      "titleHint": "Sea of Galilee",
+      "guidedLearning": {
+        "mapLocation": {
+          "mapId": "geography_bible_atlas_v1",
+          "x": 46.7,
+          "y": 43.4,
+          "label": "Sea of Galilee",
+          "region": "Galilee",
+          "labelDx": -10,
+          "labelDy": -2,
+          "displayLabel": "Sea of\nGalilee",
+          "labelAnchor": "left",
+          "labelLevel": 8,
+          "zoomViews": [
+            "close"
+          ],
+          "crop": {
+            "minSize": 2.2,
+            "padding": 1.1
+          },
+          "placeLabels": [
+            "Sea of Galilee",
+            "Galilee",
+            "Nazareth",
+            "Jordan River"
+          ],
+          "landmarkLabels": [
+            "Lower Galilee",
+            "Sea of Galilee",
+            "Jordan River"
+          ],
+          "kind": "water"
+        },
+        "questions": [
+          {
+            "id": "SGA1_map_pin_01",
+            "policyType": "map_pin_choice",
+            "interactionType": "map_pin_choice",
+            "questionPattern": "map_pin",
+            "questionPurpose": "map location",
+            "reviewSafe": true,
+            "sourceLabel": "Map",
+            "requiresVisibleEvidence": [
+              "Map"
+            ],
+            "prompt": "Which pin marks the Sea of Galilee?",
+            "answer": "Sea of Galilee",
+            "mapId": "geography_bible_atlas_v1",
+            "mapOptions": [
+              {
+                "pinLabel": "A",
+                "placeLabel": "Galilee",
+                "x": 46.4,
+                "y": 43.4,
+                "region": "Galilee",
+                "mapId": "geography_bible_atlas_v1",
+                "label": "Pin A"
+              },
+              {
+                "pinLabel": "B",
+                "placeLabel": "Nazareth",
+                "x": 46.4,
+                "y": 43.6,
+                "region": "Lower Galilee",
+                "mapId": "geography_bible_atlas_v1",
+                "label": "Pin B"
+              },
+              {
+                "pinLabel": "C",
+                "placeLabel": "Sea of Galilee",
+                "x": 46.7,
+                "y": 43.4,
+                "region": "Galilee",
+                "correct": true,
+                "mapId": "geography_bible_atlas_v1",
+                "label": "Pin C"
+              },
+              {
+                "pinLabel": "D",
+                "placeLabel": "Jordan River",
+                "x": 46.6,
+                "y": 44.5,
+                "region": "Jordan Valley",
+                "mapId": "geography_bible_atlas_v1",
+                "label": "Pin D"
+              }
+            ],
+            "explanation": "The Sea of Galilee is in the northern Galilee region.",
+            "correctAnswer": "Sea of Galilee",
+            "correctLabel": "Sea of Galilee",
+            "requiresBriefingScreens": [
+              "SGA1_brief_01",
+              "SGA1_brief_02",
+              "SGA1_brief_03",
+              "SGA1_brief_04"
+            ]
+          },
+          {
+            "id": "SGA1_content_clue_01",
+            "policyType": "content_choice",
+            "interactionType": "content_choice",
+            "questionPattern": "content_detail",
+            "questionPurpose": "place identity",
+            "reviewSafe": true,
+            "sourceLabel": "Map",
+            "requiresVisibleEvidence": [
+              "Map"
+            ],
+            "prompt": "Which sea is linked to Jesus calming a storm and walking on water?",
+            "answer": "Sea of Galilee",
+            "distractors": [
+              "Dead Sea",
+              "Mediterranean Sea",
+              "Red Sea"
+            ],
+            "explanation": "The Sea of Galilee is the setting for several Gospel water stories.",
+            "requiresBriefingScreens": [
+              "SGA1_brief_01",
+              "SGA1_brief_02",
+              "SGA1_brief_03",
+              "SGA1_brief_04"
+            ]
+          },
+          {
+            "id": "SGA1_identity_cloze_01",
+            "policyType": "cloze_drag",
+            "interactionType": "cloze_drag",
+            "questionPattern": "fill_blank",
+            "questionPurpose": "identity reinforcement",
+            "reviewSafe": true,
+            "sourceLabel": "Map",
+            "requiresVisibleEvidence": [
+              "Map"
+            ],
+            "prompt": "Jesus calms a storm on the Sea of ___.",
+            "answer": "Galilee",
+            "wordBank": [
+              "Galilee",
+              "Egypt",
+              "Judea",
+              "Babylon"
+            ],
+            "explanation": "The Sea of Galilee is tied to the storm and walking-on-water accounts.",
+            "requiresBriefingScreens": [
+              "SGA1_brief_01",
+              "SGA1_brief_02",
+              "SGA1_brief_03",
+              "SGA1_brief_04"
+            ]
+          },
+          {
+            "id": "SGA1_relative_location_01",
+            "policyType": "content_choice",
+            "interactionType": "content_choice",
+            "questionPattern": "relative_location",
+            "questionPurpose": "map relationship",
+            "reviewSafe": true,
+            "sourceLabel": "Map",
+            "requiresVisibleEvidence": [
+              "Map"
+            ],
+            "prompt": "Which map relationship helps locate the Sea of Galilee?",
+            "answer": "It is the lake within the Galilee region.",
+            "distractors": [
+              "It is the sea beside Rome.",
+              "It is the river beside Babylon.",
+              "It is the wilderness mountain near Egypt."
+            ],
+            "explanation": "The Sea of Galilee is the freshwater lake that anchors the Galilee region.",
+            "requiresBriefingScreens": [
+              "SGA1_brief_01",
+              "SGA1_brief_02",
+              "SGA1_brief_03",
+              "SGA1_brief_04"
+            ]
+          },
+          {
+            "id": "SGA1_map_anchor_cloze_02",
+            "policyType": "cloze_drag",
+            "interactionType": "cloze_drag",
+            "questionPattern": "fill_blank",
+            "questionPurpose": "map anchor",
+            "reviewSafe": true,
+            "sourceLabel": "Map",
+            "requiresVisibleEvidence": [
+              "Map"
+            ],
+            "prompt": "The Sea of Galilee is a freshwater ___ in Galilee.",
+            "answer": "lake",
+            "wordBank": [
+              "lake",
+              "capital",
+              "empire",
+              "desert"
+            ],
+            "explanation": "The Sea of Galilee is a lake, not an ocean or imperial city.",
+            "requiresBriefingScreens": [
+              "SGA1_brief_01",
+              "SGA1_brief_02",
+              "SGA1_brief_03",
+              "SGA1_brief_04"
+            ]
+          }
+        ],
+        "briefingScreens": [
+          {
+            "id": "SGA1_brief_01",
+            "lines": [
+              "The Sea of Galilee is the freshwater lake in the Galilee region."
+            ],
+            "sourceLabel": "Context",
+            "requiresVisibleEvidence": [
+              "Context"
+            ]
+          },
+          {
+            "id": "SGA1_brief_02",
+            "lines": [
+              "Many Gospel stories happen around its shores."
+            ],
+            "sourceLabel": "Context",
+            "requiresVisibleEvidence": [
+              "Context"
+            ]
+          },
+          {
+            "id": "SGA1_brief_03",
+            "lines": [
+              "On the map, use the lake shape as the main visual anchor."
+            ],
+            "sourceLabel": "Context",
+            "requiresVisibleEvidence": [
+              "Context"
+            ]
+          },
+          {
+            "id": "SGA1_brief_04",
+            "lines": [],
+            "mapPanel": {
+              "type": "location_context",
+              "mapId": "geography_bible_atlas_v1",
+              "useCardLocation": true,
+              "placeLabels": [
+                "Sea of Galilee",
+                "Galilee",
+                "Nazareth",
+                "Jordan River"
+              ],
+              "landmarkLabels": [
+                "Lower Galilee",
+                "Sea of Galilee",
+                "Jordan River"
+              ],
+              "crop": {
+                "minSize": 2.2,
+                "padding": 1.1
+              }
+            }
+          }
+        ]
+      }
+    },
+    "JUD1": {
+      "cardUid": "JUD1",
+      "stage": 1,
+      "titleHint": "Judea",
+      "guidedLearning": {
+        "mapLocation": {
+          "mapId": "geography_bible_atlas_v1",
+          "x": 46.1,
+          "y": 45.6,
+          "label": "Judea",
+          "region": "Judea",
+          "labelDx": -2,
+          "labelDy": 14,
+          "labelAnchor": "center",
+          "labelLevel": 6,
+          "zoomViews": [
+            "full",
+            "region"
+          ],
+          "crop": {
+            "minSize": 5,
+            "padding": 2.2
+          },
+          "placeLabels": [
+            "Judea",
+            "Jerusalem",
+            "Bethlehem",
+            "Jericho",
+            "Jordan River"
+          ],
+          "landmarkLabels": [
+            "Mediterranean Sea",
+            "Dead Sea",
+            "Jordan River"
+          ],
+          "kind": "region"
+        },
+        "questions": [
+          {
+            "id": "JUD1_map_pin_01",
+            "policyType": "map_pin_choice",
+            "interactionType": "map_pin_choice",
+            "questionPattern": "map_pin",
+            "questionPurpose": "map location",
+            "reviewSafe": true,
+            "sourceLabel": "Map",
+            "requiresVisibleEvidence": [
+              "Map"
+            ],
+            "prompt": "Which pin marks Judea?",
+            "answer": "Judea",
+            "mapId": "geography_bible_atlas_v1",
+            "mapOptions": [
+              {
+                "pinLabel": "A",
+                "label": "Pin A",
+                "placeLabel": "Jerusalem",
+                "correct": false,
+                "mapId": "geography_bible_atlas_v1",
+                "x": 46.3,
+                "y": 45.2,
+                "region": "Judea"
+              },
+              {
+                "pinLabel": "B",
+                "label": "Pin B",
+                "placeLabel": "Jordan River",
+                "correct": false,
+                "mapId": "geography_bible_atlas_v1",
+                "x": 46.6,
+                "y": 44.5,
+                "region": "Jordan Valley"
+              },
+              {
+                "pinLabel": "C",
+                "label": "Pin C",
+                "placeLabel": "Sea of Galilee",
+                "correct": false,
+                "mapId": "geography_bible_atlas_v1",
+                "x": 46.7,
+                "y": 43.4,
+                "region": "Galilee"
+              },
+              {
+                "pinLabel": "D",
+                "label": "Pin D",
+                "placeLabel": "Judea",
+                "correct": true,
+                "mapId": "geography_bible_atlas_v1",
+                "x": 46.2,
+                "y": 45.6,
+                "region": "Judea"
+              }
+            ],
+            "explanation": "Judea is the southern region centered on Jerusalem.",
+            "correctAnswer": "Judea",
+            "correctLabel": "Judea",
+            "requiresBriefingScreens": [
+              "JUD1_brief_01",
+              "JUD1_brief_02",
+              "JUD1_brief_03",
+              "JUD1_brief_04"
+            ]
+          },
+          {
+            "id": "JUD1_content_clue_01",
+            "policyType": "content_choice",
+            "interactionType": "content_choice",
+            "questionPattern": "content_detail",
+            "questionPurpose": "place identity",
+            "reviewSafe": true,
+            "sourceLabel": "Map",
+            "requiresVisibleEvidence": [
+              "Map"
+            ],
+            "prompt": "Which southern region is centered on Jerusalem?",
+            "answer": "Judea",
+            "distractors": [
+              "Galilee",
+              "Samaria",
+              "Babylon"
+            ],
+            "explanation": "Judea is the southern region closely tied to Jerusalem and the temple.",
+            "requiresBriefingScreens": [
+              "JUD1_brief_01",
+              "JUD1_brief_02",
+              "JUD1_brief_03",
+              "JUD1_brief_04"
+            ]
+          },
+          {
+            "id": "JUD1_identity_cloze_01",
+            "policyType": "cloze_drag",
+            "interactionType": "cloze_drag",
+            "questionPattern": "fill_blank",
+            "questionPurpose": "identity reinforcement",
+            "reviewSafe": true,
+            "sourceLabel": "Map",
+            "requiresVisibleEvidence": [
+              "Map"
+            ],
+            "prompt": "The southern region centered on Jerusalem is ___.",
+            "answer": "Judea",
+            "wordBank": [
+              "Judea",
+              "Galilee",
+              "Samaria",
+              "Babylon"
+            ],
+            "explanation": "Judea is the region centered on Jerusalem.",
+            "requiresBriefingScreens": [
+              "JUD1_brief_01",
+              "JUD1_brief_02",
+              "JUD1_brief_03",
+              "JUD1_brief_04"
+            ]
+          },
+          {
+            "id": "JUD1_relative_location_01",
+            "policyType": "content_choice",
+            "interactionType": "content_choice",
+            "questionPattern": "relative_location",
+            "questionPurpose": "map relationship",
+            "reviewSafe": true,
+            "sourceLabel": "Map",
+            "requiresVisibleEvidence": [
+              "Map"
+            ],
+            "prompt": "Which map relationship helps locate Judea?",
+            "answer": "It is south of Galilee and west of the Dead Sea.",
+            "distractors": [
+              "It is far west near Rome.",
+              "It is east of Babylon.",
+              "It is north of Damascus."
+            ],
+            "explanation": "Judea is the southern region centered on Jerusalem, west of the Dead Sea.",
+            "requiresBriefingScreens": [
+              "JUD1_brief_01",
+              "JUD1_brief_02",
+              "JUD1_brief_03",
+              "JUD1_brief_04"
+            ]
+          },
+          {
+            "id": "JUD1_map_anchor_cloze_02",
+            "policyType": "cloze_drag",
+            "interactionType": "cloze_drag",
+            "questionPattern": "fill_blank",
+            "questionPurpose": "map anchor",
+            "reviewSafe": true,
+            "sourceLabel": "Map",
+            "requiresVisibleEvidence": [
+              "Map"
+            ],
+            "prompt": "Judea is the southern region around ___.",
+            "answer": "Jerusalem",
+            "wordBank": [
+              "Jerusalem",
+              "Rome",
+              "Damascus",
+              "Babylon"
+            ],
+            "explanation": "Jerusalem is the central city of Judea.",
+            "requiresBriefingScreens": [
+              "JUD1_brief_01",
+              "JUD1_brief_02",
+              "JUD1_brief_03",
+              "JUD1_brief_04"
+            ]
+          }
+        ],
+        "briefingScreens": [
+          {
+            "id": "JUD1_brief_01",
+            "lines": [
+              "Judea is the southern region around Jerusalem and Bethlehem."
+            ],
+            "sourceLabel": "Context",
+            "requiresVisibleEvidence": [
+              "Context"
+            ]
+          },
+          {
+            "id": "JUD1_brief_02",
+            "lines": [
+              "It frames many events near the temple city and nearby wilderness."
+            ],
+            "sourceLabel": "Context",
+            "requiresVisibleEvidence": [
+              "Context"
+            ]
+          },
+          {
+            "id": "JUD1_brief_03",
+            "lines": [
+              "On the inset map, Judea sits south of Galilee and west of the Dead Sea."
+            ],
+            "sourceLabel": "Context",
+            "requiresVisibleEvidence": [
+              "Context"
+            ]
+          },
+          {
+            "id": "JUD1_brief_04",
+            "lines": [],
+            "mapPanel": {
+              "type": "location_context",
+              "mapId": "geography_bible_atlas_v1",
+              "useCardLocation": true,
+              "placeLabels": [
+                "Judea",
+                "Jerusalem",
+                "Bethlehem",
+                "Jericho",
+                "Jordan River"
+              ],
+              "landmarkLabels": [
+                "Mediterranean Sea",
+                "Dead Sea",
+                "Jordan River"
+              ],
+              "crop": {
+                "minSize": 5,
+                "padding": 2.2
+              }
+            }
+          }
+        ]
+      }
+    },
+    "DMS1": {
+      "cardUid": "DMS1",
+      "stage": 1,
+      "titleHint": "Damascus",
+      "guidedLearning": {
+        "mapLocation": {
+          "mapId": "geography_bible_atlas_v1",
+          "x": 47.3,
+          "y": 42.2,
+          "label": "Damascus",
+          "region": "Syria",
+          "labelDx": -6,
+          "labelDy": -2,
+          "labelAnchor": "left",
+          "labelLevel": 7,
+          "zoomViews": [
+            "region",
+            "area",
+            "close"
+          ],
+          "crop": {
+            "minSize": 5,
+            "padding": 2.2
+          },
+          "placeLabels": [
+            "Damascus",
+            "Mount Sinai",
+            "Egypt",
+            "Babylon"
+          ],
+          "landmarkLabels": [
+            "Mediterranean Sea",
+            "Mesopotamia"
+          ],
+          "kind": "place"
+        },
+        "questions": [
+          {
+            "id": "DMS1_map_pin_01",
+            "policyType": "map_pin_choice",
+            "interactionType": "map_pin_choice",
+            "questionPattern": "map_pin",
+            "questionPurpose": "map location",
+            "reviewSafe": true,
+            "sourceLabel": "Map",
+            "requiresVisibleEvidence": [
+              "Map"
+            ],
+            "prompt": "Which pin marks Damascus?",
+            "answer": "Damascus",
+            "mapId": "geography_bible_atlas_v1",
+            "mapOptions": [
+              {
+                "pinLabel": "A",
+                "placeLabel": "Egypt",
+                "x": 42,
+                "y": 53.8,
+                "region": "Egypt",
+                "mapId": "geography_bible_atlas_v1",
+                "label": "Pin A"
+              },
+              {
+                "pinLabel": "B",
+                "placeLabel": "Mount Sinai",
+                "x": 45.1,
+                "y": 50.8,
+                "region": "Sinai",
+                "mapId": "geography_bible_atlas_v1",
+                "label": "Pin B"
+              },
+              {
+                "pinLabel": "C",
+                "placeLabel": "Damascus",
+                "x": 47.3,
+                "y": 42.2,
+                "region": "Syria",
+                "correct": true,
+                "mapId": "geography_bible_atlas_v1",
+                "label": "Pin C"
+              },
+              {
+                "pinLabel": "D",
+                "placeLabel": "Babylon",
+                "x": 55.3,
+                "y": 43.9,
+                "region": "Mesopotamia",
+                "mapId": "geography_bible_atlas_v1",
+                "label": "Pin D"
+              }
+            ],
+            "explanation": "Damascus is north of Israel in Syria.",
+            "correctAnswer": "Damascus",
+            "correctLabel": "Damascus",
+            "requiresBriefingScreens": [
+              "DMS1_brief_01",
+              "DMS1_brief_02",
+              "DMS1_brief_03",
+              "DMS1_brief_04"
+            ]
+          },
+          {
+            "id": "DMS1_content_clue_01",
+            "policyType": "content_choice",
+            "interactionType": "content_choice",
+            "questionPattern": "content_detail",
+            "questionPurpose": "place identity",
+            "reviewSafe": true,
+            "sourceLabel": "Map",
+            "requiresVisibleEvidence": [
+              "Map"
+            ],
+            "prompt": "Which city is Saul traveling toward when his conversion vision occurs?",
+            "answer": "Damascus",
+            "distractors": [
+              "Rome",
+              "Babylon",
+              "Jerusalem"
+            ],
+            "explanation": "Saul is on the road to Damascus when the conversion vision occurs.",
+            "requiresBriefingScreens": [
+              "DMS1_brief_01",
+              "DMS1_brief_02",
+              "DMS1_brief_03",
+              "DMS1_brief_04"
+            ]
+          },
+          {
+            "id": "DMS1_identity_cloze_01",
+            "policyType": "cloze_drag",
+            "interactionType": "cloze_drag",
+            "questionPattern": "fill_blank",
+            "questionPurpose": "identity reinforcement",
+            "reviewSafe": true,
+            "sourceLabel": "Map",
+            "requiresVisibleEvidence": [
+              "Map"
+            ],
+            "prompt": "Saul is traveling toward ___ when his conversion vision occurs.",
+            "answer": "Damascus",
+            "wordBank": [
+              "Damascus",
+              "Rome",
+              "Babylon",
+              "Jerusalem"
+            ],
+            "explanation": "Damascus is the destination in Saul's conversion account.",
+            "requiresBriefingScreens": [
+              "DMS1_brief_01",
+              "DMS1_brief_02",
+              "DMS1_brief_03",
+              "DMS1_brief_04"
+            ]
+          },
+          {
+            "id": "DMS1_relative_location_01",
+            "policyType": "content_choice",
+            "interactionType": "content_choice",
+            "questionPattern": "relative_location",
+            "questionPurpose": "map relationship",
+            "reviewSafe": true,
+            "sourceLabel": "Map",
+            "requiresVisibleEvidence": [
+              "Map"
+            ],
+            "prompt": "Which map relationship helps locate Damascus?",
+            "answer": "It is north and east of Galilee.",
+            "distractors": [
+              "It is south of Egypt.",
+              "It is west of Rome.",
+              "It is beside the Sea of Galilee."
+            ],
+            "explanation": "Damascus is the northern city beyond Galilee and the land of Israel.",
+            "requiresBriefingScreens": [
+              "DMS1_brief_01",
+              "DMS1_brief_02",
+              "DMS1_brief_03",
+              "DMS1_brief_04"
+            ]
+          },
+          {
+            "id": "DMS1_map_anchor_cloze_02",
+            "policyType": "cloze_drag",
+            "interactionType": "cloze_drag",
+            "questionPattern": "fill_blank",
+            "questionPurpose": "map anchor",
+            "reviewSafe": true,
+            "sourceLabel": "Map",
+            "requiresVisibleEvidence": [
+              "Map"
+            ],
+            "prompt": "Damascus is north and east of ___.",
+            "answer": "Galilee",
+            "wordBank": [
+              "Galilee",
+              "Egypt",
+              "Rome",
+              "Babylon"
+            ],
+            "explanation": "Using Galilee as an anchor helps locate Damascus to the north and east.",
+            "requiresBriefingScreens": [
+              "DMS1_brief_01",
+              "DMS1_brief_02",
+              "DMS1_brief_03",
+              "DMS1_brief_04"
+            ]
+          }
+        ],
+        "briefingScreens": [
+          {
+            "id": "DMS1_brief_01",
+            "lines": [
+              "Damascus is a major city north of the land of Israel."
+            ],
+            "sourceLabel": "Context",
+            "requiresVisibleEvidence": [
+              "Context"
+            ]
+          },
+          {
+            "id": "DMS1_brief_02",
+            "lines": [
+              "It matters for travel routes and later New Testament events."
+            ],
+            "sourceLabel": "Context",
+            "requiresVisibleEvidence": [
+              "Context"
+            ]
+          },
+          {
+            "id": "DMS1_brief_03",
+            "lines": [
+              "On the overview map, look north and east of Galilee."
+            ],
+            "sourceLabel": "Context",
+            "requiresVisibleEvidence": [
+              "Context"
+            ]
+          },
+          {
+            "id": "DMS1_brief_04",
+            "lines": [],
+            "mapPanel": {
+              "type": "location_context",
+              "mapId": "geography_bible_atlas_v1",
+              "useCardLocation": true,
+              "placeLabels": [
+                "Damascus",
+                "Mount Sinai",
+                "Egypt",
+                "Babylon"
+              ],
+              "landmarkLabels": [
+                "Mediterranean Sea",
+                "Mesopotamia"
+              ],
+              "crop": {
+                "minSize": 5,
+                "padding": 2.2
+              }
+            }
+          }
+        ]
+      }
+    },
+    "BBL1": {
+      "cardUid": "BBL1",
+      "stage": 1,
+      "titleHint": "Babylon",
+      "guidedLearning": {
+        "mapLocation": {
+          "mapId": "geography_bible_atlas_v1",
+          "x": 55.3,
+          "y": 43.9,
+          "label": "Babylon",
+          "region": "Mesopotamia",
+          "labelDx": -6,
+          "labelDy": -2,
+          "labelAnchor": "left",
+          "labelLevel": 7,
+          "zoomViews": [
+            "region",
+            "area",
+            "close"
+          ],
+          "crop": {
+            "minSize": 5,
+            "padding": 2.2
+          },
+          "placeLabels": [
+            "Babylon",
+            "Damascus",
+            "Egypt",
+            "Mount Sinai",
+            "Jerusalem"
+          ],
+          "landmarkLabels": [
+            "Mesopotamia",
+            "Mediterranean Sea"
+          ],
+          "kind": "place"
+        },
+        "questions": [
+          {
+            "id": "BBL1_map_pin_01",
+            "policyType": "map_pin_choice",
+            "interactionType": "map_pin_choice",
+            "questionPattern": "map_pin",
+            "questionPurpose": "map location",
+            "reviewSafe": true,
+            "sourceLabel": "Map",
+            "requiresVisibleEvidence": [
+              "Map"
+            ],
+            "prompt": "Which pin marks Babylon?",
+            "answer": "Babylon",
+            "mapId": "geography_bible_atlas_v1",
+            "mapOptions": [
+              {
+                "pinLabel": "A",
+                "placeLabel": "Egypt",
+                "x": 42,
+                "y": 53.8,
+                "region": "Egypt",
+                "mapId": "geography_bible_atlas_v1",
+                "label": "Pin A"
+              },
+              {
+                "pinLabel": "B",
+                "placeLabel": "Mount Sinai",
+                "x": 45.1,
+                "y": 50.8,
+                "region": "Sinai",
+                "mapId": "geography_bible_atlas_v1",
+                "label": "Pin B"
+              },
+              {
+                "pinLabel": "C",
+                "placeLabel": "Damascus",
+                "x": 47.3,
+                "y": 42.2,
+                "region": "Syria",
+                "mapId": "geography_bible_atlas_v1",
+                "label": "Pin C"
+              },
+              {
+                "pinLabel": "D",
+                "placeLabel": "Babylon",
+                "x": 55.3,
+                "y": 43.9,
+                "region": "Mesopotamia",
+                "correct": true,
+                "mapId": "geography_bible_atlas_v1",
+                "label": "Pin D"
+              }
+            ],
+            "explanation": "Babylon is placed in Mesopotamia, east of Syria and Israel.",
+            "correctAnswer": "Babylon",
+            "correctLabel": "Babylon",
+            "requiresBriefingScreens": [
+              "BBL1_brief_01",
+              "BBL1_brief_02",
+              "BBL1_brief_03",
+              "BBL1_brief_04"
+            ]
+          },
+          {
+            "id": "BBL1_content_clue_01",
+            "policyType": "content_choice",
+            "interactionType": "content_choice",
+            "questionPattern": "content_detail",
+            "questionPurpose": "place identity",
+            "reviewSafe": true,
+            "sourceLabel": "Map",
+            "requiresVisibleEvidence": [
+              "Map"
+            ],
+            "prompt": "Which city becomes a major symbol of exile and imperial power?",
+            "answer": "Babylon",
+            "distractors": [
+              "Rome",
+              "Damascus",
+              "Bethlehem"
+            ],
+            "explanation": "Babylon is closely tied to exile and imperial domination in the Bible.",
+            "requiresBriefingScreens": [
+              "BBL1_brief_01",
+              "BBL1_brief_02",
+              "BBL1_brief_03",
+              "BBL1_brief_04"
+            ]
+          },
+          {
+            "id": "BBL1_identity_cloze_01",
+            "policyType": "cloze_drag",
+            "interactionType": "cloze_drag",
+            "questionPattern": "fill_blank",
+            "questionPurpose": "identity reinforcement",
+            "reviewSafe": true,
+            "sourceLabel": "Map",
+            "requiresVisibleEvidence": [
+              "Map"
+            ],
+            "prompt": "The city that symbolizes exile and imperial power is ___.",
+            "answer": "Babylon",
+            "wordBank": [
+              "Babylon",
+              "Rome",
+              "Damascus",
+              "Bethlehem"
+            ],
+            "explanation": "Babylon becomes a symbol of exile and empire.",
+            "requiresBriefingScreens": [
+              "BBL1_brief_01",
+              "BBL1_brief_02",
+              "BBL1_brief_03",
+              "BBL1_brief_04"
+            ]
+          },
+          {
+            "id": "BBL1_relative_location_01",
+            "policyType": "content_choice",
+            "interactionType": "content_choice",
+            "questionPattern": "relative_location",
+            "questionPurpose": "map relationship",
+            "reviewSafe": true,
+            "sourceLabel": "Map",
+            "requiresVisibleEvidence": [
+              "Map"
+            ],
+            "prompt": "Which map relationship helps locate Babylon?",
+            "answer": "It is far east of Damascus in Mesopotamia.",
+            "distractors": [
+              "It is just south of Jerusalem.",
+              "It is west of Rome.",
+              "It is beside the Sea of Galilee."
+            ],
+            "explanation": "Babylon is much farther east than Damascus, in Mesopotamia.",
+            "requiresBriefingScreens": [
+              "BBL1_brief_01",
+              "BBL1_brief_02",
+              "BBL1_brief_03",
+              "BBL1_brief_04"
+            ]
+          },
+          {
+            "id": "BBL1_map_anchor_cloze_02",
+            "policyType": "cloze_drag",
+            "interactionType": "cloze_drag",
+            "questionPattern": "fill_blank",
+            "questionPurpose": "map anchor",
+            "reviewSafe": true,
+            "sourceLabel": "Map",
+            "requiresVisibleEvidence": [
+              "Map"
+            ],
+            "prompt": "Babylon lies far to the east in ___.",
+            "answer": "Mesopotamia",
+            "wordBank": [
+              "Mesopotamia",
+              "Galilee",
+              "Judea",
+              "Italy"
+            ],
+            "explanation": "Mesopotamia is the broad eastern region associated with Babylon.",
+            "requiresBriefingScreens": [
+              "BBL1_brief_01",
+              "BBL1_brief_02",
+              "BBL1_brief_03",
+              "BBL1_brief_04"
+            ]
+          }
+        ],
+        "briefingScreens": [
+          {
+            "id": "BBL1_brief_01",
+            "lines": [
+              "Babylon sits far to the east in Mesopotamia."
+            ],
+            "sourceLabel": "Context",
+            "requiresVisibleEvidence": [
+              "Context"
+            ]
+          },
+          {
+            "id": "BBL1_brief_02",
+            "lines": [
+              "It is tied to exile and imperial power in the biblical story."
+            ],
+            "sourceLabel": "Context",
+            "requiresVisibleEvidence": [
+              "Context"
+            ]
+          },
+          {
+            "id": "BBL1_brief_03",
+            "lines": [
+              "On the overview map, it is much farther east than Damascus."
+            ],
+            "sourceLabel": "Context",
+            "requiresVisibleEvidence": [
+              "Context"
+            ]
+          },
+          {
+            "id": "BBL1_brief_04",
+            "lines": [],
+            "mapPanel": {
+              "type": "location_context",
+              "mapId": "geography_bible_atlas_v1",
+              "useCardLocation": true,
+              "placeLabels": [
+                "Babylon",
+                "Damascus",
+                "Egypt",
+                "Mount Sinai",
+                "Jerusalem"
+              ],
+              "landmarkLabels": [
+                "Mesopotamia",
+                "Mediterranean Sea"
+              ],
+              "crop": {
+                "minSize": 5,
+                "padding": 2.2
+              }
+            }
+          }
+        ]
+      }
+    },
+    "EGY1": {
+      "cardUid": "EGY1",
+      "stage": 1,
+      "titleHint": "Egypt",
+      "guidedLearning": {
+        "mapLocation": {
+          "mapId": "geography_bible_atlas_v1",
+          "x": 41.7,
+          "y": 53.8,
+          "label": "Egypt",
+          "region": "Egypt",
+          "labelDx": -18,
+          "labelDy": 15,
+          "labelAnchor": "left",
+          "labelLevel": 8,
+          "zoomViews": [
+            "full",
+            "region",
+            "area",
+            "close"
+          ],
+          "crop": {
+            "minSize": 17.6,
+            "padding": 3.8
+          },
+          "placeLabels": [
+            "Egypt",
+            "Mount Sinai",
+            "Damascus",
+            "Rome"
+          ],
+          "landmarkLabels": [
+            "Nile",
+            "Sinai Peninsula",
+            "Mediterranean Sea"
+          ],
+          "kind": "region"
+        },
+        "questions": [
+          {
+            "id": "EGY1_map_pin_01",
+            "policyType": "map_pin_choice",
+            "interactionType": "map_pin_choice",
+            "questionPattern": "map_pin",
+            "questionPurpose": "map location",
+            "reviewSafe": true,
+            "sourceLabel": "Map",
+            "requiresVisibleEvidence": [
+              "Map"
+            ],
+            "prompt": "Which pin marks Egypt?",
+            "answer": "Egypt",
+            "mapId": "geography_bible_atlas_v1",
+            "mapOptions": [
+              {
+                "pinLabel": "A",
+                "placeLabel": "Egypt",
+                "x": 42,
+                "y": 53.8,
+                "region": "Egypt",
+                "correct": true,
+                "mapId": "geography_bible_atlas_v1",
+                "label": "Pin A"
+              },
+              {
+                "pinLabel": "B",
+                "placeLabel": "Mount Sinai",
+                "x": 45.1,
+                "y": 50.8,
+                "region": "Sinai",
+                "mapId": "geography_bible_atlas_v1",
+                "label": "Pin B"
+              },
+              {
+                "pinLabel": "C",
+                "placeLabel": "Damascus",
+                "x": 47.3,
+                "y": 42.2,
+                "region": "Syria",
+                "mapId": "geography_bible_atlas_v1",
+                "label": "Pin C"
+              },
+              {
+                "pinLabel": "D",
+                "placeLabel": "Babylon",
+                "x": 55.3,
+                "y": 43.9,
+                "region": "Mesopotamia",
+                "mapId": "geography_bible_atlas_v1",
+                "label": "Pin D"
+              }
+            ],
+            "explanation": "Egypt is southwest of Israel and west of Sinai on the overview map.",
+            "correctAnswer": "Egypt",
+            "correctLabel": "Egypt",
+            "requiresBriefingScreens": [
+              "EGY1_brief_01",
+              "EGY1_brief_02",
+              "EGY1_brief_03",
+              "EGY1_brief_04"
+            ]
+          },
+          {
+            "id": "EGY1_content_clue_01",
+            "policyType": "content_choice",
+            "interactionType": "content_choice",
+            "questionPattern": "content_detail",
+            "questionPurpose": "place identity",
+            "reviewSafe": true,
+            "sourceLabel": "Map",
+            "requiresVisibleEvidence": [
+              "Map"
+            ],
+            "prompt": "Which land is linked to Joseph, Israel's slavery, and the Exodus?",
+            "answer": "Egypt",
+            "distractors": [
+              "Judea",
+              "Galilee",
+              "Rome"
+            ],
+            "explanation": "Egypt is the land from which the Exodus story begins.",
+            "requiresBriefingScreens": [
+              "EGY1_brief_01",
+              "EGY1_brief_02",
+              "EGY1_brief_03",
+              "EGY1_brief_04"
+            ]
+          },
+          {
+            "id": "EGY1_identity_cloze_01",
+            "policyType": "cloze_drag",
+            "interactionType": "cloze_drag",
+            "questionPattern": "fill_blank",
+            "questionPurpose": "identity reinforcement",
+            "reviewSafe": true,
+            "sourceLabel": "Map",
+            "requiresVisibleEvidence": [
+              "Map"
+            ],
+            "prompt": "The Exodus story begins from the land of ___.",
+            "answer": "Egypt",
+            "wordBank": [
+              "Egypt",
+              "Judea",
+              "Galilee",
+              "Rome"
+            ],
+            "explanation": "Egypt is the land Israel leaves in the Exodus.",
+            "requiresBriefingScreens": [
+              "EGY1_brief_01",
+              "EGY1_brief_02",
+              "EGY1_brief_03",
+              "EGY1_brief_04"
+            ]
+          },
+          {
+            "id": "EGY1_relative_location_01",
+            "policyType": "content_choice",
+            "interactionType": "content_choice",
+            "questionPattern": "relative_location",
+            "questionPurpose": "map relationship",
+            "reviewSafe": true,
+            "sourceLabel": "Map",
+            "requiresVisibleEvidence": [
+              "Map"
+            ],
+            "prompt": "Which map relationship helps locate Egypt?",
+            "answer": "It is southwest of the land of Israel, near the Nile.",
+            "distractors": [
+              "It is east of Babylon.",
+              "It is north of Damascus.",
+              "It is west of Rome."
+            ],
+            "explanation": "Egypt is southwest of the land of Israel and closely tied to the Nile.",
+            "requiresBriefingScreens": [
+              "EGY1_brief_01",
+              "EGY1_brief_02",
+              "EGY1_brief_03",
+              "EGY1_brief_04"
+            ]
+          },
+          {
+            "id": "EGY1_map_anchor_cloze_02",
+            "policyType": "cloze_drag",
+            "interactionType": "cloze_drag",
+            "questionPattern": "fill_blank",
+            "questionPurpose": "map anchor",
+            "reviewSafe": true,
+            "sourceLabel": "Map",
+            "requiresVisibleEvidence": [
+              "Map"
+            ],
+            "prompt": "Egypt is closely associated with the ___.",
+            "answer": "Nile",
+            "wordBank": [
+              "Nile",
+              "Jordan River",
+              "Sea of Galilee",
+              "Tigris"
+            ],
+            "explanation": "The Nile is the major river anchor for Egypt.",
+            "requiresBriefingScreens": [
+              "EGY1_brief_01",
+              "EGY1_brief_02",
+              "EGY1_brief_03",
+              "EGY1_brief_04"
+            ]
+          }
+        ],
+        "briefingScreens": [
+          {
+            "id": "EGY1_brief_01",
+            "lines": [
+              "Egypt lies southwest of the land of Israel."
+            ],
+            "sourceLabel": "Context",
+            "requiresVisibleEvidence": [
+              "Context"
+            ]
+          },
+          {
+            "id": "EGY1_brief_02",
+            "lines": [
+              "It is tied to refuge, slavery, exodus, and empire."
+            ],
+            "sourceLabel": "Context",
+            "requiresVisibleEvidence": [
+              "Context"
+            ]
+          },
+          {
+            "id": "EGY1_brief_03",
+            "lines": [
+              "On the overview map, use the Nile and Sinai as nearby anchors."
+            ],
+            "sourceLabel": "Context",
+            "requiresVisibleEvidence": [
+              "Context"
+            ]
+          },
+          {
+            "id": "EGY1_brief_04",
+            "lines": [],
+            "mapPanel": {
+              "type": "location_context",
+              "mapId": "geography_bible_atlas_v1",
+              "useCardLocation": true,
+              "placeLabels": [
+                "Egypt",
+                "Mount Sinai",
+                "Damascus",
+                "Rome"
+              ],
+              "landmarkLabels": [
+                "Nile",
+                "Sinai Peninsula",
+                "Mediterranean Sea"
+              ],
+              "crop": {
+                "minSize": 17.6,
+                "padding": 3.8
+              }
+            }
+          }
+        ]
+      }
+    },
+    "ROM1": {
+      "cardUid": "ROM1",
+      "stage": 1,
+      "titleHint": "Rome",
+      "guidedLearning": {
+        "mapLocation": {
+          "mapId": "geography_bible_atlas_v1",
+          "x": 24.1,
+          "y": 27.8,
+          "label": "Rome",
+          "region": "Italy",
+          "labelDx": -14,
+          "labelDy": -5,
+          "labelAnchor": "left",
+          "labelLevel": 8,
+          "labelPriority": 8,
+          "zoomViews": [
+            "full",
+            "region",
+            "area",
+            "close"
+          ],
+          "crop": {
+            "minSize": 12.8,
+            "padding": 2.2
+          },
+          "placeLabels": [
+            "Rome",
+            "Egypt",
+            "Damascus"
+          ],
+          "landmarkLabels": [
+            "Mediterranean Sea"
+          ],
+          "kind": "place"
+        },
+        "questions": [
+          {
+            "id": "ROM1_map_pin_01",
+            "policyType": "map_pin_choice",
+            "interactionType": "map_pin_choice",
+            "questionPattern": "map_pin",
+            "questionPurpose": "map location",
+            "reviewSafe": true,
+            "sourceLabel": "Map",
+            "requiresVisibleEvidence": [
+              "Map"
+            ],
+            "prompt": "Which pin marks Rome?",
+            "answer": "Rome",
+            "mapId": "geography_bible_atlas_v1",
+            "mapOptions": [
+              {
+                "pinLabel": "A",
+                "placeLabel": "Egypt",
+                "x": 42,
+                "y": 53.8,
+                "region": "Egypt",
+                "mapId": "geography_bible_atlas_v1",
+                "label": "Pin A"
+              },
+              {
+                "pinLabel": "B",
+                "placeLabel": "Rome",
+                "x": 24,
+                "y": 27.8,
+                "region": "Italy",
+                "correct": true,
+                "mapId": "geography_bible_atlas_v1",
+                "label": "Pin B"
+              },
+              {
+                "pinLabel": "C",
+                "placeLabel": "Damascus",
+                "x": 47.3,
+                "y": 42.2,
+                "region": "Syria",
+                "mapId": "geography_bible_atlas_v1",
+                "label": "Pin C"
+              },
+              {
+                "pinLabel": "D",
+                "placeLabel": "Babylon",
+                "x": 55.3,
+                "y": 43.9,
+                "region": "Mesopotamia",
+                "mapId": "geography_bible_atlas_v1",
+                "label": "Pin D"
+              }
+            ],
+            "explanation": "Rome is west of the eastern Mediterranean world, in Italy.",
+            "correctAnswer": "Rome",
+            "correctLabel": "Rome",
+            "requiresBriefingScreens": [
+              "ROM1_brief_01",
+              "ROM1_brief_02",
+              "ROM1_brief_03",
+              "ROM1_brief_04"
+            ]
+          },
+          {
+            "id": "ROM1_content_clue_01",
+            "policyType": "content_choice",
+            "interactionType": "content_choice",
+            "questionPattern": "content_detail",
+            "questionPurpose": "place identity",
+            "reviewSafe": true,
+            "sourceLabel": "Map",
+            "requiresVisibleEvidence": [
+              "Map"
+            ],
+            "prompt": "Which imperial capital does Paul eventually reach as a prisoner?",
+            "answer": "Rome",
+            "distractors": [
+              "Babylon",
+              "Damascus",
+              "Egypt"
+            ],
+            "explanation": "Rome is the imperial capital Paul eventually reaches as a prisoner.",
+            "requiresBriefingScreens": [
+              "ROM1_brief_01",
+              "ROM1_brief_02",
+              "ROM1_brief_03",
+              "ROM1_brief_04"
+            ]
+          },
+          {
+            "id": "ROM1_identity_cloze_01",
+            "policyType": "cloze_drag",
+            "interactionType": "cloze_drag",
+            "questionPattern": "fill_blank",
+            "questionPurpose": "identity reinforcement",
+            "reviewSafe": true,
+            "sourceLabel": "Map",
+            "requiresVisibleEvidence": [
+              "Map"
+            ],
+            "prompt": "Paul eventually travels as a prisoner to ___.",
+            "answer": "Rome",
+            "wordBank": [
+              "Rome",
+              "Babylon",
+              "Damascus",
+              "Egypt"
+            ],
+            "explanation": "Rome is the political center Paul reaches near the end of Acts.",
+            "requiresBriefingScreens": [
+              "ROM1_brief_01",
+              "ROM1_brief_02",
+              "ROM1_brief_03",
+              "ROM1_brief_04"
+            ]
+          },
+          {
+            "id": "ROM1_relative_location_01",
+            "policyType": "content_choice",
+            "interactionType": "content_choice",
+            "questionPattern": "relative_location",
+            "questionPurpose": "map relationship",
+            "reviewSafe": true,
+            "sourceLabel": "Map",
+            "requiresVisibleEvidence": [
+              "Map"
+            ],
+            "prompt": "Which map relationship helps locate Rome?",
+            "answer": "It is far west across the Mediterranean from the Levant.",
+            "distractors": [
+              "It is east of Babylon.",
+              "It is south of Egypt.",
+              "It is beside the Jordan River."
+            ],
+            "explanation": "Rome is far west of the Levant, across the Mediterranean.",
+            "requiresBriefingScreens": [
+              "ROM1_brief_01",
+              "ROM1_brief_02",
+              "ROM1_brief_03",
+              "ROM1_brief_04"
+            ]
+          },
+          {
+            "id": "ROM1_map_anchor_cloze_02",
+            "policyType": "cloze_drag",
+            "interactionType": "cloze_drag",
+            "questionPattern": "fill_blank",
+            "questionPurpose": "map anchor",
+            "reviewSafe": true,
+            "sourceLabel": "Map",
+            "requiresVisibleEvidence": [
+              "Map"
+            ],
+            "prompt": "Rome sits far west across the ___ from the Levant.",
+            "answer": "Mediterranean",
+            "wordBank": [
+              "Mediterranean",
+              "Jordan River",
+              "Dead Sea",
+              "Nile"
+            ],
+            "explanation": "The Mediterranean Sea separates Rome from the eastern Mediterranean biblical setting.",
+            "requiresBriefingScreens": [
+              "ROM1_brief_01",
+              "ROM1_brief_02",
+              "ROM1_brief_03",
+              "ROM1_brief_04"
+            ]
+          }
+        ],
+        "briefingScreens": [
+          {
+            "id": "ROM1_brief_01",
+            "lines": [
+              "Rome is far west of the eastern Mediterranean setting."
+            ],
+            "sourceLabel": "Context",
+            "requiresVisibleEvidence": [
+              "Context"
+            ]
+          },
+          {
+            "id": "ROM1_brief_02",
+            "lines": [
+              "It represents imperial power in the New Testament world."
+            ],
+            "sourceLabel": "Context",
+            "requiresVisibleEvidence": [
+              "Context"
+            ]
+          },
+          {
+            "id": "ROM1_brief_03",
+            "lines": [
+              "On the overview map, it sits across the Mediterranean from the Levant."
+            ],
+            "sourceLabel": "Context",
+            "requiresVisibleEvidence": [
+              "Context"
+            ]
+          },
+          {
+            "id": "ROM1_brief_04",
+            "lines": [],
+            "mapPanel": {
+              "type": "location_context",
+              "mapId": "geography_bible_atlas_v1",
+              "useCardLocation": true,
+              "placeLabels": [
+                "Rome",
+                "Egypt",
+                "Damascus"
+              ],
+              "landmarkLabels": [
+                "Mediterranean Sea"
+              ],
+              "crop": {
+                "minSize": 12.8,
+                "padding": 2.2
+              }
+            }
+          }
+        ]
+      }
+    }
+  },
+  "sourceTranslation": "",
+  "createdForDeckUidPolicy": "cardUid"
+}

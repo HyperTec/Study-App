@@ -1,0 +1,4281 @@
+{
+  "title": "Atrocities Guided Stage 1 Sidecar v1",
+  "schemaVersion": 1,
+  "sidecarType": "guidedLearningOverlay",
+  "deckName": "Biblical Atrocities",
+  "deckCategory": "atrocities",
+  "cardKey": "uid",
+  "sourceDeckName": "Biblical Atrocities",
+  "sourceTranslation": "WEBu",
+  "createdForDeckUidPolicy": "cardUid",
+  "purpose": "Runtime overlay for Atrocities Stage 1 Learn, Practice, Challenge content checks, and sparse event-structure boards. Keeps Guided content separate from the deck JSON.",
+  "sourceDeck": "Biblical_Atrocities_v52_card_links_cleanup_batch3_applied.json",
+  "cleanDeck": "Biblical_Atrocities_v52_card_links_cleanup_batch3_applied.json",
+  "reviewedAt": "2026-05-09",
+  "createdAt": "2026-04-29T13:58:26.493Z",
+  "counts": {
+    "cards": 16,
+    "questions": 128,
+    "briefingScreens": 64,
+    "eventStructures": 16,
+    "interactionCounts": {
+      "content_choice": 48,
+      "cloze_drag": 32,
+      "sequence_order": 16,
+      "odd_one_out": 16,
+      "scholar_note_choice": 16
+    },
+    "policyTypeCounts": {
+      "passage_reference": 16,
+      "content_choice": 32,
+      "cloze_drag": 32,
+      "sequence_order": 16,
+      "odd_one_out": 16,
+      "scholar_note_choice": 16
+    },
+    "usableQuestions": 144
+  },
+  "cards": {
+    "BA1K": {
+      "cardUid": "BA1K",
+      "titleHint": "The Global Flood",
+      "deckAnswer": "Genesis 6-9",
+      "sourceReference": "Genesis 6-9",
+      "stage": 1,
+      "guidedLearning": {
+        "briefingScreens": [
+          {
+            "id": "BA1K_brief_01",
+            "lines": [
+              "God sees that human wickedness has spread across the earth and that the earth is filled with violence.",
+              "God regrets having made living creatures and decides to wipe them from the land."
+            ],
+            "sourceLabel": "Bible Excerpt",
+            "requiresVisibleEvidence": [
+              "Bible Excerpt",
+              "Context"
+            ]
+          },
+          {
+            "id": "BA1K_brief_02",
+            "lines": [
+              "Noah is found righteous, so God tells him to build an ark for his family and a set of every animal.",
+              "Rain falls for forty days and forty nights, the waters rise over the earth, and the ark is lifted above the destruction below."
+            ],
+            "sourceLabel": "Bible Excerpt",
+            "requiresVisibleEvidence": [
+              "Bible Excerpt"
+            ]
+          },
+          {
+            "id": "BA1K_brief_03",
+            "lines": [
+              "The waters cover even the mountains, and every living thing on dry land outside the ark dies.",
+              "After the floodwaters recede, Noah, his family, and the animals leave the ark, and God promises never again to destroy all living creatures this way."
+            ],
+            "sourceLabel": "Bible Excerpt",
+            "requiresVisibleEvidence": [
+              "Bible Excerpt"
+            ]
+          },
+          {
+            "id": "BA1K_brief_04",
+            "lines": [
+              "The story says the flood comes because the earth is corrupt and violent.",
+              "But the punishment falls on nearly everyone and everything.",
+              "Children, ordinary people, and animals are wiped out along with the violent, while only one family survives."
+            ],
+            "sourceLabel": "Critical notes",
+            "requiresVisibleEvidence": [
+              "Bible Excerpt",
+              "Critical notes"
+            ]
+          }
+        ],
+        "eventStructure": {
+          "authority": "the LORD",
+          "action": "destroys nearly all life with a flood",
+          "target": "humans, animals, creeping things, and birds outside the ship",
+          "reason": "the LORD is sorry that he made them amid violence and corruption",
+          "moralProblem": "as collective judgment, nearly all human and animal life is destroyed",
+          "explanation": "The flood story ties divine regret and world corruption to total destruction, with Noah and those in the ship as the exception."
+        },
+        "questions": [
+          {
+            "id": "BA1K_bank_reference_01",
+            "interactionType": "content_choice",
+            "policyType": "passage_reference",
+            "learnPatternId": "reference_anchor",
+            "questionPattern": "reference_anchor",
+            "prompt": "Which passage is this?\n__**The Global Flood**__ The global flood that destroys nearly all humanity and life on earth, sparing only one righteous family and the animals on their ark.",
+            "sourceLabel": "Bible Excerpt",
+            "requiresVisibleEvidence": [
+              "Bible Excerpt"
+            ],
+            "requiresBriefingScreens": [
+              "BA1K_brief_01",
+              "BA1K_brief_02",
+              "BA1K_brief_03",
+              "BA1K_brief_04"
+            ],
+            "questionPurpose": "passage_reference",
+            "reviewSafe": true,
+            "answer": "Genesis 6-9",
+            "distractors": [
+              "Genesis 19:12-29",
+              "Genesis 34",
+              "Exodus 12:29-30"
+            ],
+            "explanation": "The correct passage is Genesis 6-9."
+          },
+          {
+            "id": "BA1K_learn_cause_01",
+            "interactionType": "content_choice",
+            "learnPatternId": "content_detail",
+            "questionPattern": "content detail choice",
+            "prompt": "What condition fills the earth before the flood?",
+            "sourceLabel": "Bible Excerpt",
+            "requiresVisibleEvidence": [
+              "Bible Excerpt",
+              "Context"
+            ],
+            "requiresBriefingScreens": [
+              "BA1K_brief_01"
+            ],
+            "questionPurpose": "content_detail",
+            "answer": "Human wickedness spreads and the earth is filled with violence.",
+            "distractors": [
+              "Famine and drought spread across the earth.",
+              "Disease and decay spread across the earth.",
+              "Peace and righteousness fill the earth."
+            ],
+            "explanation": "The opening problem is widespread human wickedness and violence across the earth."
+          },
+          {
+            "id": "BA1K_learn_regret_cloze_02",
+            "interactionType": "cloze_drag",
+            "learnPatternId": "fill_blank",
+            "questionPattern": "fill blank",
+            "prompt": "God regrets having made living creatures and decides to ___.",
+            "sourceLabel": "Bible Excerpt",
+            "requiresVisibleEvidence": [
+              "Bible Excerpt"
+            ],
+            "requiresBriefingScreens": [
+              "BA1K_brief_01"
+            ],
+            "questionPurpose": "fill_blank",
+            "answer": "wipe them from the land",
+            "wordBank": [
+              "wipe them from the land",
+              "scatter them across the land",
+              "warn them through Noah",
+              "spare them from destruction"
+            ],
+            "explanation": "The story says God decides to wipe living creatures from the land."
+          },
+          {
+            "id": "BA1K_bank_ark_cloze_01",
+            "interactionType": "cloze_drag",
+            "learnPatternId": "fill_blank",
+            "questionPattern": "fill blank",
+            "prompt": "God tells Noah to build ___ for his family and animals.",
+            "sourceLabel": "Bible Excerpt",
+            "requiresVisibleEvidence": [
+              "Bible Excerpt"
+            ],
+            "requiresBriefingScreens": [
+              "BA1K_brief_02"
+            ],
+            "questionPurpose": "fill_blank",
+            "reviewSafe": true,
+            "answer": "an ark",
+            "wordBank": [
+              "an ark",
+              "an altar",
+              "a tower",
+              "a city"
+            ],
+            "explanation": "Noah is told to build an ark for his family and animals."
+          },
+          {
+            "id": "BA1K_practice_sequence_01",
+            "interactionType": "sequence_order",
+            "learnPatternId": "sequence_step",
+            "questionPattern": "sequence order",
+            "prompt": "Place the Global Flood events in order.",
+            "sourceLabel": "Bible Excerpt",
+            "requiresVisibleEvidence": [
+              "Bible Excerpt"
+            ],
+            "requiresBriefingScreens": [
+              "BA1K_brief_01",
+              "BA1K_brief_02",
+              "BA1K_brief_03"
+            ],
+            "questionPurpose": "sequence_order",
+            "correctOrder": [
+              "God sees widespread wickedness and violence.",
+              "Noah is told to build an ark for his family and animals.",
+              "Rain falls for forty days and the waters lift the ark.",
+              "Living things on dry land outside the ark die."
+            ],
+            "explanation": "The story moves from the reason for judgment to the ark, the flood, and the death of life outside the ark."
+          },
+          {
+            "id": "BA1K_practice_odd_02",
+            "interactionType": "odd_one_out",
+            "learnPatternId": "odd_one_out",
+            "questionPattern": "odd one out",
+            "prompt": "Which detail does not fit the Global Flood account?",
+            "sourceLabel": "Bible Excerpt",
+            "requiresVisibleEvidence": [
+              "Bible Excerpt"
+            ],
+            "requiresBriefingScreens": [
+              "BA1K_brief_02",
+              "BA1K_brief_03",
+              "BA1K_brief_04"
+            ],
+            "questionPurpose": "odd_one_out",
+            "answer": "The animals are blamed for the earth's violence.",
+            "fittingItems": [
+              "Noah is found righteous.",
+              "Rain falls for forty days and forty nights.",
+              "The waters cover even the mountains.",
+              "God promises not to destroy all living creatures this way again."
+            ],
+            "explanation": "This keeps the cause and the casualties separate: humans are named as violent, while animals are caught in the destruction."
+          },
+          {
+            "id": "BA1K_challenge_scope_01",
+            "interactionType": "content_choice",
+            "learnPatternId": "content_detail",
+            "questionPattern": "content detail choice",
+            "prompt": "Why does the flood judgment remain morally difficult even after violence is named?",
+            "sourceLabel": "Critical notes",
+            "requiresVisibleEvidence": [
+              "Bible Excerpt",
+              "Critical notes"
+            ],
+            "requiresBriefingScreens": [
+              "BA1K_brief_04"
+            ],
+            "questionPurpose": "moral_scope",
+            "answer": "The punishment reaches children, ordinary people, and animals along with the violent.",
+            "distractors": [
+              "Only the people personally named as violent are destroyed.",
+              "Noah's family is destroyed despite being called righteous.",
+              "The animals are judged because they caused the violence."
+            ],
+            "explanation": "The moral difficulty is the scale of judgment: nearly everyone and everything is swept away along with the violent."
+          },
+          {
+            "id": "BA1K_scholar_flood_traditions_01",
+            "interactionType": "scholar_note_choice",
+            "policyType": "scholar_note_choice",
+            "learnPatternId": "scholar_note_choice",
+            "questionPattern": "scholar_bonus_inference",
+            "prompt": "Which interpretive point helps explain why flood traditions are often compared across ancient cultures?",
+            "sourceLabel": "Critical notes",
+            "requiresVisibleEvidence": [
+              "Critical notes",
+              "Context"
+            ],
+            "requiresBriefingScreens": [
+              "BA1K_brief_01",
+              "BA1K_brief_02",
+              "BA1K_brief_04"
+            ],
+            "questionPurpose": "scholar_bonus",
+            "reviewSafe": true,
+            "answer": "Genesis can be read alongside other ancient flood traditions while still making its own claims about violence, judgment, and survival.",
+            "distractors": [
+              "Genesis is best treated as a Roman report about military flooding.",
+              "The flood is mainly a story about Israel escaping from Egypt.",
+              "The point of comparison is that every ancient flood story has the same gods and ending."
+            ],
+            "explanation": "The comparison is about shared flood-tradition patterns, not identical meaning or setting."
+          }
+        ]
+      }
+    },
+    "SG2M": {
+      "cardUid": "SG2M",
+      "titleHint": "Sodom and Gomorrah",
+      "deckAnswer": "Genesis 19:12-29",
+      "sourceReference": "Genesis 19:12-29",
+      "stage": 1,
+      "guidedLearning": {
+        "briefingScreens": [
+          {
+            "id": "SG2M_brief_01",
+            "lines": [
+              "Angelic messengers tell Lot to gather anyone in his household and leave, because the outcry against Sodom has become great.",
+              "They have been sent to destroy the city, and Lot warns his future sons-in-law, but they think he is joking."
+            ],
+            "sourceLabel": "Bible Excerpt",
+            "requiresVisibleEvidence": [
+              "Bible Excerpt"
+            ]
+          },
+          {
+            "id": "SG2M_brief_02",
+            "lines": [
+              "At daybreak, the messengers urge Lot to take his wife and daughters and flee before they are swept away with the city.",
+              "Lot hesitates, so they take his family by the hand and bring them outside.",
+              "They tell them not to look back or stop anywhere in the plain."
+            ],
+            "sourceLabel": "Bible Excerpt",
+            "requiresVisibleEvidence": [
+              "Bible Excerpt"
+            ]
+          },
+          {
+            "id": "SG2M_brief_03",
+            "lines": [
+              "Lot asks to escape to the small nearby city of Zoar instead of the mountains.",
+              "Once he reaches it, sulfur and fire fall from the sky on Sodom and Gomorrah, and the cities and surrounding plain are overthrown."
+            ],
+            "sourceLabel": "Bible Excerpt",
+            "requiresVisibleEvidence": [
+              "Bible Excerpt"
+            ]
+          },
+          {
+            "id": "SG2M_brief_04",
+            "lines": [
+              "The story frames Sodom's destruction as a response to great outcry and wrongdoing.",
+              "But the judgment falls on entire cities and the surrounding plain.",
+              "By the end, only a few people survive, while whole communities, including people whose individual actions are never named, are gone."
+            ],
+            "sourceLabel": "Critical notes",
+            "requiresVisibleEvidence": [
+              "Bible Excerpt",
+              "Critical notes"
+            ]
+          }
+        ],
+        "eventStructure": {
+          "authority": "the LORD, through the angelic visitors",
+          "action": "destroys Sodom and Gomorrah with sulfur and fire",
+          "target": "the cities and their inhabitants, except Lot and those who escape",
+          "reason": "the outcry against the place has grown great before the LORD",
+          "moralProblem": "as city-wide judgment, entire cities are destroyed instead of only individual perpetrators",
+          "explanation": "The structure centers on stated outcry, escape instructions, and city-wide destruction."
+        },
+        "questions": [
+          {
+            "id": "SG2M_bank_reference_01",
+            "interactionType": "content_choice",
+            "policyType": "passage_reference",
+            "learnPatternId": "reference_anchor",
+            "questionPattern": "reference_anchor",
+            "prompt": "Which passage is this?\n__**Sodom and Gomorrah**__ The sudden fiery destruction of two entire cities as divine judgment for their wickedness.",
+            "sourceLabel": "Bible Excerpt",
+            "requiresVisibleEvidence": [
+              "Bible Excerpt"
+            ],
+            "requiresBriefingScreens": [
+              "SG2M_brief_01",
+              "SG2M_brief_02",
+              "SG2M_brief_03",
+              "SG2M_brief_04"
+            ],
+            "questionPurpose": "passage_reference",
+            "reviewSafe": true,
+            "answer": "Genesis 19:12-29",
+            "distractors": [
+              "Genesis 6-9",
+              "Genesis 34",
+              "Exodus 12:29-30"
+            ],
+            "explanation": "The correct passage is Genesis 19:12-29."
+          },
+          {
+            "id": "SG2M_learn_escape_instruction_01",
+            "interactionType": "content_choice",
+            "learnPatternId": "content_detail",
+            "questionPattern": "content detail choice",
+            "prompt": "What are Lot and his family told after they are brought outside Sodom?",
+            "sourceLabel": "Bible Excerpt",
+            "requiresVisibleEvidence": [
+              "Bible Excerpt"
+            ],
+            "requiresBriefingScreens": [
+              "SG2M_brief_02"
+            ],
+            "questionPurpose": "content_detail",
+            "answer": "Do not look back or stop anywhere in the plain.",
+            "distractors": [
+              "Return to warn the city leaders.",
+              "Wait in the plain until morning.",
+              "Carry the city's valuables to Zoar."
+            ],
+            "explanation": "The escape command emphasizes urgency: survival depends on leaving the doomed plain, not negotiating with the city or waiting there."
+          },
+          {
+            "id": "SG2M_learn_fire_cloze_02",
+            "interactionType": "cloze_drag",
+            "learnPatternId": "fill_blank",
+            "questionPattern": "fill blank",
+            "prompt": "Once Lot reaches Zoar, ___ fall from the sky on Sodom and Gomorrah.",
+            "sourceLabel": "Bible Excerpt",
+            "requiresVisibleEvidence": [
+              "Bible Excerpt"
+            ],
+            "requiresBriefingScreens": [
+              "SG2M_brief_03"
+            ],
+            "questionPurpose": "fill_blank",
+            "answer": "sulfur and fire",
+            "wordBank": [
+              "sulfur and fire",
+              "rain and hail",
+              "ashes and embers",
+              "stones and sparks"
+            ],
+            "explanation": "The destruction begins after Lot reaches Zoar, when sulfur and fire fall from the sky."
+          },
+          {
+            "id": "SG2M_bank_zoar_cloze_01",
+            "interactionType": "cloze_drag",
+            "learnPatternId": "fill_blank",
+            "questionPattern": "fill blank",
+            "prompt": "Lot asks to escape to the small nearby city of ___.",
+            "sourceLabel": "Bible Excerpt",
+            "requiresVisibleEvidence": [
+              "Bible Excerpt"
+            ],
+            "requiresBriefingScreens": [
+              "SG2M_brief_03"
+            ],
+            "questionPurpose": "fill_blank",
+            "reviewSafe": true,
+            "answer": "Zoar",
+            "wordBank": [
+              "Zoar",
+              "Hebron",
+              "Bethel",
+              "Jericho"
+            ],
+            "explanation": "Lot asks to escape to Zoar before Sodom and Gomorrah are destroyed."
+          },
+          {
+            "id": "SG2M_practice_escape_sequence_01",
+            "interactionType": "sequence_order",
+            "learnPatternId": "sequence_step",
+            "questionPattern": "sequence order",
+            "prompt": "Place the Sodom escape events in order.",
+            "sourceLabel": "Bible Excerpt",
+            "requiresVisibleEvidence": [
+              "Bible Excerpt"
+            ],
+            "requiresBriefingScreens": [
+              "SG2M_brief_01",
+              "SG2M_brief_02",
+              "SG2M_brief_03"
+            ],
+            "questionPurpose": "sequence_order",
+            "correctOrder": [
+              "Angelic messengers tell Lot to gather his household and leave.",
+              "Lot warns his future sons-in-law, but they think he is joking.",
+              "The messengers bring Lot's family outside at daybreak.",
+              "Lot reaches Zoar before sulfur and fire fall."
+            ],
+            "explanation": "The escape begins with the warning, moves through Lot warning his future sons-in-law, then the daybreak rescue, then Zoar."
+          },
+          {
+            "id": "SG2M_practice_odd_02",
+            "interactionType": "odd_one_out",
+            "learnPatternId": "odd_one_out",
+            "questionPattern": "odd one out",
+            "prompt": "Which detail does not fit the Sodom escape?",
+            "sourceLabel": "Bible Excerpt",
+            "requiresVisibleEvidence": [
+              "Bible Excerpt"
+            ],
+            "requiresBriefingScreens": [
+              "SG2M_brief_01",
+              "SG2M_brief_02",
+              "SG2M_brief_03"
+            ],
+            "questionPurpose": "odd_one_out",
+            "answer": "Lot's future sons-in-law hurry out with the family.",
+            "fittingItems": [
+              "The outcry against Sodom has become great.",
+              "Lot warns his future sons-in-law.",
+              "Lot hesitates before leaving.",
+              "The cities and surrounding plain are overthrown."
+            ],
+            "explanation": "Lot's future sons-in-law think he is joking rather than leaving with the family."
+          },
+          {
+            "id": "SG2M_challenge_scope_01",
+            "interactionType": "content_choice",
+            "learnPatternId": "content_detail",
+            "questionPattern": "content detail choice",
+            "prompt": "What makes the destruction of Sodom and Gomorrah broader than punishment of named wrongdoers?",
+            "sourceLabel": "Critical notes",
+            "requiresVisibleEvidence": [
+              "Bible Excerpt",
+              "Critical notes"
+            ],
+            "requiresBriefingScreens": [
+              "SG2M_brief_04"
+            ],
+            "questionPurpose": "moral_scope",
+            "answer": "The judgment falls on entire cities and the surrounding plain, including people whose individual actions are never named.",
+            "distractors": [
+              "Only the messengers are harmed.",
+              "Only Lot's future sons-in-law are judged for joking.",
+              "Only people who personally attack Lot are destroyed."
+            ],
+            "explanation": "The moral problem is the city-wide and regional scale of the judgment, not only punishment of individually named wrongdoers."
+          },
+          {
+            "id": "SG2M_scholar_whole_city_scope_01",
+            "interactionType": "scholar_note_choice",
+            "policyType": "scholar_note_choice",
+            "learnPatternId": "scholar_note_choice",
+            "questionPattern": "scholar_bonus_inference",
+            "prompt": "Which interpretive point best frames Sodom's destruction beyond the escape sequence?",
+            "sourceLabel": "Critical notes",
+            "requiresVisibleEvidence": [
+              "Critical notes",
+              "Context"
+            ],
+            "requiresBriefingScreens": [
+              "SG2M_brief_01",
+              "SG2M_brief_03",
+              "SG2M_brief_04"
+            ],
+            "questionPurpose": "scholar_bonus",
+            "reviewSafe": true,
+            "answer": "The story links outcry and wrongdoing to a judgment that overtakes whole communities, not only named offenders.",
+            "distractors": [
+              "The story treats Zoar as the main city destroyed.",
+              "The main problem is that Lot reaches the mountains too early.",
+              "The destruction is limited to the men who surround Lot's house."
+            ],
+            "explanation": "The difficulty is the scale of judgment: cities and the surrounding plain are overthrown, while only a few escape."
+          }
+        ]
+      }
+    },
+    "FP3Z": {
+      "cardUid": "FP3Z",
+      "titleHint": "The Tenth Plague",
+      "deckAnswer": "Exodus 12:29-30",
+      "sourceReference": "Exodus 12:29-30",
+      "stage": 1,
+      "guidedLearning": {
+        "briefingScreens": [
+          {
+            "id": "FP3Z_brief_01",
+            "lines": [
+              "After the earlier plagues, Pharaoh still refuses to release Israel from slavery.",
+              "God tells Moses that one final plague will come, and afterward Pharaoh will drive the Israelites out of Egypt."
+            ],
+            "sourceLabel": "Bible Excerpt",
+            "requiresVisibleEvidence": [
+              "Bible Excerpt"
+            ]
+          },
+          {
+            "id": "FP3Z_brief_02",
+            "lines": [
+              "Moses warns Pharaoh that at midnight, death will pass through Egypt.",
+              "The firstborn will die across the land, from Pharaoh's own household to the lowest captive in the dungeon, and even the firstborn of the livestock will be struck."
+            ],
+            "sourceLabel": "Bible Excerpt",
+            "requiresVisibleEvidence": [
+              "Bible Excerpt"
+            ]
+          },
+          {
+            "id": "FP3Z_brief_03",
+            "lines": [
+              "That night, the plague hits Egypt just as Moses said.",
+              "A great cry rises from the land because death has entered house after house, and Pharaoh finally calls Moses and Aaron and tells the Israelites to leave."
+            ],
+            "sourceLabel": "Bible Excerpt",
+            "requiresVisibleEvidence": [
+              "Bible Excerpt"
+            ]
+          },
+          {
+            "id": "FP3Z_brief_04",
+            "lines": [
+              "The plague is aimed at Pharaoh's refusal to release Israel, but the punishment lands far beyond Pharaoh himself.",
+              "God makes firstborn children, captives, ordinary families, and animals pay the price for a ruler's decision."
+            ],
+            "sourceLabel": "Critical notes",
+            "requiresVisibleEvidence": [
+              "Bible Excerpt",
+              "Critical notes"
+            ]
+          }
+        ],
+        "eventStructure": {
+          "authority": "the LORD",
+          "action": "strikes all the firstborn in Egypt at midnight",
+          "target": "firstborn children, captives, Pharaoh’s household, and livestock",
+          "reason": "the plague forces the release of Israel after Pharaoh’s refusal",
+          "moralProblem": "as leverage against Pharaoh, firstborn children and animals die",
+          "explanation": "The account highlights the scope of the final plague, not only the fact that it is the tenth plague."
+        },
+        "questions": [
+          {
+            "id": "FP3Z_bank_reference_01",
+            "interactionType": "content_choice",
+            "policyType": "passage_reference",
+            "learnPatternId": "reference_anchor",
+            "questionPattern": "reference_anchor",
+            "prompt": "Which passage is this?\n__**The Tenth Plague**__ Every firstborn human and livestock animal in Egypt dies in a single night as the final plague.",
+            "sourceLabel": "Bible Excerpt",
+            "requiresVisibleEvidence": [
+              "Bible Excerpt"
+            ],
+            "requiresBriefingScreens": [
+              "FP3Z_brief_01",
+              "FP3Z_brief_02",
+              "FP3Z_brief_03",
+              "FP3Z_brief_04"
+            ],
+            "questionPurpose": "passage_reference",
+            "reviewSafe": true,
+            "answer": "Exodus 12:29-30",
+            "distractors": [
+              "Exodus 11:4-6",
+              "Exodus 32:25-29",
+              "2 Kings 19:35"
+            ],
+            "explanation": "The correct passage is Exodus 12:29-30."
+          },
+          {
+            "id": "FP3Z_learn_cause_01",
+            "interactionType": "content_choice",
+            "learnPatternId": "content_detail",
+            "questionPattern": "content detail choice",
+            "prompt": "Why does the Tenth Plague come?",
+            "sourceLabel": "Bible Excerpt",
+            "requiresVisibleEvidence": [
+              "Bible Excerpt"
+            ],
+            "requiresBriefingScreens": [
+              "FP3Z_brief_01"
+            ],
+            "questionPurpose": "content_detail",
+            "answer": "Pharaoh still refuses to release Israel from slavery.",
+            "distractors": [
+              "Moses refuses to warn Pharaoh.",
+              "The Israelites refuse to leave Egypt after being released.",
+              "The captives in the dungeon rebel against Pharaoh."
+            ],
+            "explanation": "The cause is Pharaoh's continued refusal, while the harm lands across Egyptian households rather than on Pharaoh alone."
+          },
+          {
+            "id": "FP3Z_learn_midnight_cloze_02",
+            "interactionType": "cloze_drag",
+            "learnPatternId": "fill_blank",
+            "questionPattern": "fill blank",
+            "prompt": "Moses warns Pharaoh that at ___, death will pass through Egypt.",
+            "sourceLabel": "Bible Excerpt",
+            "requiresVisibleEvidence": [
+              "Bible Excerpt"
+            ],
+            "requiresBriefingScreens": [
+              "FP3Z_brief_02"
+            ],
+            "questionPurpose": "fill_blank",
+            "answer": "midnight",
+            "wordBank": [
+              "midnight",
+              "daybreak",
+              "harvest",
+              "sunset"
+            ],
+            "explanation": "Moses warns that death will pass through Egypt at midnight."
+          },
+          {
+            "id": "FP3Z_practice_sequence_01",
+            "interactionType": "sequence_order",
+            "learnPatternId": "sequence_step",
+            "questionPattern": "sequence order",
+            "prompt": "Place the Tenth Plague events in order.",
+            "sourceLabel": "Bible Excerpt",
+            "requiresVisibleEvidence": [
+              "Bible Excerpt"
+            ],
+            "requiresBriefingScreens": [
+              "FP3Z_brief_01",
+              "FP3Z_brief_02",
+              "FP3Z_brief_03"
+            ],
+            "questionPurpose": "sequence_order",
+            "correctOrder": [
+              "Pharaoh still refuses to release Israel after earlier plagues.",
+              "Moses warns that death will pass through Egypt at midnight.",
+              "Death enters house after house and a great cry rises.",
+              "Pharaoh calls Moses and Aaron and tells the Israelites to leave."
+            ],
+            "explanation": "The sequence moves from Pharaoh refusing release to Moses warning, death across Egypt, and Pharaoh finally telling Israel to leave."
+          },
+          {
+            "id": "FP3Z_practice_odd_02",
+            "interactionType": "odd_one_out",
+            "learnPatternId": "odd_one_out",
+            "questionPattern": "odd one out",
+            "prompt": "Which detail does not fit the Tenth Plague?",
+            "sourceLabel": "Bible Excerpt",
+            "requiresVisibleEvidence": [
+              "Bible Excerpt"
+            ],
+            "requiresBriefingScreens": [
+              "FP3Z_brief_02",
+              "FP3Z_brief_03"
+            ],
+            "questionPurpose": "odd_one_out",
+            "answer": "Only Pharaoh's own household is struck.",
+            "fittingItems": [
+              "The firstborn die across the land.",
+              "The lowest captive in the dungeon is included.",
+              "The firstborn of the livestock are struck.",
+              "A great cry rises from Egypt."
+            ],
+            "explanation": "The plague reaches far beyond Pharaoh's own household."
+          },
+          {
+            "id": "FP3Z_challenge_scope_01",
+            "interactionType": "content_choice",
+            "learnPatternId": "content_detail",
+            "questionPattern": "content detail choice",
+            "prompt": "Which detail shows the Tenth Plague reaches beyond Pharaoh himself?",
+            "sourceLabel": "Critical notes",
+            "requiresVisibleEvidence": [
+              "Bible Excerpt",
+              "Critical notes"
+            ],
+            "requiresBriefingScreens": [
+              "FP3Z_brief_04"
+            ],
+            "questionPurpose": "moral_scope",
+            "answer": "Firstborn die across the land, from Pharaoh's household to captives in the dungeon and livestock.",
+            "distractors": [
+              "Only Pharaoh dies for his own refusal.",
+              "Only soldiers who enforce slavery are struck.",
+              "Only Pharaoh's palace household is affected."
+            ],
+            "explanation": "The plague reaches beyond Pharaoh because the deaths extend across Egypt, including captives and livestock."
+          },
+          {
+            "id": "FP3Z_challenge_livestock_cloze_02",
+            "interactionType": "cloze_drag",
+            "learnPatternId": "fill_blank",
+            "questionPattern": "fill blank",
+            "prompt": "The plague reaches from Pharaoh's household to captives, ordinary families, and ___.",
+            "sourceLabel": "Critical notes",
+            "requiresVisibleEvidence": [
+              "Bible Excerpt",
+              "Critical notes"
+            ],
+            "requiresBriefingScreens": [
+              "FP3Z_brief_02",
+              "FP3Z_brief_04"
+            ],
+            "questionPurpose": "fill_blank",
+            "answer": "livestock",
+            "wordBank": [
+              "livestock",
+              "temple vessels",
+              "palace guards",
+              "battle chariots"
+            ],
+            "explanation": "The plague reaches beyond Pharaoh's household to captives, ordinary families, and livestock."
+          },
+          {
+            "id": "FP3Z_scholar_pharaoh_pressure_01",
+            "interactionType": "scholar_note_choice",
+            "policyType": "scholar_note_choice",
+            "learnPatternId": "scholar_note_choice",
+            "questionPattern": "scholar_bonus_inference",
+            "prompt": "Which interpretive point makes the Tenth Plague especially difficult as moral judgment?",
+            "sourceLabel": "Critical notes",
+            "requiresVisibleEvidence": [
+              "Critical notes",
+              "Context"
+            ],
+            "requiresBriefingScreens": [
+              "FP3Z_brief_01",
+              "FP3Z_brief_02",
+              "FP3Z_brief_04"
+            ],
+            "questionPurpose": "scholar_bonus",
+            "reviewSafe": true,
+            "answer": "Pressure on Pharaoh is carried through deaths across households, captives, ordinary families, and livestock.",
+            "distractors": [
+              "Only Pharaoh personally suffers the plague.",
+              "The plague is difficult because Israel refuses to leave Egypt.",
+              "The judgment is limited to soldiers who enforce slavery."
+            ],
+            "explanation": "The moral tension comes from the way pressure against Pharaoh falls across a much wider population."
+          }
+        ]
+      }
+    },
+    "JC7T": {
+      "cardUid": "JC7T",
+      "titleHint": "Jericho's Fall",
+      "deckAnswer": "Joshua 6",
+      "sourceReference": "Joshua 6",
+      "stage": 1,
+      "guidedLearning": {
+        "briefingScreens": [
+          {
+            "id": "JC7T_brief_01",
+            "lines": [
+              "After days of marching around Jericho, the people shout and the priests blow the trumpets.",
+              "When the sound rises, the wall falls flat and the army goes straight into the city."
+            ],
+            "sourceLabel": "Bible Excerpt",
+            "requiresVisibleEvidence": [
+              "Bible Excerpt",
+              "Context"
+            ]
+          },
+          {
+            "id": "JC7T_brief_02",
+            "lines": [
+              "Inside Jericho, the destruction is not limited to fighters.",
+              "Men and women, young and old, and **ox, sheep, and donkey** are struck with the sword."
+            ],
+            "sourceLabel": "Bible Excerpt",
+            "requiresVisibleEvidence": [
+              "Bible Excerpt"
+            ]
+          },
+          {
+            "id": "JC7T_brief_03",
+            "lines": [
+              "Rahab's household is spared because she had helped the spies.",
+              "Everything else in the city is burned, while the silver, gold, bronze, and iron are kept for the LORD's treasury."
+            ],
+            "sourceLabel": "Bible Excerpt",
+            "requiresVisibleEvidence": [
+              "Bible Excerpt",
+              "Context"
+            ]
+          },
+          {
+            "id": "JC7T_brief_04",
+            "lines": [
+              "The story treats the city's destruction as holy obedience, but the killing reaches civilians and animals.",
+              "Sparing one household does not remove the moral weight of destroying everyone else."
+            ],
+            "sourceLabel": "Critical notes",
+            "requiresVisibleEvidence": [
+              "Bible Excerpt",
+              "Critical notes"
+            ]
+          }
+        ],
+        "eventStructure": {
+          "authority": "Joshua's conquest command under the LORD's war ban",
+          "action": "takes Jericho, destroys its inhabitants, and burns the city",
+          "target": "men, women, young, old, and ox, sheep, and donkey inside Jericho",
+          "reason": "Jericho is treated as devoted to destruction after the walls fall",
+          "moralProblem": "as holy war destruction, men, women, young, old, and animals are destroyed",
+          "explanation": "The account connects the ritual march, the wall collapse, total destruction, and Rahab's exception."
+        },
+        "questions": [
+          {
+            "id": "JC7T_bank_reference_01",
+            "interactionType": "content_choice",
+            "policyType": "passage_reference",
+            "learnPatternId": "reference_anchor",
+            "questionPattern": "reference_anchor",
+            "prompt": "Which passage is this?\n__**Jericho's Fall**__ Jericho's inhabitants, except Rahab's household, are put to the sword after the walls miraculously collapse.",
+            "sourceLabel": "Bible Excerpt",
+            "requiresVisibleEvidence": [
+              "Bible Excerpt"
+            ],
+            "requiresBriefingScreens": [
+              "JC7T_brief_01",
+              "JC7T_brief_02",
+              "JC7T_brief_03",
+              "JC7T_brief_04"
+            ],
+            "questionPurpose": "passage_reference",
+            "reviewSafe": true,
+            "answer": "Joshua 6",
+            "distractors": [
+              "Joshua 2",
+              "Joshua 3-4",
+              "Joshua 7-8"
+            ],
+            "explanation": "The correct passage is Joshua 6."
+          },
+          {
+            "id": "JC7T_learn_wall_01",
+            "interactionType": "content_choice",
+            "learnPatternId": "content_detail",
+            "questionPattern": "content detail choice",
+            "prompt": "What happens when the people shout and the priests blow the trumpets at Jericho?",
+            "sourceLabel": "Bible Excerpt",
+            "requiresVisibleEvidence": [
+              "Bible Excerpt"
+            ],
+            "requiresBriefingScreens": [
+              "JC7T_brief_01"
+            ],
+            "questionPurpose": "content_detail",
+            "answer": "Jericho's wall falls flat and the army goes straight into the city.",
+            "distractors": [
+              "Rahab is sent out to negotiate before the wall moves.",
+              "The army leaves because the city opens its gates peacefully.",
+              "The wall stays standing while the city is spared."
+            ],
+            "explanation": "The shout and trumpets are followed by Jericho's wall falling flat and the army entering the city."
+          },
+          {
+            "id": "JC7T_learn_sword_cloze_02",
+            "interactionType": "cloze_drag",
+            "learnPatternId": "fill_blank",
+            "questionPattern": "fill blank",
+            "prompt": "Men and women, young and old, and livestock are struck with the ___.",
+            "sourceLabel": "Bible Excerpt",
+            "requiresVisibleEvidence": [
+              "Bible Excerpt"
+            ],
+            "requiresBriefingScreens": [
+              "JC7T_brief_02"
+            ],
+            "questionPurpose": "fill_blank",
+            "answer": "sword",
+            "wordBank": [
+              "sword",
+              "trumpet",
+              "spear",
+              "staff"
+            ],
+            "explanation": "The destruction includes men and women, young and old, and livestock being struck with the sword."
+          },
+          {
+            "id": "JC7T_bank_rahab_spared_cloze_01",
+            "interactionType": "cloze_drag",
+            "learnPatternId": "fill_blank",
+            "questionPattern": "fill blank",
+            "prompt": "Rahab's household is ___ while the rest of Jericho is destroyed.",
+            "sourceLabel": "Bible Excerpt",
+            "requiresVisibleEvidence": [
+              "Bible Excerpt"
+            ],
+            "requiresBriefingScreens": [
+              "JC7T_brief_03"
+            ],
+            "questionPurpose": "fill_blank",
+            "reviewSafe": true,
+            "answer": "spared",
+            "wordBank": [
+              "spared",
+              "exiled",
+              "armed",
+              "crowned"
+            ],
+            "explanation": "Rahab's household is spared as an exception while Jericho is destroyed."
+          },
+          {
+            "id": "JC7T_practice_sequence_01",
+            "interactionType": "sequence_order",
+            "learnPatternId": "sequence_step",
+            "questionPattern": "sequence order",
+            "prompt": "Place Jericho's fall in order.",
+            "sourceLabel": "Bible Excerpt",
+            "requiresVisibleEvidence": [
+              "Bible Excerpt"
+            ],
+            "requiresBriefingScreens": [
+              "JC7T_brief_01",
+              "JC7T_brief_02",
+              "JC7T_brief_03"
+            ],
+            "questionPurpose": "sequence_order",
+            "correctOrder": [
+              "The people shout and the priests blow the trumpets.",
+              "Jericho's wall falls flat.",
+              "Men, women, young, old, and livestock are struck with the sword.",
+              "Rahab's household is spared while the city is burned."
+            ],
+            "explanation": "The sequence moves from the trumpet signal to the wall collapse, destruction inside the city, and Rahab as the exception."
+          },
+          {
+            "id": "JC7T_practice_odd_02",
+            "interactionType": "odd_one_out",
+            "learnPatternId": "odd_one_out",
+            "questionPattern": "odd one out",
+            "prompt": "Which target does not belong among those struck in Jericho?",
+            "sourceLabel": "Bible Excerpt",
+            "requiresVisibleEvidence": [
+              "Bible Excerpt"
+            ],
+            "requiresBriefingScreens": [
+              "JC7T_brief_02",
+              "JC7T_brief_03"
+            ],
+            "questionPurpose": "odd_one_out",
+            "answer": "Rahab's household.",
+            "fittingItems": [
+              "Men and women.",
+              "Young and old.",
+              "Ox, sheep, and donkey."
+            ],
+            "explanation": "Rahab's household is the exception that is spared."
+          },
+          {
+            "id": "JC7T_challenge_exception_01",
+            "interactionType": "content_choice",
+            "learnPatternId": "content_detail",
+            "questionPattern": "content detail choice",
+            "prompt": "Which detail shows Rahab's rescue is an exception, not the pattern of Jericho's fall?",
+            "sourceLabel": "Critical notes",
+            "requiresVisibleEvidence": [
+              "Bible Excerpt",
+              "Critical notes"
+            ],
+            "requiresBriefingScreens": [
+              "JC7T_brief_03",
+              "JC7T_brief_04"
+            ],
+            "questionPurpose": "moral_inference",
+            "answer": "Her household is spared while the rest of the city is destroyed and burned.",
+            "distractors": [
+              "Everyone in Jericho is spared after the wall falls.",
+              "Only soldiers are struck while families remain safe.",
+              "The city is rebuilt before the army enters."
+            ],
+            "explanation": "Rahab's rescue matters because it stands against the wider destruction of the city."
+          },
+          {
+            "id": "JC7T_scholar_rahab_exception_01",
+            "interactionType": "scholar_note_choice",
+            "policyType": "scholar_note_choice",
+            "learnPatternId": "scholar_note_choice",
+            "questionPattern": "scholar_bonus_inference",
+            "prompt": "Which interpretive point best explains why Rahab's rescue does not resolve the problem of Jericho's fall?",
+            "sourceLabel": "Critical notes",
+            "requiresVisibleEvidence": [
+              "Critical notes",
+              "Context"
+            ],
+            "requiresBriefingScreens": [
+              "JC7T_brief_02",
+              "JC7T_brief_03",
+              "JC7T_brief_04"
+            ],
+            "questionPurpose": "scholar_bonus",
+            "reviewSafe": true,
+            "answer": "Her household is spared as an exception while the wider destruction still includes civilians and animals.",
+            "distractors": [
+              "Rahab's rescue means no one else in Jericho is harmed.",
+              "The walls fall before Israel enters, so the city is empty.",
+              "The story criticizes Rahab for helping the spies."
+            ],
+            "explanation": "Rahab's rescue matters, but it does not erase the wider destruction described after the walls fall."
+          }
+        ]
+      }
+    },
+    "HS6S": {
+      "cardUid": "HS6S",
+      "titleHint": "The Amalekites",
+      "deckAnswer": "1 Samuel 15:1-3",
+      "sourceReference": "1 Samuel 15:1-3",
+      "stage": 1,
+      "guidedLearning": {
+        "briefingScreens": [
+          {
+            "id": "HS6S_brief_01",
+            "lines": [
+              "Samuel tells Saul that Amalek is being remembered for opposing Israel long ago, when Israel came up from Egypt.",
+              "That old hostility becomes the reason for a new command against Amalek."
+            ],
+            "sourceLabel": "Bible Excerpt",
+            "requiresVisibleEvidence": [
+              "Bible Excerpt",
+              "Context"
+            ]
+          },
+          {
+            "id": "HS6S_brief_02",
+            "lines": [
+              "Saul is told to strike Amalek and utterly destroy all they have.",
+              "The command says not to spare **men, women, infants, nursing babies, oxen, sheep, camels, or donkeys**."
+            ],
+            "sourceLabel": "Bible Excerpt",
+            "requiresVisibleEvidence": [
+              "Bible Excerpt"
+            ]
+          },
+          {
+            "id": "HS6S_brief_03",
+            "lines": [
+              "Saul carries out the attack but does not destroy everything as ordered.",
+              "The story then condemns him not for slaughter, but for incomplete obedience."
+            ],
+            "sourceLabel": "Context",
+            "requiresVisibleEvidence": [
+              "Context",
+              "Scholarly Note"
+            ]
+          },
+          {
+            "id": "HS6S_brief_04",
+            "lines": [
+              "The moral problem is inherited punishment: people and animals in Saul's time are targeted for an offense tied to their ancestors.",
+              "The inclusion of **infants and nursing babies** makes the command especially hard to defend as justice."
+            ],
+            "sourceLabel": "Critical notes",
+            "requiresVisibleEvidence": [
+              "Bible Excerpt",
+              "Critical notes"
+            ]
+          }
+        ],
+        "eventStructure": {
+          "authority": "the LORD, delivered through Samuel to Saul",
+          "action": "commands Saul to utterly destroy Amalek and spare nothing",
+          "target": "men, women, infants, nursing babies, ox and sheep, camel and donkey",
+          "reason": "Amalek opposed Israel when Israel came up from Egypt",
+          "moralProblem": "as punishment for ancestral hostility, infants and animals are included in the destruction",
+          "explanation": "The account states both the reason given for the command and the full range of people and animals included."
+        },
+        "questions": [
+          {
+            "id": "HS6S_bank_reference_01",
+            "interactionType": "content_choice",
+            "policyType": "passage_reference",
+            "learnPatternId": "reference_anchor",
+            "questionPattern": "reference_anchor",
+            "prompt": "Which passage is this?\n__**The Amalekites**__ God commands the total destruction of an entire people group, including infants and animals, with no survivors allowed.",
+            "sourceLabel": "Bible Excerpt",
+            "requiresVisibleEvidence": [
+              "Bible Excerpt"
+            ],
+            "requiresBriefingScreens": [
+              "HS6S_brief_01",
+              "HS6S_brief_02",
+              "HS6S_brief_03",
+              "HS6S_brief_04"
+            ],
+            "questionPurpose": "passage_reference",
+            "reviewSafe": true,
+            "answer": "1 Samuel 15:1-3",
+            "distractors": [
+              "1 Samuel 14",
+              "1 Samuel 22:17-19",
+              "Deuteronomy 20:16-18"
+            ],
+            "explanation": "The correct passage is 1 Samuel 15:1-3."
+          },
+          {
+            "id": "HS6S_learn_reason_01",
+            "interactionType": "content_choice",
+            "learnPatternId": "content_detail",
+            "questionPattern": "content detail choice",
+            "prompt": "What reason is given for the command against Amalek?",
+            "sourceLabel": "Bible Excerpt",
+            "requiresVisibleEvidence": [
+              "Bible Excerpt",
+              "Context"
+            ],
+            "requiresBriefingScreens": [
+              "HS6S_brief_01"
+            ],
+            "questionPurpose": "content_detail",
+            "answer": "Amalek opposed Israel long before, when Israel came up from Egypt.",
+            "distractors": [
+              "Amalek has just burned Saul’s palace.",
+              "Amalek refuses to return captured temple vessels.",
+              "Amalek destroys Israel’s livestock during Saul’s reign."
+            ],
+            "explanation": "The command is tied to Amalek opposing Israel long ago."
+          },
+          {
+            "id": "HS6S_learn_infants_cloze_02",
+            "interactionType": "cloze_drag",
+            "learnPatternId": "fill_blank",
+            "questionPattern": "fill blank",
+            "prompt": "The command says not to spare men, women, ___, nursing babies, and animals.",
+            "sourceLabel": "Bible Excerpt",
+            "requiresVisibleEvidence": [
+              "Bible Excerpt"
+            ],
+            "requiresBriefingScreens": [
+              "HS6S_brief_02"
+            ],
+            "questionPurpose": "fill_blank",
+            "answer": "infants",
+            "wordBank": [
+              "infants",
+              "elders",
+              "captives",
+              "priests"
+            ],
+            "explanation": "The command includes infants and nursing babies, not only adult enemies."
+          },
+          {
+            "id": "HS6S_bank_obedience_cloze_01",
+            "interactionType": "cloze_drag",
+            "learnPatternId": "fill_blank",
+            "questionPattern": "fill blank",
+            "prompt": "After Saul spares Agag and the best animals, Samuel treats the problem as failed ___.",
+            "sourceLabel": "Bible Excerpt",
+            "requiresVisibleEvidence": [
+              "Bible Excerpt"
+            ],
+            "requiresBriefingScreens": [
+              "HS6S_brief_03"
+            ],
+            "questionPurpose": "fill_blank",
+            "reviewSafe": true,
+            "answer": "obedience",
+            "wordBank": [
+              "obedience",
+              "judgment",
+              "courage",
+              "strategy"
+            ],
+            "explanation": "Saul is condemned for failed obedience after sparing Agag and the best animals."
+          },
+          {
+            "id": "HS6S_practice_sequence_01",
+            "interactionType": "sequence_order",
+            "learnPatternId": "sequence_step",
+            "questionPattern": "sequence order",
+            "prompt": "Place the Amalek command and aftermath in order.",
+            "sourceLabel": "Bible Excerpt",
+            "requiresVisibleEvidence": [
+              "Bible Excerpt"
+            ],
+            "requiresBriefingScreens": [
+              "HS6S_brief_01",
+              "HS6S_brief_02",
+              "HS6S_brief_03"
+            ],
+            "questionPurpose": "sequence_order",
+            "correctOrder": [
+              "Amalek is remembered for opposing Israel long ago.",
+              "Saul is commanded to destroy Amalek and all they have.",
+              "Saul attacks but does not destroy everything as ordered.",
+              "Saul is condemned for incomplete obedience."
+            ],
+            "explanation": "The sequence moves from the old reason to the command, Saul’s partial action, and the condemnation that follows."
+          },
+          {
+            "id": "HS6S_practice_odd_02",
+            "interactionType": "odd_one_out",
+            "learnPatternId": "odd_one_out",
+            "questionPattern": "odd one out",
+            "prompt": "Which target does not belong in the command against Amalek?",
+            "sourceLabel": "Bible Excerpt",
+            "requiresVisibleEvidence": [
+              "Bible Excerpt"
+            ],
+            "requiresBriefingScreens": [
+              "HS6S_brief_02"
+            ],
+            "questionPurpose": "odd_one_out",
+            "answer": "Only Amalek's armed commanders.",
+            "fittingItems": [
+              "Men and women.",
+              "Infants and nursing babies.",
+              "Oxen and sheep.",
+              "Camels and donkeys."
+            ],
+            "explanation": "The command is not limited to armed commanders; it includes civilians and animals."
+          },
+          {
+            "id": "HS6S_challenge_obedience_01",
+            "interactionType": "content_choice",
+            "learnPatternId": "content_detail",
+            "questionPattern": "content detail choice",
+            "prompt": "What is Saul condemned for after attacking Amalek?",
+            "sourceLabel": "Critical notes",
+            "requiresVisibleEvidence": [
+              "Bible Excerpt",
+              "Critical notes"
+            ],
+            "requiresBriefingScreens": [
+              "HS6S_brief_03",
+              "HS6S_brief_04"
+            ],
+            "questionPurpose": "moral_inference",
+            "answer": "Incomplete obedience: he does not destroy everything as ordered.",
+            "distractors": [
+              "Refusing to attack Amalek at all.",
+              "Sparing infants and nursing babies while destroying every animal.",
+              "Questioning whether inherited punishment is just."
+            ],
+            "explanation": "The story condemns Saul for incomplete obedience, not for the slaughter commanded against Amalek."
+          },
+          {
+            "id": "HS6S_scholar_ancestral_judgment_01",
+            "interactionType": "scholar_note_choice",
+            "policyType": "scholar_note_choice",
+            "learnPatternId": "scholar_note_choice",
+            "questionPattern": "scholar_bonus_inference",
+            "prompt": "Which interpretive point makes the Amalek command especially hard to defend as justice?",
+            "sourceLabel": "Critical notes",
+            "requiresVisibleEvidence": [
+              "Critical notes",
+              "Context"
+            ],
+            "requiresBriefingScreens": [
+              "HS6S_brief_01",
+              "HS6S_brief_02",
+              "HS6S_brief_04"
+            ],
+            "questionPurpose": "scholar_bonus",
+            "reviewSafe": true,
+            "answer": "A present generation, including infants and animals, is targeted for hostility remembered from the past.",
+            "distractors": [
+              "Saul is condemned because he refuses to attack anyone at all.",
+              "The command protects infants while punishing only warriors.",
+              "The conflict is presented as a private dispute between Saul and Samuel."
+            ],
+            "explanation": "The command connects remembered hostility with total destruction in the present generation."
+          }
+        ]
+      }
+    },
+    "DS0W": {
+      "cardUid": "DS0W",
+      "titleHint": "David and Bathsheba",
+      "deckAnswer": "2 Samuel 11",
+      "sourceReference": "2 Samuel 11",
+      "stage": 1,
+      "guidedLearning": {
+        "briefingScreens": [
+          {
+            "id": "DS0W_brief_01",
+            "lines": [
+              "David stays in Jerusalem while his army is at war.",
+              "From the palace, he sees Bathsheba, sends for her as king, and sleeps with her while her husband is away."
+            ],
+            "sourceLabel": "Context",
+            "requiresVisibleEvidence": [
+              "Bible Excerpt",
+              "Context"
+            ]
+          },
+          {
+            "id": "DS0W_brief_02",
+            "lines": [
+              "When Bathsheba becomes pregnant, David calls Uriah back from the battlefield and tries to make the pregnancy look like Uriah's.",
+              "Uriah does not go home, so David's cover-up fails."
+            ],
+            "sourceLabel": "Context",
+            "requiresVisibleEvidence": [
+              "Context"
+            ]
+          },
+          {
+            "id": "DS0W_brief_03",
+            "lines": [
+              "David then sends Joab a letter by Uriah's own hand.",
+              "The letter orders Joab to place Uriah at the front of the fiercest fighting and pull back so he will be struck and die.",
+              "Other servants die in the fighting, and **Uriah the Hittite** dies too."
+            ],
+            "sourceLabel": "Bible Excerpt",
+            "requiresVisibleEvidence": [
+              "Bible Excerpt",
+              "Context"
+            ]
+          },
+          {
+            "id": "DS0W_brief_04",
+            "lines": [
+              "A king's power is used first against Bathsheba and then against Uriah.",
+              "The story joins sexual access through power with a lethal cover-up through state authority."
+            ],
+            "sourceLabel": "Critical notes",
+            "requiresVisibleEvidence": [
+              "Context",
+              "Critical notes"
+            ]
+          }
+        ],
+        "eventStructure": {
+          "authority": "David as king",
+          "action": "summons Bathsheba, then arranges Uriah’s death in battle",
+          "target": "Bathsheba and Uriah the Hittite",
+          "reason": "David tries to cover up Bathsheba’s pregnancy",
+          "moralProblem": "through royal power, sexual access and lethal cover-up are carried out",
+          "explanation": "The account traces responsibility through David's authority, the sexual act, and the arranged battlefield death."
+        },
+        "questions": [
+          {
+            "id": "DS0W_bank_reference_01",
+            "interactionType": "content_choice",
+            "policyType": "passage_reference",
+            "learnPatternId": "reference_anchor",
+            "questionPattern": "reference_anchor",
+            "prompt": "Which passage is this?\n__**David and Bathsheba**__ A king summons Bathsheba, has sex with her while Uriah is away at war, and arranges Uriah's death in battle.",
+            "sourceLabel": "Bible Excerpt",
+            "requiresVisibleEvidence": [
+              "Bible Excerpt"
+            ],
+            "requiresBriefingScreens": [
+              "DS0W_brief_01",
+              "DS0W_brief_02",
+              "DS0W_brief_03",
+              "DS0W_brief_04"
+            ],
+            "questionPurpose": "passage_reference",
+            "reviewSafe": true,
+            "answer": "2 Samuel 11",
+            "distractors": [
+              "2 Samuel 8:2",
+              "2 Samuel 13:1-22",
+              "2 Samuel 21:1-14"
+            ],
+            "explanation": "The correct passage is 2 Samuel 11."
+          },
+          {
+            "id": "DS0W_learn_power_01",
+            "interactionType": "content_choice",
+            "learnPatternId": "content_detail",
+            "questionPattern": "content detail choice",
+            "prompt": "How does David's royal power first shape the Bathsheba story?",
+            "sourceLabel": "Bible Excerpt",
+            "requiresVisibleEvidence": [
+              "Bible Excerpt",
+              "Context"
+            ],
+            "requiresBriefingScreens": [
+              "DS0W_brief_01"
+            ],
+            "questionPurpose": "content_detail",
+            "answer": "He sends for Bathsheba from the palace while her husband is away at war.",
+            "distractors": [
+              "He asks Uriah to bring Bathsheba to a public trial.",
+              "He meets Bathsheba only after Uriah returns home.",
+              "He gives Bathsheba command of the army."
+            ],
+            "explanation": "David acts from royal power in Jerusalem while Uriah is away at war."
+          },
+          {
+            "id": "DS0W_learn_letter_cloze_02",
+            "interactionType": "cloze_drag",
+            "learnPatternId": "fill_blank",
+            "questionPattern": "fill blank",
+            "prompt": "David sends Joab a letter by ___ own hand.",
+            "sourceLabel": "Bible Excerpt",
+            "requiresVisibleEvidence": [
+              "Bible Excerpt"
+            ],
+            "requiresBriefingScreens": [
+              "DS0W_brief_03"
+            ],
+            "questionPurpose": "fill_blank",
+            "answer": "Uriah's",
+            "wordBank": [
+              "Uriah's",
+              "Nathan's",
+              "Bathsheba's",
+              "Joab's"
+            ],
+            "explanation": "Uriah carries the letter that arranges his own death."
+          },
+          {
+            "id": "DS0W_bank_fiercest_cloze_01",
+            "interactionType": "cloze_drag",
+            "learnPatternId": "fill_blank",
+            "questionPattern": "fill blank",
+            "prompt": "David orders Joab to place Uriah where the fighting is ___.",
+            "sourceLabel": "Bible Excerpt",
+            "requiresVisibleEvidence": [
+              "Bible Excerpt"
+            ],
+            "requiresBriefingScreens": [
+              "DS0W_brief_03"
+            ],
+            "questionPurpose": "fill_blank",
+            "reviewSafe": true,
+            "answer": "fiercest",
+            "wordBank": [
+              "fiercest",
+              "quietest",
+              "safest",
+              "lightest"
+            ],
+            "explanation": "David tells Joab to place Uriah where the fighting is fiercest."
+          },
+          {
+            "id": "DS0W_practice_sequence_01",
+            "interactionType": "sequence_order",
+            "learnPatternId": "sequence_step",
+            "questionPattern": "sequence order",
+            "prompt": "Place David's cover-up in order.",
+            "sourceLabel": "Bible Excerpt",
+            "requiresVisibleEvidence": [
+              "Bible Excerpt"
+            ],
+            "requiresBriefingScreens": [
+              "DS0W_brief_01",
+              "DS0W_brief_02",
+              "DS0W_brief_03"
+            ],
+            "questionPurpose": "sequence_order",
+            "correctOrder": [
+              "David summons Bathsheba while Uriah is away at war.",
+              "Bathsheba becomes pregnant and David calls Uriah back.",
+              "Uriah does not go home, so David's cover-up fails.",
+              "David sends Joab a letter arranging Uriah's death."
+            ],
+            "explanation": "The cover-up moves from David summoning Bathsheba to pregnancy, the failed attempt with Uriah, and the lethal letter."
+          },
+          {
+            "id": "DS0W_practice_odd_02",
+            "interactionType": "odd_one_out",
+            "learnPatternId": "odd_one_out",
+            "questionPattern": "odd one out",
+            "prompt": "Which detail does not fit David's cover-up after Bathsheba becomes pregnant?",
+            "sourceLabel": "Bible Excerpt",
+            "requiresVisibleEvidence": [
+              "Bible Excerpt"
+            ],
+            "requiresBriefingScreens": [
+              "DS0W_brief_02",
+              "DS0W_brief_03"
+            ],
+            "questionPurpose": "odd_one_out",
+            "answer": "David warns Uriah about the letter before sending him back.",
+            "fittingItems": [
+              "David calls Uriah back from the battlefield.",
+              "David sends Joab a letter by Uriah's own hand.",
+              "Joab places Uriah in deadly fighting.",
+              "Other servants die in the fighting."
+            ],
+            "explanation": "Uriah carries the letter without being warned that it arranges his own death."
+          },
+          {
+            "id": "DS0W_challenge_power_01",
+            "interactionType": "content_choice",
+            "learnPatternId": "content_detail",
+            "questionPattern": "content detail choice",
+            "prompt": "What makes David's actions morally broader than a private affair?",
+            "sourceLabel": "Critical notes",
+            "requiresVisibleEvidence": [
+              "Bible Excerpt",
+              "Critical notes"
+            ],
+            "requiresBriefingScreens": [
+              "DS0W_brief_04"
+            ],
+            "questionPurpose": "moral_scope",
+            "answer": "Royal power is used to summon Bathsheba and then to arrange Uriah's death through the army.",
+            "distractors": [
+              "David gives up his royal authority before seeing Bathsheba.",
+              "Uriah freely asks to be placed in the fiercest fighting.",
+              "Joab acts alone without receiving any order from David."
+            ],
+            "explanation": "The moral issue involves royal power, sexual access, and state authority used for a lethal cover-up."
+          },
+          {
+            "id": "DS0W_scholar_royal_power_01",
+            "interactionType": "scholar_note_choice",
+            "policyType": "scholar_note_choice",
+            "learnPatternId": "scholar_note_choice",
+            "questionPattern": "scholar_bonus_inference",
+            "prompt": "Which interpretive point best captures the abuse of power in David and Bathsheba?",
+            "sourceLabel": "Critical notes",
+            "requiresVisibleEvidence": [
+              "Critical notes",
+              "Context"
+            ],
+            "requiresBriefingScreens": [
+              "DS0W_brief_01",
+              "DS0W_brief_02",
+              "DS0W_brief_03"
+            ],
+            "questionPurpose": "scholar_bonus",
+            "reviewSafe": true,
+            "answer": "Royal authority enables both sexual access to Bathsheba and the arranged death of Uriah.",
+            "distractors": [
+              "David has no power over Bathsheba or Uriah in the story.",
+              "The main issue is that Uriah disobeys Joab's battle command.",
+              "Bathsheba uses royal authority to send David into battle."
+            ],
+            "explanation": "The same royal power that summons Bathsheba also arranges the battlefield cover-up against Uriah."
+          }
+        ]
+      }
+    },
+    "KB9V": {
+      "cardUid": "KB9V",
+      "titleHint": "Elisha and the Bears",
+      "deckAnswer": "2 Kings 2:23-25",
+      "sourceReference": "2 Kings 2:23-25",
+      "stage": 1,
+      "guidedLearning": {
+        "briefingScreens": [
+          {
+            "id": "KB9V_brief_01",
+            "lines": [
+              "Elisha travels toward Bethel after taking up Elijah's prophetic role.",
+              "Some youths come out from the city and mock him, shouting, \"Go up, you baldy!\""
+            ],
+            "sourceLabel": "Bible Excerpt",
+            "requiresVisibleEvidence": [
+              "Bible Excerpt",
+              "Context"
+            ]
+          },
+          {
+            "id": "KB9V_brief_02",
+            "lines": [
+              "Elisha looks back, sees them, and curses them in the LORD's name.",
+              "Then **two female bears** come out of the woods."
+            ],
+            "sourceLabel": "Bible Excerpt",
+            "requiresVisibleEvidence": [
+              "Bible Excerpt"
+            ]
+          },
+          {
+            "id": "KB9V_brief_03",
+            "lines": [
+              "The bears maul **forty-two** of the youths.",
+              "Afterward, Elisha continues on to Mount Carmel and then to Samaria."
+            ],
+            "sourceLabel": "Bible Excerpt",
+            "requiresVisibleEvidence": [
+              "Bible Excerpt"
+            ]
+          },
+          {
+            "id": "KB9V_brief_04",
+            "lines": [
+              "The story presents the attack as a defense of prophetic authority.",
+              "The moral tension is proportionality: mockery is answered with terrifying physical harm."
+            ],
+            "sourceLabel": "Critical notes",
+            "requiresVisibleEvidence": [
+              "Context",
+              "Critical notes"
+            ]
+          }
+        ],
+        "eventStructure": {
+          "authority": "Elisha, cursing in the LORD's name",
+          "action": "calls down a curse and two female bears maul the youths",
+          "target": "forty-two of the youths who mock Elisha",
+          "reason": "they mock the prophet by saying, “Go up, you baldy!”",
+          "moralProblem": "as punishment for mockery, the youths are mauled by bears",
+          "explanation": "The account focuses on prophetic authority, mockery, and disproportionate violence."
+        },
+        "questions": [
+          {
+            "id": "KB9V_bank_reference_01",
+            "interactionType": "content_choice",
+            "policyType": "passage_reference",
+            "learnPatternId": "reference_anchor",
+            "questionPattern": "reference_anchor",
+            "prompt": "Which passage is this?\n__**Elisha and the Bears**__ Forty-two boys are mauled by bears after they mock a prophet for being bald.",
+            "sourceLabel": "Bible Excerpt",
+            "requiresVisibleEvidence": [
+              "Bible Excerpt"
+            ],
+            "requiresBriefingScreens": [
+              "KB9V_brief_01",
+              "KB9V_brief_02",
+              "KB9V_brief_03",
+              "KB9V_brief_04"
+            ],
+            "questionPurpose": "passage_reference",
+            "reviewSafe": true,
+            "answer": "2 Kings 2:23-25",
+            "distractors": [
+              "2 Kings 1:9-12",
+              "2 Kings 4:1-7",
+              "1 Kings 2:23-25"
+            ],
+            "explanation": "The correct passage is 2 Kings 2:23-25."
+          },
+          {
+            "id": "KB9V_learn_bears_01",
+            "interactionType": "content_choice",
+            "learnPatternId": "content_detail",
+            "questionPattern": "content detail choice",
+            "prompt": "What happens after Elisha curses the youths in the LORD's name?",
+            "sourceLabel": "Bible Excerpt",
+            "requiresVisibleEvidence": [
+              "Bible Excerpt"
+            ],
+            "requiresBriefingScreens": [
+              "KB9V_brief_02",
+              "KB9V_brief_03"
+            ],
+            "questionPurpose": "content_detail",
+            "answer": "Two female bears come out of the woods and maul forty-two youths.",
+            "distractors": [
+              "The youths apologize and return safely to Bethel.",
+              "The city elders hold a trial before any punishment.",
+              "Elisha sends the youths to rebuild the road."
+            ],
+            "explanation": "The sequence is abrupt: mockery is answered by a prophetic curse and immediate animal attack, which is why proportionality becomes the issue."
+          },
+          {
+            "id": "KB9V_learn_forty_two_cloze_02",
+            "interactionType": "cloze_drag",
+            "learnPatternId": "fill_blank",
+            "questionPattern": "fill blank",
+            "prompt": "The bears maul ___ of the youths.",
+            "sourceLabel": "Bible Excerpt",
+            "requiresVisibleEvidence": [
+              "Bible Excerpt"
+            ],
+            "requiresBriefingScreens": [
+              "KB9V_brief_03"
+            ],
+            "questionPurpose": "fill_blank",
+            "answer": "forty-two",
+            "wordBank": [
+              "forty-two",
+              "two",
+              "seven",
+              "all"
+            ],
+            "explanation": "The bears maul forty-two of the youths."
+          },
+          {
+            "id": "KB9V_bank_baldy_cloze_01",
+            "interactionType": "cloze_drag",
+            "learnPatternId": "fill_blank",
+            "questionPattern": "fill blank",
+            "prompt": "The youths mock Elisha by shouting, \"Go up, you ___!\"",
+            "sourceLabel": "Bible Excerpt",
+            "requiresVisibleEvidence": [
+              "Bible Excerpt"
+            ],
+            "requiresBriefingScreens": [
+              "KB9V_brief_01"
+            ],
+            "questionPurpose": "fill_blank",
+            "reviewSafe": true,
+            "answer": "baldy",
+            "wordBank": [
+              "baldy",
+              "king",
+              "liar",
+              "soldier"
+            ],
+            "explanation": "The youths mock Elisha by calling him baldy before he curses them."
+          },
+          {
+            "id": "KB9V_practice_sequence_01",
+            "interactionType": "sequence_order",
+            "learnPatternId": "sequence_step",
+            "questionPattern": "sequence order",
+            "prompt": "Place the Elisha and the bears events in order.",
+            "sourceLabel": "Bible Excerpt",
+            "requiresVisibleEvidence": [
+              "Bible Excerpt"
+            ],
+            "requiresBriefingScreens": [
+              "KB9V_brief_01",
+              "KB9V_brief_02",
+              "KB9V_brief_03"
+            ],
+            "questionPurpose": "sequence_order",
+            "correctOrder": [
+              "Elisha travels toward Bethel after taking up Elijah's role.",
+              "Some youths come out and mock him.",
+              "Elisha curses them in the LORD's name.",
+              "Two female bears maul forty-two youths."
+            ],
+            "explanation": "The sequence moves from Elisha traveling, to mockery, to the curse, to the mauling."
+          },
+          {
+            "id": "KB9V_practice_odd_02",
+            "interactionType": "odd_one_out",
+            "learnPatternId": "odd_one_out",
+            "questionPattern": "odd one out",
+            "prompt": "Which detail does not fit what happens after the youths mock Elisha?",
+            "sourceLabel": "Bible Excerpt",
+            "requiresVisibleEvidence": [
+              "Bible Excerpt"
+            ],
+            "requiresBriefingScreens": [
+              "KB9V_brief_02",
+              "KB9V_brief_03"
+            ],
+            "questionPurpose": "odd_one_out",
+            "answer": "Elisha asks the city elders to hold a trial before any punishment.",
+            "fittingItems": [
+              "Elisha looks back and sees them.",
+              "Elisha curses them in the LORD's name.",
+              "Two female bears come out of the woods.",
+              "Forty-two youths are mauled."
+            ],
+            "explanation": "The story moves directly from mockery to curse to bears; it does not include a trial by city elders."
+          },
+          {
+            "id": "KB9V_challenge_proportion_01",
+            "interactionType": "content_choice",
+            "learnPatternId": "content_detail",
+            "questionPattern": "content detail choice",
+            "prompt": "What moral issue stands out in the Elisha and the bears story?",
+            "sourceLabel": "Critical notes",
+            "requiresVisibleEvidence": [
+              "Bible Excerpt",
+              "Critical notes"
+            ],
+            "requiresBriefingScreens": [
+              "KB9V_brief_04"
+            ],
+            "questionPurpose": "moral_scope",
+            "answer": "Mockery is answered with terrifying physical harm through the mauling of forty-two youths.",
+            "distractors": [
+              "The youths are rewarded for mocking prophetic authority.",
+              "Elisha is harmed while the youths remain untouched.",
+              "The story limits the response to a verbal warning."
+            ],
+            "explanation": "The moral tension is proportionality: mockery is answered with severe physical harm."
+          },
+          {
+            "id": "KB9V_scholar_disproportion_01",
+            "interactionType": "scholar_note_choice",
+            "policyType": "scholar_note_choice",
+            "learnPatternId": "scholar_note_choice",
+            "questionPattern": "scholar_bonus_inference",
+            "prompt": "Which interpretive point best explains the moral tension in Elisha and the bears?",
+            "sourceLabel": "Critical notes",
+            "requiresVisibleEvidence": [
+              "Critical notes",
+              "Context"
+            ],
+            "requiresBriefingScreens": [
+              "KB9V_brief_01",
+              "KB9V_brief_02",
+              "KB9V_brief_04"
+            ],
+            "questionPurpose": "scholar_bonus",
+            "reviewSafe": true,
+            "answer": "Prophetic authority is defended through violence that appears far out of proportion to the insult.",
+            "distractors": [
+              "The youths attack Elisha with weapons before he responds.",
+              "The bears appear to protect food from theft.",
+              "Elisha is punished because he mocks the youths first."
+            ],
+            "explanation": "The story presents mockery, curse, and severe harm in a way that raises questions about proportion."
+          }
+        ]
+      }
+    },
+    "8DA1": {
+      "cardUid": "8DA1",
+      "titleHint": "Job's Children Killed in the Wager",
+      "deckAnswer": "Job 1-2",
+      "sourceReference": "Job 1-2",
+      "stage": 1,
+      "guidedLearning": {
+        "briefingScreens": [
+          {
+            "id": "8DA1_brief_01",
+            "lines": [
+              "In the heavenly court, the LORD points to Job as blameless and upright.",
+              "Satan argues that Job is faithful only because he is protected and prosperous."
+            ],
+            "sourceLabel": "Bible Excerpt",
+            "requiresVisibleEvidence": [
+              "Bible Excerpt",
+              "Context"
+            ]
+          },
+          {
+            "id": "8DA1_brief_02",
+            "lines": [
+              "The LORD permits Satan to take what Job has, but not to touch Job himself.",
+              "One disaster after another hits: animals are taken, servants are killed, and fire burns sheep and servants."
+            ],
+            "sourceLabel": "Bible Excerpt",
+            "requiresVisibleEvidence": [
+              "Bible Excerpt",
+              "Context"
+            ]
+          },
+          {
+            "id": "8DA1_brief_03",
+            "lines": [
+              "Then a great wind strikes the house where Job's sons and daughters are eating and drinking.",
+              "The house falls, and **Job's children** die.",
+              "Later, Job himself is struck with painful sores."
+            ],
+            "sourceLabel": "Bible Excerpt",
+            "requiresVisibleEvidence": [
+              "Bible Excerpt",
+              "Context"
+            ]
+          },
+          {
+            "id": "8DA1_brief_04",
+            "lines": [
+              "The children, servants, and animals do not die because of anything they did.",
+              "Their suffering becomes part of a test over whether Job will remain faithful."
+            ],
+            "sourceLabel": "Critical notes",
+            "requiresVisibleEvidence": [
+              "Context",
+              "Critical notes"
+            ]
+          }
+        ],
+        "eventStructure": {
+          "authority": "the LORD permits Satan to test Job",
+          "action": "allows Job’s possessions, servants, children, and health to be attacked",
+          "target": "Job’s children, servants, livestock, and eventually Job himself",
+          "reason": "Satan claims Job is faithful only because he prospers",
+          "moralProblem": "as part of Job's test, innocent children and servants become collateral",
+          "explanation": "The account separates the heavenly test from the human cost inside the story."
+        },
+        "questions": [
+          {
+            "id": "8DA1_bank_reference_01",
+            "interactionType": "content_choice",
+            "policyType": "passage_reference",
+            "learnPatternId": "reference_anchor",
+            "questionPattern": "reference_anchor",
+            "prompt": "Which passage is this?\n__**Job's Children Killed in the Wager**__ A righteous man's children, servants, and livestock are killed, and his life is devastated, as part of a heavenly bet with Satan.",
+            "sourceLabel": "Bible Excerpt",
+            "requiresVisibleEvidence": [
+              "Bible Excerpt"
+            ],
+            "requiresBriefingScreens": [
+              "8DA1_brief_01",
+              "8DA1_brief_02",
+              "8DA1_brief_03",
+              "8DA1_brief_04"
+            ],
+            "questionPurpose": "passage_reference",
+            "reviewSafe": true,
+            "answer": "Job 1-2",
+            "distractors": [
+              "Job 3-7",
+              "Job 29-31",
+              "Genesis 22:1-19"
+            ],
+            "explanation": "The correct passage is Job 1-2."
+          },
+          {
+            "id": "8DA1_learn_claim_01",
+            "interactionType": "content_choice",
+            "learnPatternId": "content_detail",
+            "questionPattern": "content detail choice",
+            "prompt": "What claim begins the test of Job's faithfulness?",
+            "sourceLabel": "Bible Excerpt",
+            "requiresVisibleEvidence": [
+              "Bible Excerpt",
+              "Context"
+            ],
+            "requiresBriefingScreens": [
+              "8DA1_brief_01"
+            ],
+            "questionPurpose": "content_detail",
+            "answer": "Job is faithful only because he is protected and prosperous.",
+            "distractors": [
+              "Job is secretly guilty of stealing livestock.",
+              "Job refuses to care for his children.",
+              "Job has already cursed God before the test begins."
+            ],
+            "explanation": "The test begins by questioning Job's motives: whether his faithfulness depends on the protection and prosperity he has received."
+          },
+          {
+            "id": "8DA1_learn_permission_cloze_02",
+            "interactionType": "cloze_drag",
+            "learnPatternId": "fill_blank",
+            "questionPattern": "fill blank",
+            "prompt": "The LORD permits Satan to take what Job has, but not to touch ___ himself.",
+            "sourceLabel": "Bible Excerpt",
+            "requiresVisibleEvidence": [
+              "Bible Excerpt"
+            ],
+            "requiresBriefingScreens": [
+              "8DA1_brief_02"
+            ],
+            "questionPurpose": "fill_blank",
+            "answer": "Job",
+            "wordBank": [
+              "Job",
+              "Satan",
+              "the king",
+              "the messenger"
+            ],
+            "explanation": "The permission allows Satan to take what Job has, but not to touch Job himself."
+          },
+          {
+            "id": "8DA1_bank_children_cloze_01",
+            "interactionType": "cloze_drag",
+            "learnPatternId": "fill_blank",
+            "questionPattern": "fill blank",
+            "prompt": "A great wind strikes the house where Job's ___ are eating and drinking.",
+            "sourceLabel": "Bible Excerpt",
+            "requiresVisibleEvidence": [
+              "Bible Excerpt"
+            ],
+            "requiresBriefingScreens": [
+              "8DA1_brief_03"
+            ],
+            "questionPurpose": "fill_blank",
+            "reviewSafe": true,
+            "answer": "sons and daughters",
+            "wordBank": [
+              "sons and daughters",
+              "servants and animals",
+              "friends and accusers",
+              "raiders and soldiers"
+            ],
+            "explanation": "The great wind strikes the house where Job's sons and daughters are eating and drinking."
+          },
+          {
+            "id": "8DA1_practice_sequence_01",
+            "interactionType": "sequence_order",
+            "learnPatternId": "sequence_step",
+            "questionPattern": "sequence order",
+            "prompt": "Place the test of Job in order.",
+            "sourceLabel": "Bible Excerpt",
+            "requiresVisibleEvidence": [
+              "Bible Excerpt"
+            ],
+            "requiresBriefingScreens": [
+              "8DA1_brief_01",
+              "8DA1_brief_02",
+              "8DA1_brief_03"
+            ],
+            "questionPurpose": "sequence_order",
+            "correctOrder": [
+              "The LORD points to Job as blameless and upright.",
+              "Satan says Job is faithful because he is protected and prosperous.",
+              "Satan is permitted to take what Job has, but not touch Job himself.",
+              "Disasters strike Job's animals, servants, and children."
+            ],
+            "explanation": "The test begins in the heavenly court, then permission is given, and disasters strike what Job has."
+          },
+          {
+            "id": "8DA1_practice_odd_02",
+            "interactionType": "odd_one_out",
+            "learnPatternId": "odd_one_out",
+            "questionPattern": "odd one out",
+            "prompt": "Which detail does not fit the test of Job?",
+            "sourceLabel": "Bible Excerpt",
+            "requiresVisibleEvidence": [
+              "Bible Excerpt"
+            ],
+            "requiresBriefingScreens": [
+              "8DA1_brief_02",
+              "8DA1_brief_03"
+            ],
+            "questionPurpose": "odd_one_out",
+            "answer": "Job's children die because they accuse Job falsely.",
+            "fittingItems": [
+              "Animals are taken.",
+              "Servants are killed.",
+              "A great wind collapses the house where Job's children are gathered.",
+              "Job is later struck with painful sores."
+            ],
+            "explanation": "Job's children are not punished for accusing Job; their deaths become part of the test."
+          },
+          {
+            "id": "8DA1_challenge_test_scope_01",
+            "interactionType": "content_choice",
+            "learnPatternId": "content_detail",
+            "questionPattern": "content detail choice",
+            "prompt": "Why are Job's children, servants, and animals harmed in the test?",
+            "sourceLabel": "Critical notes",
+            "requiresVisibleEvidence": [
+              "Bible Excerpt",
+              "Critical notes"
+            ],
+            "requiresBriefingScreens": [
+              "8DA1_brief_04"
+            ],
+            "questionPurpose": "moral_scope",
+            "answer": "Their suffering becomes part of a test over whether Job will remain faithful.",
+            "distractors": [
+              "They are punished for falsely accusing Job.",
+              "They volunteer to prove Job is righteous.",
+              "They are the ones who challenge God in the heavenly court."
+            ],
+            "explanation": "The moral issue is that innocent lives become part of a test over Job’s faithfulness."
+          },
+          {
+            "id": "8DA1_scholar_test_scope_01",
+            "interactionType": "scholar_note_choice",
+            "policyType": "scholar_note_choice",
+            "learnPatternId": "scholar_note_choice",
+            "questionPattern": "scholar_bonus_inference",
+            "prompt": "Which interpretive point makes Job's losses more than a simple test of one man's faith?",
+            "sourceLabel": "Critical notes",
+            "requiresVisibleEvidence": [
+              "Critical notes",
+              "Context"
+            ],
+            "requiresBriefingScreens": [
+              "8DA1_brief_01",
+              "8DA1_brief_02",
+              "8DA1_brief_04"
+            ],
+            "questionPurpose": "scholar_bonus",
+            "reviewSafe": true,
+            "answer": "Other lives are destroyed as part of the contest over Job's faithfulness.",
+            "distractors": [
+              "Job's children are punished for mocking him.",
+              "The servants and animals are spared so only Job suffers.",
+              "Job asks Satan to test his household."
+            ],
+            "explanation": "The wager tests Job, but the losses reach servants, animals, and children who are not the ones being tested."
+          }
+        ]
+      }
+    },
+    "LT3P": {
+      "cardUid": "LT3P",
+      "titleHint": "Lot Offers His Daughters",
+      "deckAnswer": "Genesis 19:1-11",
+      "sourceReference": "Genesis 19:1-11",
+      "stage": 2,
+      "guidedLearning": {
+        "briefingScreens": [
+          {
+            "id": "LT3P_brief_01",
+            "lines": [
+              "Lot welcomes two visitors into his house in Sodom, and a crowd surrounds the house before they lie down.",
+              "The crowd demands that Lot bring the visitors outside so the men of the city can have sex with them."
+            ],
+            "sourceLabel": "Bible Excerpt",
+            "requiresVisibleEvidence": [
+              "Bible Excerpt",
+              "Context"
+            ]
+          },
+          {
+            "id": "LT3P_brief_02",
+            "lines": [
+              "Lot goes outside, shuts the door behind him, and tells the crowd not to act wickedly.",
+              "He offers his two virgin daughters instead, saying the crowd may do to them what seems good."
+            ],
+            "sourceLabel": "Bible Excerpt",
+            "requiresVisibleEvidence": [
+              "Bible Excerpt",
+              "Context"
+            ]
+          },
+          {
+            "id": "LT3P_brief_03",
+            "lines": [
+              "The crowd turns on Lot and presses toward the door.",
+              "The visitors pull Lot back inside and strike the men at the door with blindness, so they cannot find the entrance."
+            ],
+            "sourceLabel": "Bible Excerpt",
+            "requiresVisibleEvidence": [
+              "Bible Excerpt"
+            ]
+          },
+          {
+            "id": "LT3P_brief_04",
+            "lines": [
+              "The offer is not carried out, but the moral problem remains.",
+              "Lot treats his daughters as bargaining chips in a crisis created by men.",
+              "Their safety is subordinated to male guests, honor, and hospitality."
+            ],
+            "sourceLabel": "Critical notes",
+            "requiresVisibleEvidence": [
+              "Context",
+              "Critical notes"
+            ]
+          }
+        ],
+        "eventStructure": {
+          "authority": "Lot as household host; the visitors intervene",
+          "action": "offers his daughters to the mob, then the visitors stop the attack",
+          "target": "Lot's daughters and the guests inside the house",
+          "reason": "Lot tries to protect male guests from the crowd",
+          "moralProblem": "female safety is subordinated to hospitality and male honor",
+          "explanation": "The scene exposes a hierarchy in which daughters can be offered as substitutes while the male guests are protected."
+        },
+        "questions": [
+          {
+            "id": "LT3P_bank_reference_01",
+            "interactionType": "content_choice",
+            "policyType": "passage_reference",
+            "learnPatternId": "reference_anchor",
+            "questionPattern": "reference_anchor",
+            "prompt": "Which passage is this?\n__**Lot Offers His Daughters**__ Lot offers his two virgin daughters to a mob demanding sex with his angelic guests.",
+            "sourceLabel": "Bible Excerpt",
+            "requiresVisibleEvidence": [
+              "Bible Excerpt"
+            ],
+            "requiresBriefingScreens": [
+              "LT3P_brief_01",
+              "LT3P_brief_02",
+              "LT3P_brief_03",
+              "LT3P_brief_04"
+            ],
+            "questionPurpose": "passage_reference",
+            "reviewSafe": true,
+            "answer": "Genesis 19:1-11",
+            "distractors": [
+              "Genesis 19:30-38",
+              "Genesis 34",
+              "Judges 19:22-30"
+            ],
+            "explanation": "The correct passage is Genesis 19:1-11."
+          },
+          {
+            "id": "LT3P_bank_offer_choice_01",
+            "interactionType": "content_choice",
+            "learnPatternId": "content_detail",
+            "questionPattern": "content detail choice",
+            "prompt": "What does Lot offer to the crowd outside his house?",
+            "questionPurpose": "content_detail",
+            "answer": "He offers his two virgin daughters in place of the guests.",
+            "distractors": [
+              "He sends the visitors outside as the crowd demands.",
+              "He calls the city elders to judge the crowd.",
+              "He flees the house with his daughters before speaking."
+            ],
+            "explanation": "Lot offers his daughters to the crowd while trying to protect the visitors.",
+            "sourceLabel": "Bible Excerpt",
+            "requiresVisibleEvidence": [
+              "Bible Excerpt",
+              "Context"
+            ],
+            "requiresBriefingScreens": [
+              "LT3P_brief_02"
+            ]
+          },
+          {
+            "id": "LT3P_bank_moral_choice_02",
+            "interactionType": "content_choice",
+            "learnPatternId": "content_detail",
+            "questionPattern": "content detail choice",
+            "prompt": "What moral problem stands out in Lot's offer?",
+            "questionPurpose": "moral_scope",
+            "answer": "His daughters' safety is treated as expendable to protect male guests.",
+            "distractors": [
+              "The visitors are punished for entering Lot's house.",
+              "The crowd is protected from any consequences.",
+              "Lot's daughters are given authority over the crowd."
+            ],
+            "explanation": "The troubling feature is that Lot's daughters become bargaining chips in a crisis made by men.",
+            "sourceLabel": "Critical notes",
+            "requiresVisibleEvidence": [
+              "Context",
+              "Critical notes"
+            ],
+            "requiresBriefingScreens": [
+              "LT3P_brief_04"
+            ]
+          },
+          {
+            "id": "LT3P_bank_virgin_cloze_01",
+            "interactionType": "cloze_drag",
+            "learnPatternId": "fill_blank",
+            "questionPattern": "fill blank",
+            "prompt": "Lot tells the crowd, \"I have two ___ daughters.\"",
+            "questionPurpose": "fill_blank",
+            "reviewSafe": true,
+            "answer": "virgin",
+            "wordBank": [
+              "virgin",
+              "married",
+              "foreign",
+              "widowed"
+            ],
+            "explanation": "Lot identifies his daughters this way before offering them to the crowd.",
+            "sourceLabel": "Bible Excerpt",
+            "requiresVisibleEvidence": [
+              "Bible Excerpt"
+            ],
+            "requiresBriefingScreens": [
+              "LT3P_brief_02"
+            ]
+          },
+          {
+            "id": "LT3P_bank_blindness_cloze_02",
+            "interactionType": "cloze_drag",
+            "learnPatternId": "fill_blank",
+            "questionPattern": "fill blank",
+            "prompt": "The visitors strike the men at the door with ___.",
+            "questionPurpose": "fill_blank",
+            "reviewSafe": true,
+            "answer": "blindness",
+            "wordBank": [
+              "blindness",
+              "darkness",
+              "confusion",
+              "illness"
+            ],
+            "explanation": "The visitors stop the immediate attack by striking the men at the door with blindness.",
+            "sourceLabel": "Bible Excerpt",
+            "requiresVisibleEvidence": [
+              "Bible Excerpt"
+            ],
+            "requiresBriefingScreens": [
+              "LT3P_brief_03"
+            ]
+          },
+          {
+            "id": "LT3P_bank_sequence_01",
+            "interactionType": "sequence_order",
+            "learnPatternId": "sequence_step",
+            "questionPattern": "sequence order",
+            "prompt": "Place Lot's offer in order.",
+            "questionPurpose": "sequence_order",
+            "correctOrder": [
+              "The visitors come to Lot's house in Sodom.",
+              "The men of the city surround the house and demand the visitors.",
+              "Lot offers his two daughters in place of the guests.",
+              "The visitors pull Lot inside and strike the crowd with blindness."
+            ],
+            "explanation": "The scene moves from hospitality, to the crowd threat, to Lot's offer, to the visitors' intervention.",
+            "sourceLabel": "Bible Excerpt",
+            "requiresVisibleEvidence": [
+              "Bible Excerpt",
+              "Context"
+            ],
+            "requiresBriefingScreens": [
+              "LT3P_brief_01",
+              "LT3P_brief_02",
+              "LT3P_brief_03"
+            ]
+          },
+          {
+            "id": "LT3P_bank_odd_01",
+            "interactionType": "odd_one_out",
+            "learnPatternId": "odd_one_out",
+            "questionPattern": "odd one out",
+            "prompt": "Which detail does not fit Lot's offer in Sodom?",
+            "questionPurpose": "odd_one_out",
+            "answer": "The visitors accept Lot's offer and send the daughters outside.",
+            "fittingItems": [
+              "Lot receives the visitors into his house.",
+              "The crowd demands that the visitors be brought out.",
+              "Lot offers his daughters to the crowd.",
+              "The visitors strike the men at the door with blindness."
+            ],
+            "explanation": "The offer is made, but the visitors intervene before it is carried out.",
+            "sourceLabel": "Bible Excerpt",
+            "requiresVisibleEvidence": [
+              "Bible Excerpt",
+              "Context"
+            ],
+            "requiresBriefingScreens": [
+              "LT3P_brief_01",
+              "LT3P_brief_02",
+              "LT3P_brief_03"
+            ]
+          },
+          {
+            "id": "LT3P_scholar_hospitality_gender_01",
+            "interactionType": "scholar_note_choice",
+            "policyType": "scholar_note_choice",
+            "learnPatternId": "scholar_note_choice",
+            "questionPattern": "scholar_bonus_inference",
+            "prompt": "Which interpretive point best explains the moral problem in Lot's offer?",
+            "sourceLabel": "Critical notes",
+            "requiresVisibleEvidence": [
+              "Critical notes",
+              "Context"
+            ],
+            "requiresBriefingScreens": [
+              "LT3P_brief_01",
+              "LT3P_brief_02",
+              "LT3P_brief_04"
+            ],
+            "questionPurpose": "scholar_bonus",
+            "reviewSafe": true,
+            "answer": "A household leader treats his daughters as expendable in order to protect male guests.",
+            "distractors": [
+              "Lot offers himself to the crowd instead of anyone vulnerable.",
+              "The visitors require Lot to sacrifice hospitality.",
+              "The daughters are protected by being sent safely to Zoar."
+            ],
+            "explanation": "The offer exposes a hierarchy where hospitality to male guests is defended at the expense of vulnerable daughters."
+          }
+        ]
+      }
+    },
+    "DT4Q": {
+      "cardUid": "DT4Q",
+      "titleHint": "Lot's Daughters",
+      "deckAnswer": "Genesis 19:30-38",
+      "sourceReference": "Genesis 19:30-38",
+      "stage": 2,
+      "guidedLearning": {
+        "briefingScreens": [
+          {
+            "id": "DT4Q_brief_01",
+            "lines": [
+              "After Sodom is destroyed, Lot leaves Zoar and lives in a cave with his two daughters.",
+              "The family is isolated after the collapse of their world."
+            ],
+            "sourceLabel": "Context",
+            "requiresVisibleEvidence": [
+              "Context",
+              "Bible Excerpt"
+            ]
+          },
+          {
+            "id": "DT4Q_brief_02",
+            "lines": [
+              "The daughters say there is no man left through whom they can preserve their father's family line.",
+              "They make Lot drink wine on successive nights."
+            ],
+            "sourceLabel": "Bible Excerpt",
+            "requiresVisibleEvidence": [
+              "Bible Excerpt",
+              "Context"
+            ]
+          },
+          {
+            "id": "DT4Q_brief_03",
+            "lines": [
+              "Each daughter lies with Lot while he does not know when she lies down or gets up.",
+              "Both daughters become pregnant, and the sons are named Moab and Ben-ammi."
+            ],
+            "sourceLabel": "Bible Excerpt",
+            "requiresVisibleEvidence": [
+              "Bible Excerpt"
+            ]
+          },
+          {
+            "id": "DT4Q_brief_04",
+            "lines": [
+              "The story links catastrophe, isolation, intoxication, and incest.",
+              "It also explains the ancestry of Moab and Ammon in a stigmatizing way.",
+              "Survival panic overrides consent and family boundaries."
+            ],
+            "sourceLabel": "Critical notes",
+            "requiresVisibleEvidence": [
+              "Scholarly Note",
+              "Critical notes"
+            ]
+          }
+        ],
+        "eventStructure": {
+          "authority": "Lot's daughters",
+          "action": "make Lot drink wine and have sex with him while he is unaware",
+          "target": "Lot and the family line they seek to preserve",
+          "reason": "they believe there is no man left through whom they can preserve the family line",
+          "moralProblem": "survival panic overrides consent and family boundaries",
+          "explanation": "The account frames the births of Moab and Ben-ammi through disaster, isolation, intoxication, and incest."
+        },
+        "questions": [
+          {
+            "id": "DT4Q_bank_reference_01",
+            "interactionType": "content_choice",
+            "policyType": "passage_reference",
+            "learnPatternId": "reference_anchor",
+            "questionPattern": "reference_anchor",
+            "prompt": "Which passage is this?\n__**Lot's Daughters**__ Lot's two daughters get him drunk and have sex with him while he is unaware after their city is destroyed.",
+            "sourceLabel": "Bible Excerpt",
+            "requiresVisibleEvidence": [
+              "Bible Excerpt"
+            ],
+            "requiresBriefingScreens": [
+              "DT4Q_brief_01",
+              "DT4Q_brief_02",
+              "DT4Q_brief_03",
+              "DT4Q_brief_04"
+            ],
+            "questionPurpose": "passage_reference",
+            "reviewSafe": true,
+            "answer": "Genesis 19:30-38",
+            "distractors": [
+              "Genesis 18:16-33",
+              "Genesis 20:1-18",
+              "Genesis 21:1-21"
+            ],
+            "explanation": "The correct passage is Genesis 19:30-38."
+          },
+          {
+            "id": "DT4Q_bank_reason_choice_01",
+            "interactionType": "content_choice",
+            "learnPatternId": "content_detail",
+            "questionPattern": "content detail choice",
+            "prompt": "Why do Lot's daughters make him drink wine?",
+            "questionPurpose": "content_detail",
+            "answer": "They believe they must preserve their father's family line.",
+            "distractors": [
+              "They want him to forget the destruction of Jericho.",
+              "They are preparing him to lead an army.",
+              "They plan to send him back to Sodom."
+            ],
+            "explanation": "The daughters say they want to preserve their father's family line.",
+            "sourceLabel": "Bible Excerpt",
+            "requiresVisibleEvidence": [
+              "Bible Excerpt",
+              "Context"
+            ],
+            "requiresBriefingScreens": [
+              "DT4Q_brief_02"
+            ]
+          },
+          {
+            "id": "DT4Q_bank_moral_choice_02",
+            "interactionType": "content_choice",
+            "learnPatternId": "content_detail",
+            "questionPattern": "content detail choice",
+            "prompt": "What makes Lot's daughters episode morally troubling?",
+            "questionPurpose": "moral_scope",
+            "answer": "It depicts incest under intoxicated, impaired conditions after disaster.",
+            "distractors": [
+              "It shows a public trial with clear consent from everyone involved.",
+              "It describes a normal marriage negotiation after the family settles safely.",
+              "It centers on a ritual mistake inside the sanctuary."
+            ],
+            "explanation": "The story joins catastrophe, intoxication, impaired consent, and incest.",
+            "sourceLabel": "Critical notes",
+            "requiresVisibleEvidence": [
+              "Context",
+              "Critical notes"
+            ],
+            "requiresBriefingScreens": [
+              "DT4Q_brief_04"
+            ]
+          },
+          {
+            "id": "DT4Q_bank_cave_cloze_01",
+            "interactionType": "cloze_drag",
+            "learnPatternId": "fill_blank",
+            "questionPattern": "fill blank",
+            "prompt": "Lot lives in a ___ with his two daughters.",
+            "questionPurpose": "fill_blank",
+            "reviewSafe": true,
+            "answer": "cave",
+            "wordBank": [
+              "cave",
+              "tent",
+              "palace",
+              "city"
+            ],
+            "explanation": "After leaving Zoar, Lot lives in a cave with his daughters.",
+            "sourceLabel": "Bible Excerpt",
+            "requiresVisibleEvidence": [
+              "Bible Excerpt"
+            ],
+            "requiresBriefingScreens": [
+              "DT4Q_brief_01"
+            ]
+          },
+          {
+            "id": "DT4Q_bank_moab_cloze_02",
+            "interactionType": "cloze_drag",
+            "learnPatternId": "fill_blank",
+            "questionPattern": "fill blank",
+            "prompt": "The firstborn's son is named ___.",
+            "questionPurpose": "fill_blank",
+            "reviewSafe": true,
+            "answer": "Moab",
+            "wordBank": [
+              "Moab",
+              "Ben-ammi",
+              "Isaac",
+              "Ishmael"
+            ],
+            "explanation": "The firstborn names her son Moab.",
+            "sourceLabel": "Bible Excerpt",
+            "requiresVisibleEvidence": [
+              "Bible Excerpt"
+            ],
+            "requiresBriefingScreens": [
+              "DT4Q_brief_03"
+            ]
+          },
+          {
+            "id": "DT4Q_bank_sequence_01",
+            "interactionType": "sequence_order",
+            "learnPatternId": "sequence_step",
+            "questionPattern": "sequence order",
+            "prompt": "Place Lot's daughters episode in order.",
+            "questionPurpose": "sequence_order",
+            "correctOrder": [
+              "Lot leaves Zoar and lives in a cave with his daughters.",
+              "The firstborn says they should preserve their father's family line.",
+              "The daughters make Lot drink wine on successive nights.",
+              "Moab and Ben-ammi are born."
+            ],
+            "explanation": "The episode moves from isolation to the daughters' plan, the two nights of intoxication, and the births.",
+            "sourceLabel": "Bible Excerpt",
+            "requiresVisibleEvidence": [
+              "Bible Excerpt",
+              "Context"
+            ],
+            "requiresBriefingScreens": [
+              "DT4Q_brief_01",
+              "DT4Q_brief_02",
+              "DT4Q_brief_03"
+            ]
+          },
+          {
+            "id": "DT4Q_bank_odd_01",
+            "interactionType": "odd_one_out",
+            "learnPatternId": "odd_one_out",
+            "questionPattern": "odd one out",
+            "prompt": "Which detail does not fit Lot's daughters episode?",
+            "questionPurpose": "odd_one_out",
+            "answer": "Lot knowingly arranges marriages for his daughters in Zoar.",
+            "fittingItems": [
+              "Lot lives in a cave with his daughters.",
+              "The daughters make Lot drink wine.",
+              "Lot does not know when they lie down or get up.",
+              "Moab and Ben-ammi are born."
+            ],
+            "explanation": "The story says Lot is unaware, not that he arranges marriages in Zoar.",
+            "sourceLabel": "Bible Excerpt",
+            "requiresVisibleEvidence": [
+              "Bible Excerpt"
+            ],
+            "requiresBriefingScreens": [
+              "DT4Q_brief_01",
+              "DT4Q_brief_02",
+              "DT4Q_brief_03"
+            ]
+          },
+          {
+            "id": "DT4Q_scholar_survival_panic_01",
+            "interactionType": "scholar_note_choice",
+            "policyType": "scholar_note_choice",
+            "learnPatternId": "scholar_note_choice",
+            "questionPattern": "scholar_bonus_inference",
+            "prompt": "Which interpretive point best frames Lot's daughters after Sodom?",
+            "sourceLabel": "Critical notes",
+            "requiresVisibleEvidence": [
+              "Critical notes",
+              "Context"
+            ],
+            "requiresBriefingScreens": [
+              "DT4Q_brief_01",
+              "DT4Q_brief_02",
+              "DT4Q_brief_04"
+            ],
+            "questionPurpose": "scholar_bonus",
+            "reviewSafe": true,
+            "answer": "Catastrophe and isolation create a survival panic that violates consent and family boundaries.",
+            "distractors": [
+              "The scene is mainly about Lot making a public legal covenant.",
+              "The daughters preserve the family line without deception or intoxication.",
+              "The story presents the cave as a normal wedding setting."
+            ],
+            "explanation": "The scene turns survival fear into a transgressive plan involving intoxication and family boundary collapse."
+          }
+        ]
+      }
+    },
+    "GC1H": {
+      "cardUid": "GC1H",
+      "titleHint": "Golden Calf Massacre",
+      "deckAnswer": "Exodus 32:25-29",
+      "sourceReference": "Exodus 32:25-29",
+      "stage": 2,
+      "guidedLearning": {
+        "briefingScreens": [
+          {
+            "id": "GC1H_brief_01",
+            "lines": [
+              "Moses sees that the people are out of control after the golden calf episode.",
+              "He stands at the gate of the camp and asks who is on the LORD's side."
+            ],
+            "sourceLabel": "Context",
+            "requiresVisibleEvidence": [
+              "Context",
+              "Bible Excerpt"
+            ]
+          },
+          {
+            "id": "GC1H_brief_02",
+            "lines": [
+              "The sons of Levi gather to Moses.",
+              "Moses says every man should put his sword on his thigh and go back and forth through the camp."
+            ],
+            "sourceLabel": "Bible Excerpt",
+            "requiresVisibleEvidence": [
+              "Bible Excerpt"
+            ]
+          },
+          {
+            "id": "GC1H_brief_03",
+            "lines": [
+              "The Levites are told to kill brother, companion, and neighbor.",
+              "They do as Moses says, and about three thousand men fall that day."
+            ],
+            "sourceLabel": "Bible Excerpt",
+            "requiresVisibleEvidence": [
+              "Bible Excerpt",
+              "Context"
+            ]
+          },
+          {
+            "id": "GC1H_brief_04",
+            "lines": [
+              "The violence is framed as loyalty and consecration.",
+              "Wrong worship becomes grounds for killing within the community.",
+              "Sectarian violence is treated as holy fidelity."
+            ],
+            "sourceLabel": "Critical notes",
+            "requiresVisibleEvidence": [
+              "Scholarly Note",
+              "Critical notes"
+            ]
+          }
+        ],
+        "eventStructure": {
+          "authority": "Moses speaking for the LORD",
+          "action": "orders Levites to kill through the camp",
+          "target": "brother, companion, and neighbor among the Israelites",
+          "reason": "the people are out of control after worshiping the golden calf",
+          "moralProblem": "wrong worship becomes grounds for killing within the community",
+          "explanation": "The massacre frames intra-community killing as loyalty after the golden calf episode."
+        },
+        "questions": [
+          {
+            "id": "GC1H_bank_reference_01",
+            "interactionType": "content_choice",
+            "policyType": "passage_reference",
+            "learnPatternId": "reference_anchor",
+            "questionPattern": "reference_anchor",
+            "prompt": "Which passage is this?\n__**Golden Calf Massacre**__ Moses orders the Levites to kill about three thousand of their own people after they worship a golden calf.",
+            "sourceLabel": "Bible Excerpt",
+            "requiresVisibleEvidence": [
+              "Bible Excerpt"
+            ],
+            "requiresBriefingScreens": [
+              "GC1H_brief_01",
+              "GC1H_brief_02",
+              "GC1H_brief_03",
+              "GC1H_brief_04"
+            ],
+            "questionPurpose": "passage_reference",
+            "reviewSafe": true,
+            "answer": "Exodus 32:25-29",
+            "distractors": [
+              "Exodus 22:18",
+              "Exodus 31:12-15",
+              "Deuteronomy 13:6-10"
+            ],
+            "explanation": "The correct passage is Exodus 32:25-29."
+          },
+          {
+            "id": "GC1H_bank_levites_choice_01",
+            "interactionType": "content_choice",
+            "learnPatternId": "content_detail",
+            "questionPattern": "content detail choice",
+            "prompt": "Who gathers to Moses when he asks who is on the LORD's side?",
+            "questionPurpose": "content_detail",
+            "answer": "The sons of Levi gather to him.",
+            "distractors": [
+              "Aaron gathers the Egyptian soldiers to him.",
+              "The elders of Sodom gather to him.",
+              "The Philistine commanders gather to him."
+            ],
+            "explanation": "The sons of Levi rally to Moses at the gate of the camp.",
+            "sourceLabel": "Bible Excerpt",
+            "requiresVisibleEvidence": [
+              "Bible Excerpt"
+            ],
+            "requiresBriefingScreens": [
+              "GC1H_brief_01",
+              "GC1H_brief_02"
+            ]
+          },
+          {
+            "id": "GC1H_bank_moral_choice_02",
+            "interactionType": "content_choice",
+            "learnPatternId": "content_detail",
+            "questionPattern": "content detail choice",
+            "prompt": "What makes the Golden Calf massacre morally troubling?",
+            "questionPurpose": "moral_scope",
+            "answer": "Worshiping wrongly becomes grounds for killing people within the community.",
+            "distractors": [
+              "Only enemy soldiers are killed after a battlefield attack.",
+              "The people are punished only by temporary exile from the camp.",
+              "Moses stops the Levites before anyone is harmed."
+            ],
+            "explanation": "The story treats lethal violence against fellow Israelites as holy loyalty.",
+            "sourceLabel": "Critical notes",
+            "requiresVisibleEvidence": [
+              "Context",
+              "Critical notes"
+            ],
+            "requiresBriefingScreens": [
+              "GC1H_brief_04"
+            ]
+          },
+          {
+            "id": "GC1H_bank_sword_cloze_01",
+            "interactionType": "cloze_drag",
+            "learnPatternId": "fill_blank",
+            "questionPattern": "fill blank",
+            "prompt": "Moses says every man should take his ___ before moving through the camp.",
+            "questionPurpose": "fill_blank",
+            "reviewSafe": true,
+            "answer": "sword",
+            "wordBank": [
+              "sword",
+              "staff",
+              "censer",
+              "scroll"
+            ],
+            "explanation": "The command begins with each man taking his sword before moving through the camp.",
+            "sourceLabel": "Bible Excerpt",
+            "requiresVisibleEvidence": [
+              "Bible Excerpt"
+            ],
+            "requiresBriefingScreens": [
+              "GC1H_brief_02"
+            ]
+          },
+          {
+            "id": "GC1H_bank_three_thousand_cloze_02",
+            "interactionType": "cloze_drag",
+            "learnPatternId": "fill_blank",
+            "questionPattern": "fill blank",
+            "prompt": "About ___ men fall that day.",
+            "questionPurpose": "fill_blank",
+            "reviewSafe": true,
+            "answer": "three thousand",
+            "wordBank": [
+              "three thousand",
+              "three hundred",
+              "thirty",
+              "twelve thousand"
+            ],
+            "explanation": "The passage says about three thousand men fall that day.",
+            "sourceLabel": "Bible Excerpt",
+            "requiresVisibleEvidence": [
+              "Bible Excerpt"
+            ],
+            "requiresBriefingScreens": [
+              "GC1H_brief_03"
+            ]
+          },
+          {
+            "id": "GC1H_bank_sequence_01",
+            "interactionType": "sequence_order",
+            "learnPatternId": "sequence_step",
+            "questionPattern": "sequence order",
+            "prompt": "Place the Golden Calf massacre events in order.",
+            "questionPurpose": "sequence_order",
+            "correctOrder": [
+              "Moses sees that the people are out of control.",
+              "The sons of Levi gather to Moses at the gate.",
+              "The Levites go through the camp with swords.",
+              "About three thousand men fall that day."
+            ],
+            "explanation": "The scene moves from the out-of-control camp, to the Levites rallying, to the command, and then to the deaths.",
+            "sourceLabel": "Bible Excerpt",
+            "requiresVisibleEvidence": [
+              "Bible Excerpt",
+              "Context"
+            ],
+            "requiresBriefingScreens": [
+              "GC1H_brief_01",
+              "GC1H_brief_02",
+              "GC1H_brief_03"
+            ]
+          },
+          {
+            "id": "GC1H_bank_odd_01",
+            "interactionType": "odd_one_out",
+            "learnPatternId": "odd_one_out",
+            "questionPattern": "odd one out",
+            "prompt": "Which detail does not fit the Golden Calf massacre?",
+            "questionPurpose": "odd_one_out",
+            "answer": "Aaron leads the executions through the camp.",
+            "fittingItems": [
+              "Moses calls for those on the LORD's side.",
+              "The sons of Levi gather to Moses.",
+              "The Levites are told to kill brother, companion, and neighbor.",
+              "About three thousand men fall that day."
+            ],
+            "explanation": "Aaron is connected to the calf episode, but Moses gives this command and the Levites carry it out.",
+            "sourceLabel": "Bible Excerpt",
+            "requiresVisibleEvidence": [
+              "Bible Excerpt"
+            ],
+            "requiresBriefingScreens": [
+              "GC1H_brief_01",
+              "GC1H_brief_02",
+              "GC1H_brief_03"
+            ]
+          },
+          {
+            "id": "GC1H_scholar_internal_violence_01",
+            "interactionType": "scholar_note_choice",
+            "policyType": "scholar_note_choice",
+            "learnPatternId": "scholar_note_choice",
+            "questionPattern": "scholar_bonus_inference",
+            "prompt": "Which interpretive point best captures the violence after the golden calf?",
+            "sourceLabel": "Critical notes",
+            "requiresVisibleEvidence": [
+              "Critical notes",
+              "Context"
+            ],
+            "requiresBriefingScreens": [
+              "GC1H_brief_01",
+              "GC1H_brief_02",
+              "GC1H_brief_04"
+            ],
+            "questionPurpose": "scholar_bonus",
+            "reviewSafe": true,
+            "answer": "Religious loyalty is enforced through killing within the community itself.",
+            "distractors": [
+              "The Levites are sent to negotiate with Egypt.",
+              "The violence is directed only at foreign armies outside the camp.",
+              "Moses stops the Levites before anyone is killed."
+            ],
+            "explanation": "The command turns the crisis inward: brother, companion, and neighbor become targets inside the camp."
+          }
+        ]
+      }
+    },
+    "NA3T": {
+      "cardUid": "NA3T",
+      "titleHint": "Nadab and Abihu Consumed",
+      "deckAnswer": "Leviticus 10:1-3",
+      "sourceReference": "Leviticus 10:1-3",
+      "stage": 2,
+      "guidedLearning": {
+        "briefingScreens": [
+          {
+            "id": "NA3T_brief_01",
+            "lines": [
+              "Nadab and Abihu, sons of Aaron, each take a censer and offer strange fire before the LORD.",
+              "The text says this fire was not commanded."
+            ],
+            "sourceLabel": "Bible Excerpt",
+            "requiresVisibleEvidence": [
+              "Bible Excerpt",
+              "Context"
+            ]
+          },
+          {
+            "id": "NA3T_brief_02",
+            "lines": [
+              "Fire comes out from before the LORD and devours them.",
+              "They die before the LORD."
+            ],
+            "sourceLabel": "Bible Excerpt",
+            "requiresVisibleEvidence": [
+              "Bible Excerpt"
+            ]
+          },
+          {
+            "id": "NA3T_brief_03",
+            "lines": [
+              "Moses tells Aaron that God will be shown holy among those who come near.",
+              "Aaron holds his peace after the deaths of his sons."
+            ],
+            "sourceLabel": "Bible Excerpt",
+            "requiresVisibleEvidence": [
+              "Bible Excerpt",
+              "Context"
+            ]
+          },
+          {
+            "id": "NA3T_brief_04",
+            "lines": [
+              "The offense is ritual and not fully explained.",
+              "The response is immediate and fatal.",
+              "The story presents holiness as dangerous enough to kill for unauthorized worship."
+            ],
+            "sourceLabel": "Critical notes",
+            "requiresVisibleEvidence": [
+              "Scholarly Note",
+              "Critical notes"
+            ]
+          }
+        ],
+        "eventStructure": {
+          "authority": "the LORD",
+          "action": "sends fire that consumes Nadab and Abihu",
+          "target": "Nadab and Abihu, the sons of Aaron",
+          "reason": "they offer strange fire that was not commanded",
+          "moralProblem": "a ritual violation receives immediate fatal punishment",
+          "explanation": "The passage links unauthorized worship near sacred space with sudden death."
+        },
+        "questions": [
+          {
+            "id": "NA3T_bank_reference_01",
+            "interactionType": "content_choice",
+            "policyType": "passage_reference",
+            "learnPatternId": "reference_anchor",
+            "questionPattern": "reference_anchor",
+            "prompt": "Which passage is this?\n__**Nadab and Abihu Consumed**__ Two priests are burned alive by fire from the Lord for offering unauthorized incense.",
+            "sourceLabel": "Bible Excerpt",
+            "requiresVisibleEvidence": [
+              "Bible Excerpt"
+            ],
+            "requiresBriefingScreens": [
+              "NA3T_brief_01",
+              "NA3T_brief_02",
+              "NA3T_brief_03",
+              "NA3T_brief_04"
+            ],
+            "questionPurpose": "passage_reference",
+            "reviewSafe": true,
+            "answer": "Leviticus 10:1-3",
+            "distractors": [
+              "Leviticus 24:10-23",
+              "Leviticus 20:27",
+              "Numbers 16:35-40"
+            ],
+            "explanation": "The correct passage is Leviticus 10:1-3."
+          },
+          {
+            "id": "NA3T_bank_fire_choice_01",
+            "interactionType": "content_choice",
+            "learnPatternId": "content_detail",
+            "questionPattern": "content detail choice",
+            "prompt": "What do Nadab and Abihu offer before the LORD?",
+            "questionPurpose": "content_detail",
+            "answer": "They offer strange fire that was not commanded.",
+            "distractors": [
+              "They offer the daily bread in the wrong basket.",
+              "They offer a peace treaty to enemy soldiers.",
+              "They offer a census list to Moses."
+            ],
+            "explanation": "The text says they offer strange fire before the LORD, which he had not commanded.",
+            "sourceLabel": "Bible Excerpt",
+            "requiresVisibleEvidence": [
+              "Bible Excerpt"
+            ],
+            "requiresBriefingScreens": [
+              "NA3T_brief_01"
+            ]
+          },
+          {
+            "id": "NA3T_bank_moral_choice_02",
+            "interactionType": "content_choice",
+            "learnPatternId": "content_detail",
+            "questionPattern": "content detail choice",
+            "prompt": "What moral issue stands out in the deaths of Nadab and Abihu?",
+            "questionPurpose": "moral_scope",
+            "answer": "A ritual violation is answered with immediate death.",
+            "distractors": [
+              "They die after murdering their father in the sanctuary.",
+              "They are exiled for a year and then restored.",
+              "They attack the priests and burn the altar themselves."
+            ],
+            "explanation": "The problem is the severity of death for an unauthorized ritual act.",
+            "sourceLabel": "Critical notes",
+            "requiresVisibleEvidence": [
+              "Context",
+              "Critical notes"
+            ],
+            "requiresBriefingScreens": [
+              "NA3T_brief_04"
+            ]
+          },
+          {
+            "id": "NA3T_bank_strange_fire_cloze_01",
+            "interactionType": "cloze_drag",
+            "learnPatternId": "fill_blank",
+            "questionPattern": "fill blank",
+            "prompt": "Nadab and Abihu offer ___ fire before the LORD.",
+            "questionPurpose": "fill_blank",
+            "reviewSafe": true,
+            "answer": "strange",
+            "wordBank": [
+              "strange",
+              "clean",
+              "borrowed",
+              "evening"
+            ],
+            "explanation": "The passage calls the offering strange fire.",
+            "sourceLabel": "Bible Excerpt",
+            "requiresVisibleEvidence": [
+              "Bible Excerpt"
+            ],
+            "requiresBriefingScreens": [
+              "NA3T_brief_01"
+            ]
+          },
+          {
+            "id": "NA3T_bank_silent_cloze_02",
+            "interactionType": "cloze_drag",
+            "learnPatternId": "fill_blank",
+            "questionPattern": "fill blank",
+            "prompt": "After Moses speaks, Aaron remains ___.",
+            "questionPurpose": "fill_blank",
+            "reviewSafe": true,
+            "answer": "silent",
+            "wordBank": [
+              "silent",
+              "afraid",
+              "angry",
+              "alone"
+            ],
+            "explanation": "After Moses speaks, Aaron remains silent.",
+            "sourceLabel": "Bible Excerpt",
+            "requiresVisibleEvidence": [
+              "Bible Excerpt"
+            ],
+            "requiresBriefingScreens": [
+              "NA3T_brief_03"
+            ]
+          },
+          {
+            "id": "NA3T_bank_sequence_01",
+            "interactionType": "sequence_order",
+            "learnPatternId": "sequence_step",
+            "questionPattern": "sequence order",
+            "prompt": "Place the deaths of Nadab and Abihu in order.",
+            "questionPurpose": "sequence_order",
+            "correctOrder": [
+              "Nadab and Abihu offer strange fire.",
+              "Fire comes out from before the LORD.",
+              "Nadab and Abihu die before the LORD.",
+              "Moses speaks about holiness, and Aaron holds his peace."
+            ],
+            "explanation": "The passage moves from unauthorized fire, to divine fire, to death, and then to Moses' explanation.",
+            "sourceLabel": "Bible Excerpt",
+            "requiresVisibleEvidence": [
+              "Bible Excerpt",
+              "Context"
+            ],
+            "requiresBriefingScreens": [
+              "NA3T_brief_01",
+              "NA3T_brief_02",
+              "NA3T_brief_03"
+            ]
+          },
+          {
+            "id": "NA3T_bank_odd_01",
+            "interactionType": "odd_one_out",
+            "learnPatternId": "odd_one_out",
+            "questionPattern": "odd one out",
+            "prompt": "Which detail does not fit the Nadab and Abihu account?",
+            "questionPurpose": "odd_one_out",
+            "answer": "Moses stops the fire before anyone dies.",
+            "fittingItems": [
+              "Nadab and Abihu are sons of Aaron.",
+              "They offer strange fire before the LORD.",
+              "Fire comes out and devours them.",
+              "Aaron holds his peace."
+            ],
+            "explanation": "The fire is not stopped; Nadab and Abihu die before the LORD.",
+            "sourceLabel": "Bible Excerpt",
+            "requiresVisibleEvidence": [
+              "Bible Excerpt"
+            ],
+            "requiresBriefingScreens": [
+              "NA3T_brief_01",
+              "NA3T_brief_02",
+              "NA3T_brief_03"
+            ]
+          },
+          {
+            "id": "NA3T_scholar_ritual_severity_01",
+            "interactionType": "scholar_note_choice",
+            "policyType": "scholar_note_choice",
+            "learnPatternId": "scholar_note_choice",
+            "questionPattern": "scholar_bonus_inference",
+            "prompt": "Which interpretive point makes the deaths of Nadab and Abihu morally sharp?",
+            "sourceLabel": "Critical notes",
+            "requiresVisibleEvidence": [
+              "Critical notes",
+              "Context"
+            ],
+            "requiresBriefingScreens": [
+              "NA3T_brief_01",
+              "NA3T_brief_02",
+              "NA3T_brief_04"
+            ],
+            "questionPurpose": "scholar_bonus",
+            "reviewSafe": true,
+            "answer": "An unclear ritual violation receives an immediate fatal response.",
+            "distractors": [
+              "They are executed after a long public trial.",
+              "They die while attacking Moses with weapons.",
+              "The story says Aaron celebrates their deaths."
+            ],
+            "explanation": "The severity is immediate and lethal, even though the exact ritual violation is difficult for readers to weigh."
+          }
+        ]
+      }
+    },
+    "JP8U": {
+      "cardUid": "JP8U",
+      "titleHint": "Jephthah's Vow",
+      "deckAnswer": "Judges 11:30-40",
+      "sourceReference": "Judges 11:30-40",
+      "stage": 2,
+      "guidedLearning": {
+        "briefingScreens": [
+          {
+            "id": "JP8U_brief_01",
+            "lines": [
+              "Jephthah vows that if he returns victorious, whatever comes out of his house to meet him will belong to the LORD.",
+              "He says he will offer it up for a burnt offering."
+            ],
+            "sourceLabel": "Bible Excerpt",
+            "requiresVisibleEvidence": [
+              "Bible Excerpt",
+              "Context"
+            ]
+          },
+          {
+            "id": "JP8U_brief_02",
+            "lines": [
+              "Jephthah wins the battle and returns home.",
+              "His daughter comes out to meet him with tambourines and dances, and she is his only child."
+            ],
+            "sourceLabel": "Bible Excerpt",
+            "requiresVisibleEvidence": [
+              "Bible Excerpt"
+            ]
+          },
+          {
+            "id": "JP8U_brief_03",
+            "lines": [
+              "Jephthah says he has opened his mouth to the LORD and cannot go back.",
+              "His daughter asks for two months to mourn her virginity, and then Jephthah does according to his vow."
+            ],
+            "sourceLabel": "Bible Excerpt",
+            "requiresVisibleEvidence": [
+              "Bible Excerpt",
+              "Context"
+            ]
+          },
+          {
+            "id": "JP8U_brief_04",
+            "lines": [
+              "The moral burden falls on the daughter for her father's rash vow.",
+              "The text gives no intervention that stops the outcome.",
+              "Her future, and on the direct reading her life, is consumed by adult piety and victory bargaining."
+            ],
+            "sourceLabel": "Critical notes",
+            "requiresVisibleEvidence": [
+              "Scholarly Note",
+              "Critical notes"
+            ]
+          }
+        ],
+        "eventStructure": {
+          "authority": "Jephthah",
+          "action": "vows and fulfills an offering involving the first one from his house",
+          "target": "Jephthah's only daughter",
+          "reason": "Jephthah bargains for victory over the Ammonites",
+          "moralProblem": "a daughter pays the cost of her father's rash vow",
+          "explanation": "The story ties victory, a religious vow, and the fate of Jephthah's only child together without a rescue scene."
+        },
+        "questions": [
+          {
+            "id": "JP8U_bank_reference_01",
+            "interactionType": "content_choice",
+            "policyType": "passage_reference",
+            "learnPatternId": "reference_anchor",
+            "questionPattern": "reference_anchor",
+            "prompt": "Which passage is this?\n__**Jephthah's Vow**__ A father vows to sacrifice the first person who greets him after battle if God grants victory, and it turns out to be his only daughter.",
+            "sourceLabel": "Bible Excerpt",
+            "requiresVisibleEvidence": [
+              "Bible Excerpt"
+            ],
+            "requiresBriefingScreens": [
+              "JP8U_brief_01",
+              "JP8U_brief_02",
+              "JP8U_brief_03",
+              "JP8U_brief_04"
+            ],
+            "questionPurpose": "passage_reference",
+            "reviewSafe": true,
+            "answer": "Judges 11:30-40",
+            "distractors": [
+              "Judges 9:1-6",
+              "Judges 21:10-12",
+              "2 Kings 3:26-27"
+            ],
+            "explanation": "The correct passage is Judges 11:30-40."
+          },
+          {
+            "id": "JP8U_bank_vow_choice_01",
+            "interactionType": "content_choice",
+            "learnPatternId": "content_detail",
+            "questionPattern": "content detail choice",
+            "prompt": "What does Jephthah vow before the battle?",
+            "questionPurpose": "content_detail",
+            "answer": "Whatever comes out of his house to meet him will belong to the LORD and be offered up.",
+            "distractors": [
+              "He will free every captive taken in battle.",
+              "He will never return to his house after victory.",
+              "He will rebuild Jericho if his army wins."
+            ],
+            "explanation": "Jephthah vows that whatever comes out of his house will belong to the LORD and be offered up.",
+            "sourceLabel": "Bible Excerpt",
+            "requiresVisibleEvidence": [
+              "Bible Excerpt"
+            ],
+            "requiresBriefingScreens": [
+              "JP8U_brief_01"
+            ]
+          },
+          {
+            "id": "JP8U_bank_moral_choice_02",
+            "interactionType": "content_choice",
+            "learnPatternId": "content_detail",
+            "questionPattern": "content detail choice",
+            "prompt": "What makes Jephthah's vow morally difficult?",
+            "questionPurpose": "moral_scope",
+            "answer": "His only daughter bears the cost of his vow after he wins.",
+            "distractors": [
+              "His enemies force him to break a promise he never made.",
+              "His daughter becomes queen after stopping the battle.",
+              "A priest cancels the vow before anyone is harmed."
+            ],
+            "explanation": "The daughter pays for an adult vow made before battle.",
+            "sourceLabel": "Critical notes",
+            "requiresVisibleEvidence": [
+              "Context",
+              "Critical notes"
+            ],
+            "requiresBriefingScreens": [
+              "JP8U_brief_04"
+            ]
+          },
+          {
+            "id": "JP8U_bank_daughter_cloze_01",
+            "interactionType": "cloze_drag",
+            "learnPatternId": "fill_blank",
+            "questionPattern": "fill blank",
+            "prompt": "Jephthah's ___ comes out to meet him with tambourines and dances.",
+            "questionPurpose": "fill_blank",
+            "reviewSafe": true,
+            "answer": "daughter",
+            "wordBank": [
+              "daughter",
+              "brother",
+              "servant",
+              "enemy"
+            ],
+            "explanation": "Jephthah's daughter is the one who comes out to meet him.",
+            "sourceLabel": "Bible Excerpt",
+            "requiresVisibleEvidence": [
+              "Bible Excerpt"
+            ],
+            "requiresBriefingScreens": [
+              "JP8U_brief_02"
+            ]
+          },
+          {
+            "id": "JP8U_bank_virginity_cloze_02",
+            "interactionType": "cloze_drag",
+            "learnPatternId": "fill_blank",
+            "questionPattern": "fill blank",
+            "prompt": "She asks for two months to mourn her ___.",
+            "questionPurpose": "fill_blank",
+            "reviewSafe": true,
+            "answer": "virginity",
+            "wordBank": [
+              "virginity",
+              "victory",
+              "inheritance",
+              "exile"
+            ],
+            "explanation": "Before the vow is fulfilled, she asks to mourn her virginity.",
+            "sourceLabel": "Bible Excerpt",
+            "requiresVisibleEvidence": [
+              "Bible Excerpt"
+            ],
+            "requiresBriefingScreens": [
+              "JP8U_brief_03"
+            ]
+          },
+          {
+            "id": "JP8U_bank_sequence_01",
+            "interactionType": "sequence_order",
+            "learnPatternId": "sequence_step",
+            "questionPattern": "sequence order",
+            "prompt": "Place Jephthah's vow in order.",
+            "questionPurpose": "sequence_order",
+            "correctOrder": [
+              "Jephthah vows to offer whatever comes out of his house.",
+              "The LORD delivers the Ammonites into his hand.",
+              "Jephthah's only daughter comes out to meet him.",
+              "After two months, Jephthah does according to his vow."
+            ],
+            "explanation": "The story moves from vow, to victory, to the daughter greeting him, and then to the fulfilled vow.",
+            "sourceLabel": "Bible Excerpt",
+            "requiresVisibleEvidence": [
+              "Bible Excerpt",
+              "Context"
+            ],
+            "requiresBriefingScreens": [
+              "JP8U_brief_01",
+              "JP8U_brief_02",
+              "JP8U_brief_03"
+            ]
+          },
+          {
+            "id": "JP8U_bank_odd_01",
+            "interactionType": "odd_one_out",
+            "learnPatternId": "odd_one_out",
+            "questionPattern": "odd one out",
+            "prompt": "Which detail does not fit Jephthah's vow?",
+            "questionPurpose": "odd_one_out",
+            "answer": "An angel stops Jephthah before the vow is fulfilled.",
+            "fittingItems": [
+              "Jephthah vows before the battle.",
+              "His daughter is his only child.",
+              "She mourns her virginity for two months.",
+              "Jephthah does according to his vow."
+            ],
+            "explanation": "Unlike some other biblical sacrifice stories, this account gives no intervention that stops the outcome.",
+            "sourceLabel": "Bible Excerpt",
+            "requiresVisibleEvidence": [
+              "Bible Excerpt"
+            ],
+            "requiresBriefingScreens": [
+              "JP8U_brief_01",
+              "JP8U_brief_02",
+              "JP8U_brief_03"
+            ]
+          },
+          {
+            "id": "JP8U_scholar_vow_cost_01",
+            "interactionType": "scholar_note_choice",
+            "policyType": "scholar_note_choice",
+            "learnPatternId": "scholar_note_choice",
+            "questionPattern": "scholar_bonus_inference",
+            "prompt": "Which interpretive point best explains the burden of Jephthah's vow?",
+            "sourceLabel": "Critical notes",
+            "requiresVisibleEvidence": [
+              "Critical notes",
+              "Context"
+            ],
+            "requiresBriefingScreens": [
+              "JP8U_brief_01",
+              "JP8U_brief_02",
+              "JP8U_brief_04"
+            ],
+            "questionPurpose": "scholar_bonus",
+            "reviewSafe": true,
+            "answer": "The daughter bears the cost of her father's victory bargain.",
+            "distractors": [
+              "Jephthah's daughter makes the vow before battle.",
+              "The story turns the vow into a warning about foreign kings.",
+              "A messenger stops the vow before it affects anyone."
+            ],
+            "explanation": "The vow is made by Jephthah, but the life most directly constrained by it is his daughter's."
+          }
+        ]
+      }
+    },
+    "LC5L": {
+      "cardUid": "LC5L",
+      "titleHint": "The Levite's Concubine",
+      "deckAnswer": "Judges 19:22-30",
+      "sourceReference": "Judges 19:22-30",
+      "stage": 2,
+      "guidedLearning": {
+        "briefingScreens": [
+          {
+            "id": "LC5L_brief_01",
+            "lines": [
+              "A Levite and his concubine lodge in Gibeah.",
+              "A violent crowd surrounds the house and demands the male guest."
+            ],
+            "sourceLabel": "Context",
+            "requiresVisibleEvidence": [
+              "Context",
+              "Bible Excerpt"
+            ]
+          },
+          {
+            "id": "LC5L_brief_02",
+            "lines": [
+              "The host offers his daughter and the concubine instead.",
+              "The concubine is brought outside and abused through the night."
+            ],
+            "sourceLabel": "Bible Excerpt",
+            "requiresVisibleEvidence": [
+              "Bible Excerpt",
+              "Context"
+            ]
+          },
+          {
+            "id": "LC5L_brief_03",
+            "lines": [
+              "At dawn, the woman falls at the threshold of the house.",
+              "The Levite later cuts her body into twelve pieces and sends them throughout Israel."
+            ],
+            "sourceLabel": "Bible Excerpt",
+            "requiresVisibleEvidence": [
+              "Bible Excerpt",
+              "Context"
+            ]
+          },
+          {
+            "id": "LC5L_brief_04",
+            "lines": [
+              "The woman is first sacrificed to the mob and then objectified in death.",
+              "Her body becomes the signal for public outrage and war.",
+              "The story exposes social collapse by making her suffering the center of the shock."
+            ],
+            "sourceLabel": "Critical notes",
+            "requiresVisibleEvidence": [
+              "Scholarly Note",
+              "Critical notes"
+            ]
+          }
+        ],
+        "eventStructure": {
+          "authority": "the Levite and the men of Gibeah",
+          "action": "the woman is handed to the mob, abused, then dismembered and sent through Israel",
+          "target": "the Levite's concubine",
+          "reason": "men protect the male guest and later use her body as a public signal",
+          "moralProblem": "a victim is sacrificed and then objectified in death",
+          "explanation": "The account presents social collapse through sexual violence, abandonment, and the use of a woman's body to provoke national outrage."
+        },
+        "questions": [
+          {
+            "id": "LC5L_bank_reference_01",
+            "interactionType": "content_choice",
+            "policyType": "passage_reference",
+            "learnPatternId": "reference_anchor",
+            "questionPattern": "reference_anchor",
+            "prompt": "Which passage is this?\n__**The Levite's Concubine**__ A woman is gang-raped all night, left for dead, and her body is cut into twelve pieces and sent throughout Israel.",
+            "sourceLabel": "Bible Excerpt",
+            "requiresVisibleEvidence": [
+              "Bible Excerpt"
+            ],
+            "requiresBriefingScreens": [
+              "LC5L_brief_01",
+              "LC5L_brief_02",
+              "LC5L_brief_03",
+              "LC5L_brief_04"
+            ],
+            "questionPurpose": "passage_reference",
+            "reviewSafe": true,
+            "answer": "Judges 19:22-30",
+            "distractors": [
+              "Judges 9:1-6",
+              "Judges 18",
+              "Judges 21:10-12"
+            ],
+            "explanation": "The correct passage is Judges 19:22-30."
+          },
+          {
+            "id": "LC5L_bank_night_choice_01",
+            "interactionType": "content_choice",
+            "learnPatternId": "content_detail",
+            "questionPattern": "content detail choice",
+            "prompt": "What happens to the concubine after the crowd surrounds the house?",
+            "questionPurpose": "content_detail",
+            "answer": "She is brought outside and abused through the night.",
+            "distractors": [
+              "She leads the crowd away from the house safely.",
+              "She is hidden in the temple until morning.",
+              "She is crowned as judge over Gibeah."
+            ],
+            "explanation": "The passage says the woman is brought out to the men and abused until morning.",
+            "sourceLabel": "Bible Excerpt",
+            "requiresVisibleEvidence": [
+              "Bible Excerpt",
+              "Context"
+            ],
+            "requiresBriefingScreens": [
+              "LC5L_brief_02"
+            ]
+          },
+          {
+            "id": "LC5L_bank_moral_choice_02",
+            "interactionType": "content_choice",
+            "learnPatternId": "content_detail",
+            "questionPattern": "content detail choice",
+            "prompt": "What moral issue stands out in the Levite's concubine story?",
+            "questionPurpose": "moral_scope",
+            "answer": "Her suffering is used for public outrage after she has been abandoned to violence.",
+            "distractors": [
+              "She is protected by every man in the house from the beginning.",
+              "The crowd is punished before any threat reaches the house.",
+              "The story centers on a ritual mistake with sacred incense."
+            ],
+            "explanation": "The story is morally stark because her suffering becomes a political signal after she is abandoned.",
+            "sourceLabel": "Critical notes",
+            "requiresVisibleEvidence": [
+              "Context",
+              "Critical notes"
+            ],
+            "requiresBriefingScreens": [
+              "LC5L_brief_04"
+            ]
+          },
+          {
+            "id": "LC5L_bank_threshold_cloze_01",
+            "interactionType": "cloze_drag",
+            "learnPatternId": "fill_blank",
+            "questionPattern": "fill blank",
+            "prompt": "At dawn, the woman falls at the ___ of the house.",
+            "questionPurpose": "fill_blank",
+            "reviewSafe": true,
+            "answer": "threshold",
+            "wordBank": [
+              "threshold",
+              "doorway",
+              "gate",
+              "courtyard"
+            ],
+            "explanation": "At dawn she falls at the threshold of the house.",
+            "sourceLabel": "Bible Excerpt",
+            "requiresVisibleEvidence": [
+              "Bible Excerpt"
+            ],
+            "requiresBriefingScreens": [
+              "LC5L_brief_03"
+            ]
+          },
+          {
+            "id": "LC5L_bank_twelve_cloze_02",
+            "interactionType": "cloze_drag",
+            "learnPatternId": "fill_blank",
+            "questionPattern": "fill blank",
+            "prompt": "The Levite cuts her body into ___ pieces.",
+            "questionPurpose": "fill_blank",
+            "reviewSafe": true,
+            "answer": "twelve",
+            "wordBank": [
+              "twelve",
+              "seven",
+              "three",
+              "forty"
+            ],
+            "explanation": "The Levite divides her body into twelve pieces and sends them through Israel.",
+            "sourceLabel": "Bible Excerpt",
+            "requiresVisibleEvidence": [
+              "Bible Excerpt"
+            ],
+            "requiresBriefingScreens": [
+              "LC5L_brief_03"
+            ]
+          },
+          {
+            "id": "LC5L_bank_sequence_01",
+            "interactionType": "sequence_order",
+            "learnPatternId": "sequence_step",
+            "questionPattern": "sequence order",
+            "prompt": "Place the Levite's concubine account in order.",
+            "questionPurpose": "sequence_order",
+            "correctOrder": [
+              "The Levite and his concubine lodge in Gibeah.",
+              "A crowd surrounds the house and demands the male guest.",
+              "The concubine is brought outside and abused through the night.",
+              "Her body is cut into twelve pieces and sent through Israel."
+            ],
+            "explanation": "The account moves from lodging, to the crowd threat, to the night of abuse, and then to the dismemberment and message.",
+            "sourceLabel": "Bible Excerpt",
+            "requiresVisibleEvidence": [
+              "Bible Excerpt",
+              "Context"
+            ],
+            "requiresBriefingScreens": [
+              "LC5L_brief_01",
+              "LC5L_brief_02",
+              "LC5L_brief_03"
+            ]
+          },
+          {
+            "id": "LC5L_bank_odd_01",
+            "interactionType": "odd_one_out",
+            "learnPatternId": "odd_one_out",
+            "questionPattern": "odd one out",
+            "prompt": "Which detail does not fit the Levite's concubine account?",
+            "questionPurpose": "odd_one_out",
+            "answer": "The woman speaks before the assembly to demand justice.",
+            "fittingItems": [
+              "A crowd surrounds the house in Gibeah.",
+              "The concubine is brought outside to the crowd.",
+              "She falls at the threshold at dawn.",
+              "Her body is divided into twelve pieces."
+            ],
+            "explanation": "The woman is nearly voiceless in the narrative; she does not address an assembly to demand justice.",
+            "sourceLabel": "Bible Excerpt",
+            "requiresVisibleEvidence": [
+              "Bible Excerpt",
+              "Context"
+            ],
+            "requiresBriefingScreens": [
+              "LC5L_brief_01",
+              "LC5L_brief_02",
+              "LC5L_brief_03"
+            ]
+          },
+          {
+            "id": "LC5L_scholar_public_outrage_01",
+            "interactionType": "scholar_note_choice",
+            "policyType": "scholar_note_choice",
+            "learnPatternId": "scholar_note_choice",
+            "questionPattern": "scholar_bonus_inference",
+            "prompt": "Which interpretive point best captures the horror in the Levite's concubine?",
+            "sourceLabel": "Critical notes",
+            "requiresVisibleEvidence": [
+              "Critical notes",
+              "Context"
+            ],
+            "requiresBriefingScreens": [
+              "LC5L_brief_01",
+              "LC5L_brief_02",
+              "LC5L_brief_04"
+            ],
+            "questionPurpose": "scholar_bonus",
+            "reviewSafe": true,
+            "answer": "A woman is sacrificed to protect a male guest and then used after death to provoke public outrage.",
+            "distractors": [
+              "The woman is protected by the host and leaves unharmed.",
+              "The Levite sends gifts throughout Israel to celebrate reconciliation.",
+              "The crowd asks only for food and shelter."
+            ],
+            "explanation": "The narrative moves from abandonment to assault to a public display meant to force a national response."
+          }
+        ]
+      }
+    },
+    "UZ2I": {
+      "cardUid": "UZ2I",
+      "titleHint": "Uzzah Struck Dead",
+      "deckAnswer": "2 Samuel 6:6-7",
+      "sourceReference": "2 Samuel 6:6-7",
+      "stage": 2,
+      "guidedLearning": {
+        "briefingScreens": [
+          {
+            "id": "UZ2I_brief_01",
+            "lines": [
+              "The ark is being transported when the cattle stumble near the threshing floor of Nacon.",
+              "Uzzah reaches out and takes hold of the ark."
+            ],
+            "sourceLabel": "Bible Excerpt",
+            "requiresVisibleEvidence": [
+              "Bible Excerpt",
+              "Context"
+            ]
+          },
+          {
+            "id": "UZ2I_brief_02",
+            "lines": [
+              "The text says the LORD's anger burns against Uzzah.",
+              "God strikes him there for his error, and he dies by the ark."
+            ],
+            "sourceLabel": "Bible Excerpt",
+            "requiresVisibleEvidence": [
+              "Bible Excerpt"
+            ]
+          },
+          {
+            "id": "UZ2I_brief_03",
+            "lines": [
+              "David reacts with anger and fear, and the procession stops.",
+              "The scene emphasizes the dangerous holiness of the ark."
+            ],
+            "sourceLabel": "Context",
+            "requiresVisibleEvidence": [
+              "Context",
+              "Scholarly Note"
+            ]
+          },
+          {
+            "id": "UZ2I_brief_04",
+            "lines": [
+              "The moral issue is proportionality.",
+              "Uzzah appears to act reflexively to steady the ark, yet the response is immediate death.",
+              "Holiness is portrayed as dangerous enough to kill over a split-second act."
+            ],
+            "sourceLabel": "Critical notes",
+            "requiresVisibleEvidence": [
+              "Scholarly Note",
+              "Critical notes"
+            ]
+          }
+        ],
+        "eventStructure": {
+          "authority": "the LORD",
+          "action": "strikes Uzzah dead beside the ark",
+          "target": "Uzzah",
+          "reason": "Uzzah touches the ark when the cattle stumble",
+          "moralProblem": "a split-second stabilizing act receives immediate death",
+          "explanation": "The account treats contact with the ark as a fatal error even though Uzzah appears to be steadying it."
+        },
+        "questions": [
+          {
+            "id": "UZ2I_bank_reference_01",
+            "interactionType": "content_choice",
+            "policyType": "passage_reference",
+            "learnPatternId": "reference_anchor",
+            "questionPattern": "reference_anchor",
+            "prompt": "Which passage is this?\n__**Uzzah Struck Dead**__ A man is instantly killed by God for touching the Ark of the Covenant to steady it during transport.",
+            "sourceLabel": "Bible Excerpt",
+            "requiresVisibleEvidence": [
+              "Bible Excerpt"
+            ],
+            "requiresBriefingScreens": [
+              "UZ2I_brief_01",
+              "UZ2I_brief_02",
+              "UZ2I_brief_03",
+              "UZ2I_brief_04"
+            ],
+            "questionPurpose": "passage_reference",
+            "reviewSafe": true,
+            "answer": "2 Samuel 6:6-7",
+            "distractors": [
+              "2 Samuel 12:13-18",
+              "2 Samuel 24:1-17",
+              "Leviticus 10:1-3"
+            ],
+            "explanation": "The correct passage is 2 Samuel 6:6-7."
+          },
+          {
+            "id": "UZ2I_bank_touch_choice_01",
+            "interactionType": "content_choice",
+            "learnPatternId": "content_detail",
+            "questionPattern": "content detail choice",
+            "prompt": "Why does Uzzah touch the ark?",
+            "questionPurpose": "content_detail",
+            "answer": "The cattle stumble, and he reaches out to steady it.",
+            "distractors": [
+              "He tries to steal the ark from the procession.",
+              "He opens the ark to look inside it.",
+              "He orders the priests to carry it into battle."
+            ],
+            "explanation": "Uzzah reaches out because the cattle stumble during transport.",
+            "sourceLabel": "Bible Excerpt",
+            "requiresVisibleEvidence": [
+              "Bible Excerpt",
+              "Context"
+            ],
+            "requiresBriefingScreens": [
+              "UZ2I_brief_01"
+            ]
+          },
+          {
+            "id": "UZ2I_bank_moral_choice_02",
+            "interactionType": "content_choice",
+            "learnPatternId": "content_detail",
+            "questionPattern": "content detail choice",
+            "prompt": "What makes Uzzah's death morally difficult?",
+            "questionPurpose": "moral_scope",
+            "answer": "A reflexive act to steady the ark receives immediate death.",
+            "distractors": [
+              "Uzzah kills the priests before touching the ark.",
+              "David orders Uzzah executed after a trial.",
+              "The ark falls and crushes Uzzah by accident."
+            ],
+            "explanation": "The difficult issue is the fatal response to an apparent stabilizing action.",
+            "sourceLabel": "Critical notes",
+            "requiresVisibleEvidence": [
+              "Context",
+              "Critical notes"
+            ],
+            "requiresBriefingScreens": [
+              "UZ2I_brief_04"
+            ]
+          },
+          {
+            "id": "UZ2I_bank_cattle_cloze_01",
+            "interactionType": "cloze_drag",
+            "learnPatternId": "fill_blank",
+            "questionPattern": "fill blank",
+            "prompt": "Uzzah reaches out because the ___ stumble.",
+            "questionPurpose": "fill_blank",
+            "reviewSafe": true,
+            "answer": "cattle",
+            "wordBank": [
+              "cattle",
+              "priests",
+              "soldiers",
+              "singers"
+            ],
+            "explanation": "The passage says the cattle stumble, and Uzzah reaches for the ark.",
+            "sourceLabel": "Bible Excerpt",
+            "requiresVisibleEvidence": [
+              "Bible Excerpt"
+            ],
+            "requiresBriefingScreens": [
+              "UZ2I_brief_01"
+            ]
+          },
+          {
+            "id": "UZ2I_bank_ark_cloze_02",
+            "interactionType": "cloze_drag",
+            "learnPatternId": "fill_blank",
+            "questionPattern": "fill blank",
+            "prompt": "Uzzah dies there by God's ___.",
+            "questionPurpose": "fill_blank",
+            "reviewSafe": true,
+            "answer": "ark",
+            "wordBank": [
+              "ark",
+              "altar",
+              "throne",
+              "tent"
+            ],
+            "explanation": "The text says Uzzah dies there by God's ark.",
+            "sourceLabel": "Bible Excerpt",
+            "requiresVisibleEvidence": [
+              "Bible Excerpt"
+            ],
+            "requiresBriefingScreens": [
+              "UZ2I_brief_02"
+            ]
+          },
+          {
+            "id": "UZ2I_bank_sequence_01",
+            "interactionType": "sequence_order",
+            "learnPatternId": "sequence_step",
+            "questionPattern": "sequence order",
+            "prompt": "Place Uzzah's death in order.",
+            "questionPurpose": "sequence_order",
+            "correctOrder": [
+              "The ark is being transported on the way.",
+              "The cattle stumble near the threshing floor.",
+              "Uzzah reaches out and takes hold of the ark.",
+              "God strikes Uzzah, and he dies by the ark."
+            ],
+            "explanation": "The scene moves from transport, to the stumble, to Uzzah's contact, and then to his death.",
+            "sourceLabel": "Bible Excerpt",
+            "requiresVisibleEvidence": [
+              "Bible Excerpt",
+              "Context"
+            ],
+            "requiresBriefingScreens": [
+              "UZ2I_brief_01",
+              "UZ2I_brief_02"
+            ]
+          },
+          {
+            "id": "UZ2I_bank_odd_01",
+            "interactionType": "odd_one_out",
+            "learnPatternId": "odd_one_out",
+            "questionPattern": "odd one out",
+            "prompt": "Which detail does not fit Uzzah's death?",
+            "questionPurpose": "odd_one_out",
+            "answer": "Uzzah is punished after trying to steal the ark.",
+            "fittingItems": [
+              "The cattle stumble during transport.",
+              "Uzzah reaches out to steady the ark.",
+              "The LORD's anger burns against Uzzah.",
+              "Uzzah dies there by the ark."
+            ],
+            "explanation": "The account says Uzzah reaches for the ark when the cattle stumble, not that he tries to steal it.",
+            "sourceLabel": "Bible Excerpt",
+            "requiresVisibleEvidence": [
+              "Bible Excerpt"
+            ],
+            "requiresBriefingScreens": [
+              "UZ2I_brief_01",
+              "UZ2I_brief_02"
+            ]
+          },
+          {
+            "id": "UZ2I_scholar_dangerous_holiness_01",
+            "interactionType": "scholar_note_choice",
+            "policyType": "scholar_note_choice",
+            "learnPatternId": "scholar_note_choice",
+            "questionPattern": "scholar_bonus_inference",
+            "prompt": "Which interpretive point makes Uzzah's death difficult?",
+            "sourceLabel": "Critical notes",
+            "requiresVisibleEvidence": [
+              "Critical notes",
+              "Context"
+            ],
+            "requiresBriefingScreens": [
+              "UZ2I_brief_01",
+              "UZ2I_brief_02",
+              "UZ2I_brief_04"
+            ],
+            "questionPurpose": "scholar_bonus",
+            "reviewSafe": true,
+            "answer": "A reflexive act to steady the ark is treated as a fatal violation.",
+            "distractors": [
+              "Uzzah is killed after stealing the ark for himself.",
+              "Uzzah is punished after openly mocking the ark.",
+              "The ark falls because Uzzah refuses to touch it."
+            ],
+            "explanation": "The story makes holiness dangerous enough that even touching the ark to steady it leads to death."
+          }
+        ]
+      }
+    },
+    "TAMN": {
+      "cardUid": "TAMN",
+      "titleHint": "Amnon Rapes Tamar",
+      "deckAnswer": "2 Samuel 13:1-22",
+      "sourceReference": "2 Samuel 13:1-22",
+      "stage": 2,
+      "guidedLearning": {
+        "briefingScreens": [
+          {
+            "id": "TAMN_brief_01",
+            "lines": [
+              "Amnon becomes obsessed with Tamar and follows Jonadab's plan to get her alone.",
+              "David unknowingly helps by sending Tamar to Amnon's room to prepare food for him."
+            ],
+            "sourceLabel": "Context",
+            "requiresVisibleEvidence": [
+              "Context",
+              "Bible Excerpt"
+            ]
+          },
+          {
+            "id": "TAMN_brief_02",
+            "lines": [
+              "Amnon takes hold of Tamar and tells her to lie with him.",
+              "Tamar protests, saying no such thing ought to be done in Israel."
+            ],
+            "sourceLabel": "Bible Excerpt",
+            "requiresVisibleEvidence": [
+              "Bible Excerpt"
+            ]
+          },
+          {
+            "id": "TAMN_brief_03",
+            "lines": [
+              "Amnon will not listen to Tamar's voice.",
+              "Being stronger than she is, he forces her and lies with her, then tells her to be gone."
+            ],
+            "sourceLabel": "Bible Excerpt",
+            "requiresVisibleEvidence": [
+              "Bible Excerpt",
+              "Context"
+            ]
+          },
+          {
+            "id": "TAMN_brief_04",
+            "lines": [
+              "Tamar is surrounded by male power that does not protect her.",
+              "Family trust and royal authority help put her in danger.",
+              "Her suffering becomes part of a wider dynastic conflict instead of receiving direct justice."
+            ],
+            "sourceLabel": "Critical notes",
+            "requiresVisibleEvidence": [
+              "Scholarly Note",
+              "Critical notes"
+            ]
+          }
+        ],
+        "eventStructure": {
+          "authority": "Amnon within David's royal household",
+          "action": "tricks Tamar, rapes her, and throws her out",
+          "target": "Tamar",
+          "reason": "Amnon uses family trust and a plan to get Tamar alone",
+          "moralProblem": "abuse is enabled by status, family access, and failed protection",
+          "explanation": "The account highlights Tamar's protest and the way royal household power fails to protect her."
+        },
+        "questions": [
+          {
+            "id": "TAMN_bank_reference_01",
+            "interactionType": "content_choice",
+            "policyType": "passage_reference",
+            "learnPatternId": "reference_anchor",
+            "questionPattern": "reference_anchor",
+            "prompt": "Which passage is this?\n__**Amnon Rapes Tamar**__ David's son Amnon tricks his half-sister Tamar into his room, rapes her, and then throws her out.",
+            "sourceLabel": "Bible Excerpt",
+            "requiresVisibleEvidence": [
+              "Bible Excerpt"
+            ],
+            "requiresBriefingScreens": [
+              "TAMN_brief_01",
+              "TAMN_brief_02",
+              "TAMN_brief_03",
+              "TAMN_brief_04"
+            ],
+            "questionPurpose": "passage_reference",
+            "reviewSafe": true,
+            "answer": "2 Samuel 13:1-22",
+            "distractors": [
+              "2 Samuel 11",
+              "2 Samuel 12:1-14",
+              "Judges 19:22-30"
+            ],
+            "explanation": "The correct passage is 2 Samuel 13:1-22."
+          },
+          {
+            "id": "TAMN_bank_room_choice_01",
+            "interactionType": "content_choice",
+            "learnPatternId": "content_detail",
+            "questionPattern": "content detail choice",
+            "prompt": "What happens that brings Tamar into Amnon's room?",
+            "questionPurpose": "content_detail",
+            "answer": "David sends her to prepare food for Amnon.",
+            "distractors": [
+              "Absalom sends her to lead soldiers in battle.",
+              "Joab orders her to carry a sealed letter.",
+              "A priest sends her to guard the ark."
+            ],
+            "explanation": "David unknowingly helps Amnon's plan by sending Tamar to prepare food for him.",
+            "sourceLabel": "Context",
+            "requiresVisibleEvidence": [
+              "Context",
+              "Bible Excerpt"
+            ],
+            "requiresBriefingScreens": [
+              "TAMN_brief_01"
+            ]
+          },
+          {
+            "id": "TAMN_bank_moral_choice_02",
+            "interactionType": "content_choice",
+            "learnPatternId": "content_detail",
+            "questionPattern": "content detail choice",
+            "prompt": "What makes the Amnon and Tamar story morally troubling?",
+            "questionPurpose": "moral_scope",
+            "answer": "Family trust and royal household power enable abuse and fail to deliver justice.",
+            "distractors": [
+              "Tamar is protected by every authority figure in the scene.",
+              "Amnon accepts Tamar's refusal and sends her home safely.",
+              "The story is only about a public battle between enemy armies."
+            ],
+            "explanation": "The story shows abuse protected by family access, status, and failed accountability.",
+            "sourceLabel": "Critical notes",
+            "requiresVisibleEvidence": [
+              "Context",
+              "Critical notes"
+            ],
+            "requiresBriefingScreens": [
+              "TAMN_brief_04"
+            ]
+          },
+          {
+            "id": "TAMN_bank_voice_cloze_01",
+            "interactionType": "cloze_drag",
+            "learnPatternId": "fill_blank",
+            "questionPattern": "fill blank",
+            "prompt": "Amnon would not listen to Tamar's ___.",
+            "questionPurpose": "fill_blank",
+            "reviewSafe": true,
+            "answer": "voice",
+            "wordBank": [
+              "voice",
+              "warning",
+              "appeal",
+              "counsel"
+            ],
+            "explanation": "The passage says Amnon would not listen to her voice.",
+            "sourceLabel": "Bible Excerpt",
+            "requiresVisibleEvidence": [
+              "Bible Excerpt"
+            ],
+            "requiresBriefingScreens": [
+              "TAMN_brief_02",
+              "TAMN_brief_03"
+            ]
+          },
+          {
+            "id": "TAMN_bank_gone_cloze_02",
+            "interactionType": "cloze_drag",
+            "learnPatternId": "fill_blank",
+            "questionPattern": "fill blank",
+            "prompt": "After assaulting Tamar, Amnon says, \"Arise, be ___!\"",
+            "questionPurpose": "fill_blank",
+            "reviewSafe": true,
+            "answer": "gone",
+            "wordBank": [
+              "gone",
+              "quiet",
+              "still",
+              "safe"
+            ],
+            "explanation": "Afterward Amnon tells Tamar to be gone.",
+            "sourceLabel": "Bible Excerpt",
+            "requiresVisibleEvidence": [
+              "Bible Excerpt"
+            ],
+            "requiresBriefingScreens": [
+              "TAMN_brief_03"
+            ]
+          },
+          {
+            "id": "TAMN_bank_sequence_01",
+            "interactionType": "sequence_order",
+            "learnPatternId": "sequence_step",
+            "questionPattern": "sequence order",
+            "prompt": "Place the Amnon and Tamar account in order.",
+            "questionPurpose": "sequence_order",
+            "correctOrder": [
+              "Amnon follows a plan to get Tamar alone.",
+              "David sends Tamar to prepare food for Amnon.",
+              "Amnon ignores Tamar's protest and forces her.",
+              "Amnon then hates Tamar and tells her to be gone."
+            ],
+            "explanation": "The account moves from the plan, to David sending Tamar, to Amnon's violence, and then to her expulsion.",
+            "sourceLabel": "Bible Excerpt",
+            "requiresVisibleEvidence": [
+              "Bible Excerpt",
+              "Context"
+            ],
+            "requiresBriefingScreens": [
+              "TAMN_brief_01",
+              "TAMN_brief_02",
+              "TAMN_brief_03"
+            ]
+          },
+          {
+            "id": "TAMN_bank_odd_01",
+            "interactionType": "odd_one_out",
+            "learnPatternId": "odd_one_out",
+            "questionPattern": "odd one out",
+            "prompt": "Which detail does not fit the Amnon and Tamar account?",
+            "questionPurpose": "odd_one_out",
+            "answer": "Amnon listens to Tamar's protest and lets her leave safely.",
+            "fittingItems": [
+              "David sends Tamar to Amnon's room.",
+              "Tamar protests what Amnon is doing.",
+              "Amnon is stronger than Tamar and forces her.",
+              "Amnon tells Tamar to be gone afterward."
+            ],
+            "explanation": "The passage says Amnon would not listen to Tamar's voice.",
+            "sourceLabel": "Bible Excerpt",
+            "requiresVisibleEvidence": [
+              "Bible Excerpt",
+              "Context"
+            ],
+            "requiresBriefingScreens": [
+              "TAMN_brief_01",
+              "TAMN_brief_02",
+              "TAMN_brief_03"
+            ]
+          },
+          {
+            "id": "TAMN_scholar_tamar_isolation_01",
+            "interactionType": "scholar_note_choice",
+            "policyType": "scholar_note_choice",
+            "learnPatternId": "scholar_note_choice",
+            "questionPattern": "scholar_bonus_inference",
+            "prompt": "Which interpretive point best frames Tamar's suffering?",
+            "sourceLabel": "Critical notes",
+            "requiresVisibleEvidence": [
+              "Critical notes",
+              "Context"
+            ],
+            "requiresBriefingScreens": [
+              "TAMN_brief_01",
+              "TAMN_brief_02",
+              "TAMN_brief_04"
+            ],
+            "questionPurpose": "scholar_bonus",
+            "reviewSafe": true,
+            "answer": "Family trust and royal authority help isolate her, while the men around her fail to protect or restore her.",
+            "distractors": [
+              "Tamar is protected as soon as she refuses Amnon.",
+              "David sends Tamar because he knows Amnon's plan.",
+              "Amnon listens to Tamar and releases her peacefully."
+            ],
+            "explanation": "Tamar is put in danger by family access and left without meaningful protection or repair afterward."
+          }
+        ]
+      }
+    }
+  }
+}

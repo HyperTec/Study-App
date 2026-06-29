@@ -1,0 +1,1421 @@
+{
+  "schemaVersion": 1,
+  "title": "Characters Guided Level 1 Pilot Sidecar v1",
+  "sidecarType": "guidedLearningOverlay",
+  "deckName": "Characters",
+  "sourceDeckName": "Characters",
+  "deckCategory": "characters",
+  "description": "Lean Guided Learning pilot for Level 1 Characters cards. Focuses on identity, role, relationships, sequence, and mismatch recognition.",
+  "sourceTranslation": "WEBu",
+  "createdForDeckUidPolicy": "card.uid stable; Level 1 pilot uses the first 8 final Characters cards",
+  "guidedLearning": {
+    "contentContract": {
+      "cards": 8,
+      "briefingsPerCard": 3,
+      "questionsPerCard": 5,
+      "interactionPattern": {
+        "content_choice": 2,
+        "cloze_drag": 1,
+        "sequence_order": 1,
+        "odd_one_out": 1
+      }
+    }
+  },
+  "cards": {
+    "3H8A": {
+      "cardUid": "3H8A",
+      "stage": 1,
+      "titleHint": "Adam",
+      "deckAnswer": "Adam",
+      "sourceTags": [
+        "Genesis",
+        "OT"
+      ],
+      "guidedLearning": {
+        "briefingTitle": "The first human in Eden",
+        "briefingScreens": [
+          {
+            "id": "3H8A_brief_01",
+            "lines": [
+              "Adam is the first human in Genesis. God forms him from the ground and places him in Eden."
+            ],
+            "sourceLabel": "Context",
+            "requiresVisibleEvidence": [
+              "Context"
+            ]
+          },
+          {
+            "id": "3H8A_brief_02",
+            "lines": [
+              "God gives Adam a command about the forbidden tree. Adam and Eve eat from it, and they are driven out of Eden."
+            ],
+            "sourceLabel": "Context",
+            "requiresVisibleEvidence": [
+              "Context"
+            ]
+          },
+          {
+            "id": "3H8A_brief_03",
+            "lines": [
+              "Adam's story introduces Eve and the first named children in Genesis: Cain, Abel, and Seth."
+            ],
+            "sourceLabel": "Context",
+            "requiresVisibleEvidence": [
+              "Context"
+            ]
+          }
+        ],
+        "questions": [
+          {
+            "id": "3H8A_identity_choice_01",
+            "policyType": "content_choice",
+            "interactionType": "content_choice",
+            "questionPattern": "identity_choice",
+            "questionPurpose": "character identity",
+            "reviewSafe": true,
+            "sourceLabel": "Context",
+            "requiresVisibleEvidence": [
+              "Context"
+            ],
+            "requiresBriefingScreens": [
+              "3H8A_brief_01"
+            ],
+            "prompt": "Which person is formed from the ground and placed in Eden?",
+            "answer": "Adam",
+            "distractors": [
+              "Noah",
+              "Abraham",
+              "Moses"
+            ],
+            "explanation": "Adam is the first human in Genesis and is placed in Eden."
+          },
+          {
+            "id": "3H8A_role_choice_01",
+            "policyType": "content_choice",
+            "interactionType": "content_choice",
+            "questionPattern": "role_significance_choice",
+            "questionPurpose": "role significance",
+            "reviewSafe": true,
+            "sourceLabel": "Context",
+            "requiresVisibleEvidence": [
+              "Context"
+            ],
+            "requiresBriefingScreens": [
+              "3H8A_brief_02"
+            ],
+            "prompt": "Which statement best describes Adam's role in Genesis?",
+            "answer": "Adam is the first human in Genesis, placed in Eden and tied to the first family line.",
+            "distractors": [
+              "Paul begins as a persecutor and becomes a missionary and letter writer.",
+              "Peter is a leading disciple who denies Jesus and later leads publicly.",
+              "Mary Magdalene follows Jesus and is named among the first resurrection witnesses."
+            ],
+            "explanation": "Adam belongs at the beginning of Genesis: Eden, the forbidden tree, Eve, and the first family."
+          },
+          {
+            "id": "3H8A_detail_cloze_01",
+            "policyType": "cloze_drag",
+            "interactionType": "cloze_drag",
+            "questionPattern": "fill_blank",
+            "questionPurpose": "character detail",
+            "reviewSafe": true,
+            "sourceLabel": "Context",
+            "requiresVisibleEvidence": [
+              "Context"
+            ],
+            "requiresBriefingScreens": [
+              "3H8A_brief_02"
+            ],
+            "prompt": "Adam is formed from the ___ of the ground.",
+            "answer": "dust",
+            "wordBank": [
+              "dust",
+              "water",
+              "stone",
+              "fire"
+            ],
+            "explanation": "Genesis connects Adam with the ground by saying he is formed from dust."
+          },
+          {
+            "id": "3H8A_sequence_01",
+            "policyType": "sequence_order",
+            "interactionType": "sequence_order",
+            "learnPatternId": "sequence_step",
+            "questionPattern": "sequence order",
+            "questionPurpose": "story sequence",
+            "reviewSafe": true,
+            "sourceLabel": "Context",
+            "requiresVisibleEvidence": [
+              "Context"
+            ],
+            "requiresBriefingScreens": [
+              "3H8A_brief_01",
+              "3H8A_brief_02",
+              "3H8A_brief_03"
+            ],
+            "prompt": "Put Adam's Eden story in order.",
+            "correctOrder": [
+              "Adam is formed from the dust.",
+              "Adam is placed in Eden.",
+              "Adam and Eve eat from the forbidden tree.",
+              "Adam and Eve are driven out of Eden."
+            ],
+            "explanation": "The story moves from creation, to Eden, to disobedience, to exile from the garden."
+          },
+          {
+            "id": "3H8A_odd_01",
+            "policyType": "odd_one_out",
+            "interactionType": "odd_one_out",
+            "learnPatternId": "odd_one_out",
+            "questionPattern": "odd one out",
+            "questionPurpose": "character mismatch",
+            "reviewSafe": true,
+            "sourceLabel": "Context",
+            "requiresVisibleEvidence": [
+              "Context"
+            ],
+            "requiresBriefingScreens": [
+              "3H8A_brief_01",
+              "3H8A_brief_02",
+              "3H8A_brief_03"
+            ],
+            "prompt": "Which detail belongs to someone other than Adam?",
+            "answer": "He builds the ark before the flood.",
+            "fittingItems": [
+              "He is formed from dust.",
+              "He is placed in Eden.",
+              "He is paired with Eve.",
+              "He is tied to Cain, Abel, and Seth."
+            ],
+            "explanation": "Building the ark belongs to Noah, not Adam."
+          }
+        ]
+      }
+    },
+    "BLHM": {
+      "cardUid": "BLHM",
+      "stage": 1,
+      "titleHint": "Paul",
+      "deckAnswer": "Paul",
+      "sourceTags": [
+        "Acts",
+        "Romans",
+        "1 Corinthians",
+        "2 Corinthians",
+        "Galatians",
+        "Ephesians",
+        "Philippians",
+        "Colossians",
+        "1 Thessalonians",
+        "2 Thessalonians",
+        "1 Timothy",
+        "2 Timothy",
+        "Titus",
+        "Philemon",
+        "NT"
+      ],
+      "guidedLearning": {
+        "briefingTitle": "Saul becomes Paul the missionary",
+        "briefingScreens": [
+          {
+            "id": "BLHM_brief_01",
+            "lines": [
+              "Paul first appears as Saul of Tarsus, a persecutor of the Jesus movement."
+            ],
+            "sourceLabel": "Context",
+            "requiresVisibleEvidence": [
+              "Context"
+            ]
+          },
+          {
+            "id": "BLHM_brief_02",
+            "lines": [
+              "An encounter with the risen Jesus changes his direction and sends him into mission."
+            ],
+            "sourceLabel": "Context",
+            "requiresVisibleEvidence": [
+              "Context"
+            ]
+          },
+          {
+            "id": "BLHM_brief_03",
+            "lines": [
+              "Paul travels widely, founds communities, and writes letters that shape much of the New Testament."
+            ],
+            "sourceLabel": "Context",
+            "requiresVisibleEvidence": [
+              "Context"
+            ]
+          }
+        ],
+        "questions": [
+          {
+            "id": "BLHM_identity_choice_01",
+            "policyType": "content_choice",
+            "interactionType": "content_choice",
+            "questionPattern": "identity_choice",
+            "questionPurpose": "character identity",
+            "reviewSafe": true,
+            "sourceLabel": "Context",
+            "requiresVisibleEvidence": [
+              "Context"
+            ],
+            "requiresBriefingScreens": [
+              "BLHM_brief_01"
+            ],
+            "prompt": "Which person first appears as Saul of Tarsus?",
+            "answer": "Paul",
+            "distractors": [
+              "Peter",
+              "Stephen",
+              "Barnabas"
+            ],
+            "explanation": "Paul is first known as Saul of Tarsus before becoming a major missionary figure."
+          },
+          {
+            "id": "BLHM_role_choice_01",
+            "policyType": "content_choice",
+            "interactionType": "content_choice",
+            "questionPattern": "role_significance_choice",
+            "questionPurpose": "role significance",
+            "reviewSafe": true,
+            "sourceLabel": "Context",
+            "requiresVisibleEvidence": [
+              "Context"
+            ],
+            "requiresBriefingScreens": [
+              "BLHM_brief_02"
+            ],
+            "prompt": "Which statement best describes Paul's role in the New Testament?",
+            "answer": "Paul begins as a persecutor and becomes a missionary and letter writer.",
+            "distractors": [
+              "Peter is a leading disciple who denies Jesus and later leads publicly.",
+              "Mary Magdalene follows Jesus and is named among the first resurrection witnesses.",
+              "Joseph protects Mary and Jesus and responds to guidance in dreams."
+            ],
+            "explanation": "Paul's story turns from persecution to mission, travel, church founding, and letters."
+          },
+          {
+            "id": "BLHM_detail_cloze_01",
+            "policyType": "cloze_drag",
+            "interactionType": "cloze_drag",
+            "questionPattern": "fill_blank",
+            "questionPurpose": "character detail",
+            "reviewSafe": true,
+            "sourceLabel": "Context",
+            "requiresVisibleEvidence": [
+              "Context"
+            ],
+            "requiresBriefingScreens": [
+              "BLHM_brief_02"
+            ],
+            "prompt": "Paul encounters the risen Jesus after first appearing as ___ of Tarsus.",
+            "answer": "Saul",
+            "wordBank": [
+              "Saul",
+              "Simon",
+              "Joseph",
+              "Isaac"
+            ],
+            "explanation": "Paul is first known as Saul of Tarsus."
+          },
+          {
+            "id": "BLHM_sequence_01",
+            "policyType": "sequence_order",
+            "interactionType": "sequence_order",
+            "learnPatternId": "sequence_step",
+            "questionPattern": "sequence order",
+            "questionPurpose": "story sequence",
+            "reviewSafe": true,
+            "sourceLabel": "Context",
+            "requiresVisibleEvidence": [
+              "Context"
+            ],
+            "requiresBriefingScreens": [
+              "BLHM_brief_01",
+              "BLHM_brief_02",
+              "BLHM_brief_03"
+            ],
+            "prompt": "Put Paul's transformation and mission in order.",
+            "correctOrder": [
+              "Saul persecutes the Jesus movement.",
+              "He encounters the risen Jesus.",
+              "He travels as a missionary.",
+              "He writes letters to churches."
+            ],
+            "explanation": "Paul's remembered movement is from persecutor to missionary and letter writer."
+          },
+          {
+            "id": "BLHM_odd_01",
+            "policyType": "odd_one_out",
+            "interactionType": "odd_one_out",
+            "learnPatternId": "odd_one_out",
+            "questionPattern": "odd one out",
+            "questionPurpose": "character mismatch",
+            "reviewSafe": true,
+            "sourceLabel": "Context",
+            "requiresVisibleEvidence": [
+              "Context"
+            ],
+            "requiresBriefingScreens": [
+              "BLHM_brief_01",
+              "BLHM_brief_02",
+              "BLHM_brief_03"
+            ],
+            "prompt": "Which detail belongs to someone other than Paul?",
+            "answer": "He is chosen as queen in the Persian court.",
+            "fittingItems": [
+              "He is first known as Saul of Tarsus.",
+              "He persecutes the Jesus movement.",
+              "He becomes a missionary.",
+              "He writes letters to churches."
+            ],
+            "explanation": "Becoming queen in the Persian court belongs to Esther, not Paul."
+          }
+        ]
+      }
+    },
+    "PTR1": {
+      "cardUid": "PTR1",
+      "stage": 1,
+      "titleHint": "Peter",
+      "deckAnswer": "Peter",
+      "sourceTags": [
+        "Matthew",
+        "Mark",
+        "Luke",
+        "John",
+        "Acts",
+        "1 Peter",
+        "2 Peter",
+        "NT"
+      ],
+      "guidedLearning": {
+        "briefingTitle": "The disciple Simon Peter",
+        "briefingScreens": [
+          {
+            "id": "PTR1_brief_01",
+            "lines": [
+              "Peter is originally named Simon. He is a fisherman called to follow Jesus."
+            ],
+            "sourceLabel": "Context",
+            "requiresVisibleEvidence": [
+              "Context"
+            ]
+          },
+          {
+            "id": "PTR1_brief_02",
+            "lines": [
+              "Peter is bold and impulsive. He confesses Jesus and later denies him three times."
+            ],
+            "sourceLabel": "Context",
+            "requiresVisibleEvidence": [
+              "Context"
+            ]
+          },
+          {
+            "id": "PTR1_brief_03",
+            "lines": [
+              "After the resurrection, Peter becomes a public leader in the early church."
+            ],
+            "sourceLabel": "Context",
+            "requiresVisibleEvidence": [
+              "Context"
+            ]
+          }
+        ],
+        "questions": [
+          {
+            "id": "PTR1_identity_choice_01",
+            "policyType": "content_choice",
+            "interactionType": "content_choice",
+            "questionPattern": "identity_choice",
+            "questionPurpose": "character identity",
+            "reviewSafe": true,
+            "sourceLabel": "Context",
+            "requiresVisibleEvidence": [
+              "Context"
+            ],
+            "requiresBriefingScreens": [
+              "PTR1_brief_01"
+            ],
+            "prompt": "Which disciple is originally named Simon and called from fishing?",
+            "answer": "Peter",
+            "distractors": [
+              "Andrew",
+              "James",
+              "John"
+            ],
+            "explanation": "Peter is originally Simon and is remembered as a fisherman called by Jesus."
+          },
+          {
+            "id": "PTR1_role_choice_01",
+            "policyType": "content_choice",
+            "interactionType": "content_choice",
+            "questionPattern": "role_significance_choice",
+            "questionPurpose": "role significance",
+            "reviewSafe": true,
+            "sourceLabel": "Context",
+            "requiresVisibleEvidence": [
+              "Context"
+            ],
+            "requiresBriefingScreens": [
+              "PTR1_brief_02"
+            ],
+            "prompt": "Which statement best describes Peter's story?",
+            "answer": "Peter is a leading disciple who denies Jesus and later leads publicly.",
+            "distractors": [
+              "Mary Magdalene follows Jesus and is named among the first resurrection witnesses.",
+              "Joseph protects Mary and Jesus and responds to guidance in dreams.",
+              "Isaac carries forward the Genesis promise line between Abraham and Jacob."
+            ],
+            "explanation": "Peter's story includes discipleship, failure, restoration, and public leadership."
+          },
+          {
+            "id": "PTR1_detail_cloze_01",
+            "policyType": "cloze_drag",
+            "interactionType": "cloze_drag",
+            "questionPattern": "fill_blank",
+            "questionPurpose": "character detail",
+            "reviewSafe": true,
+            "sourceLabel": "Context",
+            "requiresVisibleEvidence": [
+              "Context"
+            ],
+            "requiresBriefingScreens": [
+              "PTR1_brief_02"
+            ],
+            "prompt": "Peter denies Jesus ___ times.",
+            "answer": "three",
+            "wordBank": [
+              "three",
+              "two",
+              "seven",
+              "twelve"
+            ],
+            "explanation": "Peter is remembered for denying Jesus three times before later being restored."
+          },
+          {
+            "id": "PTR1_sequence_01",
+            "policyType": "sequence_order",
+            "interactionType": "sequence_order",
+            "learnPatternId": "sequence_step",
+            "questionPattern": "sequence order",
+            "questionPurpose": "story sequence",
+            "reviewSafe": true,
+            "sourceLabel": "Context",
+            "requiresVisibleEvidence": [
+              "Context"
+            ],
+            "requiresBriefingScreens": [
+              "PTR1_brief_01",
+              "PTR1_brief_02",
+              "PTR1_brief_03"
+            ],
+            "prompt": "Put Peter's story details in order.",
+            "correctOrder": [
+              "Simon is called from fishing.",
+              "Peter becomes one of Jesus' leading disciples.",
+              "Peter denies Jesus three times.",
+              "Peter becomes a public leader in the early church."
+            ],
+            "explanation": "Peter's story moves from call, to discipleship, to denial, to leadership."
+          },
+          {
+            "id": "PTR1_odd_01",
+            "policyType": "odd_one_out",
+            "interactionType": "odd_one_out",
+            "learnPatternId": "odd_one_out",
+            "questionPattern": "odd one out",
+            "questionPurpose": "character mismatch",
+            "reviewSafe": true,
+            "sourceLabel": "Context",
+            "requiresVisibleEvidence": [
+              "Context"
+            ],
+            "requiresBriefingScreens": [
+              "PTR1_brief_01",
+              "PTR1_brief_02",
+              "PTR1_brief_03"
+            ],
+            "prompt": "Which detail belongs to someone other than Peter?",
+            "answer": "He exposes Haman's plot in the Persian court.",
+            "fittingItems": [
+              "He is originally named Simon.",
+              "He is called from fishing.",
+              "He denies Jesus three times.",
+              "He becomes prominent in the early church."
+            ],
+            "explanation": "Exposing Haman's plot belongs to Esther, not Peter."
+          }
+        ]
+      }
+    },
+    "MMGD": {
+      "cardUid": "MMGD",
+      "stage": 1,
+      "titleHint": "Mary Magdalene",
+      "deckAnswer": "Mary Magdalene",
+      "sourceTags": [
+        "Matthew",
+        "Mark",
+        "Luke",
+        "John",
+        "NT"
+      ],
+      "guidedLearning": {
+        "briefingTitle": "Mary Magdalene at the cross and tomb",
+        "briefingScreens": [
+          {
+            "id": "MMGD_brief_01",
+            "lines": [
+              "Mary Magdalene is one of the prominent women who follow Jesus in the Gospels."
+            ],
+            "sourceLabel": "Context",
+            "requiresVisibleEvidence": [
+              "Context"
+            ]
+          },
+          {
+            "id": "MMGD_brief_02",
+            "lines": [
+              "The Gospels place her at the crucifixion and connect her with the empty tomb."
+            ],
+            "sourceLabel": "Context",
+            "requiresVisibleEvidence": [
+              "Context"
+            ]
+          },
+          {
+            "id": "MMGD_brief_03",
+            "lines": [
+              "She is named among the first witnesses to Jesus' resurrection."
+            ],
+            "sourceLabel": "Context",
+            "requiresVisibleEvidence": [
+              "Context"
+            ]
+          }
+        ],
+        "questions": [
+          {
+            "id": "MMGD_identity_choice_01",
+            "policyType": "content_choice",
+            "interactionType": "content_choice",
+            "questionPattern": "identity_choice",
+            "questionPurpose": "character identity",
+            "reviewSafe": true,
+            "sourceLabel": "Context",
+            "requiresVisibleEvidence": [
+              "Context"
+            ],
+            "requiresBriefingScreens": [
+              "MMGD_brief_01"
+            ],
+            "prompt": "Which follower of Jesus is connected with the cross and empty tomb?",
+            "answer": "Mary Magdalene",
+            "distractors": [
+              "Mary of Bethany",
+              "Martha",
+              "Joanna"
+            ],
+            "explanation": "Mary Magdalene is named at the crucifixion and in empty-tomb traditions."
+          },
+          {
+            "id": "MMGD_role_choice_01",
+            "policyType": "content_choice",
+            "interactionType": "content_choice",
+            "questionPattern": "role_significance_choice",
+            "questionPurpose": "role significance",
+            "reviewSafe": true,
+            "sourceLabel": "Context",
+            "requiresVisibleEvidence": [
+              "Context"
+            ],
+            "requiresBriefingScreens": [
+              "MMGD_brief_02"
+            ],
+            "prompt": "Which statement best describes Mary Magdalene's role?",
+            "answer": "Mary Magdalene follows Jesus and is named among the first resurrection witnesses.",
+            "distractors": [
+              "Joseph protects Mary and Jesus and responds to guidance in dreams.",
+              "Isaac carries forward the Genesis promise line between Abraham and Jacob.",
+              "Esther risks her royal position to expose Haman's plot against her people."
+            ],
+            "explanation": "Mary Magdalene is remembered as a follower of Jesus and a resurrection witness."
+          },
+          {
+            "id": "MMGD_detail_cloze_01",
+            "policyType": "cloze_drag",
+            "interactionType": "cloze_drag",
+            "questionPattern": "fill_blank",
+            "questionPurpose": "character detail",
+            "reviewSafe": true,
+            "sourceLabel": "Context",
+            "requiresVisibleEvidence": [
+              "Context"
+            ],
+            "requiresBriefingScreens": [
+              "MMGD_brief_02"
+            ],
+            "prompt": "Mary Magdalene is connected with the empty ___.",
+            "answer": "tomb",
+            "wordBank": [
+              "tomb",
+              "palace",
+              "garden",
+              "prison"
+            ],
+            "explanation": "The empty tomb is one of the key settings connected with Mary Magdalene."
+          },
+          {
+            "id": "MMGD_sequence_01",
+            "policyType": "sequence_order",
+            "interactionType": "sequence_order",
+            "learnPatternId": "sequence_step",
+            "questionPattern": "sequence order",
+            "questionPurpose": "story sequence",
+            "reviewSafe": true,
+            "sourceLabel": "Context",
+            "requiresVisibleEvidence": [
+              "Context"
+            ],
+            "requiresBriefingScreens": [
+              "MMGD_brief_01",
+              "MMGD_brief_02",
+              "MMGD_brief_03"
+            ],
+            "prompt": "Put Mary Magdalene's Gospel story details in order.",
+            "correctOrder": [
+              "Mary Magdalene follows Jesus.",
+              "She is present at the crucifixion.",
+              "She is connected with the empty tomb.",
+              "She is named among the first resurrection witnesses."
+            ],
+            "explanation": "Her story moves through following Jesus, the cross, the tomb, and resurrection witness."
+          },
+          {
+            "id": "MMGD_odd_01",
+            "policyType": "odd_one_out",
+            "interactionType": "odd_one_out",
+            "learnPatternId": "odd_one_out",
+            "questionPattern": "odd one out",
+            "questionPurpose": "character mismatch",
+            "reviewSafe": true,
+            "sourceLabel": "Context",
+            "requiresVisibleEvidence": [
+              "Context"
+            ],
+            "requiresBriefingScreens": [
+              "MMGD_brief_01",
+              "MMGD_brief_02",
+              "MMGD_brief_03"
+            ],
+            "prompt": "Which detail belongs to someone other than Mary Magdalene?",
+            "answer": "She is the mother of Isaac in Genesis.",
+            "fittingItems": [
+              "She follows Jesus.",
+              "She is present at the crucifixion.",
+              "She is connected with the empty tomb.",
+              "She is named as a resurrection witness."
+            ],
+            "explanation": "Being Isaac's mother belongs to Sarah, not Mary Magdalene."
+          }
+        ]
+      }
+    },
+    "JHMY": {
+      "cardUid": "JHMY",
+      "stage": 1,
+      "titleHint": "Joseph, husband of Mary",
+      "deckAnswer": "Joseph, husband of Mary",
+      "sourceTags": [
+        "Matthew",
+        "Luke",
+        "NT"
+      ],
+      "guidedLearning": {
+        "briefingTitle": "Joseph in the infancy stories",
+        "briefingScreens": [
+          {
+            "id": "JHMY_brief_01",
+            "lines": [
+              "Joseph is Mary's husband and the legal father figure to Jesus in the infancy narratives."
+            ],
+            "sourceLabel": "Context",
+            "requiresVisibleEvidence": [
+              "Context"
+            ]
+          },
+          {
+            "id": "JHMY_brief_02",
+            "lines": [
+              "Joseph is portrayed as righteous and responsive to divine guidance in dreams."
+            ],
+            "sourceLabel": "Context",
+            "requiresVisibleEvidence": [
+              "Context"
+            ]
+          },
+          {
+            "id": "JHMY_brief_03",
+            "lines": [
+              "He protects Mary and Jesus as the family moves through Bethlehem, Egypt, and Nazareth."
+            ],
+            "sourceLabel": "Context",
+            "requiresVisibleEvidence": [
+              "Context"
+            ]
+          }
+        ],
+        "questions": [
+          {
+            "id": "JHMY_identity_choice_01",
+            "policyType": "content_choice",
+            "interactionType": "content_choice",
+            "questionPattern": "identity_choice",
+            "questionPurpose": "character identity",
+            "reviewSafe": true,
+            "sourceLabel": "Context",
+            "requiresVisibleEvidence": [
+              "Context"
+            ],
+            "requiresBriefingScreens": [
+              "JHMY_brief_01"
+            ],
+            "prompt": "Which Joseph is Mary's husband in the infancy narratives?",
+            "answer": "Joseph, husband of Mary",
+            "distractors": [
+              "Joseph son of Jacob",
+              "Joseph of Arimathea",
+              "Joseph Barsabbas"
+            ],
+            "explanation": "This Joseph is Mary's husband and Jesus' legal father figure in the infancy stories."
+          },
+          {
+            "id": "JHMY_role_choice_01",
+            "policyType": "content_choice",
+            "interactionType": "content_choice",
+            "questionPattern": "role_significance_choice",
+            "questionPurpose": "role significance",
+            "reviewSafe": true,
+            "sourceLabel": "Context",
+            "requiresVisibleEvidence": [
+              "Context"
+            ],
+            "requiresBriefingScreens": [
+              "JHMY_brief_02"
+            ],
+            "prompt": "Which statement best describes Joseph, husband of Mary?",
+            "answer": "Joseph protects Mary and Jesus and responds to guidance in dreams.",
+            "distractors": [
+              "Isaac carries forward the Genesis promise line between Abraham and Jacob.",
+              "Esther risks her royal position to expose Haman's plot against her people.",
+              "Sarah becomes Isaac's mother after years of infertility."
+            ],
+            "explanation": "Joseph is especially remembered for obedience, protection, and dream-guided action."
+          },
+          {
+            "id": "JHMY_detail_cloze_01",
+            "policyType": "cloze_drag",
+            "interactionType": "cloze_drag",
+            "questionPattern": "fill_blank",
+            "questionPurpose": "character detail",
+            "reviewSafe": true,
+            "sourceLabel": "Context",
+            "requiresVisibleEvidence": [
+              "Context"
+            ],
+            "requiresBriefingScreens": [
+              "JHMY_brief_02"
+            ],
+            "prompt": "Joseph receives divine guidance in ___.",
+            "answer": "dreams",
+            "wordBank": [
+              "dreams",
+              "letters",
+              "parables",
+              "visions"
+            ],
+            "explanation": "The infancy stories emphasize Joseph responding to guidance in dreams."
+          },
+          {
+            "id": "JHMY_sequence_01",
+            "policyType": "sequence_order",
+            "interactionType": "sequence_order",
+            "learnPatternId": "sequence_step",
+            "questionPattern": "sequence order",
+            "questionPurpose": "story sequence",
+            "reviewSafe": true,
+            "sourceLabel": "Context",
+            "requiresVisibleEvidence": [
+              "Context"
+            ],
+            "requiresBriefingScreens": [
+              "JHMY_brief_01",
+              "JHMY_brief_02",
+              "JHMY_brief_03"
+            ],
+            "prompt": "Put Joseph's infancy-story details in order.",
+            "correctOrder": [
+              "Joseph is betrothed to Mary.",
+              "Joseph receives guidance in dreams.",
+              "Joseph protects Mary and Jesus.",
+              "The family is connected with Bethlehem, Egypt, and Nazareth."
+            ],
+            "explanation": "Joseph's story centers on Mary, dreams, protection, and the family's movements."
+          },
+          {
+            "id": "JHMY_odd_01",
+            "policyType": "odd_one_out",
+            "interactionType": "odd_one_out",
+            "learnPatternId": "odd_one_out",
+            "questionPattern": "odd one out",
+            "questionPurpose": "character mismatch",
+            "reviewSafe": true,
+            "sourceLabel": "Context",
+            "requiresVisibleEvidence": [
+              "Context"
+            ],
+            "requiresBriefingScreens": [
+              "JHMY_brief_01",
+              "JHMY_brief_02",
+              "JHMY_brief_03"
+            ],
+            "prompt": "Which detail belongs to someone other than Joseph, husband of Mary?",
+            "answer": "He writes many New Testament letters to churches.",
+            "fittingItems": [
+              "He is Mary's husband.",
+              "He is linked to Jesus' infancy stories.",
+              "He receives guidance in dreams.",
+              "He protects Mary and Jesus."
+            ],
+            "explanation": "Writing many New Testament letters belongs to Paul, not Joseph."
+          }
+        ]
+      }
+    },
+    "ISAC": {
+      "cardUid": "ISAC",
+      "stage": 1,
+      "titleHint": "Isaac",
+      "deckAnswer": "Isaac",
+      "sourceTags": [
+        "Genesis",
+        "OT"
+      ],
+      "guidedLearning": {
+        "briefingTitle": "Isaac, son of Abraham and Sarah",
+        "briefingScreens": [
+          {
+            "id": "ISAC_brief_01",
+            "lines": [
+              "Isaac is the long-awaited son born to Abraham and Sarah in their old age."
+            ],
+            "sourceLabel": "Context",
+            "requiresVisibleEvidence": [
+              "Context"
+            ]
+          },
+          {
+            "id": "ISAC_brief_02",
+            "lines": [
+              "His story includes the near-sacrifice by Abraham and his marriage to Rebekah."
+            ],
+            "sourceLabel": "Context",
+            "requiresVisibleEvidence": [
+              "Context"
+            ]
+          },
+          {
+            "id": "ISAC_brief_03",
+            "lines": [
+              "Isaac becomes the father of Esau and Jacob, carrying the Genesis family line forward."
+            ],
+            "sourceLabel": "Context",
+            "requiresVisibleEvidence": [
+              "Context"
+            ]
+          }
+        ],
+        "questions": [
+          {
+            "id": "ISAC_identity_choice_01",
+            "policyType": "content_choice",
+            "interactionType": "content_choice",
+            "questionPattern": "identity_choice",
+            "questionPurpose": "character identity",
+            "reviewSafe": true,
+            "sourceLabel": "Context",
+            "requiresVisibleEvidence": [
+              "Context"
+            ],
+            "requiresBriefingScreens": [
+              "ISAC_brief_01"
+            ],
+            "prompt": "Which patriarch is the son of Abraham and Sarah?",
+            "answer": "Isaac",
+            "distractors": [
+              "Jacob",
+              "Ishmael",
+              "Joseph"
+            ],
+            "explanation": "Isaac is the promised son of Abraham and Sarah."
+          },
+          {
+            "id": "ISAC_role_choice_01",
+            "policyType": "content_choice",
+            "interactionType": "content_choice",
+            "questionPattern": "role_significance_choice",
+            "questionPurpose": "role significance",
+            "reviewSafe": true,
+            "sourceLabel": "Context",
+            "requiresVisibleEvidence": [
+              "Context"
+            ],
+            "requiresBriefingScreens": [
+              "ISAC_brief_02"
+            ],
+            "prompt": "Which statement best describes Isaac's place in Genesis?",
+            "answer": "Isaac carries forward the Genesis promise line between Abraham and Jacob.",
+            "distractors": [
+              "Esther risks her royal position to expose Haman's plot against her people.",
+              "Sarah becomes Isaac's mother after years of infertility.",
+              "Adam is the first human in Genesis, placed in Eden and tied to the first family line."
+            ],
+            "explanation": "Isaac stands between Abraham and Jacob in the Genesis family story."
+          },
+          {
+            "id": "ISAC_detail_cloze_01",
+            "policyType": "cloze_drag",
+            "interactionType": "cloze_drag",
+            "questionPattern": "fill_blank",
+            "questionPurpose": "character detail",
+            "reviewSafe": true,
+            "sourceLabel": "Context",
+            "requiresVisibleEvidence": [
+              "Context"
+            ],
+            "requiresBriefingScreens": [
+              "ISAC_brief_02"
+            ],
+            "prompt": "Isaac is the promised son of Abraham and ___.",
+            "answer": "Sarah",
+            "wordBank": [
+              "Sarah",
+              "Rebekah",
+              "Rachel",
+              "Leah"
+            ],
+            "explanation": "Isaac is the son promised to Abraham and Sarah."
+          },
+          {
+            "id": "ISAC_sequence_01",
+            "policyType": "sequence_order",
+            "interactionType": "sequence_order",
+            "learnPatternId": "sequence_step",
+            "questionPattern": "sequence order",
+            "questionPurpose": "story sequence",
+            "reviewSafe": true,
+            "sourceLabel": "Context",
+            "requiresVisibleEvidence": [
+              "Context"
+            ],
+            "requiresBriefingScreens": [
+              "ISAC_brief_01",
+              "ISAC_brief_02",
+              "ISAC_brief_03"
+            ],
+            "prompt": "Put Isaac's Genesis story details in order.",
+            "correctOrder": [
+              "Isaac is born to Abraham and Sarah.",
+              "Abraham nearly sacrifices Isaac.",
+              "Isaac marries Rebekah.",
+              "Isaac becomes father of Esau and Jacob."
+            ],
+            "explanation": "Isaac's story moves from promised birth to near-sacrifice, marriage, and fatherhood."
+          },
+          {
+            "id": "ISAC_odd_01",
+            "policyType": "odd_one_out",
+            "interactionType": "odd_one_out",
+            "learnPatternId": "odd_one_out",
+            "questionPattern": "odd one out",
+            "questionPurpose": "character mismatch",
+            "reviewSafe": true,
+            "sourceLabel": "Context",
+            "requiresVisibleEvidence": [
+              "Context"
+            ],
+            "requiresBriefingScreens": [
+              "ISAC_brief_01",
+              "ISAC_brief_02",
+              "ISAC_brief_03"
+            ],
+            "prompt": "Which detail belongs to someone other than Isaac?",
+            "answer": "He denies Jesus three times.",
+            "fittingItems": [
+              "He is Abraham and Sarah's son.",
+              "He is nearly sacrificed by Abraham.",
+              "He marries Rebekah.",
+              "He fathers Esau and Jacob."
+            ],
+            "explanation": "Denying Jesus three times belongs to Peter, not Isaac."
+          }
+        ]
+      }
+    },
+    "ESTR": {
+      "cardUid": "ESTR",
+      "stage": 1,
+      "titleHint": "Esther",
+      "deckAnswer": "Esther",
+      "sourceTags": [
+        "Esther",
+        "OT"
+      ],
+      "guidedLearning": {
+        "briefingTitle": "Esther in the Persian court",
+        "briefingScreens": [
+          {
+            "id": "ESTR_brief_01",
+            "lines": [
+              "Esther is a Jewish woman who becomes queen in the Persian court."
+            ],
+            "sourceLabel": "Context",
+            "requiresVisibleEvidence": [
+              "Context"
+            ]
+          },
+          {
+            "id": "ESTR_brief_02",
+            "lines": [
+              "She hides her Jewish identity at first while Mordecai watches over her."
+            ],
+            "sourceLabel": "Context",
+            "requiresVisibleEvidence": [
+              "Context"
+            ]
+          },
+          {
+            "id": "ESTR_brief_03",
+            "lines": [
+              "Esther risks approaching the king and exposes Haman's plot against her people."
+            ],
+            "sourceLabel": "Context",
+            "requiresVisibleEvidence": [
+              "Context"
+            ]
+          }
+        ],
+        "questions": [
+          {
+            "id": "ESTR_identity_choice_01",
+            "policyType": "content_choice",
+            "interactionType": "content_choice",
+            "questionPattern": "identity_choice",
+            "questionPurpose": "character identity",
+            "reviewSafe": true,
+            "sourceLabel": "Context",
+            "requiresVisibleEvidence": [
+              "Context"
+            ],
+            "requiresBriefingScreens": [
+              "ESTR_brief_01"
+            ],
+            "prompt": "Which queen exposes Haman's plot against her people?",
+            "answer": "Esther",
+            "distractors": [
+              "Vashti",
+              "Miriam",
+              "Deborah"
+            ],
+            "explanation": "Esther risks her position to expose Haman's plot."
+          },
+          {
+            "id": "ESTR_role_choice_01",
+            "policyType": "content_choice",
+            "interactionType": "content_choice",
+            "questionPattern": "role_significance_choice",
+            "questionPurpose": "role significance",
+            "reviewSafe": true,
+            "sourceLabel": "Context",
+            "requiresVisibleEvidence": [
+              "Context"
+            ],
+            "requiresBriefingScreens": [
+              "ESTR_brief_02"
+            ],
+            "prompt": "Which statement best describes Esther's role?",
+            "answer": "Esther risks her royal position to expose Haman's plot against her people.",
+            "distractors": [
+              "Sarah becomes Isaac's mother after years of infertility.",
+              "Adam is the first human in Genesis, placed in Eden and tied to the first family line.",
+              "Paul begins as a persecutor and becomes a missionary and letter writer."
+            ],
+            "explanation": "Esther's story centers on hidden identity, royal risk, and deliverance from Haman's plot."
+          },
+          {
+            "id": "ESTR_detail_cloze_01",
+            "policyType": "cloze_drag",
+            "interactionType": "cloze_drag",
+            "questionPattern": "fill_blank",
+            "questionPurpose": "character detail",
+            "reviewSafe": true,
+            "sourceLabel": "Context",
+            "requiresVisibleEvidence": [
+              "Context"
+            ],
+            "requiresBriefingScreens": [
+              "ESTR_brief_02"
+            ],
+            "prompt": "Esther exposes ___'s plot against her people.",
+            "answer": "Haman",
+            "wordBank": [
+              "Haman",
+              "Pharaoh",
+              "Herod",
+              "Goliath"
+            ],
+            "explanation": "Haman is the enemy whose plot Esther exposes."
+          },
+          {
+            "id": "ESTR_sequence_01",
+            "policyType": "sequence_order",
+            "interactionType": "sequence_order",
+            "learnPatternId": "sequence_step",
+            "questionPattern": "sequence order",
+            "questionPurpose": "story sequence",
+            "reviewSafe": true,
+            "sourceLabel": "Context",
+            "requiresVisibleEvidence": [
+              "Context"
+            ],
+            "requiresBriefingScreens": [
+              "ESTR_brief_01",
+              "ESTR_brief_02",
+              "ESTR_brief_03"
+            ],
+            "prompt": "Put Esther's court story in order.",
+            "correctOrder": [
+              "Esther becomes queen.",
+              "Esther keeps her Jewish identity hidden at first.",
+              "Haman plots against her people.",
+              "Esther risks approaching the king and exposes Haman."
+            ],
+            "explanation": "The story moves from Esther becoming queen to hidden identity, crisis, and risky intervention."
+          },
+          {
+            "id": "ESTR_odd_01",
+            "policyType": "odd_one_out",
+            "interactionType": "odd_one_out",
+            "learnPatternId": "odd_one_out",
+            "questionPattern": "odd one out",
+            "questionPurpose": "character mismatch",
+            "reviewSafe": true,
+            "sourceLabel": "Context",
+            "requiresVisibleEvidence": [
+              "Context"
+            ],
+            "requiresBriefingScreens": [
+              "ESTR_brief_01",
+              "ESTR_brief_02",
+              "ESTR_brief_03"
+            ],
+            "prompt": "Which detail belongs to someone other than Esther?",
+            "answer": "She is formed from the dust and placed in Eden.",
+            "fittingItems": [
+              "She becomes queen in Persia.",
+              "She is connected to Mordecai.",
+              "She hides her identity at first.",
+              "She exposes Haman's plot."
+            ],
+            "explanation": "Being formed from dust and placed in Eden belongs to Adam, not Esther."
+          }
+        ]
+      }
+    },
+    "TN33": {
+      "cardUid": "TN33",
+      "stage": 1,
+      "titleHint": "Sarah",
+      "deckAnswer": "Sarah",
+      "sourceTags": [
+        "Genesis",
+        "OT"
+      ],
+      "guidedLearning": {
+        "briefingTitle": "Sarah and the promised son",
+        "briefingScreens": [
+          {
+            "id": "TN33_brief_01",
+            "lines": [
+              "Sarah, first called Sarai, is Abraham's wife in Genesis."
+            ],
+            "sourceLabel": "Context",
+            "requiresVisibleEvidence": [
+              "Context"
+            ]
+          },
+          {
+            "id": "TN33_brief_02",
+            "lines": [
+              "Her story is marked by long infertility and the tension around Hagar and Ishmael."
+            ],
+            "sourceLabel": "Context",
+            "requiresVisibleEvidence": [
+              "Context"
+            ]
+          },
+          {
+            "id": "TN33_brief_03",
+            "lines": [
+              "Sarah gives birth to Isaac in old age, keeping the promised family line moving forward."
+            ],
+            "sourceLabel": "Context",
+            "requiresVisibleEvidence": [
+              "Context"
+            ]
+          }
+        ],
+        "questions": [
+          {
+            "id": "TN33_identity_choice_01",
+            "policyType": "content_choice",
+            "interactionType": "content_choice",
+            "questionPattern": "identity_choice",
+            "questionPurpose": "character identity",
+            "reviewSafe": true,
+            "sourceLabel": "Context",
+            "requiresVisibleEvidence": [
+              "Context"
+            ],
+            "requiresBriefingScreens": [
+              "TN33_brief_01"
+            ],
+            "prompt": "Which matriarch gives birth to Isaac in old age?",
+            "answer": "Sarah",
+            "distractors": [
+              "Rebekah",
+              "Rachel",
+              "Leah"
+            ],
+            "explanation": "Sarah is Abraham's wife and Isaac's mother."
+          },
+          {
+            "id": "TN33_role_choice_01",
+            "policyType": "content_choice",
+            "interactionType": "content_choice",
+            "questionPattern": "role_significance_choice",
+            "questionPurpose": "role significance",
+            "reviewSafe": true,
+            "sourceLabel": "Context",
+            "requiresVisibleEvidence": [
+              "Context"
+            ],
+            "requiresBriefingScreens": [
+              "TN33_brief_02"
+            ],
+            "prompt": "Which statement best describes Sarah's role in Genesis?",
+            "answer": "Sarah becomes Isaac's mother after years of infertility.",
+            "distractors": [
+              "Adam is the first human in Genesis, placed in Eden and tied to the first family line.",
+              "Paul begins as a persecutor and becomes a missionary and letter writer.",
+              "Peter is a leading disciple who denies Jesus and later leads publicly."
+            ],
+            "explanation": "Sarah's story centers on Abraham, infertility, Hagar and Ishmael, and the birth of Isaac."
+          },
+          {
+            "id": "TN33_detail_cloze_01",
+            "policyType": "cloze_drag",
+            "interactionType": "cloze_drag",
+            "questionPattern": "fill_blank",
+            "questionPurpose": "character detail",
+            "reviewSafe": true,
+            "sourceLabel": "Context",
+            "requiresVisibleEvidence": [
+              "Context"
+            ],
+            "requiresBriefingScreens": [
+              "TN33_brief_02"
+            ],
+            "prompt": "Sarah gives birth to ___ in old age.",
+            "answer": "Isaac",
+            "wordBank": [
+              "Isaac",
+              "Jacob",
+              "Ishmael",
+              "Esau"
+            ],
+            "explanation": "Isaac is the son born to Sarah in old age."
+          },
+          {
+            "id": "TN33_sequence_01",
+            "policyType": "sequence_order",
+            "interactionType": "sequence_order",
+            "learnPatternId": "sequence_step",
+            "questionPattern": "sequence order",
+            "questionPurpose": "story sequence",
+            "reviewSafe": true,
+            "sourceLabel": "Context",
+            "requiresVisibleEvidence": [
+              "Context"
+            ],
+            "requiresBriefingScreens": [
+              "TN33_brief_01",
+              "TN33_brief_02",
+              "TN33_brief_03"
+            ],
+            "prompt": "Put Sarah's Genesis story details in order.",
+            "correctOrder": [
+              "Sarah is first called Sarai.",
+              "Sarah faces long infertility.",
+              "The Hagar and Ishmael conflict shapes the family story.",
+              "Sarah gives birth to Isaac in old age."
+            ],
+            "explanation": "Sarah's story moves through name, infertility, family conflict, and Isaac's birth."
+          },
+          {
+            "id": "TN33_odd_01",
+            "policyType": "odd_one_out",
+            "interactionType": "odd_one_out",
+            "learnPatternId": "odd_one_out",
+            "questionPattern": "odd one out",
+            "questionPurpose": "character mismatch",
+            "reviewSafe": true,
+            "sourceLabel": "Context",
+            "requiresVisibleEvidence": [
+              "Context"
+            ],
+            "requiresBriefingScreens": [
+              "TN33_brief_01",
+              "TN33_brief_02",
+              "TN33_brief_03"
+            ],
+            "prompt": "Which detail belongs to someone other than Sarah?",
+            "answer": "She is present at Jesus' crucifixion.",
+            "fittingItems": [
+              "She is first called Sarai.",
+              "She is Abraham's wife.",
+              "She faces long infertility.",
+              "She gives birth to Isaac."
+            ],
+            "explanation": "Being present at Jesus' crucifixion belongs to Mary Magdalene, not Sarah."
+          }
+        ]
+      }
+    }
+  },
+  "totals": {
+    "cards": 8,
+    "bankQuestions": 40,
+    "briefingScreens": 24,
+    "eventBoards": 0,
+    "scholarQuestions": 0,
+    "usableItems": 40
+  },
+  "evidencePolicy": {
+    "visibleEvidenceNoteLabel": "Context",
+    "visibleContextNoteLabel": "Context"
+  }
+}

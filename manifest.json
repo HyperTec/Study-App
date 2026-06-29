@@ -1,0 +1,17 @@
+{
+  "name": "StudyDeck",
+  "short_name": "StudyDeck",
+  "description": "A guided study and flashcard app for structured learning.",
+  "start_url": "./index.html",
+  "display": "standalone",
+  "background_color": "#0D1117",
+  "theme_color": "#0D1117",
+  "icons": [
+    {
+      "src": "assets/studydeck-icon.svg",
+      "sizes": "any",
+      "type": "image/svg+xml",
+      "purpose": "any maskable"
+    }
+  ]
+}

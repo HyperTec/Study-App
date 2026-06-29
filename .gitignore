@@ -1,0 +1,9 @@
+.DS_Store
+*.bak
+*.bak-*
+artifacts/
+backups/
+qa-screenshots/
+qc-screenshots/
+tmp_visual_qa/
+.visual-qa/
