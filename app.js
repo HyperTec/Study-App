@@ -1582,9 +1582,8 @@ var studyDeckCurrentExportFileName = '';
 var studyDeckCurrentExportDescription = '';
 var studyDeckCurrentExportBridgeFolder = 'sidecars';
 var studyDeckAuthorBridgeBaseUrl = 'http://127.0.0.1:17343';
-var studyDeckAuthorBridgeNodePath = '/Users/shaunyouth/.cache/codex-runtimes/codex-primary-runtime/dependencies/node/bin/node';
-var studyDeckAuthorBridgeCommand = studyDeckAuthorBridgeNodePath + ' /Users/shaunyouth/Documents/StudyDeck/tools/studydeck-author-bridge.js';
-var studyDeckAuthorBridgeStartScript = '/Users/shaunyouth/Documents/StudyDeck/tools/start-studydeck-author-bridge.command';
+var studyDeckAuthorBridgeCommand = 'node tools/studydeck-author-bridge.js';
+var studyDeckAuthorBridgeStartScript = 'tools/start-studydeck-author-bridge.command';
 function openExportTextModal(title, bodyHtml, text, downloadName, options) {
   options = options || {};
   var modal = document.getElementById('export-modal');
@@ -2232,9 +2231,31 @@ let authorMode   = false;  // true when PIN has been entered
 let pinEntry     = '';
 let editDeckId   = null;   // which deck is being edited
 
-var SAMPLE_DECKS = (window.STUDYDECK_PREVIEW_DECKS && Array.isArray(window.STUDYDECK_PREVIEW_DECKS) && window.STUDYDECK_PREVIEW_DECKS.length)
-  ? window.STUDYDECK_PREVIEW_DECKS
-  : [];
+var SAMPLE_DECKS = [
+  { id:1, name:'World Geography', desc:'Capitals, countries, and continents', color:'#F59E0B', cards:[
+    {id:1, uid:'WGJ2', q:'What is the capital of Japan?',              a:'Tokyo',              tags:['Asia','Capitals']},
+    {id:2, uid:'WGR2', q:'What is the largest country by area?',      a:'Russia',             tags:['Facts','Europe','Asia']},
+    {id:3, uid:'WGE2', q:'Which continent is Egypt in?',              a:'Africa',             tags:['Africa','Continents']},
+    {id:4, uid:'WGB2', q:'What is the capital of Brazil?',            a:'Brasília',           tags:['South America','Capitals']},
+    {id:5, uid:'WGV2', q:'What is the smallest country in the world?',a:'Vatican City',       tags:['Europe','Facts']},
+    {id:6, uid:'WGP2', q:'Which ocean is the largest?',               a:'Pacific Ocean',      tags:['Oceans','Facts']},
+  ]},
+  { id:2, name:'Science Basics', desc:'Fundamental science concepts', color:'#10B981', cards:[
+    {id:1, uid:'SCW2', q:'What is the chemical symbol for water?',    a:'H₂O',                tags:['Chemistry']},
+    {id:2, uid:'SCP2', q:'How many planets are in our solar system?', a:'8',                  tags:['Astronomy']},
+    {id:3, uid:'SCL2', q:'What is the speed of light (approx)?',     a:'300,000 km/s',       tags:['Physics']},
+    {id:4, uid:'SCM2', q:'What is the powerhouse of the cell?',      a:'Mitochondria',       tags:['Biology']},
+    {id:5, uid:'SCC2', q:'What gas do plants absorb from the air?',  a:'Carbon dioxide (CO₂)',tags:['Biology','Chemistry']},
+    {id:6, uid:'SCN2', q:"What is Newton's first law?",              a:'An object in motion stays in motion unless acted on by an external force.', tags:['Physics']},
+  ]},
+  { id:3, name:'World History', desc:'Key events and dates', color:'#8B5CF6', cards:[
+    {id:1, uid:'WHW2', q:'In what year did World War II end?',        a:'1945',               tags:['WW2','20th Century']},
+    {id:2, uid:'WHU2', q:'Who was the first US President?',           a:'George Washington',  tags:['USA','Presidents']},
+    {id:3, uid:'WHF2', q:'When did the French Revolution begin?',     a:'1789',               tags:['Europe','18th Century']},
+    {id:4, uid:'WHA2', q:'What ancient wonder stood in Alexandria?',  a:'The Lighthouse of Alexandria', tags:['Ancient','Wonders']},
+    {id:5, uid:'WHM2', q:'When was the Magna Carta signed?',          a:'1215',               tags:['Medieval','Europe']},
+  ]},
+];
 var _saved   = loadData();
 var decks    = (_saved && _saved.decks)      || SAMPLE_DECKS;
 var tagGroups = (_saved && _saved.tagGroups) || [];
@@ -2248,9 +2269,6 @@ var guidedAuthorNodePolicyRenderTimer = null;
 var guidedAuthorNodePolicySelectedScope = 'global';
 var guidedAuthorDraftTargetSidecarId = '';
 var guidedSidecarStore = guidedLoadSidecarStore();
-if ((!guidedSidecarStore || !Array.isArray(guidedSidecarStore.sidecars) || !guidedSidecarStore.sidecars.length) && window.STUDYDECK_PREVIEW_SIDECAR_STORE && Array.isArray(window.STUDYDECK_PREVIEW_SIDECAR_STORE.sidecars)) {
-  guidedSidecarStore = window.STUDYDECK_PREVIEW_SIDECAR_STORE;
-}
 
 function portalOverlaysToBody(){
   [
@@ -2277,6 +2295,8 @@ let filterMore = false;
 let filterLevel = '';
 let filterSearch = ''; // text search within deck
 let filterTagsExpanded = false;
+let deckBrowserExpanded = false;
+let deckFiltersExpanded = false;
 let tagPressState = null;
 
 // flashcard
@@ -3508,7 +3528,7 @@ function goToLinkedCard() {
   }
   closeCardlink();
   activeDeck = d;
-  filterTags=[]; filterExcludeTags=[]; filterFav=false; filterMore=false; filterLevel=""; filterSearch=""; filterTagsExpanded=false;
+  filterTags=[]; filterExcludeTags=[]; filterFav=false; filterMore=false; filterLevel=""; filterSearch=""; filterTagsExpanded=false; deckFiltersExpanded=false;
   deckOrder='learning'; deckFace='front'; fcAutoAdvance=false;
   // Build flashcard session for that deck, find the target card index
   var base = d.cards.slice();
@@ -4531,7 +4551,8 @@ function openAllDecks() {
     cards: allCards,
     _isAll: true
   };
-  filterTags=[]; filterExcludeTags=[]; filterFav=false; filterMore=false; filterLevel=""; filterSearch=""; filterTagsExpanded=false;
+  filterTags=[]; filterExcludeTags=[]; filterFav=false; filterMore=false; filterLevel=""; filterSearch=""; filterTagsExpanded=false; deckFiltersExpanded=false;
+  deckBrowserExpanded = false;
   deckOrder='learning'; deckFace='front';
   document.getElementById('opts-panel').classList.remove('open');
   setOrder('learning'); setFace('front');
@@ -18922,37 +18943,37 @@ function guidedBuildSetupPreviewCopy(selectedCategories, run) {
 function guidedGetSetupEntryCopy(run) {
   if (!run) {
     return {
-      topTitle: 'Build Your Guided Path',
-      title: 'Pick what to study first',
-      sub: 'Choose one or more categories. If more than three are selected, the extra categories stay selected for later brackets.',
-      statePill: 'New run'
+      topTitle: 'Guided Learning',
+      title: 'Choose your study areas',
+      sub: 'Pick topics for your path. You will study up to three at a time.',
+      statePill: ''
     };
   }
   var bracketComplete = guidedIsCurrentBracketComplete(run);
   var pendingSummary = guidedGetPendingChangeSummary(run);
   if (bracketComplete) {
     return {
-      topTitle: 'Manage Guided Categories',
-      title: 'Choose the next bracket',
+      topTitle: 'Guided Learning',
+      title: 'Choose what comes next',
       sub: pendingSummary
-        ? 'This bracket is complete, and a category change is already saved for what comes next.'
-        : 'This bracket is complete. Save changes only if the next bracket should use a different set of categories.',
-      statePill: 'Bracket complete'
+        ? 'Your next set is already saved.'
+        : 'Update the topics only if you want the next bracket to change.',
+      statePill: ''
     };
   }
   if (pendingSummary) {
     return {
-      topTitle: 'Manage Guided Categories',
-      title: 'Review the saved next-bracket change',
-      sub: 'Your current bracket stays the same. The saved list will be used when the next bracket is built.',
-      statePill: 'Changes queued'
+      topTitle: 'Guided Learning',
+      title: 'Review your next set',
+      sub: 'Your current bracket stays the same. This list is saved for what comes next.',
+      statePill: ''
     };
   }
   return {
-    topTitle: 'Manage Guided Categories',
+    topTitle: 'Guided Learning',
     title: 'Plan the next bracket',
-    sub: 'Changing this list will not interrupt the bracket you are in now. Save only if the next bracket should use a different set of categories.',
-    statePill: 'Current bracket active'
+    sub: 'Your current bracket stays the same. Save changes only for what comes next.',
+    statePill: ''
   };
 }
 function guidedPreviewNextBracketCategoryIds(run, selectedIds) {
@@ -19039,39 +19060,40 @@ function renderGuidedSetupScreen() {
   var entryCopy = guidedGetSetupEntryCopy(run);
   var rotationPreview = guidedGetSetupRotationPreview(selectedAvailable, run);
   var setupSaveState = run ? guidedGetSetupSaveState(run, selected.map(String)) : null;
-  var selectionText = selectedAvailable.length + ' selected';
-  var availableText = availableCategories.length + ' available';
+  var selectionText = selectedAvailable.length + ' chosen';
+  var availableText = availableCategories.length + ' topics';
   var primaryAction = run && setupSaveState && (setupSaveState.key === 'no_changes' || setupSaveState.key === 'saved_pending')
     ? 'showGuidedPathMap()'
     : (run ? 'guidedSavePendingCategoryChanges()' : 'guidedCreatePrototypeRun()');
-  var primaryLabel = run && setupSaveState ? setupSaveState.buttonLabel : 'Begin Guided Journey';
+  var primaryLabel = run && setupSaveState ? setupSaveState.buttonLabel : 'Start Path';
   return ''
     + '<div class="guided-shell guided-setup-shell">'
     + '<div class="top-bar"><button class="back-btn" onclick="' + (run ? 'showGuidedOptions()' : 'showHome()') + '">←</button><span class="top-title" style="flex:1">' + guidedEsc(entryCopy.topTitle) + '</span></div>'
     + '<div class="guided-card guided-hero-card">'
-    +   '<div class="guided-kicker">Guided setup</div>'
+    +   '<div class="guided-kicker">Study Path</div>'
     +   '<div class="guided-card-title">' + guidedEsc(entryCopy.title) + '</div>'
     +   '<div class="guided-card-sub">' + guidedEsc(entryCopy.sub) + '</div>'
     +   '<div class="guided-setup-status-row">'
-    +     '<span>' + guidedEsc(entryCopy.statePill) + '</span>'
+    +     (entryCopy.statePill ? '<span>' + guidedEsc(entryCopy.statePill) + '</span>' : '')
     +     '<span>' + guidedEsc(selectionText) + '</span>'
     +     '<span>' + guidedEsc(availableText) + '</span>'
     +   '</div>'
     + '</div>'
     + '<div class="guided-setup-section-head">'
-    +   '<div><strong>Study categories</strong><span>Tap a row to include or remove it.</span></div>'
-    +   '<em>' + guidedEsc(selectionText) + '</em>'
+    +   '<div><strong>Study areas</strong><span>Tap a topic to choose it.</span></div>'
+    +   '<em></em>'
     + '</div>'
     + '<div class="guided-category-list">'
     + availableCategories.map(function(cat){
       var isSelected = selected.indexOf(cat.id) !== -1;
-      var stateLabel = cat.available ? (isSelected ? (selectedAvailable.length === 1 ? 'Required' : 'Selected') : 'Add') : 'Not loaded';
+      var stateLabel = cat.available ? (isSelected ? 'Selected' : '+') : 'Not loaded';
+      var stateHtml = cat.available && isSelected ? '&#10003;' : guidedEsc(stateLabel);
       return '<button class="guided-category-row' + (isSelected ? ' is-selected' : '') + (cat.available ? '' : ' is-disabled') + '"'
         + (cat.available ? ' onclick="guidedToggleCategory(\'' + guidedEsc(cat.id) + '\')"' : ' disabled')
-        + ' style="--guided-accent:' + guidedEsc(cat.color) + '">'
+        + ' aria-pressed="' + (isSelected ? 'true' : 'false') + '" style="--guided-accent:' + guidedEsc(cat.color) + '">'
         + '<span class="guided-category-dot" style="background:' + guidedEsc(cat.color) + '"></span>'
         + '<div class="guided-category-copy"><div class="guided-category-title">' + guidedEsc(cat.label) + '</div><div class="guided-category-blurb">' + guidedEsc(cat.available ? cat.blurb : 'Load or import this deck before adding it to Guided Learning.') + '</div></div>'
-        + '<div class="guided-category-state">' + guidedEsc(stateLabel) + '</div>'
+        + '<div class="guided-category-state">' + stateHtml + '</div>'
         + '</button>';
     }).join('')
     + (unavailableCategories.length
@@ -21081,7 +21103,7 @@ function startDailyChallenge() {
     desc: 'Cards due for review', _isAll: true,
     cards: dailyCards.map(function(e){ return Object.assign({}, e.card, { _deckId: e.deckId }); })
   };
-  filterTags=[]; filterExcludeTags=[]; filterFav=false; filterMore=false; filterLevel=""; filterSearch=""; filterTagsExpanded=false;
+  filterTags=[]; filterExcludeTags=[]; filterFav=false; filterMore=false; filterLevel=""; filterSearch=""; filterTagsExpanded=false; deckFiltersExpanded=false;
   qzCards  = shuffle(activeDeck.cards);
   if (!qzCards.length) {
     appConfirm('All caught up!', 'No cards are available for Daily Challenge right now.', 'Got it', 'btn-gold', function(){});
@@ -22180,14 +22202,28 @@ function nextQuestion() {
     saveGameData();
     renderHomeGamification();
 
-    document.getElementById('res-pct').textContent   = pct + '%';
-    document.getElementById('res-title').textContent = pct===100?'🎉 Perfect!':pct>=70?'👏 Great job!':'📚 Keep studying!';
+    var resultsEl = document.getElementById('results');
+    if (resultsEl) resultsEl.style.setProperty('--result-pct', pct + '%');
+    var pctEl = document.getElementById('res-pct');
+    if (pctEl) {
+      pctEl.textContent = pct + '%';
+      pctEl.classList.toggle('is-long', pct >= 100);
+    }
+    document.getElementById('res-title').textContent = pct===100?'Perfect!':pct>=70?'Great job!':'Keep studying';
     document.getElementById('res-sub').textContent   = qzScore+' out of '+qzCards.length+' correct';
     var earnParts = [];
     if (bonusShekels+shekelsEarned > 0) earnParts.push('+' + (bonusShekels+shekelsEarned) + ' 🪙');
     if (bonusXP+xpEarned > 0) earnParts.push('+' + (bonusXP+xpEarned) + ' XP');
     if (deckMasteryBonus > 0) earnParts.push('👑 Deck Mastered! +' + deckMasteryBonus + ' 🪙');
     document.getElementById('res-xp').textContent = earnParts.join('  ·  ');
+    var correctStat = document.getElementById('res-stat-correct');
+    var xpStat = document.getElementById('res-stat-xp');
+    var badgeStat = document.getElementById('res-stat-badges');
+    var reviewSummary = document.getElementById('res-review-summary');
+    if (correctStat) correctStat.textContent = qzScore + '/' + qzCards.length;
+    if (xpStat) xpStat.textContent = '+' + (bonusXP + xpEarned);
+    if (badgeStat) badgeStat.textContent = String(newBadges.length);
+    if (reviewSummary) reviewSummary.textContent = qzCards.length + ' card' + (qzCards.length === 1 ? '' : 's');
 
     var bdgEl = document.getElementById('res-badges');
     bdgEl.innerHTML = newBadges.map(function(id){
@@ -24958,9 +24994,61 @@ function setFcAutoAdvance(on) {
   }
 }
 function toggleFcAutoAdvance() { setFcAutoAdvance(!fcAutoAdvance); }
+function deckHasActiveFilters() {
+  return !!(filterTags.length || filterExcludeTags.length || filterFav || filterMore || filterLevel.trim() || filterSearch.trim());
+}
+function deckAdvancedFilterCount() {
+  return filterTags.length + filterExcludeTags.length
+    + (filterFav ? 1 : 0)
+    + (filterMore ? 1 : 0)
+    + (filterLevel.trim() ? 1 : 0);
+}
+function deckAdvancedFiltersActive() {
+  return deckAdvancedFilterCount() > 0;
+}
+function deckFiltersShouldBeOpen() {
+  return !!(authorMode || deckFiltersExpanded || deckAdvancedFiltersActive());
+}
+function deckBrowserShouldBeOpen() {
+  return !!(authorMode || deckBrowserExpanded || deckHasActiveFilters());
+}
+function toggleDeckBrowser() {
+  deckBrowserExpanded = !deckBrowserShouldBeOpen();
+  renderDetail();
+}
+function toggleDeckFilters() {
+  deckFiltersExpanded = !deckFiltersShouldBeOpen();
+  deckBrowserExpanded = true;
+  renderDetail();
+}
+function updateDeckBrowserPanel(shownCount) {
+  var panel = document.getElementById('deck-browser-panel');
+  var toggle = document.getElementById('deck-browser-toggle');
+  var body = document.getElementById('deck-browser-body');
+  var count = document.getElementById('deck-browser-count');
+  var chevron = document.getElementById('deck-browser-chevron');
+  var filterToggle = document.getElementById('deck-filter-toggle');
+  var filterSec = document.getElementById('filter-sec');
+  var open = deckBrowserShouldBeOpen();
+  var filtersOpen = deckFiltersShouldBeOpen();
+  var filterCount = deckAdvancedFilterCount();
+  if (panel) panel.classList.toggle('is-open', open);
+  if (body) body.hidden = !open;
+  if (toggle) toggle.setAttribute('aria-expanded', open ? 'true' : 'false');
+  if (count) count.textContent = String(shownCount || 0) + ' shown';
+  if (chevron) chevron.textContent = open ? '⌃' : '⌄';
+  if (filterSec) filterSec.hidden = !filtersOpen;
+  if (filterToggle) {
+    filterToggle.textContent = filterCount ? 'Filters ' + filterCount : 'Filters';
+    filterToggle.setAttribute('aria-expanded', filtersOpen ? 'true' : 'false');
+    filterToggle.classList.toggle('is-active', filtersOpen || filterCount > 0);
+  }
+}
 function openDeck(id) {
   activeDeck = decks.find(function(d){ return d.id===id; });
   filterTags=[]; filterExcludeTags=[]; filterFav=false; filterMore=false; filterLevel=""; filterSearch=""; filterTagsExpanded=false;
+  deckBrowserExpanded = false;
+  deckFiltersExpanded = false;
   deckOrder='learning'; deckFace='front'; quizLength='all'; fcAutoAdvance=false;
   // reset option UI
   document.getElementById('opts-panel').classList.remove('open');
@@ -24988,6 +25076,7 @@ function cardTagBadgesHTML(card) {
 function renderDetail() {
   if (!activeDeck) return;
   var d = activeDeck, filtered = getFiltered(), tags = allTags(d);
+  if (deckHasActiveFilters()) deckBrowserExpanded = true;
   var deckColor = styleLabNormalizeHex(d.color, '#4FCFFF');
   applyStyleLabReferenceToElement(document.getElementById('detail'), deckColor);
   applyStyleLabReferenceToElement(document.getElementById('detail-hero'), deckColor);
@@ -25005,19 +25094,23 @@ function renderDetail() {
     if (prog && prog.nextCards > 0) {
       var reqRows = prog.reqs.map(function(r){
         var pct = Math.round(r.met / r.total * 100);
-        var barColor = r.done ? '#10B981' : 'var(--gold)';
-        return '<div style="margin-bottom:6px">'
-          +'<div style="display:flex;justify-content:space-between;font-size:11px;color:var(--muted);margin-bottom:3px">'
-            +'<span>Level '+r.cardLevel+' cards — '+r.threshold+'× correct each</span>'
-            +'<span>'+r.met+' / '+r.total+'</span>'
+        var masteryLabel = r.threshold === 1 ? '1 mastery' : r.threshold+' mastery';
+        return '<div class="deck-unlock-requirement '+(r.done ? 'is-done' : '')+'">'
+          +'<div class="deck-unlock-copy deck-unlock-row">'
+            +'<span><b>Lv '+r.cardLevel+'</b>: '+r.met+' / '+r.total+' ready</span>'
+            +'<em>needs '+masteryLabel+' each</em>'
           +'</div>'
-          +'<div style="height:4px;background:rgba(255,255,255,0.07);border-radius:2px;overflow:hidden">'
-            +'<div style="height:100%;width:'+pct+'%;background:'+barColor+';border-radius:2px;transition:width .4s"></div>'
+          +'<div class="deck-unlock-bar" aria-hidden="true">'
+            +'<div class="deck-unlock-fill" style="width:'+pct+'%"></div>'
           +'</div>'
         +'</div>';
       }).join('');
-      unlockProgressHTML = '<div style="padding:12px 16px;background:rgba(245,158,11,0.06);border:1px solid rgba(245,158,11,0.2);border-radius:10px;margin-top:12px">'
-        +'<div style="font-size:12px;font-weight:600;color:var(--gold);margin-bottom:8px">To unlock Level '+prog.nextLevel+' ('+prog.nextCards+' cards):</div>'
+      unlockProgressHTML = '<div class="deck-unlock-card">'
+        +'<div class="deck-unlock-head">'
+          +'<span>Next unlock</span>'
+          +'<strong>Level '+prog.nextLevel+'</strong>'
+          +'<em>'+prog.nextCards+' cards</em>'
+        +'</div>'
         +reqRows
         +'</div>';
     } else if (prog && prog.nextCards === 0) {
@@ -25115,12 +25208,13 @@ function renderDetail() {
     +'</div>'
     + renderFilterActiveSummary(detailFilterSummary, 'clearAllDeckFilters()');
   document.getElementById('filter-sec').innerHTML = filterHTML;
+  updateDeckBrowserPanel(filtered.length);
 
   // Sync search bar state (persists across re-renders)
   var searchInp = document.getElementById('deck-search');
   var searchClr = document.getElementById('deck-search-clear');
   if (searchInp && searchInp.value !== filterSearch) searchInp.value = filterSearch;
-  if (searchClr) searchClr.style.display = filterSearch.trim() ? '' : 'none';
+  if (searchClr) searchClr.style.display = filterSearch.trim() ? 'grid' : 'none';
 
   // Cards
   var cardsHTML = '<div class="cards-sec-head">'+filtered.length+' card'+(filtered.length!==1?'s':'')+'</div>'
@@ -25172,14 +25266,15 @@ function updateFaceVisibility() {
   var faceToReset = fcFlipped ? front : back;
   setTimeout(function() { faceToReset.scrollTop = 0; }, studyDeckMotionDuration(520, 0));
 }
-function toggleFilterFav()  { filterFav  = !filterFav;  renderDetail(); }
-function toggleFilterMore() { filterMore = !filterMore; renderDetail(); }
+function toggleFilterFav()  { filterFav  = !filterFav; deckBrowserExpanded = true; deckFiltersExpanded = true; renderDetail(); }
+function toggleFilterMore() { filterMore = !filterMore; deckBrowserExpanded = true; deckFiltersExpanded = true; renderDetail(); }
 function setDeckSearch(val) {
   filterSearch = val;
+  deckBrowserExpanded = true;
   var inp = document.getElementById('deck-search');
   var clr = document.getElementById('deck-search-clear');
   if (inp) inp.value = val;
-  if (clr) clr.style.display = val.trim() ? '' : 'none';
+  if (clr) clr.style.display = val.trim() ? 'grid' : 'none';
   renderDetail();
 }
 function clearAllDeckFilters() {
@@ -25189,6 +25284,7 @@ function clearAllDeckFilters() {
   filterMore = false;
   filterLevel = '';
   filterSearch = '';
+  deckFiltersExpanded = false;
   renderDetail();
 }
 function renderDeckCardsNoResults() {
@@ -25204,6 +25300,8 @@ function renderDeckCardsNoResults() {
 }
 function setFilterLevel(val) {
   filterLevel = val;
+  deckBrowserExpanded = true;
+  deckFiltersExpanded = true;
   // Re-render without resetting the input (preserve cursor)
   renderDetail();
   // Restore focus and value on the input after re-render
@@ -25212,6 +25310,8 @@ function setFilterLevel(val) {
 }
 function toggleTagExpansion() {
   filterTagsExpanded = !filterTagsExpanded;
+  deckBrowserExpanded = true;
+  deckFiltersExpanded = true;
   renderDetail();
 }
 function toggleTag(t, context) {
@@ -25225,6 +25325,8 @@ function toggleTag(t, context) {
   }
   filterExcludeTags = filterExcludeTags.filter(function(x){ return x!==t; });
   filterTags = filterTags.includes(t) ? filterTags.filter(function(x){ return x!==t; }) : filterTags.concat([t]);
+  deckBrowserExpanded = true;
+  deckFiltersExpanded = true;
   renderDetail();
   if (activeTgGroup && _tgContext === 'detail') renderTgGrid();
 }
@@ -25243,6 +25345,8 @@ function toggleTagExclude(t, context) {
   filterExcludeTags = filterExcludeTags.includes(t)
     ? filterExcludeTags.filter(function(x){ return x!==t; })
     : filterExcludeTags.concat([t]);
+  deckBrowserExpanded = true;
+  deckFiltersExpanded = true;
   renderDetail();
   if (activeTgGroup && _tgContext === 'detail') renderTgGrid();
 }
@@ -25464,17 +25568,28 @@ function showFlashcardSummary() {
   var stats = getFlashcardSummaryStats();
   if (!stats.changed) { showDetail(); return; }
   var totalChanged = stats.known + stats.markedDontKnow + stats.clearedDontKnow;
-  document.getElementById('fc-summary-sub').textContent =
-    totalChanged + ' card' + (totalChanged === 1 ? '' : 's') + ' changed during this flashcard pass.';
+  var knownText = stats.known + ' known';
+  var reviewText = stats.markedDontKnow + ' to review';
+  var masteryText = stats.masteryGained > 0 ? '+' + stats.masteryGained : '0';
+  document.getElementById('fc-summary-sub').innerHTML =
+    '<div class="fc-summary-result-line">'
+      + '<span>' + knownText + '</span>'
+      + '<span>' + reviewText + '</span>'
+    + '</div>'
+    + '<div class="fc-summary-result-copy">'
+      + totalChanged + ' card' + (totalChanged === 1 ? '' : 's') + ' updated in this pass.'
+    + '</div>';
   document.getElementById('fc-summary-grid').innerHTML =
-    '<div class="fc-summary-stat known"><strong>'+stats.known+'</strong><span>I know it!</span></div>'
-    +'<div class="fc-summary-stat dontknow"><strong>'+stats.markedDontKnow+'</strong><span>Marked I don’t know</span></div>'
-    +'<div class="fc-summary-stat cleared"><strong>'+stats.clearedDontKnow+'</strong><span>Cleared from I don’t know</span></div>'
-    +'<div class="fc-summary-stat mastery"><strong>'+stats.masteryGained+'</strong><span>Mastery point'+(stats.masteryGained===1?'':'s')+' gained</span></div>';
+    '<div class="fc-summary-stat fc-summary-stat-main known"><strong>'+stats.known+'</strong><span>Known today</span></div>'
+    +'<div class="fc-summary-stat fc-summary-stat-main dontknow"><strong>'+stats.markedDontKnow+'</strong><span>Review again</span></div>'
+    +'<div class="fc-summary-stat fc-summary-stat-detail mastery"><strong>'+masteryText+'</strong><span>Mastery gained</span></div>'
+    +'<div class="fc-summary-stat fc-summary-stat-detail cleared"><strong>'+stats.clearedDontKnow+'</strong><span>Removed from review</span></div>';
   document.getElementById('fc-summary-note').textContent =
-    stats.masteryGained > 0
-      ? 'Mastery reflects the net points gained by cards in this session.'
-      : 'No mastery points were gained, but your known/not-known marks were updated.';
+    stats.markedDontKnow > 0
+      ? 'Cards marked for review will stay easy to find next time.'
+      : stats.masteryGained > 0
+        ? 'These cards moved forward in mastery.'
+        : 'Your card marks were saved.';
   show('flash-summary');
 }
 function leaveFlashcards() {
@@ -25694,6 +25809,18 @@ function flashcardFaceMainClass(textClass) {
     : 'card-main';
 }
 
+function syncFlashcardFlipCopy() {
+  var showingAnswer = fcFlipped;
+  var hint = document.getElementById('fc-hint');
+  var flipBtn = document.getElementById('btn-flip');
+  if (hint) hint.textContent = showingAnswer ? 'Tap card to reveal front' : 'Tap card to reveal back';
+  if (flipBtn) {
+    flipBtn.textContent = 'Flip';
+    flipBtn.title = 'Flip card';
+    flipBtn.setAttribute('aria-label', flipBtn.title);
+  }
+}
+
 function renderFC() {
   if (!fcCards.length || !fcCards[fcIdx]) {
     var emptyProg = document.getElementById('fc-prog');
@@ -25769,6 +25896,15 @@ function renderFC() {
     +'</div>';
   }
 
+  function buildSupportPanelHTML(notes, links, extraHTML) {
+    return '<div class="card-support-panel">'
+      + buildNotesHTML(notes)
+      + buildLinksHTML(links)
+      + (extraHTML || '')
+      + buildFavoriteHTML()
+    + '</div>';
+  }
+
   function buildScrollHintHTML(notes, links, textClass, extras) {
     extras = extras || {};
     var hasMoreText = String(textClass || '').indexOf('face-text-dense') !== -1;
@@ -25778,7 +25914,7 @@ function renderFC() {
     if (extras.timeline) items.push('timeline');
     if (notes.length) items.push('notes');
     if (links.length) items.push('links');
-    var label = items.length ? studyDeckFlashcardBelowList(items) + ' below' : 'Favorite below';
+    var label = hasMoreText ? 'Scroll for more' : (items.length ? studyDeckFlashcardBelowList(items) + ' below' : 'Favorite below');
     return '<div class="card-scroll-hint" aria-hidden="true">↓ ' + escHtml(label) + '</div>';
   }
 
@@ -25825,9 +25961,7 @@ function renderFC() {
     +'</div>'
     +mapPanelHTML
     +timelinePanelHTML
-    +buildNotesHTML(qNotes)
-    +buildLinksHTML(qLinks)
-    +buildFavoriteHTML();
+    +buildSupportPanelHTML(qNotes, qLinks);
 
   var tagsHTML = '<div class="face-tags" style="position:relative;z-index:1">'+cardTagBadgesHTML(c)+'</div>';
 
@@ -25841,10 +25975,7 @@ function renderFC() {
     +'</div>'
     +mapPanelHTML
     +timelinePanelHTML
-    +buildNotesHTML(aNotes)
-    +buildLinksHTML(aLinks)
-    +tagsHTML
-    +buildFavoriteHTML();
+    +buildSupportPanelHTML(aNotes, aLinks, tagsHTML);
 
   // Counteract scroll on each face so illustration stays visually fixed
   function bindIllScroll(faceId) {
@@ -25868,10 +25999,7 @@ function renderFC() {
 
   updateFaceVisibility();
 
-  var showingAnswer = fcFlipped;
-  document.getElementById('fc-hint').textContent = showingAnswer
-    ? 'Tap card to reveal front'
-    : 'Tap card to reveal back';
+  syncFlashcardFlipCopy();
 
   syncFlashcardReviewButtons();
   applyTheme(gd.activeTheme || 'default');
@@ -25882,10 +26010,7 @@ function flipCard() {
   fcFlipped = !fcFlipped;
   if (fcFlipped) fcStudied.add(fcCards[fcIdx].card.id);
   document.getElementById('card-3d').classList.toggle('flipped', fcFlipped);
-  var showingAnswer = fcFlipped;
-  document.getElementById('fc-hint').textContent = showingAnswer
-    ? 'Tap card to reveal front'
-    : 'Tap card to reveal back';
+  syncFlashcardFlipCopy();
   document.getElementById('fc-prog-text').textContent = (fcIdx+1)+' / '+fcCards.length+'  ·  '+fcStudied.size+' studied';
   updateFaceVisibility();
   applyTheme(gd.activeTheme || 'default');
@@ -26016,9 +26141,18 @@ function renderQZ() {
     if (qzNum) qzNum.textContent = 'Question 0 of 0';
     if (qzQ) qzQ.textContent = '';
     if (qzOptEl) qzOptEl.innerHTML = '';
+    var emptyQuizEl = document.getElementById('quiz');
+    if (emptyQuizEl) emptyQuizEl.classList.remove('is-answered');
     return;
   }
   var c = qzCards[qzIdx];
+  var quizEl = document.getElementById('quiz');
+  var plainQuestion = cleanQuizAnswerText(String(c.q || '').replace(/[*_`#>\[\]()]/g, ' '));
+  if (quizEl) {
+    quizEl.classList.toggle('is-answered', qzChosen !== null);
+    quizEl.classList.toggle('is-long-question', plainQuestion.length > 145);
+    quizEl.classList.toggle('is-very-long-question', plainQuestion.length > 205);
+  }
   document.getElementById('qz-prog').style.width = ((qzIdx+1)/Math.max(1, qzCards.length)*100).toFixed(0)+'%';
   document.getElementById('qz-num').textContent  = 'Question '+(qzIdx+1)+' of '+qzCards.length;
   document.getElementById('qz-q').innerHTML = renderMD(c.q);
@@ -26027,7 +26161,12 @@ function renderQZ() {
     var cls = '';
     if (qzChosen !== null) { if(opt.correct) cls='correct'; else if(i===qzChosen) cls='wrong'; }
     var displayLabel = (qzChosen !== null && opt.correct) ? opt.sourceAnswer : opt.label;
-    return '<button class="quiz-opt '+cls+'" '+(qzChosen!==null?'disabled':'')+' onclick="choose('+i+')"><span class="opt-letter">'+LETS[i]+'</span><span class="opt-text">'+renderMD(displayLabel)+'</span></button>';
+    var optMark = LETS[i];
+    if (qzChosen !== null) {
+      if (opt.correct) optMark = '✓';
+      else if (i === qzChosen) optMark = '✕';
+    }
+    return '<button class="quiz-opt '+cls+'" '+(qzChosen!==null?'disabled':'')+' onclick="choose('+i+')"><span class="opt-letter">'+optMark+'</span><span class="opt-text">'+renderMD(displayLabel)+'</span></button>';
   }).join('');
   var nxt = document.getElementById('qz-next');
   nxt.style.display = qzChosen !== null ? '' : 'none';

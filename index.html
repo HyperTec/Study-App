@@ -12,12 +12,10 @@
 <title>StudyDeck</title>
 <link data-href="manifest.json" id="app-manifest-link" rel="manifest"/>
 <link href="assets/studydeck-icon.svg" rel="icon" type="image/svg+xml"/>
-<link href="assets/studydeck-icon-180.png" rel="apple-touch-icon"/>
-<meta content="StudyDeck" name="apple-mobile-web-app-title"/>
 <link href="https://fonts.googleapis.com" rel="preconnect"/>
 <link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect"/>
 <link href="https://fonts.googleapis.com/css2?family=Lora:wght@600;700&amp;family=DM+Sans:wght@300;400;500;600&amp;family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;0,700;1,400&amp;family=EB+Garamond:ital,wght@0,400;0,500;0,600;0,700;1,400;1,500&amp;family=Cinzel:wght@500;600;700&amp;family=Outfit:wght@300;400;500;600;700;800&amp;display=swap" rel="stylesheet"/>
-<link rel="stylesheet" href="styles.css?v=20260622135822">
+<link rel="stylesheet" href="styles.css?v=timeline-calm-20260628j">
 
 
 
@@ -2638,21 +2636,32 @@ Style Lab
 </div>
 </div>
 </div>
-<div class="action-row" id="detail-action-row">
-<button type="button" class="btn btn-gold" id="btn-flash" onclick="startFlash()">🃏 Flashcards</button>
-<button type="button" class="btn btn-soft" id="btn-quiz" onclick="startQuiz()">📝 Quiz</button>
+<div class="deck-study-panel" id="deck-study-panel">
+<div class="action-row deck-study-actions" id="detail-action-row">
+<button type="button" class="btn btn-gold deck-mode-btn deck-mode-primary" id="btn-flash" onclick="startFlash()"><span class="deck-mode-icon">🃏</span><span><strong>Flashcards</strong><em>Study cards</em></span></button>
+<button type="button" class="btn btn-soft deck-mode-btn" id="btn-quiz" onclick="startQuiz()"><span class="deck-mode-icon">📝</span><span><strong>Quiz</strong><em>Test yourself</em></span></button>
+</div>
 </div>
 <div id="btn-order-quiz-wrap" style="display:none;padding:0 20px;margin-bottom:22px;gap:10px">
 <button type="button" class="btn btn-soft" onclick="openBQRef()" style="flex:1;font-size:13px;padding:11px">📋 Reference</button>
 <button type="button" class="btn btn-soft" onclick="startOrderGuide()" style="flex:1.35;font-size:13px;padding:11px">🧭 Books Order Guide</button>
 <button type="button" class="btn btn-soft" onclick="startOrderQuiz()" style="flex:1.45;font-size:13px;padding:11px">📖 Books Order Quiz</button>
 </div>
-<div style="padding:0 20px 10px;display:flex;align-items:center;gap:8px">
-<input aria-label="Search cards in this deck" class="form-inp" id="deck-search" oninput="setDeckSearch(this.value)" placeholder="🔍 Search cards…" style="flex:1;padding:10px 14px;font-size:13px"/>
-<button type="button" id="deck-search-clear" onclick="setDeckSearch('')" style="display:none;background:none;border:none;color:var(--muted);font-size:18px;cursor:pointer;padding:4px 6px;line-height:1">✕</button>
+<div class="deck-browser-panel" id="deck-browser-panel">
+<button type="button" class="deck-browser-toggle" id="deck-browser-toggle" onclick="toggleDeckBrowser()" aria-expanded="false" aria-controls="deck-browser-body">
+<span><strong>Browse cards</strong><em id="deck-browser-count">0 shown</em></span>
+<span class="deck-browser-chevron" id="deck-browser-chevron">⌄</span>
+</button>
+<div class="deck-browser-body" id="deck-browser-body">
+<div class="deck-browser-search-row">
+<input aria-label="Search cards in this deck" class="form-inp" id="deck-search" oninput="setDeckSearch(this.value)" placeholder="🔍 Search cards…"/>
+<button type="button" class="deck-search-clear" id="deck-search-clear" onclick="setDeckSearch('')" aria-label="Clear card search">✕</button>
+<button type="button" class="deck-filter-toggle-btn" id="deck-filter-toggle" onclick="toggleDeckFilters()" aria-expanded="false" aria-controls="filter-sec">Filters</button>
 </div>
 <div class="filter-sec" id="filter-sec"></div>
 <div class="cards-sec" id="cards-sec"></div>
+</div>
+</div>
 </div>
 <!-- BOOKS ORDER QUIZ -->
 <div class="view" id="books-quiz">
@@ -2710,7 +2719,7 @@ Style Lab
 </div>
 <div class="fc-nav">
 <button type="button" class="nav-btn" id="btn-prev" onclick="prevCard()">←</button>
-<button type="button" class="nav-btn flip" onclick="flipCard()">Flip</button>
+<button type="button" class="nav-btn flip" id="btn-flip" onclick="flipCard()">Flip</button>
 <button type="button" class="nav-btn" id="btn-next" onclick="nextCard()">→</button>
 </div>
 </div>
@@ -2719,17 +2728,17 @@ Style Lab
 <div class="view" id="flash-summary">
 <div class="top-bar">
 <button type="button" class="back-btn" onclick="showDetail()">←</button>
-<span class="top-title">Flashcard Summary</span>
+<span class="top-title">Study Complete</span>
 </div>
 <div class="fc-summary-wrap">
-<div class="fc-summary-kicker">Session changes</div>
-<div class="fc-summary-title">Nice pass.</div>
+<div class="fc-summary-kicker">Flashcards</div>
+<div class="fc-summary-title">Study pass complete</div>
 <div class="fc-summary-sub" id="fc-summary-sub"></div>
 <div class="fc-summary-grid" id="fc-summary-grid"></div>
 <div class="fc-summary-note" id="fc-summary-note"></div>
 <div class="results-btns">
 <button type="button" class="btn btn-gold btn-full" onclick="showDetail()" style="padding:15px">Back to Deck</button>
-<button type="button" class="btn btn-soft btn-full" onclick="show('flashcard')" style="padding:15px">Return to Cards</button>
+<button type="button" class="btn btn-soft btn-full" onclick="show('flashcard')" style="padding:15px">Keep Studying</button>
 </div>
 </div>
 </div>
@@ -2739,11 +2748,13 @@ Style Lab
 <button type="button" class="back-btn" onclick="showDetail()">←</button>
 <span class="top-title">Quiz</span>
 </div>
-<div class="fc-progress" style="margin-bottom:24px;">
+<div class="quiz-stage">
+<div class="fc-progress quiz-progress">
 <div class="prog-bar"><div class="prog-fill" id="qz-prog"></div></div>
 </div>
 <div class="quiz-qnum" id="qz-num"></div>
 <div class="quiz-q" id="qz-q"></div>
+</div>
 <div class="quiz-opts" id="qz-opts"></div>
 <button type="button" class="quiz-next" id="qz-next" onclick="nextQuestion()" style="display:none">Next →</button>
 </div>
@@ -2751,19 +2762,32 @@ Style Lab
 <canvas id="celebrate-canvas" style="position:fixed;inset:0;width:100%;height:100%;pointer-events:none;z-index:800;display:none"></canvas>
 <!-- RESULTS -->
 <div class="view" id="results">
+<div class="results-hero">
 <div class="results-ring">
 <div class="results-pct" id="res-pct"></div>
 <div class="results-pct-sub">score</div>
 </div>
 <div class="results-title" id="res-title"></div>
 <div class="results-sub" id="res-sub"></div>
-<div class="results-xp" id="res-xp" style="text-align:center"></div>
-<div class="results-new-badges" id="res-badges"></div>
-<div id="res-card-changes" style="padding:0 4px 16px"></div>
-<div class="results-btns">
-<button type="button" class="btn btn-gold btn-full" onclick="startQuiz()" style="padding:15px">Retake Quiz</button>
-<button type="button" class="btn btn-soft btn-full" onclick="showDetail()" style="padding:15px">Back to Deck</button>
+<div class="results-stat-grid">
+<div class="results-stat"><strong id="res-stat-correct">0/0</strong><span>Correct</span></div>
+<div class="results-stat"><strong id="res-stat-xp">0</strong><span>XP</span></div>
+<div class="results-stat"><strong id="res-stat-badges">0</strong><span>Badges</span></div>
 </div>
+<div class="results-xp" id="res-xp"></div>
+<div class="results-new-badges" id="res-badges"></div>
+</div>
+<div class="results-btns">
+<button type="button" class="btn btn-gold btn-full" onclick="showDetail()" style="padding:15px">Continue</button>
+<button type="button" class="btn btn-soft btn-full" onclick="startQuiz()" style="padding:15px">Retake Quiz</button>
+</div>
+<details class="results-review">
+<summary>
+<span><strong>Review answers</strong><em id="res-review-summary">0 cards</em></span>
+<span class="results-review-chevron">⌄</span>
+</summary>
+<div id="res-card-changes"></div>
+</details>
 </div>
 <!-- CREATE -->
 <div class="view" id="create">
@@ -2892,9 +2916,7 @@ Style Lab
 <script src="js/studydeck-guided-author-sidecars.js" defer></script>
 <script src="js/studydeck-guided-author-qa.js" defer></script>
 <script src="js/studydeck-timeline-pilot-sidecar.js?v=timeline-no-matches-removed-20260608a" defer></script>
-<script src="js/studydeck-timelines.js?v=nav-responsive-20260619a" defer></script>
-<script src="preview-data.js?v=20260622135822" defer></script>
-<script src="app.js?v=20260622135822" defer></script>
-<script src="register-service-worker.js?v=20260622135822" defer></script>
+<script src="js/studydeck-timelines.js?v=timeline-calm-20260628g" defer></script>
+<script src="app.js?v=flashcards-20260628f" defer></script>
 </body>
 </html>

@@ -1,31 +1,12 @@
 {
-  "name": "StudyDeck Preview",
+  "name": "StudyDeck",
   "short_name": "StudyDeck",
-  "description": "A guided Bible study and flashcard preview app.",
-  "start_url": "./",
-  "scope": "./",
+  "description": "A guided study and flashcard app for structured learning.",
+  "start_url": "./index.html",
   "display": "standalone",
   "background_color": "#0D1117",
   "theme_color": "#0D1117",
   "icons": [
-    {
-      "src": "assets/studydeck-icon-180.png",
-      "sizes": "180x180",
-      "type": "image/png",
-      "purpose": "any maskable"
-    },
-    {
-      "src": "assets/studydeck-icon-192.png",
-      "sizes": "192x192",
-      "type": "image/png",
-      "purpose": "any maskable"
-    },
-    {
-      "src": "assets/studydeck-icon-512.png",
-      "sizes": "512x512",
-      "type": "image/png",
-      "purpose": "any maskable"
-    },
     {
       "src": "assets/studydeck-icon.svg",
       "sizes": "any",

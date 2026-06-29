@@ -1,7 +1,4 @@
-// Auto-generated pilot timeline sidecar bridge for the file-open StudyDeck app.
-(function(){
-  window.STUDYDECK_TIMELINE_SIDECARS = window.STUDYDECK_TIMELINE_SIDECARS || [];
-  window.STUDYDECK_TIMELINE_SIDECARS.push({
+{
   "schemaVersion": 1,
   "sidecarType": "studydeck-timeline",
   "title": "Timeline & Attribution Timeline Sidecar v1 Pilot",
@@ -784,5 +781,4 @@
       "BTFQ"
     ]
   }
-});
-})();
+}

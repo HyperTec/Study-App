@@ -23,21 +23,20 @@ function guidedRewardDefaultPhrases(label) {
   };
 }
 function guidedDefaultRewardArt() {
-  var base = '/Users/shaunyouth/Library/Mobile Documents/com~apple~CloudDocs/Pictures/Study App Graphics/Finished Graphics/';
   return [
-    ['flying_spaghetti_monster', 'Flying Spaghetti Monster', base + 'Flying spaghetti monster.png'],
-    ['firm_stick', 'Firm Stick', base + 'FirmStick.png'],
-    ['doug_shelf', 'Doug Shelf', base + 'DougShelf.png'],
-    ['wet_box', 'Wet Box', base + 'WetBox.png'],
-    ['uni_farting_turtle', 'Uni Farting Turtle', base + 'UniFartingTurtle.png'],
-    ['omni_purple', 'Omni Purple', base + 'OmniPurple.png'],
-    ['roland_closet_goblin', 'Roland the Closet Goblin', base + 'Roland the Closet Goblin.png'],
-    ['puff', 'Puff', base + 'Puff.png']
+    ['flying_spaghetti_monster', 'Flying Spaghetti Monster'],
+    ['firm_stick', 'Firm Stick'],
+    ['doug_shelf', 'Doug Shelf'],
+    ['wet_box', 'Wet Box'],
+    ['uni_farting_turtle', 'Uni Farting Turtle'],
+    ['omni_purple', 'Omni Purple'],
+    ['roland_closet_goblin', 'Roland the Closet Goblin'],
+    ['puff', 'Puff']
   ].map(function(item){
     return {
       id: item[0],
       label: item[1],
-      src: guidedRewardFileUrl(item[2]),
+      src: '',
       enabled: true,
       phrases: guidedRewardDefaultPhrases(item[1])
     };

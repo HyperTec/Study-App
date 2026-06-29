@@ -67,7 +67,6 @@
       if (typeof saved.searchQuery === 'string') timelineState.searchQuery = saved.searchQuery;
       if (typeof saved.typeFilter === 'string') timelineState.typeFilter = saved.typeFilter;
       if (saved.dateWindow && typeof saved.dateWindow === 'object') timelineState.dateWindow = saved.dateWindow;
-      if (typeof saved.filterPanelOpen === 'boolean') timelineState.filterPanelOpen = saved.filterPanelOpen;
       if (typeof saved.indexPanelOpen === 'boolean') timelineState.indexPanelOpen = saved.indexPanelOpen;
       if (typeof saved.coverageNextOpen === 'boolean') timelineState.coverageNextOpen = saved.coverageNextOpen;
       timelineState.savedAt = savedAt || timelineState.savedAt;
@@ -89,7 +88,6 @@
         searchQuery: clean(timelineState.searchQuery),
         typeFilter: activeTimelineTypeFilter(),
         dateWindow: timelineDateWindow(),
-        filterPanelOpen: !!timelineState.filterPanelOpen,
         indexPanelOpen: !!timelineState.indexPanelOpen,
         coverageNextOpen: !!timelineState.coverageNextOpen,
         savedAt: timelineState.savedAt
@@ -170,6 +168,26 @@
 
   function timelineContextLabel() {
     return 'Historical setting';
+  }
+
+  function timelinePublicTitle(timeline, sidecar) {
+    var title = clean(timeline && timeline.title) || clean(sidecar && sidecar.title) || 'Timeline';
+    return title
+      .replace(/\s+Timeline Sidecar\s+v?\d*\s+Pilot$/i, '')
+      .replace(/\s+Pilot$/i, '')
+      .trim() || 'Timeline';
+  }
+
+  function compactTimelineLaneLabel(label) {
+    var normalized = normalize(label);
+    var labels = {
+      'history and events': 'History',
+      'rulers and public figures': 'Rulers',
+      'people and communities': 'People',
+      'texts and attribution': 'Texts',
+      'transmission and reception': 'Reception'
+    };
+    return labels[normalized] || clean(label);
   }
 
   function timelinePlainConfidence(event) {
@@ -963,10 +981,11 @@
   function renderTimelineLaneLabel(lane, rowCount, isCollapsed) {
     var laneId = clean(lane && lane.id);
     var label = clean(lane && lane.label) || laneId || 'Timeline';
+    var visibleLabel = compactTimelineLaneLabel(label);
     var buttonLabel = isCollapsed ? 'Show' : 'Hide';
     var rowLabel = timelineOverlapLabel(rowCount);
-    return '<div class="timeline-lane-label">'
-      + '<i aria-hidden="true"></i><span>' + html(label) + '</span>'
+    return '<div class="timeline-lane-label" title="' + html(label) + '">'
+      + '<i aria-hidden="true"></i><span>' + html(visibleLabel) + '</span>'
       + (isCollapsed ? '' : '<small>' + html(rowLabel) + '</small>')
       + '<button type="button" class="timeline-lane-collapse-btn" aria-expanded="' + (isCollapsed ? 'false' : 'true') + '" aria-label="' + html(buttonLabel + ' ' + label) + '" onclick="event.stopPropagation();studyDeckTimelineToggleLaneCollapse(\'' + jsString(laneId) + '\')">' + html(buttonLabel) + '</button>'
       + '</div>';
@@ -2540,7 +2559,7 @@
     root.innerHTML = '<div class="timeline-shell">'
       + '<div class="top-bar"><button type="button" class="back-btn" onclick="showHome()">←</button><span class="top-title" style="flex:1">Timeline</span></div>'
       + '<section class="timeline-hero-card timeline-hero-compact">'
-      + '<div><div class="timeline-kicker">Pilot timeline</div><h2>' + html(timeline.title || sidecar.title || 'Timeline') + '</h2></div>'
+      + '<div><div class="timeline-kicker">Reference timeline</div><h2>' + html(timelinePublicTitle(timeline, sidecar)) + '</h2></div>'
       + '<div class="timeline-stat-line"><span>' + html(cardEvents.length) + ' cards</span><span>' + html(lanes.length) + ' categories</span><span>' + html(formatYear(timeline.minYear)) + ' to ' + html(formatYear(timeline.maxYear)) + '</span></div>'
       + '</section>'
       + renderTimelineCategoryFilters(lanes, events)
@@ -2753,6 +2772,7 @@
       var view = document.getElementById('timeline');
       if (view) view.classList.add('active');
     }
+    if (!timelineHasAnyFilter()) timelineState.filterPanelOpen = false;
     var render = function(){
       renderViewer({ preserveScroll: true });
     };
