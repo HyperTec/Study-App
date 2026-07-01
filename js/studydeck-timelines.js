@@ -24,6 +24,7 @@
     },
     filterPanelOpen: false,
     indexPanelOpen: false,
+    infoOpen: false,
     coverageNextOpen: false,
     savedAt: 0
   };
@@ -181,7 +182,9 @@
   function compactTimelineLaneLabel(label) {
     var normalized = normalize(label);
     var labels = {
+      'history': 'History',
       'history and events': 'History',
+      'rulers': 'Rulers',
       'rulers and public figures': 'Rulers',
       'people and communities': 'People',
       'texts and attribution': 'Texts',
@@ -652,6 +655,21 @@
       + '</button>';
   }
 
+  function renderTimelineMarkerControl(minYear, maxYear) {
+    var year = activeTimelineCursorYear();
+    if (year == null) return '';
+    return '<button type="button" class="timeline-marker-control is-active"'
+      + ' onclick="event.stopPropagation();studyDeckTimelineClearDateCursor()" aria-label="' + html('Clear reference marker at ' + formatYear(year)) + '">'
+      + '<b>Clear</b>'
+      + '</button>';
+  }
+
+  function updateTimelineMarkerControlDom() {
+    var slot = document.getElementById('timeline-marker-control-slot');
+    var timeline = timelineState.timeline || {};
+    if (slot) slot.innerHTML = renderTimelineMarkerControl(timeline.minYear, timeline.maxYear);
+  }
+
   function timelineZoomValue() {
     var zoom = Number(timelineState.zoom || 1);
     if (!Number.isFinite(zoom)) zoom = 1;
@@ -667,7 +685,7 @@
   }
 
   function timelineAxisLabelWidth() {
-    return (typeof window !== 'undefined' && window.innerWidth <= 560) ? 132 : 160;
+    return (typeof window !== 'undefined' && window.innerWidth <= 560) ? 88 : 112;
   }
 
   function timelineGridStep() {
@@ -987,7 +1005,7 @@
     return '<div class="timeline-lane-label" title="' + html(label) + '">'
       + '<i aria-hidden="true"></i><span>' + html(visibleLabel) + '</span>'
       + (isCollapsed ? '' : '<small>' + html(rowLabel) + '</small>')
-      + '<button type="button" class="timeline-lane-collapse-btn" aria-expanded="' + (isCollapsed ? 'false' : 'true') + '" aria-label="' + html(buttonLabel + ' ' + label) + '" onclick="event.stopPropagation();studyDeckTimelineToggleLaneCollapse(\'' + jsString(laneId) + '\')">' + html(buttonLabel) + '</button>'
+      + '<button type="button" class="timeline-lane-collapse-btn" aria-expanded="' + (isCollapsed ? 'false' : 'true') + '" aria-label="' + html(buttonLabel + ' ' + label) + '" title="' + html(buttonLabel + ' ' + label) + '" onclick="event.stopPropagation();studyDeckTimelineToggleLaneCollapse(\'' + jsString(laneId) + '\')"><span class="timeline-lane-collapse-icon" aria-hidden="true"></span><span class="sr-only">' + html(buttonLabel) + '</span></button>'
       + '</div>';
   }
 
@@ -1990,13 +2008,18 @@
   function renderStickyYearAxis(minYear, maxYear, boardWidth) {
     var trackWidth = Math.max(1, boardWidth - timelineAxisLabelWidth() - 2);
     return '<section class="timeline-sticky-axis-card" aria-label="Sticky year ruler">'
-      + '<div class="timeline-axis-board">'
-      + '<div class="timeline-axis-row"><div class="timeline-axis-label"><span>Year</span>'
+      + '<div class="timeline-axis-toolbar">'
       + '<div class="timeline-axis-zoom-controls">'
       + renderTimelineZoomButton('1x', 1)
       + renderTimelineZoomButton('2x', 2)
       + renderTimelineZoomButton('4x', 4)
-      + '</div></div><div class="timeline-axis-scroll" id="timeline-axis-scroll"><div class="timeline-axis-track" style="width:' + html(trackWidth) + 'px" onpointerdown="studyDeckTimelineStartDateCursorDragAtPoint(event,\'axis\')" onclick="studyDeckTimelinePlaceDateCursor(event,\'axis\')">' + renderTicks(minYear, maxYear) + renderTimelineDateCursor(minYear, maxYear, 'axis') + '</div></div></div>'
+      + '</div>'
+      + '<span class="timeline-axis-title">Timeline Ruler</span>'
+      + '<span id="timeline-marker-control-slot" class="timeline-marker-control-slot">' + renderTimelineMarkerControl(minYear, maxYear) + '</span>'
+      + '</div>'
+      + '<div class="timeline-axis-ruler-row">'
+      + '<span class="timeline-axis-year-label">Year</span>'
+      + '<div class="timeline-axis-board"><div class="timeline-axis-scroll" id="timeline-axis-scroll"><div class="timeline-axis-track" aria-label="Timeline year ruler. Tap to place a reference marker." style="width:' + html(trackWidth) + 'px" onpointerdown="studyDeckTimelineStartDateCursorDragAtPoint(event,\'axis\')" onclick="studyDeckTimelinePlaceDateCursor(event,\'axis\')">' + renderTicks(minYear, maxYear) + renderTimelineDateCursor(minYear, maxYear, 'axis') + '</div></div></div>'
       + '</div>'
       + '</section>';
   }
@@ -2239,6 +2262,7 @@
       var labelNode = cursor.querySelector('.timeline-date-cursor-label');
       if (labelNode) labelNode.textContent = label;
     });
+    updateTimelineMarkerControlDom();
     setTimeout(adjustTimelineDateCursorVisibleEdge, 0);
   }
 
@@ -2343,15 +2367,12 @@
     saveTimelineUiState();
   }
 
-  function centerTimelineOnYear(year) {
-    year = normalizeTimelineCursorYear(year, timelineState.timeline && timelineState.timeline.minYear, timelineState.timeline && timelineState.timeline.maxYear);
-    if (year == null) return;
+  function centerTimelineOnPercent(percent) {
+    percent = Math.max(0, Math.min(100, Number(percent) || 0));
     setTimeout(function(){
       var boardScroller = timelineBoardScroller();
       var board = document.querySelector('.timeline-board');
       if (!boardScroller || !board) return;
-      var timeline = timelineState.timeline || {};
-      var percent = eventPercent(year, timeline.minYear, timeline.maxYear);
       var trackStart = timelineAxisLabelWidth();
       var trackWidth = Math.max(1, board.offsetWidth - trackStart - 2);
       var target = trackStart + (trackWidth * (percent / 100));
@@ -2362,6 +2383,13 @@
       timelineState.boardScrollLeft = boardScroller.scrollLeft || 0;
       saveTimelineUiState();
     }, 0);
+  }
+
+  function centerTimelineOnYear(year) {
+    year = normalizeTimelineCursorYear(year, timelineState.timeline && timelineState.timeline.minYear, timelineState.timeline && timelineState.timeline.maxYear);
+    if (year == null) return;
+    var timeline = timelineState.timeline || {};
+    centerTimelineOnPercent(eventPercent(year, timeline.minYear, timeline.maxYear));
   }
 
   function selectedTimelineEvent() {
@@ -2534,6 +2562,35 @@
       + '</div>';
   }
 
+  function renderTimelineTopBar(showInfo) {
+    return '<div class="top-bar timeline-top-bar">'
+      + '<button type="button" class="back-btn" onclick="showHome()">←</button>'
+      + '<span class="top-title" style="flex:1">Timeline</span>'
+      + (showInfo ? '<button type="button" class="timeline-info-btn" aria-label="About this timeline" title="About this timeline" onclick="studyDeckTimelineOpenInfo()"><span aria-hidden="true">i</span></button>' : '')
+      + '</div>';
+  }
+
+  function renderTimelineInfoSheet(timeline, sidecar, cardEvents, events, lanes) {
+    if (!timelineState.infoOpen) return '';
+    var title = timelinePublicTitle(timeline, sidecar);
+    var dateRange = formatYear(timeline.minYear) + ' to ' + formatYear(timeline.maxYear);
+    return '<div class="timeline-info-overlay open" role="dialog" aria-modal="true" aria-label="About this timeline" onclick="studyDeckTimelineCloseInfo()">'
+      + '<section class="timeline-info-sheet" onclick="event.stopPropagation()">'
+      + '<div class="timeline-info-sheet-head">'
+      + '<div><span>About this timeline</span><h2>' + html(title) + '</h2></div>'
+      + '<button type="button" class="timeline-info-close" aria-label="Close timeline information" onclick="studyDeckTimelineCloseInfo()">&times;</button>'
+      + '</div>'
+      + '<div class="timeline-info-stat-grid">'
+      + '<span><b>' + html(cardEvents.length) + '</b><em>Cards</em></span>'
+      + '<span><b>' + html((events || []).length) + '</b><em>Total items</em></span>'
+      + '<span><b>' + html((lanes || []).length) + '</b><em>Categories</em></span>'
+      + '</div>'
+      + '<div class="timeline-info-range"><span>Date range</span><strong>' + html(dateRange) + '</strong></div>'
+      + '<button type="button" class="timeline-info-done" onclick="studyDeckTimelineCloseInfo()">Close</button>'
+      + '</section>'
+      + '</div>';
+  }
+
   function renderViewer(options) {
     options = options || {};
     var root = document.getElementById('timeline-root');
@@ -2551,23 +2608,19 @@
     if (reconcileTimelineSelectionWithFilters(events)) saveTimelineUiState();
     if (!sidecar || !events.length) {
       root.innerHTML = '<div class="timeline-shell">'
-        + '<div class="top-bar"><button type="button" class="back-btn" onclick="showHome()">←</button><span class="top-title" style="flex:1">Timeline</span></div>'
+        + renderTimelineTopBar(false)
         + '<div class="timeline-empty-card"><strong>No timeline data found</strong><span>Load a timeline sidecar to preview date ranges here.</span></div>'
         + '</div>';
       return;
     }
     root.innerHTML = '<div class="timeline-shell">'
-      + '<div class="top-bar"><button type="button" class="back-btn" onclick="showHome()">←</button><span class="top-title" style="flex:1">Timeline</span></div>'
-      + '<section class="timeline-hero-card timeline-hero-compact">'
-      + '<div><div class="timeline-kicker">Reference timeline</div><h2>' + html(timelinePublicTitle(timeline, sidecar)) + '</h2></div>'
-      + '<div class="timeline-stat-line"><span>' + html(cardEvents.length) + ' cards</span><span>' + html(lanes.length) + ' categories</span><span>' + html(formatYear(timeline.minYear)) + ' to ' + html(formatYear(timeline.maxYear)) + '</span></div>'
-      + '</section>'
+      + renderTimelineTopBar(true)
       + renderTimelineCategoryFilters(lanes, events)
       + renderSelectedCallout()
       + renderStickyYearAxis(timeline.minYear, timeline.maxYear, boardWidth)
       + '<section class="timeline-board-card" aria-label="Graphic timeline viewer">'
       + '<div class="timeline-board-scroll">'
-      + '<div class="timeline-board" style="width:' + html(boardWidth) + 'px;--timeline-zoom:' + html(timelineZoomValue()) + '" onpointerdown="studyDeckTimelineStartDateCursorDragAtPoint(event,\'board\')" onclick="studyDeckTimelinePlaceDateCursor(event,\'board\')">'
+      + '<div class="timeline-board" style="width:' + html(boardWidth) + 'px;--timeline-zoom:' + html(timelineZoomValue()) + '">'
       + renderBoardGrid(timeline.minYear, timeline.maxYear)
       + renderTimelineBoardCursorLayer(timeline.minYear, timeline.maxYear)
       + renderContextRow(boardEvents, lanes, timeline.minYear, timeline.maxYear, boardWidth)
@@ -2577,6 +2630,7 @@
       + '</section>'
       + renderTimelineIndex(events, lanes)
       + renderTimelineCoverageHealthCheck()
+      + renderTimelineInfoSheet(timeline, sidecar, cardEvents, events, lanes)
       + '</div>';
     syncTimelineAxisScrollers();
     syncTimelineIndexScroller();
@@ -2599,7 +2653,7 @@
     saveTimelineUiState();
     renderViewer({ preserveScroll: false });
     if (cursorYear != null) centerTimelineOnYear(cursorYear);
-    else focusSelectedEventButton();
+    else centerTimelineOnPercent(50);
     restoreTimelinePageScroll(pageScroll);
   };
   window.studyDeckTimelinePlaceDateCursor = function(event, source) {
@@ -2616,6 +2670,15 @@
     if (timelineDateCursorIsBlockedTarget(event)) return;
     beginTimelineDateCursorDrag(event, source, true);
   };
+  window.studyDeckTimelineClearDateCursor = function() {
+    if (activeTimelineCursorYear() == null) return;
+    var pageScroll = snapshotTimelinePageScroll();
+    rememberTimelineScrollState();
+    timelineState.dateCursorYear = null;
+    saveTimelineUiState();
+    renderViewer({ preserveScroll: false });
+    restoreTimelinePageScroll(pageScroll);
+  };
   window.studyDeckTimelineSetCoverageNextOpen = function(open) {
     if (typeof authorMode === 'undefined' || !authorMode) return;
     timelineState.coverageNextOpen = !!open;
@@ -2628,6 +2691,19 @@
   window.studyDeckTimelineSetIndexPanelOpen = function(open) {
     timelineState.indexPanelOpen = !!open;
     saveTimelineUiState();
+  };
+  window.studyDeckTimelineOpenInfo = function() {
+    var pageScroll = snapshotTimelinePageScroll();
+    timelineState.infoOpen = true;
+    renderViewer({ preserveScroll: false });
+    restoreTimelinePageScroll(pageScroll);
+  };
+  window.studyDeckTimelineCloseInfo = function() {
+    if (!timelineState.infoOpen) return;
+    var pageScroll = snapshotTimelinePageScroll();
+    timelineState.infoOpen = false;
+    renderViewer({ preserveScroll: false });
+    restoreTimelinePageScroll(pageScroll);
   };
   window.studyDeckTimelineToggleLaneCollapse = function(laneId) {
     laneId = clean(laneId);

@@ -2231,31 +2231,9 @@ let authorMode   = false;  // true when PIN has been entered
 let pinEntry     = '';
 let editDeckId   = null;   // which deck is being edited
 
-var SAMPLE_DECKS = [
-  { id:1, name:'World Geography', desc:'Capitals, countries, and continents', color:'#F59E0B', cards:[
-    {id:1, uid:'WGJ2', q:'What is the capital of Japan?',              a:'Tokyo',              tags:['Asia','Capitals']},
-    {id:2, uid:'WGR2', q:'What is the largest country by area?',      a:'Russia',             tags:['Facts','Europe','Asia']},
-    {id:3, uid:'WGE2', q:'Which continent is Egypt in?',              a:'Africa',             tags:['Africa','Continents']},
-    {id:4, uid:'WGB2', q:'What is the capital of Brazil?',            a:'Brasília',           tags:['South America','Capitals']},
-    {id:5, uid:'WGV2', q:'What is the smallest country in the world?',a:'Vatican City',       tags:['Europe','Facts']},
-    {id:6, uid:'WGP2', q:'Which ocean is the largest?',               a:'Pacific Ocean',      tags:['Oceans','Facts']},
-  ]},
-  { id:2, name:'Science Basics', desc:'Fundamental science concepts', color:'#10B981', cards:[
-    {id:1, uid:'SCW2', q:'What is the chemical symbol for water?',    a:'H₂O',                tags:['Chemistry']},
-    {id:2, uid:'SCP2', q:'How many planets are in our solar system?', a:'8',                  tags:['Astronomy']},
-    {id:3, uid:'SCL2', q:'What is the speed of light (approx)?',     a:'300,000 km/s',       tags:['Physics']},
-    {id:4, uid:'SCM2', q:'What is the powerhouse of the cell?',      a:'Mitochondria',       tags:['Biology']},
-    {id:5, uid:'SCC2', q:'What gas do plants absorb from the air?',  a:'Carbon dioxide (CO₂)',tags:['Biology','Chemistry']},
-    {id:6, uid:'SCN2', q:"What is Newton's first law?",              a:'An object in motion stays in motion unless acted on by an external force.', tags:['Physics']},
-  ]},
-  { id:3, name:'World History', desc:'Key events and dates', color:'#8B5CF6', cards:[
-    {id:1, uid:'WHW2', q:'In what year did World War II end?',        a:'1945',               tags:['WW2','20th Century']},
-    {id:2, uid:'WHU2', q:'Who was the first US President?',           a:'George Washington',  tags:['USA','Presidents']},
-    {id:3, uid:'WHF2', q:'When did the French Revolution begin?',     a:'1789',               tags:['Europe','18th Century']},
-    {id:4, uid:'WHA2', q:'What ancient wonder stood in Alexandria?',  a:'The Lighthouse of Alexandria', tags:['Ancient','Wonders']},
-    {id:5, uid:'WHM2', q:'When was the Magna Carta signed?',          a:'1215',               tags:['Medieval','Europe']},
-  ]},
-];
+var SAMPLE_DECKS = (window.STUDYDECK_PREVIEW_DECKS && Array.isArray(window.STUDYDECK_PREVIEW_DECKS) && window.STUDYDECK_PREVIEW_DECKS.length)
+  ? window.STUDYDECK_PREVIEW_DECKS
+  : [];
 var _saved   = loadData();
 var decks    = (_saved && _saved.decks)      || SAMPLE_DECKS;
 var tagGroups = (_saved && _saved.tagGroups) || [];
@@ -2269,6 +2247,9 @@ var guidedAuthorNodePolicyRenderTimer = null;
 var guidedAuthorNodePolicySelectedScope = 'global';
 var guidedAuthorDraftTargetSidecarId = '';
 var guidedSidecarStore = guidedLoadSidecarStore();
+if ((!guidedSidecarStore || !Array.isArray(guidedSidecarStore.sidecars) || !guidedSidecarStore.sidecars.length) && window.STUDYDECK_PREVIEW_SIDECAR_STORE && Array.isArray(window.STUDYDECK_PREVIEW_SIDECAR_STORE.sidecars)) {
+  guidedSidecarStore = window.STUDYDECK_PREVIEW_SIDECAR_STORE;
+}
 
 function portalOverlaysToBody(){
   [
@@ -19243,7 +19224,7 @@ function guidedConnectorPathForX(x) {
 function guidedRenderPathConnectors(run) {
   var categories = run && run.categories ? run.categories : [];
   var count = Math.max(1, categories.length);
-  var positions = count === 1 ? [150] : count === 2 ? [92, 208] : [48, 150, 252];
+  var positions = count === 1 ? [150] : count === 2 ? [73, 227] : [48, 150, 252];
   var allComplete = guidedAllCategoryRunsComplete(run);
   var paths = categories.map(function(cat, idx){
     var complete = guidedCategoryRunComplete(run, cat.id);
@@ -19260,11 +19241,12 @@ function guidedRenderPathReviewCard(run, node, type) {
   if (!node) return '';
   var state = guidedGetNodeState(run, node);
   var isLocked = state === 'locked';
+  var isComplete = guidedNodeIsComplete(run, node);
   var sub = type === 'spiral_review' ? 'Bring earlier material back' : 'Mixed review before moving on';
   return '<button class="guided-path-review-card is-' + guidedEsc(state) + ' is-type-' + guidedEsc(type) + '"' + (isLocked ? ' data-locked="true"' + guidedPathLockHintClickAttr(guidedLockHintForNode(node)) : ' onclick="guidedOpenPrototypeNode(\'' + guidedEsc(node.id) + '\')"') + '>'
     + '<span class="guided-path-review-icon">' + guidedPathNodeIconSvg(type) + '</span>'
     + '<span class="guided-path-review-copy"><strong>' + guidedEsc(node.title) + '</strong><em>' + guidedEsc(sub) + '</em></span>'
-    + (isLocked ? '<span class="guided-path-review-lock">' + guidedPathLockSvg() + '</span>' : '<span class="guided-path-review-arrow">›</span>')
+    + (isLocked ? '<span class="guided-path-review-lock">' + guidedPathLockSvg() + '</span>' : (isComplete ? '<span class="guided-path-review-check" aria-hidden="true">✓</span>' : '<span class="guided-path-review-arrow">›</span>'))
     + '</button>';
 }
 function guidedRenderCheckpointToSpiralConnector(run) {
@@ -24782,7 +24764,7 @@ function renderProfile() {
   var level = xpLevel(gd.xp);
   var badgeCount = (gd.badges || []).length;
   var masteredCount = (gd.masteredDecks || []).length;
-  if (titleEl) titleEl.textContent = 'Level ' + level + ' profile';
+  if (titleEl) titleEl.textContent = 'Level ' + level;
   if (subEl) {
     subEl.textContent = badgeCount + ' achievement' + (badgeCount === 1 ? '' : 's') + ' earned.';
   }
