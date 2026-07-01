@@ -5033,6 +5033,137 @@ function masteryTierName(score) {
   return MASTERY_NAMES[masteryTier(score)];
 }
 
+var COMPANION_OPTIONS = [
+  { id: 'neutral-scholar', label: 'Neutral Scholar', className: 'companion-sprite--neutral-scholar', ownedByDefault: true },
+  { id: 'biblical-figure', label: 'Biblical Figure', className: 'companion-sprite--biblical-figure', ownedByDefault: true },
+  { id: 'grave-keeper', label: 'Grave Keeper', className: 'companion-sprite--grave-keeper', ownedByDefault: true },
+  { id: 'huldah', label: 'Huldah', className: 'companion-sprite--huldah', ownedByDefault: true },
+  { id: 'ezra', label: 'Ezra', className: 'companion-sprite--ezra', ownedByDefault: true },
+  { id: 'deborah', label: 'Deborah', className: 'companion-sprite--deborah', ownedByDefault: true },
+  { id: 'thomas', label: 'Thomas', className: 'companion-sprite--thomas', ownedByDefault: true },
+  { id: 'miriam', label: 'Miriam', className: 'companion-sprite--miriam', ownedByDefault: true },
+  { id: 'jeremiah', label: 'Jeremiah', className: 'companion-sprite--jeremiah', ownedByDefault: true },
+  { id: 'ezekiel', label: 'Ezekiel', className: 'companion-sprite--ezekiel', ownedByDefault: true },
+  { id: 'priscilla', label: 'Priscilla', className: 'companion-sprite--priscilla', ownedByDefault: true },
+  { id: 'moses', label: 'Moses', className: 'companion-sprite--moses', ownedByDefault: true },
+  { id: 'companion-teaser-1', label: 'Coming Soon', className: 'companion-sprite--neutral-scholar', locked: true },
+  { id: 'companion-teaser-2', label: 'Coming Soon', className: 'companion-sprite--biblical-figure', locked: true },
+  { id: 'companion-teaser-3', label: 'Coming Soon', className: 'companion-sprite--grave-keeper', locked: true }
+];
+var DEFAULT_COMPANION_ID = 'neutral-scholar';
+
+function getCompanionOption(id) {
+  var normalizedId = String(id || '').trim();
+  return COMPANION_OPTIONS.find(function(option){ return option.id === normalizedId; }) || COMPANION_OPTIONS[0];
+}
+
+function normalizeCompanionId(id) {
+  return getCompanionOption(id).id || DEFAULT_COMPANION_ID;
+}
+
+function defaultOwnedCompanions() {
+  return COMPANION_OPTIONS.filter(function(option){ return option.ownedByDefault; }).map(function(option){ return option.id; });
+}
+
+function isKnownCompanionId(id) {
+  var normalizedId = String(id || '').trim();
+  return COMPANION_OPTIONS.some(function(option){ return option.id === normalizedId; });
+}
+
+function normalizeOwnedCompanions(value) {
+  var defaults = defaultOwnedCompanions();
+  var owned = Array.isArray(value) ? value.filter(function(id){ return isKnownCompanionId(id); }) : [];
+  defaults.forEach(function(id){
+    if (owned.indexOf(id) === -1) owned.push(id);
+  });
+  return owned.filter(function(id, index){ return owned.indexOf(id) === index; });
+}
+
+function companionIsOwned(id) {
+  if (!gd) return defaultOwnedCompanions().indexOf(normalizeCompanionId(id)) !== -1;
+  gd.ownedCompanions = normalizeOwnedCompanions(gd.ownedCompanions);
+  return gd.ownedCompanions.indexOf(normalizeCompanionId(id)) !== -1;
+}
+
+function getSelectedCompanionId() {
+  if (!gd) return DEFAULT_COMPANION_ID;
+  gd.ownedCompanions = normalizeOwnedCompanions(gd.ownedCompanions);
+  gd.selectedCompanion = normalizeCompanionId(gd.selectedCompanion);
+  if (gd.ownedCompanions.indexOf(gd.selectedCompanion) === -1) gd.selectedCompanion = DEFAULT_COMPANION_ID;
+  return gd.selectedCompanion;
+}
+
+function applyCompanionToElement(el, companionId) {
+  if (!el) return;
+  var option = getCompanionOption(companionId);
+  COMPANION_OPTIONS.forEach(function(item){
+    el.classList.remove(item.className);
+  });
+  el.classList.add(option.className);
+}
+
+function applySelectedCompanion() {
+  var selectedId = getSelectedCompanionId();
+  applyCompanionToElement(document.getElementById('home-companion-avatar'), selectedId);
+  applyCompanionToElement(document.getElementById('profile-companion-sprite'), selectedId);
+  applyCompanionToElement(document.getElementById('companion-gallery-selected-sprite'), selectedId);
+}
+
+function renderProfileCompanionAction() {
+  var nameEl = document.getElementById('profile-companion-name');
+  if (!nameEl) return;
+  nameEl.textContent = getCompanionOption(getSelectedCompanionId()).label;
+}
+
+function renderCompanionGallery() {
+  var root = document.getElementById('companion-gallery-grid');
+  if (!root) return;
+  var selectedId = getSelectedCompanionId();
+  var selectedOption = getCompanionOption(selectedId);
+  var titleEl = document.getElementById('companion-gallery-selected-title');
+  if (titleEl) titleEl.textContent = selectedOption.label;
+  applySelectedCompanion();
+  root.innerHTML = COMPANION_OPTIONS.map(function(option){
+    var selected = option.id === selectedId;
+    var owned = companionIsOwned(option.id) && !option.locked;
+    return '<button type="button" class="companion-gallery-card' + (selected ? ' is-selected' : '') + (owned ? '' : ' is-locked') + '"'
+      + ' aria-pressed="' + (selected ? 'true' : 'false') + '"'
+      + ' aria-label="' + (owned ? 'Select ' : '') + escHtml(option.label) + (owned ? ' companion' : ' companion locked') + '"'
+      + ' onclick="' + (owned ? 'selectCompanion' : 'companionLockedTap') + '(&#39;' + escHtml(option.id) + '&#39;)">'
+      + '<span class="companion-gallery-card-sprite companion-sprite ' + escHtml(option.className) + '" aria-hidden="true"></span>'
+      + '<span class="companion-gallery-card-name">' + escHtml(option.label) + '</span>'
+      + '<span class="companion-gallery-card-status">' + (selected ? 'Selected' : (owned ? 'Owned' : 'Locked')) + '</span>'
+      + '<span class="companion-gallery-card-check" aria-hidden="true">✓</span>'
+      + '<span class="companion-gallery-card-lock" aria-hidden="true">🔒</span>'
+      + '</button>';
+  }).join('');
+}
+
+function showCompanionGallery() {
+  rememberTimelineViewBeforeExit();
+  stopCelebration();
+  show('companions');
+  renderCompanionGallery();
+}
+
+function selectCompanion(id) {
+  var nextId = normalizeCompanionId(id);
+  if (!companionIsOwned(nextId)) {
+    companionLockedTap(nextId);
+    return;
+  }
+  gd.selectedCompanion = nextId;
+  applySelectedCompanion();
+  renderProfileCompanionAction();
+  renderCompanionGallery();
+  saveGameDataImmediate();
+}
+
+function companionLockedTap(id) {
+  var option = getCompanionOption(id);
+  showXpToast(option.label + ' is locked for now.');
+}
+
 function defaultGameData() {
   return {
     xp:          0,
@@ -5064,13 +5195,15 @@ function defaultGameData() {
     deckLevels:    {},
     soundFeedback: false,
     soundVolume: 0.35,
+    selectedCompanion: DEFAULT_COMPANION_ID,
+    ownedCompanions: defaultOwnedCompanions(),
     updatedAt: 0
   };
 }
 function normalizeGameData(raw) {
   var data = (raw && typeof raw === 'object') ? raw : {};
   var next = Object.assign(defaultGameData(), data);
-  ['claimedMilestones', 'badges', 'ownedThemes', 'ownedTitles', 'ownedFrames', 'masteredDecks'].forEach(function(key){
+  ['claimedMilestones', 'badges', 'ownedThemes', 'ownedTitles', 'ownedFrames', 'masteredDecks', 'ownedCompanions'].forEach(function(key){
     if (!Array.isArray(next[key])) next[key] = defaultGameData()[key].slice();
   });
   ['mastery', 'fcKnowIt', 'dcDecks', 'activeThemeVariants', 'studyDays', 'deckLevels', 'guidedNodeRewards'].forEach(function(key){
@@ -5090,6 +5223,9 @@ function normalizeGameData(raw) {
   if (next.ownedFrames.indexOf('none') === -1) next.ownedFrames.unshift('none');
   if (!next.activeTheme) next.activeTheme = 'default';
   if (!next.activeFrame) next.activeFrame = 'none';
+  next.ownedCompanions = normalizeOwnedCompanions(next.ownedCompanions);
+  next.selectedCompanion = normalizeCompanionId(next.selectedCompanion);
+  if (next.ownedCompanions.indexOf(next.selectedCompanion) === -1) next.selectedCompanion = DEFAULT_COMPANION_ID;
   next.soundFeedback = !!next.soundFeedback;
   var soundVolume = Number(next.soundVolume);
   next.soundVolume = Number.isFinite(soundVolume) ? Math.max(0, Math.min(1, soundVolume)) : 0.35;
@@ -5150,6 +5286,8 @@ function gameDataHasProgress(data) {
   if (!data || typeof data !== 'object') return false;
   var ownedThemes = Array.isArray(data.ownedThemes) ? data.ownedThemes.filter(function(id){ return id && id !== 'default'; }) : [];
   var ownedFrames = Array.isArray(data.ownedFrames) ? data.ownedFrames.filter(function(id){ return id && id !== 'none'; }) : [];
+  var defaultCompanions = defaultOwnedCompanions();
+  var extraCompanions = Array.isArray(data.ownedCompanions) ? data.ownedCompanions.filter(function(id){ return id && defaultCompanions.indexOf(id) === -1; }) : [];
   var storedSoundVolume = Number(data.soundVolume);
   var hasCustomSoundVolume = Number.isFinite(storedSoundVolume) && Math.abs(storedSoundVolume - 0.35) > 0.001;
   return !!(
@@ -5175,7 +5313,9 @@ function gameDataHasProgress(data) {
     (Array.isArray(data.masteredDecks) && data.masteredDecks.length) ||
     (data.mastery && Object.keys(data.mastery).length) ||
     (data.guidedNodeRewards && Object.keys(data.guidedNodeRewards).length) ||
+    extraCompanions.length ||
     data.soundFeedback === true ||
+    (data.selectedCompanion && data.selectedCompanion !== DEFAULT_COMPANION_ID) ||
     hasCustomSoundVolume
   );
 }
@@ -23601,6 +23741,7 @@ function renderHome() {
     lb.classList.toggle('unlocked', authorMode);
     lb.title = authorMode ? 'Lock author mode' : 'Author access';
   }
+  applySelectedCompanion();
   populateAppStyleSelect();
   renderGuidedEntry();
   if (typeof renderTimelineHomeEntry === 'function') renderTimelineHomeEntry();
@@ -24774,6 +24915,8 @@ function renderProfile() {
   if (statMasteredEl) statMasteredEl.textContent = masteredCount;
   if (achievementCountEl) achievementCountEl.textContent = badgeCount;
   if (achievementBtn) achievementBtn.setAttribute('aria-label', 'Open achievements. ' + badgeCount + ' achievement' + (badgeCount === 1 ? '' : 's') + ' earned.');
+  applySelectedCompanion();
+  renderProfileCompanionAction();
   profileSetVisible('.profile-builder-card', authorMode);
   profileSetVisible('#profile-guided-workbench-card', authorMode);
   profileSetVisible('.profile-readiness-card', authorMode);
