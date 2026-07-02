@@ -2566,7 +2566,7 @@
     return '<div class="top-bar timeline-top-bar">'
       + '<button type="button" class="back-btn" onclick="showHome()">←</button>'
       + '<span class="top-title" style="flex:1">Timeline</span>'
-      + (showInfo ? '<button type="button" class="timeline-info-btn" aria-label="About this timeline" title="About this timeline" onclick="studyDeckTimelineOpenInfo()"><span aria-hidden="true">i</span></button>' : '')
+      + (showInfo ? '<button type="button" class="timeline-info-btn" aria-label="About this timeline" title="About this timeline" onclick="studyDeckTimelineOpenInfo()"><span class="pixel-ui-icon pixel-ui-icon--info pixel-ui-icon--topbar" aria-hidden="true"></span></button>' : '')
       + '</div>';
   }
 

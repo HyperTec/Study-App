@@ -150,6 +150,7 @@ function studyDeckCloseTopDialog(modal) {
   if (id === 'pin-overlay') { closePin(); return true; }
   if (id === 'blank-style-overlay') { closeBlankAppStyleModal(); return true; }
   if (id === 'mastery-editor-overlay') { closeMasteryEditor(); return true; }
+  if (id === 'guided-rotation-info-modal') { closeGuidedRotationInfo(); return true; }
   return false;
 }
 document.addEventListener('keydown', function(event){
@@ -2231,9 +2232,31 @@ let authorMode   = false;  // true when PIN has been entered
 let pinEntry     = '';
 let editDeckId   = null;   // which deck is being edited
 
-var SAMPLE_DECKS = (window.STUDYDECK_PREVIEW_DECKS && Array.isArray(window.STUDYDECK_PREVIEW_DECKS) && window.STUDYDECK_PREVIEW_DECKS.length)
-  ? window.STUDYDECK_PREVIEW_DECKS
-  : [];
+var SAMPLE_DECKS = [
+  { id:1, name:'World Geography', desc:'Capitals, countries, and continents', color:'#F59E0B', cards:[
+    {id:1, uid:'WGJ2', q:'What is the capital of Japan?',              a:'Tokyo',              tags:['Asia','Capitals']},
+    {id:2, uid:'WGR2', q:'What is the largest country by area?',      a:'Russia',             tags:['Facts','Europe','Asia']},
+    {id:3, uid:'WGE2', q:'Which continent is Egypt in?',              a:'Africa',             tags:['Africa','Continents']},
+    {id:4, uid:'WGB2', q:'What is the capital of Brazil?',            a:'Brasília',           tags:['South America','Capitals']},
+    {id:5, uid:'WGV2', q:'What is the smallest country in the world?',a:'Vatican City',       tags:['Europe','Facts']},
+    {id:6, uid:'WGP2', q:'Which ocean is the largest?',               a:'Pacific Ocean',      tags:['Oceans','Facts']},
+  ]},
+  { id:2, name:'Science Basics', desc:'Fundamental science concepts', color:'#10B981', cards:[
+    {id:1, uid:'SCW2', q:'What is the chemical symbol for water?',    a:'H₂O',                tags:['Chemistry']},
+    {id:2, uid:'SCP2', q:'How many planets are in our solar system?', a:'8',                  tags:['Astronomy']},
+    {id:3, uid:'SCL2', q:'What is the speed of light (approx)?',     a:'300,000 km/s',       tags:['Physics']},
+    {id:4, uid:'SCM2', q:'What is the powerhouse of the cell?',      a:'Mitochondria',       tags:['Biology']},
+    {id:5, uid:'SCC2', q:'What gas do plants absorb from the air?',  a:'Carbon dioxide (CO₂)',tags:['Biology','Chemistry']},
+    {id:6, uid:'SCN2', q:"What is Newton's first law?",              a:'An object in motion stays in motion unless acted on by an external force.', tags:['Physics']},
+  ]},
+  { id:3, name:'World History', desc:'Key events and dates', color:'#8B5CF6', cards:[
+    {id:1, uid:'WHW2', q:'In what year did World War II end?',        a:'1945',               tags:['WW2','20th Century']},
+    {id:2, uid:'WHU2', q:'Who was the first US President?',           a:'George Washington',  tags:['USA','Presidents']},
+    {id:3, uid:'WHF2', q:'When did the French Revolution begin?',     a:'1789',               tags:['Europe','18th Century']},
+    {id:4, uid:'WHA2', q:'What ancient wonder stood in Alexandria?',  a:'The Lighthouse of Alexandria', tags:['Ancient','Wonders']},
+    {id:5, uid:'WHM2', q:'When was the Magna Carta signed?',          a:'1215',               tags:['Medieval','Europe']},
+  ]},
+];
 var _saved   = loadData();
 var decks    = (_saved && _saved.decks)      || SAMPLE_DECKS;
 var tagGroups = (_saved && _saved.tagGroups) || [];
@@ -2247,9 +2270,6 @@ var guidedAuthorNodePolicyRenderTimer = null;
 var guidedAuthorNodePolicySelectedScope = 'global';
 var guidedAuthorDraftTargetSidecarId = '';
 var guidedSidecarStore = guidedLoadSidecarStore();
-if ((!guidedSidecarStore || !Array.isArray(guidedSidecarStore.sidecars) || !guidedSidecarStore.sidecars.length) && window.STUDYDECK_PREVIEW_SIDECAR_STORE && Array.isArray(window.STUDYDECK_PREVIEW_SIDECAR_STORE.sidecars)) {
-  guidedSidecarStore = window.STUDYDECK_PREVIEW_SIDECAR_STORE;
-}
 
 function portalOverlaysToBody(){
   [
@@ -18905,7 +18925,7 @@ function renderGuidedHubScreen() {
   var pendingBanner = guidedRenderPendingChangeBanner(run);
   return ''
 	    + '<div class="guided-shell">'
-	    + '<div class="top-bar"><button class="back-btn" onclick="showGuidedOptions()">←</button><span class="top-title" style="flex:1">Guided Progress</span>' + (authorMode ? '<button class="back-btn" onclick="showGuidedAuthorTools()" title="Guided author tools">🛠</button>' : '') + '<button class="back-btn" onclick="showGuidedOptions()" title="Guided options">⚙</button></div>'
+	    + '<div class="top-bar"><button class="back-btn" onclick="showGuidedOptions()">←</button><span class="top-title" style="flex:1">Guided Progress</span>' + (authorMode ? '<button class="back-btn" onclick="showGuidedAuthorTools()" title="Guided author tools">🛠</button>' : '') + '<button class="back-btn pixel-settings-btn" onclick="showGuidedOptions()" title="Guided options" aria-label="Guided options">' + pixelUiIcon('settings-tools', 'pixel-ui-icon--topbar') + '</button></div>'
     + '<div class="guided-card guided-hero-card">'
     +   '<div class="guided-kicker">' + guidedEsc(run.tierLabel) + ' · ' + guidedEsc(run.bracketLabel) + '</div>'
     +   '<div class="guided-card-title">Your guided path is ready</div>'
@@ -18952,7 +18972,7 @@ function renderGuidedOptionsScreen() {
 	    + (pendingSummary ? '<div class="guided-card guided-pending-card"><div class="guided-section-kicker">Queued category changes</div><div class="guided-card-sub">' + guidedEsc(pendingSummary.text) + '.</div></div>' : '')
 	    + '<div class="guided-option-grid">'
 	    +   '<button class="guided-option-tile" onclick="showGuidedSetup()">'
-	    +     '<span class="guided-option-icon">⚙</span><span><strong>Future Bracket Categories</strong><em>Choose category changes for the next bracket.</em></span>'
+	    +     '<span class="guided-option-icon">' + pixelUiIcon('settings-tools', 'guided-option-pixel-icon') + '</span><span><strong>Future Bracket Categories</strong><em>Choose category changes for the next bracket.</em></span>'
 	    +   '</button>'
 	    +   '<button class="guided-option-tile" onclick="showGuidedBracketHistory()">'
 	    +     '<span class="guided-option-icon">↺</span><span><strong>Bracket Progress Timeline</strong><em>See completed and current brackets in order.</em></span>'
@@ -19153,20 +19173,79 @@ function guidedRenderSetupRotationPreview(preview) {
     + (preview.waiting.length ? '<div class="guided-rotation-row"><strong>Coming later</strong><div>' + guidedRenderSmallCategoryChips(preview.waiting) + '</div></div>' : '')
     + '</div>';
 }
-function guidedRenderPathRotationBanner(run) {
+function guidedGetPathRotationInfo(run) {
   if (!run) return '';
   var activeIds = guidedNormalizeCategoryIds(run.selectedCategoryIds || []);
   var currentIds = (run.categories || []).map(function(cat){ return cat && cat.id; }).filter(Boolean);
-  if (activeIds.length <= currentIds.length || activeIds.length <= GUIDED_MAX_CATEGORIES_PER_BRACKET) return '';
+  if (activeIds.length <= currentIds.length || activeIds.length <= GUIDED_MAX_CATEGORIES_PER_BRACKET) return null;
   var currentSet = {};
   currentIds.forEach(function(id){ currentSet[id] = true; });
   var waiting = activeIds.filter(function(id){ return !currentSet[id]; }).map(guidedResolveCategoryById).filter(Boolean);
-  if (!waiting.length) return '';
+  if (!waiting.length) return null;
+  return {
+    currentCount: currentIds.length,
+    selectedCount: activeIds.length,
+    waiting: waiting
+  };
+}
+function guidedRenderPathRotationBanner(run) {
+  var info = guidedGetPathRotationInfo(run);
+  if (!info) return '';
   return '<div class="guided-card guided-rotation-banner">'
     + '<div class="guided-section-kicker">Study rotation</div>'
-    + '<div class="guided-card-sub">Showing ' + guidedEsc(String(currentIds.length)) + ' of ' + guidedEsc(String(activeIds.length)) + ' selected categories here. The rest stay selected for later brackets.</div>'
-    + '<div class="guided-rotation-row"><strong>Coming later</strong><div>' + guidedRenderSmallCategoryChips(waiting) + '</div></div>'
+    + '<div class="guided-card-sub">' + guidedEsc(guidedPathRotationMessage(info)) + '</div>'
+    + '<div class="guided-rotation-row"><strong>Coming later</strong><div>' + guidedRenderSmallCategoryChips(info.waiting) + '</div></div>'
     + '</div>';
+}
+function guidedPathRotationMessage(info) {
+  return 'Showing ' + String(info.currentCount) + ' of ' + String(info.selectedCount) + ' selected categories here. The rest stay selected for later brackets.';
+}
+function guidedRenderPathRotationInfoButton(run) {
+  if (!guidedGetPathRotationInfo(run)) return '';
+  return '<button class="back-btn guided-rotation-info-btn" onclick="guidedOpenPathRotationInfo()" aria-label="Study rotation information" title="Study rotation information">' + pixelUiIcon('info', 'pixel-ui-icon--topbar') + '</button>';
+}
+function guidedEnsureRotationInfoModal() {
+  var modal = document.getElementById('guided-rotation-info-modal');
+  if (modal) return modal;
+  modal = document.createElement('div');
+  modal.className = 'guided-rotation-info-overlay';
+  modal.id = 'guided-rotation-info-modal';
+  modal.setAttribute('role', 'dialog');
+  modal.setAttribute('aria-modal', 'true');
+  modal.setAttribute('aria-hidden', 'true');
+  modal.setAttribute('aria-labelledby', 'guided-rotation-info-title');
+  modal.setAttribute('aria-describedby', 'guided-rotation-info-desc');
+  modal.onclick = function(event){
+    if (event.target === modal) closeGuidedRotationInfo();
+  };
+  modal.innerHTML = '<div class="guided-rotation-info-sheet">'
+    + '<div class="guided-rotation-info-head">'
+    +   '<div><span>Study Rotation</span><h2 id="guided-rotation-info-title">Study Rotation</h2></div>'
+    +   '<button class="guided-rotation-info-close" onclick="closeGuidedRotationInfo()" aria-label="Close study rotation information">×</button>'
+    + '</div>'
+    + '<p id="guided-rotation-info-desc"></p>'
+    + '<div class="guided-rotation-info-row"><strong>Coming later</strong><div id="guided-rotation-info-chips"></div></div>'
+    + '<button class="guided-rotation-info-done" onclick="closeGuidedRotationInfo()">Done</button>'
+    + '</div>';
+  document.body.appendChild(modal);
+  return modal;
+}
+function guidedOpenPathRotationInfo() {
+  var info = guidedGetPathRotationInfo(guidedGetRun());
+  if (!info) return;
+  var modal = guidedEnsureRotationInfoModal();
+  var desc = modal.querySelector('#guided-rotation-info-desc');
+  var chips = modal.querySelector('#guided-rotation-info-chips');
+  if (desc) desc.textContent = guidedPathRotationMessage(info);
+  if (chips) chips.innerHTML = guidedRenderSmallCategoryChips(info.waiting);
+  modal.style.display = 'flex';
+  studyDeckOpenDialog(modal, { focusSelector: '.guided-rotation-info-close' });
+}
+function closeGuidedRotationInfo() {
+  var modal = document.getElementById('guided-rotation-info-modal');
+  if (!modal) return;
+  modal.style.display = 'none';
+  studyDeckCloseDialog(modal);
 }
 function renderGuidedSetupScreen() {
   var run = guidedGetRun();
@@ -19252,6 +19331,19 @@ function guidedPathNodeIconSvg(type) {
   if (type === 'spiral_review') return '<svg viewBox="0 0 48 48" aria-hidden="true"><path d="M31.5 10.8c-6.6-4.4-17-1.2-20.3 7.2-4.4 11.3 4.4 22.2 15.5 22.2 8.2 0 14.8-5.2 15.5-12.6.6-6.4-4.8-11.2-11.3-10.7-6.1.5-10.5 5.2-9.5 10 .8 3.8 5.2 5.6 8.5 3.6 2.4-1.4 3.6-3.8 2.8-6.5-.4-1.3-1.8-2.1-3.1-1.7-1.3.4-2 1.8-1.6 3.1.1.5-.1.8-.6 1.1-.8.5-1.8.1-2-.5-.4-1.8 2.3-4.5 5.8-4.8 3.4-.3 6.8 1.8 6.4 5.9-.5 5-5.3 8.6-10.9 8.6-7.6 0-13.5-7.3-10.5-15 2.2-5.5 9.2-7.9 13.2-5.3 1.2.8 2.8.5 3.6-.7.8-1.2.5-2.9-.7-3.7Z" fill="currentColor"/></svg>';
   return '<svg viewBox="0 0 48 48" aria-hidden="true"><circle cx="24" cy="24" r="15" fill="currentColor"/><circle cx="24" cy="24" r="6" fill="rgba(255,255,255,0.28)"/></svg>';
 }
+function guidedPathPrimaryNodeIconId(type) {
+  if (type === 'learn') return 'learn';
+  if (type === 'practice') return 'practice';
+  if (type === 'challenge') return 'challenge';
+  return '';
+}
+function guidedPathNodeIconMarkup(type, state) {
+  var iconId = guidedPathPrimaryNodeIconId(type);
+  if (!iconId) return guidedPathNodeIconSvg(type);
+  var tone = state === 'complete' ? 'color' : (state === 'locked' ? 'locked' : 'available');
+  var src = 'assets/icons/guided-nodes/' + iconId + '-' + tone + '-v1.png?v=guided-node-pixels-20260701';
+  return '<img class="guided-path-node-pixel-icon is-' + guidedEsc(tone) + '" src="' + guidedEsc(src) + '" alt="" aria-hidden="true">';
+}
 function guidedPathLockSvg() {
   return '<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M7 10V8a5 5 0 0 1 10 0v2" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round"/><rect x="5.5" y="10" width="13" height="10" rx="2.5" fill="none" stroke="currentColor" stroke-width="2.4"/></svg>';
 }
@@ -19292,7 +19384,7 @@ function guidedRenderPathNodeButton(run, node) {
   var state = guidedGetNodeState(run, node);
   var isLocked = state === 'locked';
   return '<button class="guided-path-node-btn is-' + guidedEsc(state) + ' is-type-' + guidedEsc(node.type) + '" aria-label="' + guidedEsc(node.categoryLabel + ' ' + node.title) + '"' + (isLocked ? ' data-locked="true"' + guidedPathLockHintClickAttr(guidedLockHintForNode(node)) : ' onclick="guidedOpenPrototypeNode(\'' + guidedEsc(node.id) + '\')"') + '>'
-    + '<span class="guided-path-node-orb"><span class="guided-path-node-icon">' + guidedPathNodeIconSvg(node.type) + '</span>' + (isLocked ? '<span class="guided-path-lock">' + guidedPathLockSvg() + '</span>' : '') + '</span>'
+    + '<span class="guided-path-node-orb"><span class="guided-path-node-icon">' + guidedPathNodeIconMarkup(node.type, state) + '</span>' + (isLocked ? '<span class="guided-path-lock">' + guidedPathLockSvg() + '</span>' : '') + '</span>'
     + '<span class="guided-path-node-label">' + guidedEsc(node.title) + '</span>'
     + '</button>';
 }
@@ -19383,9 +19475,10 @@ function guidedRenderPathReviewCard(run, node, type) {
   var isLocked = state === 'locked';
   var isComplete = guidedNodeIsComplete(run, node);
   var sub = type === 'spiral_review' ? 'Bring earlier material back' : 'Mixed review before moving on';
-  return '<button class="guided-path-review-card is-' + guidedEsc(state) + ' is-type-' + guidedEsc(type) + '"' + (isLocked ? ' data-locked="true"' + guidedPathLockHintClickAttr(guidedLockHintForNode(node)) : ' onclick="guidedOpenPrototypeNode(\'' + guidedEsc(node.id) + '\')"') + '>'
-    + '<span class="guided-path-review-icon">' + guidedPathNodeIconSvg(type) + '</span>'
-    + '<span class="guided-path-review-copy"><strong>' + guidedEsc(node.title) + '</strong><em>' + guidedEsc(sub) + '</em></span>'
+  var actionLabel = isLocked ? 'Locked. ' : '';
+  return '<button class="guided-path-review-card has-pixel-art is-' + guidedEsc(state) + ' is-type-' + guidedEsc(type) + '" aria-label="' + guidedEsc(actionLabel + node.title + '. ' + sub) + '"' + (isLocked ? ' data-locked="true"' + guidedPathLockHintClickAttr(guidedLockHintForNode(node)) : ' onclick="guidedOpenPrototypeNode(\'' + guidedEsc(node.id) + '\')"') + '>'
+    + '<span class="guided-path-review-art" aria-hidden="true"></span>'
+    + '<span class="guided-path-review-copy sr-only"><strong>' + guidedEsc(node.title) + '</strong><em>' + guidedEsc(sub) + '</em></span>'
     + (isLocked ? '<span class="guided-path-review-lock">' + guidedPathLockSvg() + '</span>' : (isComplete ? '<span class="guided-path-review-check" aria-hidden="true">✓</span>' : '<span class="guided-path-review-arrow">›</span>'))
     + '</button>';
 }
@@ -19447,13 +19540,13 @@ function renderGuidedPathMapScreen() {
   var checkpoint = run.nodes.find(function(node){ return node.type === 'checkpoint'; });
   var spiralNode = run.nodes.find(function(node){ return node.type === 'spiral_review'; });
   var pendingBanner = guidedRenderPendingChangeBanner(run);
+  var rotationInfoButton = guidedRenderPathRotationInfoButton(run);
   return ''
 	    + '<div class="guided-shell guided-path-shell guided-mask-shell">'
-	    + '<div class="top-bar guided-path-topbar guided-mask-topbar"><button class="back-btn" onclick="showHome()">←</button><span class="top-title" style="flex:1">Guided Path</span>' + (authorMode ? '<button class="back-btn" onclick="showGuidedAuthorTools()" title="Guided author tools">🛠</button>' : '') + '<button class="back-btn" onclick="showGuidedOptions()" title="Guided options">⚙</button></div>'
+	    + '<div class="top-bar guided-path-topbar guided-mask-topbar"><button class="back-btn" onclick="showHome()">←</button><span class="top-title" style="flex:1">Guided Path</span>' + (authorMode ? '<button class="back-btn" onclick="showGuidedAuthorTools()" title="Guided author tools">🛠</button>' : '') + rotationInfoButton + '<button class="back-btn pixel-settings-btn" onclick="showGuidedOptions()" title="Guided options" aria-label="Guided options">' + pixelUiIcon('settings-tools', 'pixel-ui-icon--topbar') + '</button></div>'
     + '<div class="guided-path-content guided-mask-content">'
     + '<div class="guided-path-status-row"><span class="guided-path-bracket-pill"><strong>' + guidedEsc(run.tierLabel || 'Tier 1') + '</strong><span>•</span><em>' + guidedEsc(run.bracketLabel || 'Bracket 1') + '</em></span></div>'
     + pendingBanner
-    + guidedRenderPathRotationBanner(run)
     + '<div class="guided-path-map ' + countClass + '">' + columns + '</div>'
     + guidedRenderPathConnectors(run)
     + guidedRenderPathReviewCard(run, checkpoint, 'checkpoint')
@@ -20461,7 +20554,7 @@ function guidedRenderStreakWeekDots(summary) {
     var classes = ['guided-streak-day'];
     if (studied) classes.push('is-active');
     if (frozen) classes.push('is-freeze');
-    items.push('<div class="' + classes.join(' ') + '"><span>' + guidedEsc(dayNames[d.getDay()]) + '</span><b>' + (studied ? '&#10003;' : (frozen ? '&#10052;' : '')) + '</b></div>');
+    items.push('<div class="' + classes.join(' ') + '"><span>' + guidedEsc(dayNames[d.getDay()]) + '</span><b>' + (studied ? '&#10003;' : (frozen ? pixelUiIcon('freeze', 'guided-streak-freeze-icon') : '')) + '</b></div>');
   }
   return '<div class="guided-streak-week">' + items.join('') + '</div>';
 }
@@ -20472,7 +20565,7 @@ function renderGuidedStreakExtendedScreen() {
     + '<div class="guided-shell guided-streak-shell">'
     + '<div class="guided-streak-screen">'
     +   '<div class="guided-streak-bubble">Streak extended</div>'
-    +   '<div class="guided-streak-flame"><span class="guided-streak-flame-shape"></span></div>'
+    +   '<div class="guided-streak-flame"><span class="guided-streak-flame-shape" aria-hidden="true"></span></div>'
     +   '<div class="guided-streak-count">' + guidedEsc(streakCount) + '</div>'
     +   '<div class="guided-streak-label">' + guidedEsc(streakCount === 1 ? 'day streak' : 'day streak') + '</div>'
     +   '<div class="guided-streak-sub">You studied today. Keep the chain alive.</div>'
@@ -21163,6 +21256,19 @@ function showMapPreviewNotice() {
   showXpToast('Map is planned for later.', 1600);
 }
 
+function pixelUiIcon(name, extraClass) {
+  return '<span class="pixel-ui-icon pixel-ui-icon--' + escHtml(name) + (extraClass ? ' ' + escHtml(extraClass) : '') + '" aria-hidden="true"></span>';
+}
+function pixelUiCoinAmount(amount, extraClass) {
+  return '<span class="pixel-coin-amount' + (extraClass ? ' ' + escHtml(extraClass) : '') + '"><span>' + escHtml(amount) + '</span>' + pixelUiIcon('coin', 'pixel-ui-icon--inline') + '</span>';
+}
+function pixelUiCoinCost(amount, prefix) {
+  return '<span class="pixel-coin-cost">' + (prefix ? '<span>' + escHtml(prefix) + '</span>' : '') + '<span>' + escHtml(amount) + '</span>' + pixelUiIcon('coin', 'pixel-ui-icon--inline') + '</span>';
+}
+function pixelUiFreezeStock(count, max) {
+  return '<span class="pixel-freeze-stock">' + pixelUiIcon('freeze', 'pixel-ui-icon--inline') + '<span>' + escHtml(count) + ' / ' + escHtml(max) + ' in stock</span></span>';
+}
+
 // ── SPACED REPETITION ──
 function cardsDueNow() {
   var now = Date.now();
@@ -21282,7 +21388,7 @@ function renderHomeGamification() {
   }
   if (fcEl) {
     if (gd.freezes > 0) {
-      fcEl.textContent = '· 🧊×' + gd.freezes;
+      fcEl.innerHTML = '<span class="home-freeze-separator" aria-hidden="true">·</span>' + pixelUiIcon('freeze', 'home-freeze-icon') + '<span>×' + escHtml(gd.freezes) + '</span>';
       fcEl.style.display = '';
     } else {
       fcEl.style.display = 'none';
@@ -21321,7 +21427,7 @@ function renderShopView() {
   var available = (gd.shekels||0) - (gd.shekelsSpent||0);
   var userLevel = xpLevel(gd.xp);
   var xpEl = document.getElementById('shop-xp-amount');
-  if (xpEl) xpEl.innerHTML = available + ' <span style="font-size:16px">🪙</span> Shekels';
+  if (xpEl) xpEl.innerHTML = pixelUiCoinAmount(available) + ' Shekels';
 
   var sections = {};
   SHOP_ITEMS.forEach(function(item) {
@@ -21346,19 +21452,19 @@ function renderShopView() {
         if (maxed) {
           btnClass = 'cant-buy'; btnText = 'Full (' + count + '/' + maxF + ')'; onclick = '';
         } else if (available >= item.cost) {
-          btnClass = 'can-buy'; btnText = item.cost + ' 🪙'; onclick = 'buyItem(\'' + item.id + '\')';
+          btnClass = 'can-buy'; btnText = pixelUiCoinCost(item.cost); onclick = 'buyItem(\'' + item.id + '\')';
         } else {
-          btnClass = 'cant-buy'; btnText = item.cost + ' 🪙'; onclick = '';
+          btnClass = 'cant-buy'; btnText = pixelUiCoinCost(item.cost); onclick = '';
         }
         var nextMax = maxF < 5
           ? '<div style="font-size:10px;color:var(--muted);margin-top:2px">Max increases at ' + (maxF >= 3 ? (maxF >= 4 ? 'Lv 15 or 180-day streak' : 'Lv 10 or 90-day streak') : 'Lv 5 or 30-day streak') + '</div>'
           : '';
         html += '<div class="shop-item">'
-          + '<div class="shop-item-icon">' + item.icon + '</div>'
+          + '<div class="shop-item-icon">' + pixelUiIcon('freeze', 'shop-item-pixel-icon') + '</div>'
           + '<div class="shop-item-info">'
             + '<div class="shop-item-name">' + item.name + '</div>'
             + '<div class="shop-item-desc">' + item.desc + '</div>'
-            + '<div class="shop-item-stock">🧊 ' + count + ' / ' + maxF + ' in stock</div>'
+            + '<div class="shop-item-stock">' + pixelUiFreezeStock(count, maxF) + '</div>'
             + nextMax
           + '</div>'
           + '<button class="shop-buy-btn ' + btnClass + '" ' + (onclick ? 'onclick="' + onclick + '"' : '') + '>' + btnText + '</button>'
@@ -21374,9 +21480,9 @@ function renderShopView() {
         } else if (!levelOk) {
           btnClass = 'cant-buy'; btnText = 'Lv ' + item.minLevel; onclick = '';
         } else if (available >= item.cost) {
-          btnClass = 'can-buy'; btnText = item.cost + ' 🪙'; onclick = 'buyItem(\'' + item.id + '\')';
+          btnClass = 'can-buy'; btnText = pixelUiCoinCost(item.cost); onclick = 'buyItem(\'' + item.id + '\')';
         } else {
-          btnClass = 'cant-buy'; btnText = item.cost + ' 🪙'; onclick = '';
+          btnClass = 'cant-buy'; btnText = pixelUiCoinCost(item.cost); onclick = '';
         }
         var lvLabel = item.minLevel ? '<span style="font-size:10px;color:' + (levelOk?'var(--gold)':'var(--muted)') + ';margin-left:4px">Lv ' + item.minLevel + (levelOk?'':' required') + '</span>' : '';
         html += '<div class="shop-item">'
@@ -21403,9 +21509,9 @@ function renderShopView() {
         } else if (item.cost === 0) {
           btnClass = 'can-buy'; btnText = 'Claim Free'; onclick = 'buyItem(\'' + item.id + '\')';
         } else if (available >= item.cost) {
-          btnClass = 'can-buy'; btnText = item.cost + ' 🪙'; onclick = 'buyItem(\'' + item.id + '\')';
+          btnClass = 'can-buy'; btnText = pixelUiCoinCost(item.cost); onclick = 'buyItem(\'' + item.id + '\')';
         } else {
-          btnClass = 'cant-buy'; btnText = item.cost + ' 🪙'; onclick = '';
+          btnClass = 'cant-buy'; btnText = pixelUiCoinCost(item.cost); onclick = '';
         }
         var lvLabelF = item.minLevel ? ' <span style="font-size:10px;color:'+(levelOkF?'var(--gold)':'var(--muted)')+'">Lv '+item.minLevel+'</span>' : '';
         var shapeBadge = '<span style="font-size:10px;color:var(--muted);margin-left:4px">'+(item.shape==='round'?'⬭ Round':'⬛ Square')+'</span>';
@@ -21425,9 +21531,9 @@ function renderShopView() {
         } else if (ownedTheme) {
           btnClass = 'can-buy'; btnText = 'Equip'; onclick = 'equipTheme(\'' + item.id + '\')';
         } else if (available >= item.cost) {
-          btnClass = 'can-buy'; btnText = item.cost + ' 🪙'; onclick = 'buyItem(\'' + item.id + '\')';
+          btnClass = 'can-buy'; btnText = pixelUiCoinCost(item.cost); onclick = 'buyItem(\'' + item.id + '\')';
         } else {
-          btnClass = 'cant-buy'; btnText = item.cost + ' 🪙'; onclick = '';
+          btnClass = 'cant-buy'; btnText = pixelUiCoinCost(item.cost); onclick = '';
         }
         html += '<div class="shop-item" onclick="openShopPreview(\''+item.id+'\')" style="cursor:pointer">'
           + '<div class="shop-item-icon">' + item.icon + '</div>'
@@ -21885,10 +21991,10 @@ function updateShopPreviewActionBtnToId(btnId, closeAfter) {
       btn.textContent = 'Claim Free';
       btn.onclick = function(){ buyItem(item.id); if (closeAfter) closeShopPreviewPage(); else closeShopPreview(); };
     } else if (available >= item.cost) {
-      btn.textContent = item.cost + ' 🪙';
+      btn.innerHTML = pixelUiCoinCost(item.cost);
       btn.onclick = function(){ buyItem(item.id); if (closeAfter) closeShopPreviewPage(); else closeShopPreview(); };
     } else {
-      btn.textContent = 'Need ' + item.cost + ' 🪙'; btn.className = 'btn btn-soft'; btn.style.opacity = '.6'; btn.style.cursor = 'default';
+      btn.innerHTML = pixelUiCoinCost(item.cost, 'Need'); btn.className = 'btn btn-soft'; btn.style.opacity = '.6'; btn.style.cursor = 'default';
     }
   } else if (item.type === 'theme') {
     var ownedTh  = (gd.ownedThemes||['default']).includes(item.id);
@@ -21901,10 +22007,10 @@ function updateShopPreviewActionBtnToId(btnId, closeAfter) {
       btn.textContent = 'Equip';
       btn.onclick = function(){ equipTheme(item.id, previewVariant); if (closeAfter) closeShopPreviewPage(); else closeShopPreview(); };
     } else if (available >= item.cost) {
-      btn.textContent = item.cost + ' 🪙';
+      btn.innerHTML = pixelUiCoinCost(item.cost);
       btn.onclick = function(){ buyItem(item.id); if (closeAfter) closeShopPreviewPage(); else closeShopPreview(); };
     } else {
-      btn.textContent = 'Need ' + item.cost + ' 🪙'; btn.className = 'btn btn-soft'; btn.style.opacity = '.6'; btn.style.cursor = 'default';
+      btn.innerHTML = pixelUiCoinCost(item.cost, 'Need'); btn.className = 'btn btn-soft'; btn.style.opacity = '.6'; btn.style.cursor = 'default';
     }
   }
 }
@@ -22334,10 +22440,10 @@ function nextQuestion() {
     document.getElementById('res-title').textContent = pct===100?'Perfect!':pct>=70?'Great job!':'Keep studying';
     document.getElementById('res-sub').textContent   = qzScore+' out of '+qzCards.length+' correct';
     var earnParts = [];
-    if (bonusShekels+shekelsEarned > 0) earnParts.push('+' + (bonusShekels+shekelsEarned) + ' 🪙');
+    if (bonusShekels+shekelsEarned > 0) earnParts.push(pixelUiCoinAmount('+' + (bonusShekels+shekelsEarned), 'result-coin-amount'));
     if (bonusXP+xpEarned > 0) earnParts.push('+' + (bonusXP+xpEarned) + ' XP');
-    if (deckMasteryBonus > 0) earnParts.push('👑 Deck Mastered! +' + deckMasteryBonus + ' 🪙');
-    document.getElementById('res-xp').textContent = earnParts.join('  ·  ');
+    if (deckMasteryBonus > 0) earnParts.push('👑 Deck Mastered! ' + pixelUiCoinAmount('+' + deckMasteryBonus, 'result-coin-amount'));
+    document.getElementById('res-xp').innerHTML = earnParts.join('  ·  ');
     var correctStat = document.getElementById('res-stat-correct');
     var xpStat = document.getElementById('res-stat-xp');
     var badgeStat = document.getElementById('res-stat-badges');
