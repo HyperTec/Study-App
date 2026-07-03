@@ -14998,15 +14998,50 @@ button.guided-map-pin:focus-visible {
 .guided-streak-flame-shape {
   width: 96px;
   height: 96px;
-  background-image: url("assets/icons/pixel-ui/streak-flame-animated-loop-16f.png");
-  background-repeat: no-repeat;
-  background-position: 0 0;
-  background-size: 1536px 96px;
+  position: relative;
   image-rendering: pixelated;
-  animation: guidedStreakFlameLoop 1.333s steps(16) infinite;
   filter: drop-shadow(0 12px 20px rgba(245,158,11,0.26));
 }
+.guided-streak-flame-shape::before,
+.guided-streak-flame-shape::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background-repeat: no-repeat;
+  background-position: 0 0;
+  image-rendering: pixelated;
+}
+.guided-streak-flame-shape::before {
+  background-image: url("assets/icons/pixel-ui/streak-flame-animated-full-26f.png");
+  background-size: 2496px 96px;
+  opacity: 0;
+  animation:
+    guidedStreakFlameIntroShow 0.001s linear 0.5s forwards,
+    guidedStreakFlameIntro 0.833s steps(10) 0.5s forwards,
+    guidedStreakFlameIntroHide 0.001s linear 1.333s forwards;
+}
+.guided-streak-flame-shape::after {
+  background-image: url("assets/icons/pixel-ui/streak-flame-animated-loop-16f.png");
+  background-size: 1536px 96px;
+  opacity: 0;
+  animation:
+    guidedStreakFlameLoopShow 0.001s linear 1.333s forwards,
+    guidedStreakFlameLoop 1.333s steps(16) 1.333s infinite;
+}
 
+@keyframes guidedStreakFlameIntro {
+  from { background-position: 0 0; }
+  to { background-position: -960px 0; }
+}
+@keyframes guidedStreakFlameIntroShow {
+  to { opacity: 1; }
+}
+@keyframes guidedStreakFlameIntroHide {
+  to { opacity: 0; }
+}
+@keyframes guidedStreakFlameLoopShow {
+  to { opacity: 1; }
+}
 @keyframes guidedStreakFlameLoop {
   from { background-position: 0 0; }
   to { background-position: -1536px 0; }
@@ -18945,6 +18980,9 @@ button.guided-map-pin:focus-visible {
 .home-status-pill.streak-pill {
   margin: 0;
   border-radius: 999px;
+  min-height: 40px;
+  padding-top: 4px;
+  padding-bottom: 4px;
 }
 
 .home-status-pill:active,
@@ -18962,6 +19000,12 @@ button.guided-map-pin:focus-visible {
   flex-shrink: 0;
 }
 
+.home-flame-icon {
+  --pixel-icon-size: 30px;
+  width: 30px;
+  height: 30px;
+}
+
 .streak-pill.cold .home-flame-icon {
   background-image: url("assets/icons/pixel-ui/streak-flame-static-gray-32.png");
   filter: none;
@@ -18975,8 +19019,9 @@ button.guided-map-pin:focus-visible {
 }
 
 .home-freeze-icon {
-  --pixel-icon-size: 15px;
-  vertical-align: -3px;
+  --pixel-icon-size: 28px;
+  opacity: 1;
+  vertical-align: -7px;
 }
 
 .home-freeze-separator {
