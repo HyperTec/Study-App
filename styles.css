@@ -18981,8 +18981,8 @@ button.guided-map-pin:focus-visible {
   margin: 0;
   border-radius: 999px;
   min-height: 40px;
-  padding-top: 4px;
-  padding-bottom: 4px;
+  padding-top: 3px;
+  padding-bottom: 3px;
 }
 
 .home-status-pill:active,
@@ -19001,9 +19001,9 @@ button.guided-map-pin:focus-visible {
 }
 
 .home-flame-icon {
-  --pixel-icon-size: 30px;
-  width: 30px;
-  height: 30px;
+  --pixel-icon-size: 32px;
+  width: 32px;
+  height: 32px;
 }
 
 .streak-pill.cold .home-flame-icon {
